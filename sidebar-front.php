@@ -23,7 +23,6 @@ if ( ! is_active_sidebar( 'sidebar-3' ) && ! is_active_sidebar( 'sidebar-4' ) &&
 ?>
 <div id="secondary" class="widget-area front-sidebar clear" role="complementary">
 
-
 	<?php
         $front_sidebars = array("sidebar-3", "sidebar-4", "sidebar-5");
         $fn = 0;
@@ -44,26 +43,5 @@ if ( ! is_active_sidebar( 'sidebar-3' ) && ! is_active_sidebar( 'sidebar-4' ) &&
 		    }
 		} 
 	?>
-
-<?php /*
-	<?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
-	<div class="first front-widgets">
-		<?php dynamic_sidebar( 'sidebar-2' ); ?>
-	</div><!-- .first -->
-	<?php endif; ?>
-
-	<?php if ( is_active_sidebar( 'sidebar-3' ) ) : ?>
-	<div class="second front-widgets">
-		<?php dynamic_sidebar( 'sidebar-3' ); ?>
-	</div><!-- .second -->
-	<?php endif; ?>
-
-	<?php if ( is_active_sidebar( 'sidebar-4' ) ) : ?>
-	<div class="third front-widgets">
-		<?php dynamic_sidebar( 'sidebar-4' ); ?>
-	</div><!-- .second -->
-	<?php endif; ?>
-
-*/ ?>	
 
 </div><!-- #secondary -->
