@@ -129,27 +129,29 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 
 		<p>
 		<label for="<?php echo $this->get_field_id('background'); ?>"><?php _e('Select Background', 'ultimate'); ?></label>
-		<select name="<?php echo $this->get_field_name('background'); ?>" id="<?php // echo $this->get_field_id('background'); ?>pratik" class="widefat">
+		<select name="<?php echo $this->get_field_name('background'); ?>" id="<?php echo $this->get_field_id('background'); ?>" class="widefat">
 			<option id="bgnone" value="bgnone" <?php if($background == 'bgnone') { echo 'selected="selected"'; }?>><?php _e('None', 'ultimate'); ?></option>
 			<option id="bgimage" value="bgimage" <?php if($background == 'bgimage') { echo 'selected="selected"'; }?>><?php _e('Image', 'ultimate'); ?></option>
 			<option id="bgcolor" value="bgcolor" <?php if($background == 'bgcolor') { echo 'selected="selected"'; }?>><?php _e('Color', 'ultimate'); ?></option>
 		</select>
 		</p>
 
-		<p class="bgnone">bgnone</p>
-		<p class="bgimage">bgimage</p>
-		<p class="bgcolor">bgcolor</p>
-
 		<p>
-        <label for="<?php echo $this->get_field_id('image'); ?>">Background Image</label><br />
-		<?php
-		if ( $image != '' ) {
-		echo '<img class="ultimate_media_image" src="' . $image . '" style="margin:10px 0;padding:0;max-width:100%;float:left;display:inline-block" /><br />';
-		}
-		?>
-		<input type="text" class="widefat ultimate_media_url" name="<?php echo $this->get_field_name('image'); ?>" id="<?php echo $this->get_field_id('image'); ?>" value="<?php echo $image; ?>" style="display: none;">
-		<input type="button" class="button button-primary ultimate_media_button" id="ultimate_media_button" name="<?php echo $this->get_field_name('image'); ?>" value="Upload Image" style="margin-top:5px;" />
-		</p>
+
+		<script type='text/javascript'>
+			jQuery(document).ready(function($) {
+			$('.my-color-picker').wpColorPicker();
+			});
+		</script>
+
+		<input type="text" class="my-color-picker" name="background_color" value="" />	
+		
+        <?php
+        if ( $color != '' ) {
+        echo '<span style="background-color=' . $color . '"></span><br />';
+        }
+        ?>
+        </p>
 
 		<?php
 	}

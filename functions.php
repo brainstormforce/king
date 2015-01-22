@@ -138,7 +138,7 @@ function ultimate_scripts_styles() {
 	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/js/slick.min.js' );
     wp_enqueue_script( 'slick-slider-script' );
 
-	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/SmoothScroll.js' );
+    wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/SmoothScroll.js' );
     wp_enqueue_script( 'smooth-scroll-script' );
 	
     wp_register_script('jquery.functions', get_template_directory_uri() . '/js/functions.js', array('jquery'),'1.0.0',true);
@@ -684,4 +684,11 @@ function ultimate_gallery( $post_id , $post_content ) {
 	endif; 
 }
 endif; 
+
+add_action( 'load-widgets.php', 'my_custom_load' );
+
+function my_custom_load() {    
+	wp_enqueue_style( 'wp-color-picker' );        
+	wp_enqueue_script( 'wp-color-picker' );    
+}
 ?>
