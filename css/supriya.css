@@ -211,10 +211,14 @@
 @media only screen and (max-width: 768px){
 	
 	.main-navigation .nav-menu li {
-		margin: 0;
-		padding: 0;
+		margin: 0 -15px;
+		padding: 0 0 0 15px;
 		line-height: 3em;
 		border-top: 1px solid;
+	}
+	.header-style2 .main-navigation .nav-menu li,
+	.header-style3 .main-navigation .nav-menu li {
+		margin: 0;
 	}
 	.main-navigation ul.sub-menu,
 	.main-navigation ul.children{
