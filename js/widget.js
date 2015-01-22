@@ -30,20 +30,20 @@ jQuery(document).ready( function($) {
 
 jQuery(document).ready( function(jQuery) { 
     jQuery("#pratik").change(function () {
-    if(jQuery("#pratik").val()=='bgcolor') {
-        jQuery(".bgnone").css("display", "none");
-        jQuery(".bgimage").css("display", "none");
-        jQuery(".bgcolor").css("display", "block");
-    } 
-    else if(jQuery("#pratik").val()=='bgimage'){
-        jQuery(".bgnone").css("display", "none");
-        jQuery(".bgimage").css("display", "block");
-        jQuery(".bgcolor").css("display", "none"); 
-    }
-    else {
-        jQuery(".bgnone").css("display", "block");
-        jQuery(".bgimage").css("display", "none");
-        jQuery(".bgcolor").css("display", "none"); 
-    }
+        if(jQuery("#pratik").val()=='bgcolor') {
+            jQuery(".bgnone").css("display", "none");
+            jQuery(".bgimage").css("display", "none");
+            jQuery(".bgcolor").css("display", "block");
+        } 
+        else if(jQuery("#pratik").val()=='bgimage'){
+            jQuery(".bgnone").css("display", "none");
+            jQuery(".bgimage").css("display", "block");
+            jQuery(".bgcolor").css("display", "none"); 
+        }
+        else {
+            jQuery(".bgnone").css("display", "block");
+            jQuery(".bgimage").css("display", "none");
+            jQuery(".bgcolor").css("display", "none"); 
+        }
     });
 });
