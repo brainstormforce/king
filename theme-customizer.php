@@ -18,6 +18,7 @@ function ultimate_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	$wp_customize->remove_control('background_color');
+	$wp_customize->remove_control('display_header_text');
 	
 	$wp_customize->remove_section('header_image');
 	$wp_customize->remove_section('title_tagline');
@@ -240,6 +241,7 @@ function ultimate_customize_register( $wp_customize ) {
 	//==========================
 	// Header Settings
 	//==========================
+
 	$wp_customize->add_setting(
 		'logo-img',
 		array(
