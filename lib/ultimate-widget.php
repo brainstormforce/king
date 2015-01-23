@@ -147,28 +147,79 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 		</p>
 
 		<p>
+		<?php $uid = uniqid(); ?>
 		<label for="<?php echo $this->get_field_id('background'); ?>"><?php _e('Select Background', 'ultimate'); ?></label>
-		<select name="<?php echo $this->get_field_name('background'); ?>" id="<?php echo $this->get_field_id('background'); ?>" class="widefat">
-			<option id="bgnone" value="bgnone" <?php if($background == 'bgnone') { echo 'selected="selected"'; }?>><?php _e('None', 'ultimate'); ?></option>
+		<select name="<?php echo $this->get_field_name('background'); ?>" id="selectBoxId_<?php echo $uid;  ?>" class="widefat">			
+			<option id="bgnone" value="bgnone" <?php //if($background == 'bgnone') { echo 'selected="selected"'; }?>><?php _e('None', 'ultimate'); ?></option>
 			<option id="bgimage" value="bgimage" <?php if($background == 'bgimage') { echo 'selected="selected"'; }?>><?php _e('Image', 'ultimate'); ?></option>
-			<option id="bgcolor" value="bgcolor" <?php if($background == 'bgcolor') { echo 'selected="selected"'; }?>><?php _e('Color', 'ultimate'); ?></option>
+			<option id="bgcolor" value="bgcolor" <?php //if($background == 'bgcolor') { echo 'selected="selected"'; }?>><?php _e('Color', 'ultimate'); ?></option>
 		</select>
 		</p>
-		<?php 
-
-		
-
-		?>
 		<script>
+		jQuery(document).ready(function(){
+			var select = jQuery("#selectBoxId_<?php echo $uid;  ?>");
+			jQuery('body').on('change','#selectBoxId_<?php echo $uid;  ?>',function(){
+				var data = jQuery(this).val();
+				switch(data){
+					case 'bgimage':
+						jQuery(document).trigger('image_uploader_selected');
+						break;
+
+					case 'bgcolor':
+						jQuery(document).trigger('color_picker_selected');
+						break;
+					case 'bgnone':
+						jQuery(document).trigger('no_selection');
+						break;
+				}
+			});
+		});
+
+		jQuery(document).on('image_uploader_selected',function(){
+			jQuery(".bgnone").css("display", "none");
+            jQuery(".imageBox").css("display", "block");
+            jQuery(".colorBox").css("display", "none"); 
+		});
+
+		jQuery(document).on('color_picker_selected',function(){
+			 jQuery(".bgnone").css("display", "none");
+             jQuery(".imageBox").css("display", "none");
+             jQuery(".colorBox").css("display", "block"); 
+		});
+
+		jQuery(document).on('no_selection',function(){
+			 jQuery(".bgnone").css("display", "none");
+             jQuery(".imageBox").css("display", "none");
+             jQuery(".colorBox").css("display", "none"); 
+		});
 
 		jQuery(document).ready(function($) {
 		$('.my-color-picker').wpColorPicker();
 		});
+		
 		</script>
+		<?php 
 
-		 <label for="<?php echo $this->get_field_id( 'background_color' ); ?>">Background Color</label><br />
-         
-         <input class="my-color-picker" type="text" id="<?php echo $this->get_field_id( 'background_color' ); ?>" name="<?php echo $this->get_field_name( 'background_color' ); ?>" value="<?php echo esc_attr( $instance['background_color'] );?>" />     
+		?>
+	<div>
+		<div class="imageBox" style="display:none;">
+			<p>
+				<label for="<?php echo $this->get_field_id('image'); ?>">Background Image</label><br />
+					<?php
+					if ( $image != '' ) {
+					echo '<img class="ultimate_media_image" src="' . $image . '" style="margin:10px 0;padding:0;max-width:100%;float:left;display:inline-block" /><br />';
+					}
+					?>
+				<input type="text" class="widefat ultimate_media_url" name="<?php echo $this->get_field_name('image'); ?>" id="<?php echo $this->get_field_id('image'); ?>" value="<?php echo $image; ?>" style="display: none;">
+				<input type="button" class="button button-primary ultimate_media_button" id="ultimate_media_button" name="<?php echo $this->get_field_name('image'); ?>" value="Upload Image" style="margin-top:5px;" />
+			</p>
+		</div>
+
+		<div class="colorBox" style="display:none;">
+			 <label for="<?php echo $this->get_field_id( 'background_color' ); ?>">Background Color</label><br />
+	         <input class="my-color-picker" type="text" id="<?php echo $this->get_field_id( 'background_color' ); ?>" name="<?php echo $this->get_field_name( 'background_color' ); ?>" value="<?php echo esc_attr( $instance['background_color'] );?>" />     
+     	</div>
+     </div>
 
 		
 		
