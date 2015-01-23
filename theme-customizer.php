@@ -22,6 +22,10 @@ function ultimate_customize_register( $wp_customize ) {
 	$wp_customize->remove_section('header_image');
 	$wp_customize->remove_section('title_tagline');
 	$wp_customize->remove_section('colors');
+
+	//==========================
+	// Sections
+	//==========================
 	$wp_customize->add_section(
         'layout_setting',
         array(
@@ -38,51 +42,121 @@ function ultimate_customize_register( $wp_customize ) {
             'priority' => 2,
         )
     );
+    
+    $wp_customize->add_panel( 'colors_panel', array(
+	    'priority' => 3,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Color Settings', 'ultimate' ),
+	    'description' => __( 'Customize theme color options.', 'ultimate' ),
+	) );
+	$wp_customize->add_section( 'colors', array(
+	    'priority' => 1,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Theme', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'colors_panel',
+	) );
+	$wp_customize->add_section( 'header_colors', array(
+	    'priority' => 2,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Header', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'colors_panel',
+	) );
+	$wp_customize->add_section( 'menu_colors', array(
+	    'priority' => 3,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Menu', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'colors_panel',
+	) );
+	$wp_customize->add_section( 'footer_colors', array(
+	    'priority' => 4,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Footer', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'colors_panel',
+	) );
+
+	$wp_customize->add_panel( 'typography_panel', array(
+	    'priority' => 4,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Typography Settings', 'ultimate' ),
+	    'description' => __( 'Description of what this panel does.', 'ultimate' ),
+	) );
+	$wp_customize->add_section( 'default_font', array(
+	    'priority' => 1,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Default', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'typography_panel',
+	) );
+	$wp_customize->add_section( 'entry_title_font', array(
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Main Content', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'typography_panel',
+		'priority' => 2,
+	) );
+	$wp_customize->add_section( 'widget_title_font', array(
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Widgets', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'typography_panel',
+		'priority' => 3,
+	) );
+	$wp_customize->add_section( 'menu_font', array(
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Menu', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'typography_panel',
+		'priority' => 4,
+	) );
+	$wp_customize->add_section( 'breadcrumb_font', array(
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Breadcrumbs', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'typography_panel',
+		'priority' => 5,
+	) );
+
+	$wp_customize->add_panel( 'advanced_panel', array(
+	    'priority' => 5,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Advanced Settings', 'ultimate' ),
+	    'description' => __( 'Description of what this panel does.', 'ultimate' ),
+	) );
+	$wp_customize->add_section( 'general_advanced', array(
+	    'priority' => 1,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'General Settings', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'advanced_panel',
+	) );
 	
-	$wp_customize->add_section(
-        'colors',
-        array(
-            'title' => 'Header Colors',
-            'priority' => 3,
-        )
-    );
-	
-	$wp_customize->add_section(
-        'footer_colors',
-        array(
-            'title' => 'Footer Colors',
-            'priority' => 4,
-        )
-    );
-	
-	$wp_customize->add_setting(
-		'site-bg-color',
-		array(
-			'default' => '#ffffff',
-			'sanitize_callback' => 'sanitize_hex_color',
-		)
-	);
-	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
-			$wp_customize,
-			'site-bg-color',
-			array(
-				'label' => 'Site Background Color',
-				'section' => 'background_image',
-				'settings' => 'site-bg-color',
-				'priority' => 1
-			)
-		)
-	);
-	
+	//==========================
+	// Layout Settings
+	//==========================
 	$wp_customize->add_setting(
 		'site_layout',
 		array(
 			'default' => 'full-width',
 			'sanitize_callback' => 'ultimate_sanitize_callback'
 		)
-	);
-	 
+	);	 
 	$wp_customize->add_control(
 		'site_layout',
 		array(
@@ -147,8 +221,7 @@ function ultimate_customize_register( $wp_customize ) {
 			'default' => 'normal',
 			'sanitize_callback' => 'ultimate_sanitize_callback'
 		)
-	);
-	 
+	);	 
 	$wp_customize->add_control(
 		'blog_layout',
 		array(
@@ -164,13 +237,15 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 	
+	//==========================
+	// Header Settings
+	//==========================
 	$wp_customize->add_setting(
 		'logo-img',
 		array(
 			'sanitize_callback' => 'ultimate_sanitize_callback'
 		)
-	);
- 
+	); 
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
 			$wp_customize,
@@ -188,8 +263,7 @@ function ultimate_customize_register( $wp_customize ) {
 		array(
 			'sanitize_callback' => 'ultimate_sanitize_callback'
 		)
-	);
- 
+	); 
 	$wp_customize->add_control(
 		new WP_Customize_Image_Control(
 			$wp_customize,
@@ -201,22 +275,6 @@ function ultimate_customize_register( $wp_customize ) {
 			)
 		)
 	);
-	
-	// $wp_customize->add_setting(
- //    	'logo_width',
-	// 	array(
-	// 		'default' => 80,
-	// 		'sanitize_callback' => 'ultimate_sanitize_callback'
-	// 	)
-	// );
-	// $wp_customize->add_control(
-	// 	'logo_width',
-	// 	array(
-	// 		'label' => 'Logo Width',
-	// 		'section' => 'title_tagline',
-	// 		'type' => 'number',
-	// 	)
-	// );
 	
 	$wp_customize->add_setting(
     	'logo_height',
@@ -241,7 +299,6 @@ function ultimate_customize_register( $wp_customize ) {
 			'sanitize_callback' => 'ultimate_sanitize_callback'
 		)
 	);
-
 	$wp_customize->add_control(
 		'header_layout',
 		array(
@@ -257,9 +314,11 @@ function ultimate_customize_register( $wp_customize ) {
 	);
 
 
-
-
+	//==========================
+	// Colors Settings
+	//==========================
 	
+	// Theme Colors
 	$wp_customize->add_setting(
 		'site-color',
 		array(
@@ -272,7 +331,7 @@ function ultimate_customize_register( $wp_customize ) {
 			$wp_customize,
 			'site-color',
 			array(
-				'label' => 'Default Site Color',
+				'label' => 'Site Color',
 				'section' => 'colors',
 				'settings' => 'site-color',
 				'priority' => 1
@@ -292,10 +351,10 @@ function ultimate_customize_register( $wp_customize ) {
 			$wp_customize,
 			'site-text-color',
 			array(
-				'label' => 'Default Site Text Color',
+				'label' => 'Site Text Color',
 				'section' => 'colors',
 				'settings' => 'site-text-color',
-				'priority' => 1
+				'priority' => 2
 			)
 		)
 	);
@@ -315,7 +374,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Single Page/Post Title Color',
 				'section' => 'colors',
 				'settings' => 'page-title-color',
-				'priority' => 1
+				'priority' => 3
 			)
 		)
 	);
@@ -335,7 +394,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Post Meta Color',
 				'section' => 'colors',
 				'settings' => 'post-meta-color',
-				'priority' => 1
+				'priority' => 4
 			)
 		)
 	);
@@ -355,7 +414,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Post Meta Hover Color',
 				'section' => 'colors',
 				'settings' => 'post-meta-hover-color',
-				'priority' => 1
+				'priority' => 5
 			)
 		)
 	);
@@ -375,12 +434,52 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Sidebar Widget Title Color',
 				'section' => 'colors',
 				'settings' => 'sidebar-widget-title-color',
-				'priority' => 1
+				'priority' => 6
 			)
 		)
 	);
 	
-	
+	// Header Colors
+	$wp_customize->add_setting(
+		'header_textcolor',
+		array(
+			'default' => '#323232',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'header_textcolor',
+			array(
+				'label' => 'Header Text / Link Color',
+				'section' => 'header_colors',
+				'settings' => 'header_textcolor',
+				'priority' => 1
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'header-hover-color',
+		array(
+			'default' => '#DCF3FD',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'header-hover-color',
+			array(
+				'label' => 'Header Link Hover Color',
+				'section' => 'header_colors',
+				'settings' => 'header-hover-color',
+				'priority' => 2
+			)
+		)
+	);
+
 	$wp_customize->add_setting(
 		'header-bg-color',
 		array(
@@ -394,13 +493,14 @@ function ultimate_customize_register( $wp_customize ) {
 			'header-bg-color',
 			array(
 				'label' => 'Header Background Color',
-				'section' => 'colors',
+				'section' => 'header_colors',
 				'settings' => 'header-bg-color',
-				'priority' => 2
+				'priority' => 3
 			)
 		)
 	);
 	
+	// Menu Colors
 	$wp_customize->add_setting(
 		'parent-menu-color',
 		array(
@@ -414,9 +514,9 @@ function ultimate_customize_register( $wp_customize ) {
 			'parent-menu-color',
 			array(
 				'label' => 'Parent Menu Color',
-				'section' => 'colors',
+				'section' => 'menu_colors',
 				'settings' => 'parent-menu-color',
-				'priority' => 3
+				'priority' => 1
 			)
 		)
 	);
@@ -434,9 +534,9 @@ function ultimate_customize_register( $wp_customize ) {
 			'parent-menu-hover-color',
 			array(
 				'label' => 'Parent Menu Hover Color',
-				'section' => 'colors',
+				'section' => 'menu_colors',
 				'settings' => 'parent-menu-hover-color',
-				'priority' => 4
+				'priority' => 2
 			)
 		)
 	);
@@ -454,9 +554,9 @@ function ultimate_customize_register( $wp_customize ) {
 			'parent-menu-bg-color',
 			array(
 				'label' => 'Parent Menu Background Color',
-				'section' => 'colors',
+				'section' => 'menu_colors',
 				'settings' => 'parent-menu-bg-color',
-				'priority' => 5
+				'priority' => 3
 			)
 		)
 	);
@@ -474,9 +574,9 @@ function ultimate_customize_register( $wp_customize ) {
 			'child-menu-link-color',
 			array(
 				'label' => 'Child Menu Color',
-				'section' => 'colors',
+				'section' => 'menu_colors',
 				'settings' => 'child-menu-link-color',
-				'priority' => 6
+				'priority' => 4
 			)
 		)
 	);
@@ -494,9 +594,9 @@ function ultimate_customize_register( $wp_customize ) {
 			'child-menu-hover-color',
 			array(
 				'label' => 'Child Menu Hover Color',
-				'section' => 'colors',
+				'section' => 'menu_colors',
 				'settings' => 'child-menu-hover-color',
-				'priority' => 7
+				'priority' => 5
 			)
 		)
 	);
@@ -514,9 +614,9 @@ function ultimate_customize_register( $wp_customize ) {
 			'child-menu-bg-color',
 			array(
 				'label' => 'Child Menu Background',
-				'section' => 'colors',
+				'section' => 'menu_colors',
 				'settings' => 'child-menu-bg-color',
-				'priority' => 8
+				'priority' => 6
 			)
 		)
 	);
@@ -534,33 +634,15 @@ function ultimate_customize_register( $wp_customize ) {
 			'child-menu-hover-bg-color',
 			array(
 				'label' => 'Child Menu Hover Background',
-				'section' => 'colors',
+				'section' => 'menu_colors',
 				'settings' => 'child-menu-hover-bg-color',
-				'priority' => 8
+				'priority' => 7
 			)
 		)
 	);
 	
-	$wp_customize->add_setting(
-		'header-hover-color',
-		array(
-			'default' => '#DCF3FD',
-			'sanitize_callback' => 'sanitize_hex_color',
-		)
-	);
-	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
-			$wp_customize,
-			'header-hover-color',
-			array(
-				'label' => 'Header Link Hover Color',
-				'section' => 'colors',
-				'settings' => 'header-hover-color',
-				'priority' => 10
-			)
-		)
-	);
 	
+	// Footer Colors
 	$wp_customize->add_setting(
 		'footer-widget-title-color',
 		array(
@@ -721,23 +803,11 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 	
-	$wp_customize->add_panel( 'typography_panel', array(
-	    'priority' => 10,
-	    'capability' => 'edit_theme_options',
-	    'theme_supports' => '',
-	    'title' => __( 'Typography Settings', 'ultimate' ),
-	    'description' => __( 'Description of what this panel does.', 'ultimate' ),
-	) );
- 
-	$wp_customize->add_section( 'default_font', array(
-	    'priority' => 2,
-	    'capability' => 'edit_theme_options',
-	    'theme_supports' => '',
-	    'title' => __( 'Default', 'ultimate' ),
-	    'description' => '',
-	    'panel' => 'typography_panel',
-	) );
- 
+	//==========================
+	// Typography Settings
+	//==========================
+
+	// Default Fonts
 	$wp_customize->add_setting( 'default_site_font', array(
 		'default' => 'Open Sans',
 		'type' => 'theme_mod',
@@ -760,14 +830,7 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 	
-	$wp_customize->add_section( 'entry_title_font', array(
-	    'capability' => 'edit_theme_options',
-	    'theme_supports' => '',
-	    'title' => __( 'Main Content', 'ultimate' ),
-	    'description' => '',
-	    'panel' => 'typography_panel',
-		'priority' => 3,
-	) );
+	// Main Content Font
 	$wp_customize->add_setting( 'page_title_font', array(
 		'default' => 'Open Sans',
 		'type' => 'theme_mod',
@@ -783,12 +846,13 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Page Title Font',
 				'section' => 'entry_title_font',
 				'settings' => 'page_title_font',
-				'priority' => 2,
+				'priority' => 1,
 				'id'	=> 'entry_title_font',
 				'description' => '400 regular:400:normal'
 			)
 		)
 	);
+
 	$wp_customize->add_setting(
     	'page_title_font_size',
 		array(
@@ -803,7 +867,7 @@ function ultimate_customize_register( $wp_customize ) {
 			'section' => 'entry_title_font',
 			'description' =>  '',
 			'type'        => 'range',
-			'priority' => 3,
+			'priority' => 2,
 			'input_attrs' => array(
 				'min'   => 10,
 				'max'   => 72,
@@ -830,7 +894,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => '',
 				'section' => 'entry_title_font',
 				'settings' => 'separator-1',
-				'priority' => 4,
+				'priority' => 3,
 			)
 		)
 	);
@@ -850,12 +914,13 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Post Meta Font',
 				'section' => 'entry_title_font',
 				'settings' => 'post_meta_font',
-				'priority' => 5,
+				'priority' => 4,
 				'id'	=> 'entry_title_font',
 				'description' => '400 regular:400:normal'
 			)
 		)
 	);
+
 	$wp_customize->add_setting(
     	'post_meta_font_size',
 		array(
@@ -870,7 +935,7 @@ function ultimate_customize_register( $wp_customize ) {
 			'section' => 'entry_title_font',
 			'description' =>  '',
 			'type'        => 'range',
-			'priority' => 6,
+			'priority' => 5,
 			'input_attrs' => array(
 				'min'   => 10,
 				'max'   => 72,
@@ -882,14 +947,7 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 	
-	$wp_customize->add_section( 'widget_title_font', array(
-	    'capability' => 'edit_theme_options',
-	    'theme_supports' => '',
-	    'title' => __( 'Widgets', 'ultimate' ),
-	    'description' => '',
-	    'panel' => 'typography_panel',
-		'priority' => 4,
-	) );
+	// Widget Font
 	$wp_customize->add_setting( 'widget_title_font', array(
 		'default' => 'Open Sans',
 		'type' => 'theme_mod',
@@ -905,12 +963,13 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Widget Title Font',
 				'section' => 'widget_title_font',
 				'settings' => 'widget_title_font',
-				'priority' => 6,
+				'priority' => 1,
 				'id'	=> 'entry_title_font',
 				'description' => '400 regular:400:normal'
 			)
 		)
 	);
+
 	$wp_customize->add_setting(
     	'widget_title_font_size',
 		array(
@@ -925,7 +984,7 @@ function ultimate_customize_register( $wp_customize ) {
 			'section' => 'widget_title_font',
 			'description' =>  '',
 			'type'        => 'range',
-			'priority' => 6,
+			'priority' => 2,
 			'input_attrs' => array(
 				'min'   => 10,
 				'max'   => 72,
@@ -937,14 +996,7 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 	
-	$wp_customize->add_section( 'menu_font', array(
-	    'capability' => 'edit_theme_options',
-	    'theme_supports' => '',
-	    'title' => __( 'Menu', 'ultimate' ),
-	    'description' => '',
-	    'panel' => 'typography_panel',
-		'priority' => 5,
-	) );
+	// Menu Fonts
 	$wp_customize->add_setting( 'menu_font', array(
 		'default' => 'Open Sans',
 		'type' => 'theme_mod',
@@ -960,12 +1012,13 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Menu Font',
 				'section' => 'menu_font',
 				'settings' => 'menu_font',
-				'priority' => 6,
+				'priority' => 1,
 				'id'	=> 'entry_title_font',
 				'description' => '400 regular:400:normal'
 			)
 		)
 	);
+
 	$wp_customize->add_setting(
     	'menu_font_size',
 		array(
@@ -980,7 +1033,7 @@ function ultimate_customize_register( $wp_customize ) {
 			'section' => 'menu_font',
 			'description' =>  '',
 			'type'        => 'range',
-			'priority' => 6,
+			'priority' => 2,
 			'input_attrs' => array(
 				'min'   => 10,
 				'max'   => 72,
@@ -992,14 +1045,7 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 	
-	$wp_customize->add_section( 'breadcrumb_font', array(
-	    'capability' => 'edit_theme_options',
-	    'theme_supports' => '',
-	    'title' => __( 'Breadcrumbs', 'ultimate' ),
-	    'description' => '',
-	    'panel' => 'typography_panel',
-		'priority' => 6,
-	) );
+	// Breadcrumb Font
 	$wp_customize->add_setting( 'breadcrumb_font', array(
 		'default' => 'Open Sans',
 		'type' => 'theme_mod',
@@ -1021,6 +1067,7 @@ function ultimate_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
 	$wp_customize->add_setting(
     	'breadcrumb_font_size',
 		array(
@@ -1088,6 +1135,7 @@ function ultimate_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
 	$wp_customize->add_setting(
     	'page_heading_font_size',
 		array(
@@ -1114,23 +1162,11 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 	
-	$wp_customize->add_panel( 'advanced_panel', array(
-	    'priority' => 11,
-	    'capability' => 'edit_theme_options',
-	    'theme_supports' => '',
-	    'title' => __( 'Advanced Settings', 'ultimate' ),
-	    'description' => __( 'Description of what this panel does.', 'ultimate' ),
-	) );
- 
-	$wp_customize->add_section( 'general_advanced', array(
-	    'priority' => 2,
-	    'capability' => 'edit_theme_options',
-	    'theme_supports' => '',
-	    'title' => __( 'General Settings', 'ultimate' ),
-	    'description' => '',
-	    'panel' => 'advanced_panel',
-	) );
-	
+	//==========================
+	// Advanced Settings
+	//==========================
+
+	// General Settings	
 	$wp_customize->add_setting(
     	'site_fixed_header',
 		array(
@@ -1148,7 +1184,32 @@ function ultimate_customize_register( $wp_customize ) {
 			'priority' => 1,
 		)
 	);
+
+
+	//==========================
+	// Background Image
+	//==========================
+	$wp_customize->add_setting(
+		'site-bg-color',
+		array(
+			'default' => '#ffffff',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'site-bg-color',
+			array(
+				'label' => 'Site Background Color',
+				'section' => 'background_image',
+				'settings' => 'site-bg-color',
+				'priority' => 1
+			)
+		)
+	);
 }
+
 add_action( 'customize_register', 'ultimate_customize_register' );
 function ultimate_sanitize_callback($input){
 	return $input;
