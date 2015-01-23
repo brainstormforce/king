@@ -201,42 +201,6 @@ function ultimate_widgets_init() {
 		'after_title' => '</span></h3>',
 	) );
 	register_sidebar( array(
-		'name' => __( 'Front Page Main Widget Area', 'ultimate' ),
-		'id' => 'sidebar-2',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'First Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-3',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Second Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-4',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Third Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-5',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
 		'name' => __( 'Footer Widget Area 1', 'ultimate' ),
 		'id' => 'sidebar-footer-1',
 		'description' => __( 'Appears in footer sidebar widget area at first position.', 'ultimate' ),
@@ -270,6 +234,42 @@ function ultimate_widgets_init() {
 		'name' => __( 'Footer Widget Area 4', 'ultimate' ),
 		'id' => 'sidebar-footer-4',
 		'description' => __( 'Appears in footer sidebar widget area at fourth position.', 'ultimate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'Front Page Main Widget Area', 'ultimate' ),
+		'id' => 'sidebar-front-main',
+		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'First Front Page Widget Area', 'ultimate' ),
+		'id' => 'sidebar-front-1',
+		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'Second Front Page Widget Area', 'ultimate' ),
+		'id' => 'sidebar-front-2',
+		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'Third Front Page Widget Area', 'ultimate' ),
+		'id' => 'sidebar-front-3',
+		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h3 class="widget-title">',
