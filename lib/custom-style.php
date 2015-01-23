@@ -130,22 +130,6 @@ foreach($font_main as $key => $fonts){
 ?>
 <link href='http://fonts.googleapis.com/css?family=<?php echo $font_str; ?>' rel='stylesheet' type='text/css'>
 <style type="text/css">
-<?php if(get_theme_mod('site_layout') !== 'fluid') {?>
-	body #main, 
-	body .site.boxed, 
-	.header-box, 
-	.header-style2 .primary-menu-container, 
-	.header-style2 .nav-menu, 
-	.header-style3 .primary-menu-container, 
-	.header-style3 .nav-menu, 
-	.ultimate-container, 
-	.footer-widget-area, 
-	.footer-bottom-container, 
-	.smile-row, 
-	.boxed .site-header.ult-fixed-menu {
-		max-width: <?php echo get_theme_mod( 'content_width' );?>px !important;
-	}
-<?php } ?>
 h1.entry-title, h1.entry-title a{
 	font-family:<?php echo $page_title_font_family;?>;
 	font-weight:<?php echo $page_title_font_weight;?>;
@@ -194,27 +178,59 @@ body *{
 	font-weight:<?php echo $default_font_weight;?>;
 	font-style:<?php echo $default_font_style;?>;
 }
-.site-header, 
-.header-style2 .header-search,
-.header-style3 .header-box {
-	min-height: <?php echo get_theme_mod( 'logo_height' );?>px;
+
+/**
+* 1.0 Layout Settings
+*
+* Applying website content width, which sets from customizer
+*/
+<?php if(get_theme_mod('site_layout') !== 'fluid') {?>
+	body #main, 
+	body .site.boxed, 
+	.header-box, 
+	.header-style2 .primary-menu-container, 
+	.header-style2 .nav-menu, 
+	.header-style3 .primary-menu-container, 
+	.header-style3 .nav-menu, 
+	.ultimate-container, 
+	.footer-widget-area, 
+	.footer-bottom-container, 
+	.smile-row, 
+	.boxed .site-header.ult-fixed-menu {
+		max-width: <?php echo get_theme_mod( 'content_width' );?>px !important;
+	}
+<?php } ?>
+
+/**
+* 2.0 Header Settings
+*
+* Applying header hight, which sets from customizer
+*/
+@media only screen and (min-width: 768px) {
+	.site-header, 
+	.header-style2 .header-search,
+	.header-style3 .header-box {
+		min-height: <?php echo get_theme_mod( 'logo_height' );?>px;
+	}
+	.site-header, 
+	.ult-main-menu-container div.nav-menu, 
+	.ult-main-menu-container .primary-menu-container, 
+	.header-logo *,
+	.site-header h1, 
+	.site-header h2 {
+		line-height: <?php echo get_theme_mod( 'logo_height' );?>px;
+	}
 }
-.site-header, 
-.ult-main-menu-container div.nav-menu, 
-.ult-main-menu-container .primary-menu-container, 
-.header-logo *,
-.site-header h1, 
-.site-header h2 {
-	line-height: <?php echo get_theme_mod( 'logo_height' );?>px;
-}
-.header-box,
-.site-header, 
-.ult-transparent-header .site-header.ult-sticky-menu {
-	background: <?php echo get_theme_mod( 'header-bg-color' );?> !important;
-}
-/*body #main, .ultimate-page-header {
-	padding-top:<?php echo get_theme_mod( 'logo_height' );?>px;
-}*/
+
+/**
+* 3.0 Header Colors
+*
+* Applying header colors, which sets from customizer
+*/
+
+/**
+* 3.1 Theme Color
+*/
 a,
 a:visited,
 .widget-area .widget a, 
@@ -228,7 +244,10 @@ input[type="button"]:hover,
 input[type="reset"]:hover, 
 article.post-password-required input[type=submit]:hover, 
 .comments-link a, 
-.entry-meta a{
+.entry-meta a, 
+.site-header h1 a:hover, 
+.site-header h2 a:hover,
+.post-meta a:hover {
 	color:<?php echo get_theme_mod('site-color'); ?>;
 }
 button#searchsubmit, 
@@ -265,64 +284,227 @@ input[type="reset"],
 article.post-password-required input[type=submit], 
 .bypostauthor cite span, 
 .ultimate-pagination a, 
-.ultimate-pagination .current /*.main-navigation .nav-menu .sub-menu > li:hover*/ /*.main-navigation .nav-menu .children > li:hover*/ {
+.ultimate-pagination .current,
+.widget_tag_cloud .tagcloud a:hover {
 	background:<?php echo get_theme_mod('site-color'); ?>;
 }
-/*---sup ---.main-navigation .nav-menu .sub-menu, .main-navigation .nav-menu .children {
-	border-top: 2px solid <?php echo get_theme_mod('site-color'); ?>;
-}*/
-/*
-input[type="text"]:focus,textarea:focus{
-	border-color:<?php echo get_theme_mod('site-color'); ?> !important; 
-	box-shadow:0px 0px 2px 1px <?php echo get_theme_mod('site-color'); ?> !important; 
-	outline:none;
+.format-aside .aside {
+	border-left: 22px solid <?php echo get_theme_mod('site-color'); ?>;
 }
+@media only screen and (min-width: 768px) {
+	.main-navigation .nav-menu .sub-menu, 
+	.main-navigation .nav-menu .children {
+		border-top: 2px solid <?php echo get_theme_mod('site-color'); ?>;
+	}
+	.main-navigation .nav-menu .sub-menu li a:hover, 
+	.main-navigation .nav-menu .children li a:hover {
+		background: <?php echo get_theme_mod('site-color'); ?>;
+	}
+}
+
+/**
+* 3.2 Theme Text Color
 */
-h1.site-title, 
-h1.site-title a, 
-h2.site-description, 
-h2.site-description * {
-	color: #<?php echo get_theme_mod('header_textcolor'); ?>;
+body,
+.entry-content p, 
+.entry-summary p, 
+.comment-content p, 
+.mu_register p {
+	color: <?php echo get_theme_mod('site-text-color'); ?>;
 }
+
+/**
+* 3.2 Page / Post Title Color
+*/
+h1.entry-title {
+	color: <?php echo get_theme_mod('page-title-color'); ?>;	
+}
+
+/**
+* 3.2 Post Meta Color
+*/
+.post-meta,
+.post-meta a,
+.entry-summary p.post-meta {
+	color: <?php echo get_theme_mod('post-meta-color'); ?>;
+}
+
+/**
+* 3.2 Post Meta Hover Color
+*/
+.post-meta a:hover {
+	color: <?php echo get_theme_mod('post-meta-hover-color'); ?>;
+}
+
+/**
+* 3.2 Sidebar Widget Title Color
+*/
+.widget h3.widget-title {
+	color: <?php echo get_theme_mod('sidebar-widget-title-color'); ?>;
+}
+
+
+/**
+* 3.2 Header Background Color
+*/
+.header-box,
+.site-header, 
+.ult-transparent-header .site-header.ult-sticky-menu,
+.site-header.header-style2,
+.site-header.header-style3 {
+	background: <?php echo get_theme_mod( 'header-bg-color' );?>;
+}
+
+/**
+* 3.3 Parent Menu Color
+*/
 .main-navigation .nav-menu > li > a,
 .main-navigation .nav-menu > ul > li > a {
 	color: <?php echo get_theme_mod('parent-menu-color'); ?>;
 }
+
+/**
+* 3.4 Parent Menu Hover Color
+*/
 .main-navigation .nav-menu > li > a:hover,
 .main-navigation .nav-menu > ul > li > a:hover {
 	color: <?php echo get_theme_mod('parent-menu-hover-color'); ?>;
 }
-.main-navigation li ul li a{
-	/*background: <?php echo get_theme_mod('child-menu-bg-color'); ?>;*/
-	color: <?php echo get_theme_mod('child-menu-link-color'); ?>;
+
+/**
+* 3.5 Parent Menu BG Color
+*/
+.header-style2 .main-navigation,
+.header-style3 .main-navigation {
+	background: <?php echo get_theme_mod( 'parent-menu-bg-color' );?>;
 }
-/*---sup.main-navigation li ul li a:hover, .main-navigation ul.nav-menu > li.menu-item > ul.sub-menu li a:hover{
-	background: <?php echo get_theme_mod('child-menu-hover-bg-color'); ?>;
-	color: <?php echo get_theme_mod('child-menu-hover-color'); ?>;
-}*/
-ul.nav-menu > li.menu-item-has-children:hover:after {
-	border-bottom-color: <?php echo get_theme_mod('child-menu-bg-color'); ?> !important;
+
+@media only screen and (min-width: 768px) {
+
+	/**
+	* 3.6 Child Menu Link Color
+	*/
+	.main-navigation .nav-menu .sub-menu li a, 
+	.main-navigation .nav-menu .children li a {
+		color: <?php echo get_theme_mod('child-menu-link-color'); ?>;
+	}
+
+	/**
+	* 3.7 Child Menu Hover Color
+	*/
+	.main-navigation .nav-menu .sub-menu li a:hover, 
+	.main-navigation .nav-menu .children li a:hover {
+		color: <?php echo get_theme_mod('child-menu-hover-color'); ?>;
+	}
+
+	/**
+	* 3.8 Child Menu Background Color
+	*/
+	.main-navigation .nav-menu .sub-menu, 
+	.main-navigation .nav-menu .children {
+		background: <?php echo get_theme_mod('child-menu-bg-color'); ?>;
+	}
+
+	/**
+	* 3.9 Child Menu Hover Background Color
+	*/
+	.main-navigation .nav-menu .sub-menu li a:hover, 
+	.main-navigation .nav-menu .children li a:hover {
+		background: <?php echo get_theme_mod('child-menu-hover-bg-color'); ?>;
+	}
+	.main-navigation .nav-menu .sub-menu, 
+	.main-navigation .nav-menu .children {
+		border-top: 2px solid <?php echo get_theme_mod('child-menu-hover-bg-color'); ?>;
+	}
 }
+
+/**
+* 3.10 Header Text Color
+*/
+h1.site-title, 
+h1.site-title a, 
+h2.site-description, 
+h2.site-description *,
+.site-header .blog-description {
+	color: #<?php echo get_theme_mod('header_textcolor'); ?>;
+}
+
+/**
+* 3.11 Header Link Hover Color
+*/
 h1.site-title a:hover,
 h1.site-title a:focus{
 	color: <?php echo get_theme_mod('header-hover-color'); ?> !important;
 }
-.main-footer *{
-	color: <?php echo get_theme_mod('footer-color'); ?>;
-}
-.main-footer a{
-	color: <?php echo get_theme_mod('footer-link-color'); ?>;
-}
-.main-footer{
-	background: <?php echo get_theme_mod('footer-bg-color'); ?>;
-}
+
+
+/**
+* 4.0 Footer Colors
+*
+* Applying footer colors, which sets from customizer
+*/
+
+/**
+* 4.1 Footer Widget Title Color
+*/
 #footer h3.widget-title {
 	color:<?php echo get_theme_mod('footer-widget-title-color'); ?>;
 }
+
+/**
+* 4.2 Footer Text Color
+*/
+.main-footer *{
+	color: <?php echo get_theme_mod('footer-color'); ?>;
+}
+
+/**
+* 4.3 Footer Link Color
+*/
+.main-footer a,
+.main-footer .widget_tag_cloud .tagcloud a {
+	color: <?php echo get_theme_mod('footer-link-color'); ?>;
+}
+
+/**
+* 4.4 Footer Link Hover Color
+*/
+.main-footer a:hover {
+	color: <?php echo get_theme_mod('footer-link-hover-color'); ?>;
+}
+.main-footer .widget_tag_cloud .tagcloud a:hover {
+	background: <?php echo get_theme_mod('footer-link-hover-color'); ?>;
+	color: #fff;
+}
+
+/**
+* 4.5 Main Footer Background Color
+*/
+.main-footer{
+	background: <?php echo get_theme_mod('footer-bg-color'); ?>;
+}
+
+/**
+* 4.6 Small Footer Background Color
+*/
 footer[role="contentinfo"]{
 	background: <?php echo get_theme_mod('small-footer-bg-color'); ?>;
+	border-top: 1px solid <?php echo get_theme_mod('small-footer-bg-color'); ?>;
 }
-footer[role="contentinfo"] *, footer[role="contentinfo"] a{
+
+/**
+* 4.7 Small Footer Text / Link Color
+*/
+footer[role="contentinfo"] *, 
+footer[role="contentinfo"] a{
 	color: <?php echo get_theme_mod('small-footer-text-color'); ?>;
 }
+
+/**
+* 4.8 Small Footer Link Hover Color
+*/
+footer[role="contentinfo"] a:hover {
+	color: <?php echo get_theme_mod('small-footer-link-hover-color'); ?>;
+}
+
 </style>
