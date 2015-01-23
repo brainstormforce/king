@@ -339,6 +339,26 @@ function ultimate_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	$wp_customize->add_setting(
+		'parent-menu-bg-color',
+		array(
+			'default' => '#fff',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'parent-menu-bg-color',
+			array(
+				'label' => 'Parent Menu Background Color',
+				'section' => 'colors',
+				'settings' => 'parent-menu-bg-color',
+				'priority' => 5
+			)
+		)
+	);
 	
 	$wp_customize->add_setting(
 		'child-menu-link-color',
@@ -370,7 +390,7 @@ function ultimate_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		new WP_Customize_Color_Control(
 			$wp_customize,
-			'parent-menu-hover-color',
+			'child-menu-hover-color',
 			array(
 				'label' => 'Child Menu Hover Color',
 				'section' => 'colors',
@@ -390,7 +410,7 @@ function ultimate_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		new WP_Customize_Color_Control(
 			$wp_customize,
-			'parent-menu-bg-color',
+			'child-menu-bg-color',
 			array(
 				'label' => 'Child Menu Background',
 				'section' => 'colors',

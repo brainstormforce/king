@@ -219,7 +219,7 @@ aside select[name="cat"] {
 /* TagCloud Widget */
 .widget_tag_cloud .tagcloud a {
 	border: 1px solid #eaeaea;
-	background-color: #FFF;
+	background: #FFF;
 	background-position: bottom left;
 	background-repeat: repeat-x;
 	color: #707070;
@@ -234,7 +234,7 @@ aside select[name="cat"] {
 	transition: all 250ms linear;
 }
 .widget_tag_cloud .tagcloud a:hover {
-	background-color: #DE5034;
+	background: #DE5034;
 	color: #fff;
 }
 
@@ -412,10 +412,10 @@ footer[role="contentinfo"] .footer-bottom-container {
 	border-top: 1px solid #eaeaea;
 	border-bottom: 1px solid #eaeaea;
 }
-.entry-summary-meta .post-meta a {
+.post-meta a {
 	color: #707070;
 }
-.entry-summary-meta .post-meta a:hover {
+.post-meta a:hover {
 	color: #DE5034;
 }
 /* Post Which Have Featured Image */
@@ -1091,8 +1091,8 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 @media only screen and (min-width: 768px) {	
 	.header-style2 .nav-menu,
 	.header-style3 .nav-menu {
-		padding-left: 30px;
-		padding-right: 30px;
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 	.site-header {
 		min-height: 80px;
