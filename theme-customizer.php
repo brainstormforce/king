@@ -279,6 +279,107 @@ function ultimate_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	$wp_customize->add_setting(
+		'site-text-color',
+		array(
+			'default' => '#707070',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'site-text-color',
+			array(
+				'label' => 'Default Site Text Color',
+				'section' => 'colors',
+				'settings' => 'site-text-color',
+				'priority' => 1
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'page-title-color',
+		array(
+			'default' => '#303030',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'page-title-color',
+			array(
+				'label' => 'Single Page/Post Title Color',
+				'section' => 'colors',
+				'settings' => 'page-title-color',
+				'priority' => 1
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'post-meta-color',
+		array(
+			'default' => '#303030',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'post-meta-color',
+			array(
+				'label' => 'Post Meta Color',
+				'section' => 'colors',
+				'settings' => 'post-meta-color',
+				'priority' => 1
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'post-meta-hover-color',
+		array(
+			'default' => '#303030',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'post-meta-hover-color',
+			array(
+				'label' => 'Post Meta Hover Color',
+				'section' => 'colors',
+				'settings' => 'post-meta-hover-color',
+				'priority' => 1
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'sidebar-widget-title-color',
+		array(
+			'default' => '#303030',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'sidebar-widget-title-color',
+			array(
+				'label' => 'Sidebar Widget Title Color',
+				'section' => 'colors',
+				'settings' => 'sidebar-widget-title-color',
+				'priority' => 1
+			)
+		)
+	);
+	
 	
 	$wp_customize->add_setting(
 		'header-bg-color',
@@ -375,7 +476,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Child Menu Color',
 				'section' => 'colors',
 				'settings' => 'child-menu-link-color',
-				'priority' => 5
+				'priority' => 6
 			)
 		)
 	);
@@ -395,7 +496,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Child Menu Hover Color',
 				'section' => 'colors',
 				'settings' => 'child-menu-hover-color',
-				'priority' => 6
+				'priority' => 7
 			)
 		)
 	);
@@ -415,7 +516,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Child Menu Background',
 				'section' => 'colors',
 				'settings' => 'child-menu-bg-color',
-				'priority' => 7
+				'priority' => 8
 			)
 		)
 	);
@@ -519,6 +620,26 @@ function ultimate_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	$wp_customize->add_setting(
+		'footer-link-hover-color',
+		array(
+			'default' => '#636363',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'footer-link-hover-color',
+			array(
+				'label' => 'Footer Link Hover Color',
+				'section' => 'footer_colors',
+				'settings' => 'footer-link-hover-color',
+				'priority' => 4
+			)
+		)
+	);
 	
 	$wp_customize->add_setting(
 		'footer-bg-color',
@@ -535,7 +656,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Main Footer Background Color',
 				'section' => 'footer_colors',
 				'settings' => 'footer-bg-color',
-				'priority' => 4
+				'priority' => 5
 			)
 		)
 	);
@@ -555,7 +676,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Small Footer Background Color',
 				'section' => 'footer_colors',
 				'settings' => 'small-footer-bg-color',
-				'priority' => 5
+				'priority' => 6
 			)
 		)
 	);
@@ -575,11 +696,30 @@ function ultimate_customize_register( $wp_customize ) {
 				'label' => 'Small Footer Text / Link Color',
 				'section' => 'footer_colors',
 				'settings' => 'small-footer-text-color',
-				'priority' => 6
+				'priority' => 7
 			)
 		)
 	);
-	
+
+	$wp_customize->add_setting(
+		'small-footer-link-hover-color',
+		array(
+			'default' => '#636363',
+			'sanitize_callback' => 'sanitize_hex_color',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Color_Control(
+			$wp_customize,
+			'small-footer-link-hover-color',
+			array(
+				'label' => 'Small Footer Link Hover Color',
+				'section' => 'footer_colors',
+				'settings' => 'small-footer-link-hover-color',
+				'priority' => 8
+			)
+		)
+	);
 	
 	$wp_customize->add_panel( 'typography_panel', array(
 	    'priority' => 10,

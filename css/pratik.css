@@ -408,9 +408,11 @@ footer[role="contentinfo"] .footer-bottom-container {
 	margin: 0;
 	font-size: 12px;
 	line-height: 1.8em;
-	color: #909090;
 	border-top: 1px solid #eaeaea;
 	border-bottom: 1px solid #eaeaea;
+}
+.post-meta {
+	color: #909090;
 }
 .post-meta a {
 	color: #707070;
