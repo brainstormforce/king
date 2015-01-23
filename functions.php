@@ -138,6 +138,9 @@ function ultimate_scripts_styles() {
 	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/js/slick.min.js' );
     wp_enqueue_script( 'slick-slider-script' );
 
+    wp_register_script( 'widget-script', get_template_directory_uri() . '/js/widget.js' );
+    wp_enqueue_script( 'widget-script' );
+
     wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/SmoothScroll.js' );
     wp_enqueue_script( 'smooth-scroll-script' );
 	

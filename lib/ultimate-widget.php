@@ -8,11 +8,16 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 	 * Register widget with WordPress.
 	 */
 	function __construct() {
+
+
+    
+
 		parent::__construct(
 			'ultimate_front_page_widget', // Base ID
 			__( 'Ultimate Page Select', 'ultimate' ), // Name
 			array( 'description' => __( 'Display content of selected page.', 'ultimate' ), ) // Args
-		);
+			);
+
 	}
 
 	/**
@@ -23,7 +28,7 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 	 * @param array $args     Widget arguments.
 	 * @param array $instance Saved values from database.
 	 */
-	public function widget( $args, $instance ) {
+	 public function widget( $args, $instance ) {
 		extract( $args );
 	   // these are the widget options
 	   //$title = apply_filters('widget_title', $instance['title']);
@@ -35,6 +40,7 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 		$title =  isset( $instance['title'] ) ? apply_filters('widget_title', $instance['title']) : __( '', 'ultimate' );
 		$selectbox = isset( $instance['selectbox'] ) ? $instance['selectbox'] : __( '', 'ultimate' );	
 		$image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'ultimate' );
+		$color = isset( $instance['background_color'] ) ? $instance['background_color'] : __( '', 'ultimate' );
 
 	   // Display the widget
 	   echo $before_widget;
@@ -64,7 +70,9 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 					</div><!-- .entry-content -->
 
 
-					<?php if ( $image || has_post_thumbnail() ) {
+					<?php 
+
+					    if ( $image || has_post_thumbnail() ) {
 
 						if ( $image ) {
 							$widget_bg_image = esc_url($instance['image']);
@@ -77,8 +85,16 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 							$widget_bg_image = esc_url($instance['image']);
 						} ?>
 
-						<div class="widget-thumbnail" style="background-image: url('<?php echo $widget_bg_image; ?>')"></div>
+						<div class="widget-thumbnail" style="background: url('<?php echo $widget_bg_image; ?>')"></div>
 
+					<?php }
+
+					if ( $color ) { 
+
+						$widget_bg_color = esc_url($instance['background_color']); ?>
+
+						<div class="widget-thumbnail" style="background:<?php echo $widget_bg_color; ?>"></div>
+						
 					<?php } ?>
 					
 				</article><!-- #post -->
@@ -99,12 +115,15 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 	 * @param array $instance Previously saved values from database.
 	 */
 	public function form( $instance ) {
-		
+		$defaults = array('background_color' => '#e3e3e3');
+		$instance = wp_parse_args( (array) $instance, $defaults ); 
+
 		// Check values		
 		$title = isset( $instance['title'] ) ? $instance['title'] : __( '', 'ultimate' );
 		$selectbox = isset( $instance['selectbox'] ) ? $instance['selectbox'] : __( '', 'ultimate' );	
 		$image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'ultimate' );	
-
+        $color = isset( $instance['background_color'] ) ? $instance['background_color'] : __( '', 'ultimate' );
+      
 		$background = isset( $instance['background'] ) ? $instance['background'] : __( '', 'ultimate' );	
 		?>
 
@@ -135,26 +154,26 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 			<option id="bgcolor" value="bgcolor" <?php if($background == 'bgcolor') { echo 'selected="selected"'; }?>><?php _e('Color', 'ultimate'); ?></option>
 		</select>
 		</p>
+		<?php 
 
-		<p>
+		
 
-		<script type='text/javascript'>
-			jQuery(document).ready(function($) {
-			$('.my-color-picker').wpColorPicker();
-			});
+		?>
+		<script>
+
+		jQuery(document).ready(function($) {
+		$('.my-color-picker').wpColorPicker();
+		});
 		</script>
 
-		<input type="text" class="my-color-picker" name="background_color" value="" />	
-		
-        <?php
-        if ( $color != '' ) {
-        echo '<span style="background-color=' . $color . '"></span><br />';
-        }
-        ?>
-        </p>
+		 <label for="<?php echo $this->get_field_id( 'background_color' ); ?>">Background Color</label><br />
+         
+         <input class="my-color-picker" type="text" id="<?php echo $this->get_field_id( 'background_color' ); ?>" name="<?php echo $this->get_field_name( 'background_color' ); ?>" value="<?php echo esc_attr( $instance['background_color'] );?>" />     
 
-		<?php
-	}
+		
+		
+
+	<?php }
 
 	/**
 	 * Sanitize widget form values as they are saved.
@@ -172,6 +191,8 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 		$instance['title'] = ( isset( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
 		$instance['selectbox'] = ( isset( $new_instance['selectbox'] ) ) ? strip_tags( $new_instance['selectbox'] ) : '';
 		$instance['image'] = ( isset( $new_instance['image'] ) ) ? strip_tags( $new_instance['image'] ) : '';
+		$instance['background_color'] = ( isset( $new_instance['background_color'] ) ) ? strip_tags( $new_instance['background_color'] ) : '';
+
 		return $instance;
 	}
 

@@ -1,4 +1,5 @@
 jQuery(document).ready( function($) {
+
     function media_upload(button_class) {
         var _custom_media = true,
         _orig_send_attachment = wp.media.editor.send.attachment;
@@ -26,23 +27,15 @@ jQuery(document).ready( function($) {
     media_upload('.button.ultimate_media_button');
 });
 
-jQuery(document).ready( function(jQuery) { 
-    jQuery("#color").change(function () {
-        if(jQuery("#color").val()=='bgcolor') {
-            jQuery(".bgnone").css("display", "none");
-            jQuery(".bgimage").css("display", "none");
-            jQuery(".bgcolor").css("display", "block");
-        } 
-        else if(jQuery("#color").val()=='bgimage'){
-            jQuery(".bgnone").css("display", "none");
-            jQuery(".bgimage").css("display", "block");
-            jQuery(".bgcolor").css("display", "none"); 
-        }
-        else {
-            jQuery(".bgnone").css("display", "block");
-            jQuery(".bgimage").css("display", "none");
-            jQuery(".bgcolor").css("display", "none"); 
-        }
-    });
+jQuery(document).ready( function($) { 
+
+ jQuery("#selectBoxId").change(function () {
+    alert("hi");
+    alert(jQuery("#selectBoxId :selected").attr('value'))
 });
+
+});
+
+
+
 
