@@ -285,7 +285,8 @@ article.post-password-required input[type=submit],
 .bypostauthor cite span, 
 .ultimate-pagination a, 
 .ultimate-pagination .current,
-.widget_tag_cloud .tagcloud a:hover {
+.widget_tag_cloud .tagcloud a:hover,
+.main-footer .widget_tag_cloud .tagcloud a:hover {
 	background:<?php echo get_theme_mod('site-color'); ?>;
 }
 .format-aside .aside {
@@ -458,13 +459,14 @@ h1.site-title a:focus{
 	color: <?php echo get_theme_mod('footer-color'); ?>;
 }
 
+
 /**
 * 4.3 Footer Link Color
 */
-.main-footer a,
-.main-footer .widget_tag_cloud .tagcloud a {
+.main-footer a {
 	color: <?php echo get_theme_mod('footer-link-color'); ?>;
 }
+
 
 /**
 * 4.4 Footer Link Hover Color
@@ -472,10 +474,7 @@ h1.site-title a:focus{
 .main-footer a:hover {
 	color: <?php echo get_theme_mod('footer-link-hover-color'); ?>;
 }
-.main-footer .widget_tag_cloud .tagcloud a:hover {
-	background: <?php echo get_theme_mod('footer-link-hover-color'); ?>;
-	color: #fff;
-}
+
 
 /**
 * 4.5 Main Footer Background Color
@@ -489,7 +488,7 @@ h1.site-title a:focus{
 */
 footer[role="contentinfo"]{
 	background: <?php echo get_theme_mod('small-footer-bg-color'); ?>;
-	border-top: 1px solid <?php echo get_theme_mod('small-footer-bg-color'); ?>;
+	border-top-color: <?php echo get_theme_mod('small-footer-bg-color'); ?>;
 }
 
 /**

@@ -28,15 +28,17 @@
 								<?php bloginfo( 'name' ); ?>
 							</a>        
 			  			</h1>
-			  			<h2 class="site-description">
-							<?php 
-								if(	get_bloginfo( 'description' ) !== ""){
-									echo ' <span class="desc-sep">|</span><span class="blog-description site-description">';
-									bloginfo( 'description' );
-									echo '</span>';
-								}
-							?>
-			  			</h2>
+			  			<?php if( get_theme_mod( 'display_description_text' )) { ?>
+				  			<h2 class="site-description">
+								<?php 
+									if(	get_bloginfo( 'description' ) !== ""){
+										echo ' <span class="desc-sep">|</span><span class="blog-description site-description">';
+										bloginfo( 'description' );
+										echo '</span>';
+									}
+								?>
+				  			</h2>
+			  			<?php } //end if ?>
 
 		  			<?php } ?>
 

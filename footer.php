@@ -38,15 +38,32 @@
           	<?php } ?>
         <footer id="colophon" role="contentinfo">
         	<div class="footer-bottom-container">
-                <div class="site-info col-md-6 col-sm-6 col-xl-6 col-xs-12">
-                    <?php do_action( 'ultimate_credits' ); ?>
-                    <a href="<?php echo esc_url( __( 'http://wordpress.org/', 'ultimate' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'ultimate' ); ?>"><?php printf( __( 'Proudly powered by %s', 'ultimate' ), 'WordPress' ); ?></a>
-                </div><!-- .site-info -->
-                <div class="footer-menu col-md-6 col-sm-6 col-xl-6 col-xs-12">
-                    <?php if ( has_nav_menu( 'footer-menu' ) ) {
-                        wp_nav_menu( array( 'theme_location' => 'footer-menu', 'menu_class' => 'nav-menu','depth' => 1 ) ); 
-                    } ?>
-                </div>
+
+                <?php 
+                    // Change footer class w.r.t. to copyright text
+                    if( (get_theme_mod( 'hide_copyright' ) == '') && (has_nav_menu( 'footer-menu' ) ) ) { 
+                        $footer_class = "col-md-6 col-sm-6 col-xl-6 col-xs-12";
+                    } 
+                    else { 
+                        $footer_class = "col-md-12 col-sm-12 col-xl-12 col-xs-12";
+                    } 
+                ?>
+                <?php if( get_theme_mod( 'hide_copyright' ) == '') { ?>
+                    <div class="site-info <?php echo $footer_class; ?>">
+                        <?php if( get_theme_mod( 'copyright_text_link' ) == '') { ?>
+                            <?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?>
+                        <?php } else { ?>
+                            <a href="<?php echo get_theme_mod( 'copyright_text_link', 'http://www.brainstormforce.com/' ); ?>" title="<?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?>"><?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?></a>
+                        <?php } // end if ?>
+                    </div><!-- .site-info -->
+                <?php } // end if ?>
+
+                <?php if ( has_nav_menu( 'footer-menu' ) ) { ?>
+                    <div class="footer-menu <?php echo $footer_class; ?>">                    
+                        <?php wp_nav_menu( array( 'theme_location' => 'footer-menu', 'menu_class' => 'nav-menu','depth' => 1 ) ); ?>                  
+                    </div>
+                <?php } // end if ?>
+
 			</div>
         </footer><!-- #colophon -->
        </div>
