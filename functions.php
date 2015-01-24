@@ -684,4 +684,6 @@ function ultimate_gallery( $post_id , $post_content ) {
 	endif; 
 }
 endif; 
+
+
 ?>
