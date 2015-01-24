@@ -537,13 +537,13 @@ footer[role="contentinfo"] .footer-bottom-container {
 
 	/* 4 Grid */
 	.site-content.grid-4 .blog-masonry .post {
-		margin: 0 10px 30px;
+		margin: 0 15px 30px;
 		width: calc(25% - 20px);
 	}
 	.site-content.grid-4 .blog-masonry .post .entry-summary {
 		padding: 20px;
 	}
-
+	.site-content.grid-2 .blog-masonry,
 	.site-content.grid-3 .blog-masonry,
 	.site-content.grid-4 .blog-masonry {
 		margin-left: -15px;

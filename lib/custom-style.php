@@ -290,12 +290,12 @@ article.post-password-required input[type=submit],
 	background:<?php echo get_theme_mod('site-color'); ?>;
 }
 .format-aside .aside {
-	border-left: 22px solid <?php echo get_theme_mod('site-color'); ?>;
+	border-left-color: <?php echo get_theme_mod('site-color'); ?>;
 }
 @media only screen and (min-width: 768px) {
 	.main-navigation .nav-menu .sub-menu, 
 	.main-navigation .nav-menu .children {
-		border-top: 2px solid <?php echo get_theme_mod('site-color'); ?>;
+		border-top-color: <?php echo get_theme_mod('site-color'); ?>;
 	}
 	.main-navigation .nav-menu .sub-menu li a:hover, 
 	.main-navigation .nav-menu .children li a:hover {
@@ -415,7 +415,7 @@ h1.entry-title {
 	}
 	.main-navigation .nav-menu .sub-menu, 
 	.main-navigation .nav-menu .children {
-		border-top: 2px solid <?php echo get_theme_mod('child-menu-hover-bg-color'); ?>;
+		border-top-color: <?php echo get_theme_mod('child-menu-hover-bg-color'); ?>;
 	}
 }
 
