@@ -129,7 +129,6 @@ function ultimate_scripts_styles() {
 	if ( get_theme_mod('blog_layout') !== 'normal' ) {
 		if ( is_home() || is_front_page() || is_archive() || is_search() || is_category() ) {
 			wp_enqueue_script('jquery-masonry');
-			add_action('wp_footer', 'ultimate_masonry_blog');
 		}
 	}
 
@@ -138,8 +137,12 @@ function ultimate_scripts_styles() {
 	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/js/slick.min.js' );
     wp_enqueue_script( 'slick-slider-script' );
 
+    // Smooth Scroll
 	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/SmoothScroll.js' );
-    wp_enqueue_script( 'smooth-scroll-script' );
+	$smooth_scroll = get_theme_mod( 'smooth_scroll' );
+   	if($smooth_scroll) {
+   		wp_enqueue_script( 'smooth-scroll-script' );
+	}
 	
     wp_register_script('jquery.functions', get_template_directory_uri() . '/js/functions.js', array('jquery'),'1.0.0',true);
     wp_enqueue_script('jquery.functions');
@@ -488,6 +491,45 @@ function ultimate_masonry_blog() {
 	</script>
 <?php
 }
+if ( get_theme_mod('blog_layout') !== 'normal' ) {
+	if ( is_home() || is_front_page() || is_archive() || is_search() || is_tag() || is_category() ) {
+		add_action('wp_footer', 'ultimate_masonry_blog');
+	}
+}
+
+/**
+ * Include Scroll To Top Feature
+ *
+ * @since Ultimate 1.0
+ */
+function ultimate_scroll_to_top() {
+?>
+	<script type="text/javascript">
+		jQuery(function() {
+		  jQuery('a[href*=#]:not([href=#])').click(function() {
+		    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+		      var target = jQuery(this.hash);
+		      target = target.length ? target : jQuery('[name=' + this.hash.slice(1) +']');
+		      if (target.length) {
+		        jQuery('html,body').animate({
+		          scrollTop: target.offset().top
+		        }, 1000);
+		        return false;
+		      }
+		    }
+		  });
+		});
+	</script>
+	<a class="ult-scroll-top" href="#page"><span class="ent entarrow-up6"></span></a>
+	<!--End Smooth Scroll-->
+<?php
+}
+$scroll_to_top = get_theme_mod( 'scroll_to_top' );
+if($scroll_to_top) {
+	add_action('wp_footer', 'ultimate_scroll_to_top');
+}
+
+
 
 /* Adds a meta box to the post editing screen */
 function ult_custom_meta() {

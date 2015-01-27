@@ -1258,6 +1258,42 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting(
+    	'smooth_scroll',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'smooth_scroll',
+		array(
+			'label' => 'Enable Smooth Header',
+			'section' => 'general_advanced',
+			'description' =>  '',
+			'type'        => 'checkbox',
+			'priority' => 1,
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'scroll_to_top',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'scroll_to_top',
+		array(
+			'label' => 'Enable Scroll To Top',
+			'section' => 'general_advanced',
+			'description' =>  '',
+			'type'        => 'checkbox',
+			'priority' => 1,
+		)
+	);
+
 
 	//==========================
 	// Background Image

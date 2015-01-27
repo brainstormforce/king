@@ -268,7 +268,8 @@ input[type="submit"],
 input[type="button"], 
 input[type="reset"], 
 article.post-password-required input[type=submit], 
-.bypostauthor cite span {
+.bypostauthor cite span,
+.ult-scroll-top {
 	border-color:<?php echo get_theme_mod('site-color'); ?>;
 }
 button#searchsubmit, 
@@ -285,6 +286,7 @@ article.post-password-required input[type=submit],
 .bypostauthor cite span, 
 .ultimate-pagination a, 
 .ultimate-pagination .current,
+.ult-scroll-top,
 .widget_tag_cloud .tagcloud a:hover,
 .main-footer .widget_tag_cloud .tagcloud a:hover {
 	background:<?php echo get_theme_mod('site-color'); ?>;
