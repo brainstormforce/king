@@ -42,27 +42,6 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 		$selectbackgrnd = isset( $instance['backgrounds'] ) ? $instance['backgrounds'] : __( '', 'ultimate' );
 		$image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'ultimate' );
 		$color = isset( $instance['color'] ) ? $instance['color'] : __( '', 'ultimate' );
-		$bckgrndSize = $instance['bckgrndSize'] ;	
-        $cover = isset( $instance['cover'] ) ? $instance['cover'] : __( '', 'ultimate' );
-        $color = isset( $instance['contain'] ) ? $instance['contain'] : __( '', 'ultimate' );
-        $color = isset( $instance['initial'] ) ? $instance['initial'] : __( '', 'ultimate' );
-        $bckgrndPos = $instance['bckgrndPos'] ;	
-        $fixed = isset( $instance['fixed'] ) ? $instance['fixed'] : __( '', 'ultimate' );
-        $top = isset( $instance['top'] ) ? $instance['top'] : __( '', 'ultimate' );
-        $bottom = isset( $instance['bottom'] ) ? $instance['bottom'] : __( '', 'ultimate' );
-        $left = isset( $instance['left'] ) ? $instance['left'] : __( '', 'ultimate' );
-        $right = isset( $instance['right'] ) ? $instance['right'] : __( '', 'ultimate' );
-        $bckgrndAttc = $instance['bckgrndAttc'] ;	
-        $fixed = isset( $instance['fixed'] ) ? $instance['fixed'] : __( '', 'ultimate' );
-        $top = isset( $instance['top'] ) ? $instance['top'] : __( '', 'ultimate' );
-        $bckgrndRpt = $instance['bckgrndRpt'] ;	
-        $repeat = isset( $instance['repeat'] ) ? $instance['repeat'] : __( '', 'ultimate' );
-        $repeatx = isset( $instance['repeat-x'] ) ? $instance['repeat-x'] : __( '', 'ultimate' );
-        $repeaty = isset( $instance['repeat-y'] ) ? $instance['repeat-y'] : __( '', 'ultimate' );
-        $repeatnone = isset( $instance['none'] ) ? $instance['none'] : __( '', 'ultimate' );
-		
-        echo $bckgrndSize;
-        echo $bckgrndPos;
 	   // Display the widget
 	   echo $before_widget;
 
@@ -104,11 +83,9 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 						}
 						else if ( $selectbackgrnd == 'Image' && $image && has_post_thumbnail() ) {
 							$widget_bg_image = esc_url($instance['image']);
-							$widget_bg_size = esc_url($instance['cover']);
 						} ?>
 
-						<div class="widget-thumbnail" style="background: url('<?php echo $widget_bg_image; ?>');background-size: <?php echo $bckgrndSize;?>;
-							background-position: <?php echo $bckgrndPos;?>; background-attachment: <?php echo $bckgrndAttc;?>; background-repeat: <?php echo $bckgrndRpt; ?>"></div>
+						<div class="widget-thumbnail" style="background: url('<?php echo $widget_bg_image; ?>')"></div>
 
 				  <?php } else if ( $selectbackgrnd == 'Color' && $color ) { 
 				  	     echo "hi";
@@ -145,30 +122,9 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
         $backgrounds = $instance['backgrounds'] ;	
         $image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'ultimate' );
         $color = isset( $instance['color'] ) ? $instance['color'] : __( '', 'ultimate' );
-        $bckgrndSize = $instance['bckgrndSize'] ;	
-        $cover = isset( $instance['cover'] ) ? $instance['cover'] : __( '', 'ultimate' );
-        $color = isset( $instance['contain'] ) ? $instance['contain'] : __( '', 'ultimate' );
-        $color = isset( $instance['initial'] ) ? $instance['initial'] : __( '', 'ultimate' );
-        $bckgrndPos = $instance['bckgrndPos'] ;	
-        $fixed = isset( $instance['fixed'] ) ? $instance['fixed'] : __( '', 'ultimate' );
-        $top = isset( $instance['top'] ) ? $instance['top'] : __( '', 'ultimate' );
-        $bottom = isset( $instance['bottom'] ) ? $instance['bottom'] : __( '', 'ultimate' );
-        $left = isset( $instance['left'] ) ? $instance['left'] : __( '', 'ultimate' );
-        $right = isset( $instance['right'] ) ? $instance['right'] : __( '', 'ultimate' );
-        $bckgrndAttc = $instance['bckgrndAttc'] ;	
-        $fixed = isset( $instance['fixed'] ) ? $instance['fixed'] : __( '', 'ultimate' );
-        $top = isset( $instance['top'] ) ? $instance['top'] : __( '', 'ultimate' );
-        $bckgrndRpt = $instance['bckgrndRpt'] ;	
-        $repeat = isset( $instance['repeat'] ) ? $instance['repeat'] : __( '', 'ultimate' );
-        $repeatx = isset( $instance['repeat-x'] ) ? $instance['repeat-x'] : __( '', 'ultimate' );
-        $repeaty = isset( $instance['repeat-y'] ) ? $instance['repeat-y'] : __( '', 'ultimate' );
-        $repeatnone = isset( $instance['none'] ) ? $instance['none'] : __( '', 'ultimate' );
-     
-        echo $bckgrndSize;
-        echo $image;
-        echo $color;
-        echo $bckgrndPos;
-        echo $fixed1;
+        //echo $backgrounds;
+        //echo $image;
+        //echo $color;
       	
 		?>
 
@@ -200,8 +156,6 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
         </select>                
       </label>
 
-
-
     <?php if( $backgrounds == 'Image') {?>
     	<div class="imageBox" style="display:block;">
 			<p>
@@ -215,44 +169,6 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 				<input type="text" class="widefat ultimate_media_url" name="<?php echo $this->get_field_name('image'); ?>" id="<?php echo $this->get_field_id('image'); ?>" value="<?php echo $image; ?>" style="display: none;">
 				<input type="button" class="button button-primary ultimate_media_button" id="ultimate_media_button" name="<?php echo $this->get_field_name('image'); ?>" value="Upload Image" style="margin-top:5px;" />
 			</p>
-			
-				<label for="<?php echo $this->get_field_id('bckgrndSize'); ?>">Background Size
-					<?php $uid = uniqid(); ?>
-					<select class='widefat' id="<?php //echo $this->get_field_id('backgrounds'); ?>bckgrndSize_<?php echo $uid;  ?>" name="<?php echo $this->get_field_name('bckgrndSize'); ?>" type="text">
-					<option value='cover'<?php echo ($bckgrndSize =='cover')?'selected':''; ?>>cover</option>
-					<option value='contain'<?php echo ($bckgrndSize =='contain')?'selected':''; ?>>contain</option> 
-					<option value='initial'<?php echo ($bckgrndSize =='initial')?'selected':''; ?>>initial</option> 
-					</select>                
-				</label>
-			    <label for="<?php echo $this->get_field_id('bckgrndPos'); ?>">Background Position 
-					<?php $uid = uniqid(); ?>
-					<select class='widefat' id="<?php //echo $this->get_field_id('backgrounds'); ?>bckgrndPos_<?php echo $uid;  ?>" name="<?php echo $this->get_field_name('bckgrndPos'); ?>" type="text">
-					<option value='fixed'<?php echo ($bckgrndPos =='fixed')?'selected':''; ?>>fixed</option>
-					<option value='top'<?php echo ($bckgrndPos =='top')?'selected':''; ?>>top</option> 
-					<option value='bottom'<?php echo ($bckgrndPos =='bottom')?'selected':''; ?>>bottom</option>
-					<option value='left'<?php echo ($bckgrndPos =='left')?'selected':''; ?>>left</option> 
-					<option value='right'<?php echo ($bckgrndPos =='right')?'selected':''; ?>>right</option>
-					</select>                
-				</label>
-			
-				<label for="<?php echo $this->get_field_id('bckgrndAttc'); ?>">Background Attachment 
-					<?php $uid = uniqid(); ?>
-					<select class='widefat' id="<?php //echo $this->get_field_id('backgrounds'); ?>bckgrndAttc_<?php echo $uid;  ?>" name="<?php echo $this->get_field_name('bckgrndAttc'); ?>" type="text">
-					<option value='fixed'<?php echo ($bckgrndPos =='fixed')?'selected':''; ?>>fixed</option>
-					<option value='scroll'<?php echo ($bckgrndPos =='scroll')?'selected':''; ?>>scroll</option> 
-					</select>                
-				</label>
-
-				<label for="<?php echo $this->get_field_id('bckgrndRpt'); ?>">Background Position 
-					<?php $uid = uniqid(); ?>
-					<select class='widefat' id="<?php //echo $this->get_field_id('backgrounds'); ?>bckgrndRpt_<?php echo $uid;  ?>" name="<?php echo $this->get_field_name('bckgrndRpt'); ?>" type="text">
-					<option value='repeat'<?php echo ($bckgrndRpt =='repeat')?'selected':''; ?>>repeat</option>
-					<option value='repeat-x'<?php echo ($bckgrndRpt =='repeat-x')?'selected':''; ?>>repeat-x</option> 
-					<option value='repeat-y'<?php echo ($bckgrndRpt =='repeat-y')?'selected':''; ?>>repeat-y</option>
-					<option value='none'<?php echo ($bckgrndRpt =='none')?'selected':''; ?>>none</option> 
-					</select>                
-				</label>
-						
 		</div>
 	<?php  }elseif ( $backgrounds == 'Color') { ?>
     <div class="colorBox" style="display:block;">
@@ -274,18 +190,17 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 				<input type="text" class="widefat ultimate_media_url" name="<?php echo $this->get_field_name('image'); ?>" id="<?php echo $this->get_field_id('image'); ?>" value="<?php echo $image; ?>" style="display: none;">
 				<input type="button" class="button button-primary ultimate_media_button" id="ultimate_media_button" name="<?php echo $this->get_field_name('image'); ?>" value="Upload Image" style="margin-top:5px;" />
 			</p>
-			<P>
-				 <label for="<?php echo $this->get_field_id('bckgrndSize'); ?>">Select Background 
-					<?php $uid = uniqid(); ?>
-					<select class='widefat' id="<?php //echo $this->get_field_id('backgrounds'); ?>backgroundSize_<?php echo $uid;  ?>" name="<?php echo $this->get_field_name('bckgrndSize'); ?>" type="text">
-					<option value='cover'<?php echo ($bckgrndSize =='cover')?'selected':''; ?>>cover</option>
-					<option value='contain'<?php echo ($bckgrndSize =='contain')?'selected':''; ?>>contain</option> 
-					<option value='initial'<?php echo ($bckgrndSize =='initial')?'selected':''; ?>>initial</option> 
+			<p>
+				<label for="<?php echo $this->get_field_id('imagebackgrounds'); ?>">Background Size 
+				<?php $uid = uniqid(); ?>
+					<select class='widefat' id="<?php //echo $this->get_field_id('backgrounds'); ?>backgroundSize" name="<?php echo $this->get_field_name('backgrounds'); ?>" type="text">
+					<option value='Cover'<?php echo ($backgrounds =='Cover')?'selected':''; ?>>Cover</option>
+					<option value='Contain'<?php echo ($backgrounds =='Contain')?'selected':''; ?>>Contain</option> 
+					<option value='Initial'<?php echo ($backgrounds =='Initial')?'selected':''; ?>>Initial</option> 
 					</select>                
 				</label>
-			</p>
 
-		
+			</p>
 		</div>
 
 		<div class="colorBox" style="display:none;">
@@ -360,25 +275,6 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 		$instance['backgrounds'] = ( isset( $new_instance['backgrounds'] ) ) ? strip_tags( $new_instance['backgrounds'] ) : '';
 		$instance['image'] = ( isset( $new_instance['image'] ) ) ? strip_tags( $new_instance['image'] ) : '';
 		$instance['color'] = ( isset( $new_instance['color'] ) ) ? strip_tags( $new_instance['color'] ) : '';
-		$instance['bckgrndSize'] = ( isset( $new_instance['bckgrndSize'] ) ) ? strip_tags( $new_instance['bckgrndSize'] ) : '';
-		$instance['cover'] = ( isset( $new_instance['cover'] ) ) ? strip_tags( $new_instance['cover'] ) : '';
-		$instance['contain'] = ( isset( $new_instance['contain'] ) ) ? strip_tags( $new_instance['contain'] ) : '';
-		$instance['initial'] = ( isset( $new_instance['initial'] ) ) ? strip_tags( $new_instance['initial'] ) : '';
-		$instance['bckgrndPos'] = ( isset( $new_instance['bckgrndPos'] ) ) ? strip_tags( $new_instance['bckgrndPos'] ) : '';
-		$instance['fixed'] = ( isset( $new_instance['fixed'] ) ) ? strip_tags( $new_instance['fixed'] ) : '';
-		$instance['top'] = ( isset( $new_instance['top'] ) ) ? strip_tags( $new_instance['top'] ) : '';
-		$instance['bottom'] = ( isset( $new_instance['bottom'] ) ) ? strip_tags( $new_instance['bottom'] ) : '';
-		$instance['left'] = ( isset( $new_instance['left'] ) ) ? strip_tags( $new_instance['left'] ) : '';
-		$instance['right'] = ( isset( $new_instance['right'] ) ) ? strip_tags( $new_instance['right'] ) : '';
-		$instance['bckgrndAttc'] = ( isset( $new_instance['bckgrndAttc'] ) ) ? strip_tags( $new_instance['bckgrndAttc'] ) : '';
-		$instance['fixed'] = ( isset( $new_instance['fixed'] ) ) ? strip_tags( $new_instance['fixed'] ) : '';
-		$instance['top'] = ( isset( $new_instance['top'] ) ) ? strip_tags( $new_instance['top'] ) : '';
-		$instance['bckgrndRpt'] = ( isset( $new_instance['bckgrndRpt'] ) ) ? strip_tags( $new_instance['bckgrndRpt'] ) : '';
-		$instance['repeat'] = ( isset( $new_instance['repeat'] ) ) ? strip_tags( $new_instance['repeat'] ) : '';
-		$instance['repeat-x'] = ( isset( $new_instance['repeat-x'] ) ) ? strip_tags( $new_instance['repeat-x'] ) : '';
-		$instance['repeat-y'] = ( isset( $new_instance['repeat-y'] ) ) ? strip_tags( $new_instance['repeat-y'] ) : '';
-		$instance['none'] = ( isset( $new_instance['none'] ) ) ? strip_tags( $new_instance['none'] ) : '';
-		
 		return $instance;
 	}
 
