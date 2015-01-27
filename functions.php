@@ -126,9 +126,11 @@ function ultimate_scripts_styles() {
     //wp_enqueue_script('jquery.bootstrap.min');
 	
 	// Load Masonry Javascript
-	if ( get_theme_mod('blog_layout') !== 'normal' ) {
+	$masonry_blog_layout = get_theme_mod('blog_layout');
+	if ( $masonry_blog_layout !== 'normal' ) {
 		if ( is_home() || is_front_page() || is_archive() || is_search() || is_category() ) {
 			wp_enqueue_script('jquery-masonry');
+			add_action('wp_footer', 'ultimate_masonry_blog');
 		}
 	}
 
@@ -491,11 +493,7 @@ function ultimate_masonry_blog() {
 	</script>
 <?php
 }
-if ( get_theme_mod('blog_layout') !== 'normal' ) {
-	if ( is_home() || is_front_page() || is_archive() || is_search() || is_tag() || is_category() ) {
-		add_action('wp_footer', 'ultimate_masonry_blog');
-	}
-}
+
 
 /**
  * Include Scroll To Top Feature

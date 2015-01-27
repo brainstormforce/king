@@ -249,6 +249,7 @@ function ultimate_customize_register( $wp_customize ) {
 				'grid-2' => 'Grid - 2 Column Layout',
 				'grid-3' => 'Grid - 3 Column Layout W/O Sidebar',
 				'grid-4' => 'Grid - 4 Column Layout W/O Sidebar',
+				'banner-blog-2' => 'Image Banner - Grid 2 Column Layout',
 			),
 		)
 	);
@@ -360,6 +361,7 @@ function ultimate_customize_register( $wp_customize ) {
 	    'copyright_textbox',
 	    array(
 	        'default' => 'Proudly powered by WP Shark @BRAINSTORM',
+	        'sanitize_callback' => 'ultimate_sanitize_callback',
 	    )
 	);
 	$wp_customize->add_control(
@@ -375,6 +377,7 @@ function ultimate_customize_register( $wp_customize ) {
 	    'copyright_text_link',
 	    array(
 	        'default' => 'http://brainstormforce.com/',
+	        'sanitize_callback' => 'ultimate_sanitize_callback',
 	    )
 	);
 	$wp_customize->add_control(
@@ -387,13 +390,17 @@ function ultimate_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-	    'hide_copyright'
+	    'display_copyright',
+	    array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
 	);
 	$wp_customize->add_control(
-	    'hide_copyright',
+	    'display_copyright',
 	    array(
 	        'type' => 'checkbox',
-	        'label' => 'Hide copyright text',
+	        'label' => 'Display copyright text',
 	        'section' => 'footer_settings',
 	    )
 	);
@@ -1327,6 +1334,7 @@ function ultimate_customize_register( $wp_customize ) {
 		'reset_settings', 
 		array(
 		    'default' => '',
+		    'sanitize_callback' => 'ultimate_sanitize_callback',
 		) 
 	);
 	$wp_customize->add_control(

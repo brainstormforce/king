@@ -19,15 +19,17 @@ $blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 $cls = ($blog_layout !== 'grid-3' && $blog_layout !== 'grid-4') ? 'col-md-9 col-sm-8 col-xl-12 col-xs-12' : 'col-md-12 col-sm-12 col-xl-12 col-xs-12';
 ?>
 	<div id="primary" class="site-content <?php echo $cls.' '.$blog_layout; ?>">
-		<div id="content" role="main" class="<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4'): ?> blog-masonry <?php else: ?> blog-normal <?php endif; ?> clear">
+		<div id="content" role="main" class="<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4' || $blog_layout == 'banner-blog-2'): ?> blog-masonry <?php else: ?> blog-normal <?php endif; ?> clear">
 		<?php if ( have_posts() ) : ?>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
-            	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4'): ?>
+            	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') { ?>
 					<?php get_template_part( 'content', 'grid' ); ?>
-                <?php else: ?>
+				<?php } else if($blog_layout == 'banner-blog-2' || $blog_layout == 'banner-blog-3' || $blog_layout == 'banner-blog-4') { ?>
+					<?php get_template_part( 'content', 'banner' ); ?>
+                <?php } else { ?>
                 	<?php get_template_part( 'content', get_post_format() ); ?>
-                <?php endif; ?>
+                <?php } ?>
 			<?php endwhile; ?>
 		<?php else : ?>
 			<article id="post-0" class="post no-results not-found">
