@@ -39,11 +39,9 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 		// Check values		
 		$title =  isset( $instance['title'] ) ? apply_filters('widget_title', $instance['title']) : __( '', 'ultimate' );
 		$selectbox = isset( $instance['selectbox'] ) ? $instance['selectbox'] : __( '', 'ultimate' );
-		$selectbackgrnd = isset( $instance['backgrounds'] ) ? $instance['backgrounds'] : __( '', 'ultimate' );	
+		$selectbackgrnd = isset( $instance['backgrounds'] ) ? $instance['backgrounds'] : __( '', 'ultimate' );
 		$image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'ultimate' );
-		echo $image;
 		$color = isset( $instance['color'] ) ? $instance['color'] : __( '', 'ultimate' );
-		echo $color;
 	   // Display the widget
 	   echo $before_widget;
 
@@ -74,7 +72,7 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 
 					<?php 
 
-					    if ( $image || has_post_thumbnail() ) {
+					    if ( $selectbackgrnd == 'Image' && $image || has_post_thumbnail() ) {
 
 						if ( $image ) {
 							$widget_bg_image = esc_url($instance['image']);
@@ -83,19 +81,19 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'ultimate' ); 
 							$widget_bg_image = $featured_image[0];
 						}
-						else if ( $image && has_post_thumbnail() ) {
+						else if ( $selectbackgrnd == 'Image' && $image && has_post_thumbnail() ) {
 							$widget_bg_image = esc_url($instance['image']);
 						} ?>
 
 						<div class="widget-thumbnail" style="background: url('<?php echo $widget_bg_image; ?>')"></div>
 
-					<?php }elseif ( $color ) { 
+				  <?php } else if ( $selectbackgrnd == 'Color' && $color ) { 
+				  	     echo "hi";
 
 						$widget_bg_color = esc_url($instance['color']); ?>
 
-						<div class="widget-thumbnail" style="background:<?php echo $widget_bg_color; ?>"></div>
-						
-					<?php } ?>
+						<div class="widget-thumbnail" style="background:<?php echo $widget_bg_color; ?>"></div> 
+					<?php }	?>
 					
 				</article><!-- #post -->
 
@@ -124,9 +122,9 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
         $backgrounds = $instance['backgrounds'] ;	
         $image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'ultimate' );
         $color = isset( $instance['color'] ) ? $instance['color'] : __( '', 'ultimate' );
-        echo $backgrounds;
-        echo $image;
-        echo $color;
+        //echo $backgrounds;
+        //echo $image;
+        //echo $color;
       	
 		?>
 
