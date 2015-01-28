@@ -309,10 +309,7 @@ article.post-password-required input[type=submit],
 * 3.2 Theme Text Color
 */
 body,
-.entry-content p, 
-.entry-summary p, 
-.comment-content p, 
-.mu_register p {
+p {
 	color: <?php echo get_theme_mod('site-text-color'); ?>;
 }
 
