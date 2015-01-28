@@ -79,7 +79,7 @@ jQuery(function ($) {
 
         event.preventDefault();
 
-        var modal = new fw.OptionsModal({
+        var modal = new ultimate.OptionsModal({
             title: 'Select Icon',
             options: [{
                 icon: {
@@ -109,12 +109,12 @@ jQuery(function ($) {
         // Resize icon list to fit entire window
         function resizeIconList()
         {
-            var option = modal.frame.$el.find('#fw-backend-option-fw-edit-options-modal-icon');
+            var option = modal.frame.$el.find('#ultimate-edit-options-modal-icon');
             var frame_content = option.closest('.media-frame-content');
-            var icon_list = option.find('.js-option-type-icon-list');
+            var icon_list = option.find('.fontawesome-icon-list');
 
             // get rid of bottom border
-            option.closest('.fw-row').css('border-bottom', 'none');
+            option.closest('.ultimate-row').css('border-bottom', 'none');
 
             // resize icon list to fit entire window
             icon_list.css('max-height', 'none').height(1000000);
@@ -142,15 +142,15 @@ jQuery(function ($) {
         $(this).closest('.field-mega-menu-icon').find('input').val('').change();
     });
 
-	// The problem is in using **change** event for initialization.
-	//
-	// Internally WordPress listen this inputs for **change** event
-	// and sets **menuChanged** flag. It also sets window.onbeforeunload handler
-	// which decides whether or not display
-	//
-	//     "The changes you made will be lost if you navigate away from this page."
-	//
-	// dialog based on this flag.
-	wpNavMenu.menusChanged = false;
+    // The problem is in using **change** event for initialization.
+    //
+    // Internally WordPress listen this inputs for **change** event
+    // and sets **menuChanged** flag. It also sets window.onbeforeunload handler
+    // which decides whether or not display
+    //
+    //     "The changes you made will be lost if you navigate away from this page."
+    //
+    // dialog based on this flag.
+    wpNavMenu.menusChanged = false;
 
 });

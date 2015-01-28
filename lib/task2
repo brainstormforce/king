@@ -1,0 +1,165 @@
+	<script>
+		jQuery(document).ready(function(){
+			var select = jQuery("#selectBoxId_<?php echo $uid;  ?>");
+			//alert(select);
+			var data = jQuery(this).val();
+			//alert(select);
+			jQuery('body').on('change','#selectBoxId_<?php echo $uid;  ?>',function(){
+				var data = jQuery(this).val();
+				switch(data){
+					case 'bgimage':
+						jQuery(document).trigger('image_uploader_selected');
+						// jQuery(this).find("#selecttext").val('bgimage');
+						//alert('1');
+						break;
+
+					case 'bgcolor':
+						jQuery(document).trigger('color_picker_selected');
+						jQuery("#selecttext").val('bgcolor');
+						break;
+					case 'bgnone':
+						jQuery(document).trigger('no_selection');
+						 jQuery("#selecttext").val('bgnone');
+						break;
+				}
+			});
+		});
+
+		jQuery(document).on('image_uploader_selected',function(){
+			//console.log(jQuery("#selectBoxId_<?php echo $uid;  ?>"));
+			//jQuery(".imageBox").
+			var p = jQuery(this).find("#selectBoxId_<?php echo $uid;  ?> :selected").val();
+			alert(p);
+			jQuery(".bgnone").css("display", "none");
+            jQuery(".imageBox").css("display", "block");
+            jQuery(".colorBox").css("display", "none"); 
+		});
+
+		jQuery(document).on('color_picker_selected',function(){
+			 jQuery(".bgnone").css("display", "none");
+             jQuery(".imageBox").css("display", "none");
+             jQuery(".colorBox").css("display", "block"); 
+		});
+
+		jQuery(document).on('no_selection',function(){
+			 jQuery(".bgnone").css("display", "none");
+             jQuery(".imageBox").css("display", "none");
+             jQuery(".colorBox").css("display", "none"); 
+		});
+
+		jQuery(document).ready(function($) {
+		$('.my-color-picker').wpColorPicker();
+		});
+		
+		</script>
+		..........................................
+
+
+
+/**************CUSTOM NEW888*******************/
+class My_City extends WP_Widget {
+ 
+  public function __construct() {
+      $widget_ops = array('classname' => 'My_City', 'description' => 'Displays a city!' );
+      $this->WP_Widget('My_City', 'My city', $widget_ops);
+  }
+  
+  function widget($args, $instance) {
+    // PART 1: Extracting the arguments + getting the values
+    extract($args, EXTR_SKIP);
+    $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
+    $city = empty($instance['city']) ? '' : $instance['city'];
+
+    // Before widget code, if any
+    echo (isset($before_widget)?$before_widget:'');
+   
+    // PART 2: The title and the text output
+    if (!empty($title))
+      echo $before_title . $title . $after_title;;
+    if (!empty($city))
+      echo $city;
+   
+    // After widget code, if any  
+    echo (isset($after_widget)?$after_widget:'');
+  }
+ 
+  public function form( $instance ) {
+   
+     // PART 1: Extract the data from the instance variable
+     $instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
+     $title = $instance['title'];
+     $city = $instance['city'];   
+   
+     // PART 2-3: Display the fields
+     ?>
+     <!-- PART 2: Widget Title field START -->
+     <p>
+      <label for="<?php echo $this->get_field_id('title'); ?>">Title: 
+        <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" 
+               name="<?php echo $this->get_field_name('title'); ?>" type="text" 
+               value="<?php echo attribute_escape($title); ?>" />
+      </label>
+      </p>
+      <!-- Widget Title field END -->
+   
+     <!-- PART 3: Widget City field START -->
+     <p>
+      <label for="<?php echo $this->get_field_id('text'); ?>">City: 
+        <select class='widefat' id="<?php echo $this->get_field_id('city'); ?>"
+                name="<?php echo $this->get_field_name('city'); ?>" type="text">
+          <option value='New York'<?php echo ($city=='New York')?'selected':''; ?>>
+            New York
+          </option>
+          <option value='Los Angeles'<?php echo ($city=='Los Angeles')?'selected':''; ?>>
+            Los Angeles
+          </option> 
+          <option value='Boston'<?php echo ($city=='Boston')?'selected':''; ?>>
+            Boston
+          </option> 
+        </select>                
+      </label>
+     </p>
+     <!-- Widget City field END -->
+     <?php
+   
+  }
+ 
+  function update($new_instance, $old_instance) {
+    $instance = $old_instance;
+    $instance['title'] = $new_instance['title'];
+    $instance['city'] = $new_instance['city'];
+    return $instance;
+  }
+  
+}
+
+add_action( 'widgets_init', create_function('', 'return register_widget("My_City");') );
+?>
+
+
+-------------------------------------------------------
+
+<div>
+		<div class="imageBox" style="display:none;">
+			<p>
+				<label for="<?php echo $this->get_field_id('image'); ?>">Background Image</label><br />
+					<?php
+					if ( $image != '' ) {
+					echo '<img class="ultimate_media_image" src="' . $image . '" style="margin:10px 0;padding:0;max-width:100%;float:left;display:inline-block" /><br />';
+					}
+					?>
+				<input type="text" class="widefat ultimate_media_url" name="<?php echo $this->get_field_name('image'); ?>" id="<?php echo $this->get_field_id('image'); ?>" value="<?php echo $image; ?>" style="display: none;">
+				<input type="button" class="button button-primary ultimate_media_button" id="ultimate_media_button" name="<?php echo $this->get_field_name('image'); ?>" value="Upload Image" style="margin-top:5px;" />
+			</p>
+		</div>
+
+		<div class="colorBox" style="display:none;">
+			 <label for="<?php echo $this->get_field_id( 'background_color' ); ?>">Background Color</label><br />
+	         <input class="my-color-picker" type="text" id="<?php echo $this->get_field_id( 'background_color' ); ?>" name="<?php echo $this->get_field_name( 'background_color' ); ?>" value="<?php echo esc_attr( $instance['background_color'] );?>" />     
+     	</div>
+     </div>
+	<script>
+		jQuery(document).ready(function($) {
+		$('.my-color-picker').wpColorPicker();
+		});
+	</script>

@@ -9,9 +9,9 @@
  * @since Twenty Twelve 1.0
  */
 ?>
-	</div><!-- #main .wrapper -->
-	<div id="footer">
-			<?php
+    </div><!-- #main .wrapper -->
+    <div id="footer">
+            <?php
                 $sidebars = array("sidebar-footer-1", "sidebar-footer-2", "sidebar-footer-3", "sidebar-footer-4");
                 $n = 0;
                 foreach($sidebars as $key => $sidebar){
@@ -23,32 +23,32 @@
                 }
                 if($n !== 0){
                     $cols = 12 / $n;
-			?>
-			<div class="main-footer">
-				<div class="footer-widget-area">
+            ?>
+            <div class="main-footer">
+                <div class="footer-widget-area">
              <?php
                     foreach($sidebars as $key => $sidebar){
                         echo '<div class="col-sm-'.$cols.'">';
                         dynamic_sidebar($sidebar);
                         echo '</div>'; 
                     }
-			  ?>
-				</div>
-			</div>
-          	<?php } ?>
+              ?>
+                </div>
+            </div>
+            <?php } ?>
         <footer id="colophon" role="contentinfo">
-        	<div class="footer-bottom-container">
+            <div class="footer-bottom-container">
 
                 <?php 
                     // Change footer class w.r.t. to copyright text
-                    if( (get_theme_mod( 'display_copyright' ) != '') && (has_nav_menu( 'footer-menu' ) ) ) { 
+                    if( (get_theme_mod( 'hide_copyright' ) == '') && (has_nav_menu( 'footer-menu' ) ) ) { 
                         $footer_class = "col-md-6 col-sm-6 col-xl-6 col-xs-12";
                     } 
                     else { 
                         $footer_class = "col-md-12 col-sm-12 col-xl-12 col-xs-12";
                     } 
                 ?>
-                <?php if( get_theme_mod( 'display_copyright' ) != '') { ?>
+                <?php if( get_theme_mod( 'hide_copyright' ) == '') { ?>
                     <div class="site-info <?php echo $footer_class; ?>">
                         <?php if( get_theme_mod( 'copyright_text_link' ) == '') { ?>
                             <?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?>
@@ -64,7 +64,7 @@
                     </div>
                 <?php } // end if ?>
 
-			</div>
+            </div>
         </footer><!-- #colophon -->
        </div>
 </div><!-- #page -->

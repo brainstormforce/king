@@ -15,7 +15,7 @@
  *
  * If none of the sidebars have widgets, then let's bail early.
  */
-if ( ! is_active_sidebar( 'sidebar-front-1' ) && ! is_active_sidebar( 'sidebar-front-2' ) && ! is_active_sidebar( 'sidebar-front-3' ) )
+if ( ! is_active_sidebar( 'sidebar-3' ) && ! is_active_sidebar( 'sidebar-4' ) && ! is_active_sidebar( 'sidebar-5' ) )
 	return;
 
 
@@ -23,8 +23,9 @@ if ( ! is_active_sidebar( 'sidebar-front-1' ) && ! is_active_sidebar( 'sidebar-f
 ?>
 <div id="secondary" class="widget-area front-sidebar clear" role="complementary">
 
+
 	<?php
-        $front_sidebars = array("sidebar-front-1", "sidebar-front-2", "sidebar-front-3");
+        $front_sidebars = array("sidebar-3", "sidebar-4", "sidebar-5");
         $fn = 0;
         foreach($front_sidebars as $fkey => $front_sidebar){
             if(is_active_sidebar($front_sidebar)){
@@ -43,5 +44,26 @@ if ( ! is_active_sidebar( 'sidebar-front-1' ) && ! is_active_sidebar( 'sidebar-f
 		    }
 		} 
 	?>
+
+<?php /*
+	<?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
+	<div class="first front-widgets">
+		<?php dynamic_sidebar( 'sidebar-2' ); ?>
+	</div><!-- .first -->
+	<?php endif; ?>
+
+	<?php if ( is_active_sidebar( 'sidebar-3' ) ) : ?>
+	<div class="second front-widgets">
+		<?php dynamic_sidebar( 'sidebar-3' ); ?>
+	</div><!-- .second -->
+	<?php endif; ?>
+
+	<?php if ( is_active_sidebar( 'sidebar-4' ) ) : ?>
+	<div class="third front-widgets">
+		<?php dynamic_sidebar( 'sidebar-4' ); ?>
+	</div><!-- .second -->
+	<?php endif; ?>
+
+*/ ?>	
 
 </div><!-- #secondary -->

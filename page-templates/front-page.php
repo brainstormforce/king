@@ -16,9 +16,9 @@ get_header(); ?>
 				<?php get_template_part( 'content', 'page' ); ?>
 			<?php endwhile; // end of the loop. ?>
 
-			<?php if ( is_active_sidebar( 'sidebar-front-main' ) ) : ?>
+			<?php if ( is_active_sidebar( 'sidebar-2' ) ) : ?>
 				<div class="frontpage-main-widget-area clear">
-				<?php dynamic_sidebar( 'sidebar-front-main' ); ?>
+				<?php dynamic_sidebar( 'sidebar-2' ); ?>
 				</div><!-- .first -->
 			<?php endif; ?>
 

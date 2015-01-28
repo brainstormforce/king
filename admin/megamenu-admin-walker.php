@@ -181,7 +181,11 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 				</p>
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 <?php # Icon ?>
+
 				<p class="field-mega-menu-icon description description-wide empty">
+
+				<p class="field-mega-menu-icon description description-wide empty show-if-screen-options-icon" style="display:none;">
+
 					<label>
 						<?php _e('Icon', 'ultimate') ?><br />
 						<a href="#" class="button" data-action="mega-menu-pick-icon">
@@ -311,6 +315,7 @@ function update_mega_menu_meta($post, array $array)
 add_action('admin_enqueue_scripts','ult_megamenu_scripts');
 function ult_megamenu_scripts($hook){
 	if($hook == "nav-menus.php"){
+
 		wp_enqueue_script('ult-backend-options',get_template_directory_uri().'/admin/assets/js/backend-options.js','','',true);
 		wp_enqueue_script('ult-fw-events',get_template_directory_uri().'/admin/assets/js/fw-events.js','','',true);
 		wp_enqueue_script('ult-option-types',get_template_directory_uri().'/admin/assets/js/option-types.js','','',true);
@@ -321,6 +326,10 @@ function ult_megamenu_scripts($hook){
 		wp_localize_script('ult-fw', '_fw_localized', array(
 			'SITE_URI' => site_url(),
 		));
+
+		wp_enqueue_script('ult-admin',get_template_directory_uri().'/admin/assets/js/admin.js');
+		wp_enqueue_style('ult-admin',get_template_directory_uri().'/admin/assets/css/admin.css');
+
 	}
 }
 
