@@ -1,0 +1,49 @@
+<?php
+/**
+ * The template for displaying posts in the Status post format
+ *
+ * @package WordPress
+ * @subpackage Twenty_Twelve
+ * @since Twenty Twelve 1.0
+ */
+?>
+
+	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+		<div class="entry-summary">
+			<div class="entry-header">
+				<header>
+					<h1><?php the_author(); ?></h1>
+					<h2><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'ultimate' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php echo get_the_date(); ?></a></h2>
+				</header>
+				<?php
+				$status_avatar = apply_filters( 'ultimate_status_avatar', 48 );
+				echo get_avatar( get_the_author_meta( 'ID' ), $status_avatar );
+				?>
+			</div><!-- .entry-header -->
+
+			<div class="entry-content">
+				<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'ultimate' ) ); ?>
+			</div><!-- .entry-content -->
+
+	    </div><!-- .entry-summary -->
+
+	    <div class="entry-summary-meta">
+			<div class="post-meta">
+	            <?php
+					$categories_list = get_the_category_list( __( ' ', 'ultimate' ) );
+	                echo __('By ','imedica'); echo '<span class="vcard author"><span class="fn">'; the_author_posts_link(); echo '</span></span>';
+					echo '<span class="updated post-date"><span class="sep"> | </span>'.get_the_date('d M, Y').'</span>';
+					if($categories_list){
+	                	echo '<span class="sep"> | </span>'; echo get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'ultimate' ) );
+					}
+	                if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
+	                    echo '<span class="sep"> | </span>'; echo comments_popup_link( __( 'Leave a comment ', 'ultimate' ), __( 'Comment (1)', 'twentyfourteen' ), __( 'Comments (%)', 'ultimate' ) ); 
+	                endif;
+	                if ( !is_single() ){echo '<span class="sep"> | </span>'; echo '<a href="'.get_the_permalink().'" rel="bookmark">'.__('Read More...','imedica').'</a>';}
+	                if(is_user_logged_in())
+	                    echo '<span class="sep"> | </span>'; edit_post_link( __( 'Edit', 'imedica' ), '<span class="edit-link">', '</span>' );
+	            ?>
+	        </div>
+        </div><!-- .entry-summary-meta -->
+
+	</article><!-- #post -->
