@@ -712,7 +712,6 @@ function ultimate_gallery( $post_id , $post_content ) {
 		?>
 
 		<script type="text/javascript">
-			// Apply Masonry Effect To Blog
 			jQuery(window).load(function() {
 				jQuery('.ultimate-gallery-slider').slick({
 					adaptiveHeight: true
@@ -724,6 +723,15 @@ function ultimate_gallery( $post_id , $post_content ) {
 	endif; 
 }
 endif; 
+
+
+add_filter( 'embed_defaults', 'modify_embed_defaults' );
+function modify_embed_defaults() {
+    return array(
+        'width'  => 750, 
+        'height' => 375
+    );
+}
 
 
 ?>
