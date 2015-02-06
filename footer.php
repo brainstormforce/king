@@ -41,14 +41,14 @@
 
                 <?php 
                     // Change footer class w.r.t. to copyright text
-                    if( (get_theme_mod( 'hide_copyright' ) == '') && (has_nav_menu( 'footer-menu' ) ) ) { 
+                    if( (get_theme_mod( 'display_copyright' ) != '') && (has_nav_menu( 'footer-menu' ) ) ) { 
                         $footer_class = "col-md-6 col-sm-6 col-xl-6 col-xs-12";
                     } 
                     else { 
                         $footer_class = "col-md-12 col-sm-12 col-xl-12 col-xs-12";
                     } 
                 ?>
-                <?php if( get_theme_mod( 'hide_copyright' ) == '') { ?>
+                <?php if( get_theme_mod( 'display_copyright' ) != '') { ?>
                     <div class="site-info <?php echo $footer_class; ?>">
                         <?php if( get_theme_mod( 'copyright_text_link' ) == '') { ?>
                             <?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?>

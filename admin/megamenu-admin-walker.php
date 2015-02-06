@@ -1,345 +1,303 @@
-<?php 
-class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fatal Error: Class Not Found */
-{
-	function start_lvl( &$output, $depth = 0, $args = array() ) {}
-	function end_lvl( &$output, $depth = 0, $args = array() ) {}
-
-	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-		global $_wp_nav_menu_max_depth;
-		$_wp_nav_menu_max_depth = $depth > $_wp_nav_menu_max_depth ? $depth : $_wp_nav_menu_max_depth;
-
-		ob_start();
-		$item_id = esc_attr( $item->ID );
-		$removed_args = array(
-			'action',
-			'customlink-tab',
-			'edit-menu-item',
-			'menu-item',
-			'page-tab',
-			'_wpnonce',
+<?php
+if(!function_exists("ultimate_breadcrumb")){
+	function ultimate_breadcrumb() {
+	
+		/* Set up the arguments for the breadcrumb. */
+	
+		$opts = get_option("rdfa_options");	
+	
+		$args = array(
+			'prefix' 		=> $opts['prefix'],
+			'suffix' 		=> $opts['suffix'],
+			'title' 		=> $opts['title'], //__( ' ', 'rdfa-breadcrumb' ),
+			'home_title' 		=> $opts['home_title'], //__( 'Home', 'rdfa-breadcrumb' ),
+			'separator'		=> $opts['separator'],
+			'front_page' 		=> false,
+			'show_blog' 		=> false,
+			'singular_post_taxonomy'=> 'category',
+			'echo' 			=> true
 		);
-
-		$original_title = '';
-		if ( 'taxonomy' == $item->type ) {
-			$original_title = get_term_field( 'name', $item->object_id, $item->object, 'raw' );
-			if ( is_wp_error( $original_title ) )
-				$original_title = false;
-		} elseif ( 'post_type' == $item->type ) {
-			$original_object = get_post( $item->object_id );
-			$original_title = get_the_title( $original_object->ID );
+	
+		if ( is_front_page() && !$args['front_page'] )
+			return apply_filters( 'rdfa_breadcrumb', false );
+	
+		/* Format the title. */
+		$title = ( !empty( $args['title'] ) ? '<span class="breadcrumbs-title">' . $args['title'] . '</span>': '' );
+	
+		$separator = ( !empty( $args['separator'] ) ) ? "<span class='separator'>{$args['separator']}</span>" : "<span class='separator'>/</span>";
+	
+		/* Get the items. */
+		$items = rdfa_breadcrumb_get_items( $args );
+		
+		$breadcrumbs = '<!-- RDFa Breadcrumbs start -->';
+		$breadcrumbs .= '<div class="breadcrumbs"><div xmlns:v="http://rdf.data-vocabulary.org/#">';
+		$breadcrumbs .= $args['prefix'];
+		$breadcrumbs .= $title;
+		$breadcrumbs .= join( " {$separator} ", $items );
+		$breadcrumbs .= $args['suffix'];
+		$breadcrumbs .= '</div></div>';
+		$breadcrumbs .= '<!-- RDFa breadcrumbs end -->';
+	
+		$breadcrumbs = apply_filters( 'rdfa_breadcrumb', $breadcrumbs );
+	
+		if ( !$args['echo'] )
+			return $breadcrumbs;
+		else
+			echo $breadcrumbs;
+	}
+	
+	/**
+	 * Gets the items for the RDFa Breadcrumb.
+	 *
+	 * @since 0.4
+	 */
+	function rdfa_breadcrumb_get_items( $args ) {
+		global $wp_query;
+	
+		$item = array();
+	
+		$show_on_front = get_option( 'show_on_front' );
+	
+		/* Front page. */
+		if ( is_front_page() ) {
+			$item['last'] = $args['home_title'];
 		}
-
-		$classes = array(
-			'menu-item menu-item-depth-' . $depth,
-			'menu-item-' . esc_attr( $item->object ),
-			'menu-item-edit-' . ( ( isset( $_GET['edit-menu-item'] ) && $item_id == $_GET['edit-menu-item'] ) ? 'active' : 'inactive'),
-		);
-
-		$title = $item->title;
-
-		if ( ! empty( $item->_invalid ) ) {
-			$classes[] = 'menu-item-invalid';
-			/* translators: %s: title of menu item which is invalid */
-			$title = sprintf( __( '%s (Invalid)', 'ultimate' ), $item->title );
-		} elseif ( isset( $item->post_status ) && 'draft' == $item->post_status ) {
-			$classes[] = 'pending';
-			/* translators: %s: title of menu item in draft status */
-			$title = sprintf( __('%s (Pending)', 'ultimate'), $item->title );
+	
+		/* Link to front page. */
+		if ( !is_front_page() )
+			$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="'. home_url( '/' ) .'" class="ent enthouse">' . $args['home_title'] . '</a></span>';
+	
+		/* If bbPress is installed and we're on a bbPress page. */
+		if ( function_exists( 'is_bbpress' ) && is_bbpress() )
+			$item = array_merge( $item, rdfa_breadcrumb_get_bbpress_items() );
+	
+		/* If viewing a home/post page. */
+		elseif ( is_home() ) {
+			$home_page = get_page( $wp_query->get_queried_object_id() );
+			$item = array_merge( $item, rdfa_breadcrumb_get_parents( $home_page->post_parent ) );
+			$item['last'] = get_the_title( $home_page->ID );
 		}
-
-		$title = ( ! isset( $item->label ) || '' == $item->label ) ? $title : $item->label;
-
-		$submenu_text = '';
-		if ( 0 == $depth )
-			$submenu_text = 'style="display: none;"';
-
-		?>
-		<li id="menu-item-<?php echo $item_id; ?>" class="<?php echo implode(' ', $classes ); ?>">
-			<dl class="menu-item-bar">
-				<dt class="menu-item-handle">
-					<span class="item-title"><span class="menu-item-title"><?php echo esc_html( $title ); ?></span> <span class="is-submenu" <?php echo $submenu_text; ?>><?php _e( 'sub item', 'ultimate' ); ?></span></span>
-					<span class="item-controls">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-						<span class="item-type show-if-mega-menu-top"><?php echo __('Mega Menu', 'ultimate') ?></span>
-						<span class="item-type show-if-mega-menu-column"><?php echo __('Column', 'ultimate') ?></span>
-						<span class="item-type hide-if-mega-menu-top hide-if-mega-menu-column"><?php echo esc_html($item->type_label) ?></span>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-						<span class="item-order hide-if-js">
-							<a href="<?php
-								echo wp_nonce_url(
-									add_query_arg(
-										array(
-											'action' => 'move-up-menu-item',
-											'menu-item' => $item_id,
-										),
-										remove_query_arg($removed_args, admin_url( 'nav-menus.php' ) )
-									),
-									'move-menu_item'
-								);
-							?>" class="item-move-up"><abbr title="<?php esc_attr_e('Move up', 'ultimate'); ?>">&#8593;</abbr></a>
-							|
-							<a href="<?php
-								echo wp_nonce_url(
-									add_query_arg(
-										array(
-											'action' => 'move-down-menu-item',
-											'menu-item' => $item_id,
-										),
-										remove_query_arg($removed_args, admin_url( 'nav-menus.php' ) )
-									),
-									'move-menu_item'
-								);
-							?>" class="item-move-down"><abbr title="<?php esc_attr_e('Move down'); ?>">&#8595;</abbr></a>
-						</span>
-						<a class="item-edit" id="edit-<?php echo $item_id; ?>" title="<?php esc_attr_e('Edit Menu Item'); ?>" href="<?php
-							echo ( isset( $_GET['edit-menu-item'] ) && $item_id == $_GET['edit-menu-item'] ) ? admin_url( 'nav-menus.php' ) : add_query_arg( 'edit-menu-item', $item_id, remove_query_arg( $removed_args, admin_url( 'nav-menus.php#menu-item-settings-' . $item_id ) ) );
-						?>"><?php _e( 'Edit Menu Item', 'ultimate' ); ?></a>
-					</span>
-				</dt>
-			</dl>
-
-			<div class="menu-item-settings" id="menu-item-settings-<?php echo $item_id; ?>">
-				<?php if( 'custom' == $item->type ) : ?>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-					<p class="field-url description description-wide hide-if-mega-menu-column">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-						<label for="edit-menu-item-url-<?php echo $item_id; ?>">
-							<?php _e( 'URL', 'ultimate' ); ?><br />
-							<input type="text" id="edit-menu-item-url-<?php echo $item_id; ?>" class="widefat code edit-menu-item-url" name="menu-item-url[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->url ); ?>" />
-						</label>
-					</p>
-				<?php endif; ?>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-				<p class="description description-thin hide-if-mega-menu-column hide-if-mega-menu-item">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-					<label for="edit-menu-item-title-<?php echo $item_id; ?>">
-						<?php _e( 'Navigation Label', 'ultimate' ); ?><br />
-						<input type="text" id="edit-menu-item-title-<?php echo $item_id; ?>" class="widefat edit-menu-item-title" name="menu-item-title[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->title ); ?>" />
-					</label>
-				</p>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-				<p class="description description-thin hide-if-mega-menu-column hide-if-mega-menu-item">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-					<label for="edit-menu-item-attr-title-<?php echo $item_id; ?>">
-						<?php _e( 'Title Attribute', 'ultimate' ); ?><br />
-						<input type="text" id="edit-menu-item-attr-title-<?php echo $item_id; ?>" class="widefat edit-menu-item-attr-title" name="menu-item-attr-title[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->post_excerpt ); ?>" />
-					</label>
-				</p>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-				<p class="field-link-target description hide-if-mega-menu-column">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-					<label for="edit-menu-item-target-<?php echo $item_id; ?>">
-						<input type="checkbox" id="edit-menu-item-target-<?php echo $item_id; ?>" value="_blank" name="menu-item-target[<?php echo $item_id; ?>]"<?php checked( $item->target, '_blank' ); ?> />
-						<?php _e( 'Open link in a new window/tab', 'ultimate' ); ?>
-					</label>
-				</p>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-				<p class="field-css-classes description description-thin hide-if-mega-menu-column">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-					<label for="edit-menu-item-classes-<?php echo $item_id; ?>">
-						<?php _e( 'CSS Classes (optional)', 'ultimate' ); ?><br />
-						<input type="text" id="edit-menu-item-classes-<?php echo $item_id; ?>" class="widefat code edit-menu-item-classes" name="menu-item-classes[<?php echo $item_id; ?>]" value="<?php echo esc_attr( implode(' ', $item->classes ) ); ?>" />
-					</label>
-				</p>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-				<p class="field-xfn description description-thin hide-if-mega-menu-column">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-					<label for="edit-menu-item-xfn-<?php echo $item_id; ?>">
-						<?php _e( 'Link Relationship (XFN)', 'ultimate' ); ?><br />
-						<input type="text" id="edit-menu-item-xfn-<?php echo $item_id; ?>" class="widefat code edit-menu-item-xfn" name="menu-item-xfn[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->xfn ); ?>" />
-					</label>
-				</p>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-<?php # Column ?>
-				<p class="description description-wide show-if-mega-menu-column show-if-mega-menu-item">
-					<label>
-						<span class="hide-if-mega-menu-item"><?php _e('Mega Menu Column Title', 'ultimate') ?></span>
-						<span class="hide-if-mega-menu-column"><?php _e('Item Title', 'ultimate') ?></span><br />
-						<?php // -------------------------- ?>
-						<?php // NOTE this is a post title! ?>
-						<?php // -------------------------- ?>
-						<input type="text" name="menu-item-title[<?php echo $item_id ?>]" value="<?php echo esc_attr($item->title) ?>" class="widefat mega-menu-title" />
-					</label>
-					<label class="mega-menu-title-off-label">
-						<input type="checkbox" name="<?php echo name_mega_menu_meta($item, 'title-off') ?>" <?php checked(get_mega_menu_meta($item, 'title-off')) ?> class="mega-menu-title-off" />
-						Hide
-					</label>
-				</p>
-				<p class="description description-wide show-if-mega-menu-column">
-					<label>
-						<input type="checkbox" name="<?php echo name_mega_menu_meta($item, 'new-row') ?>" <?php checked(get_mega_menu_meta($item, 'new-row')) ?> class="mega-menu-column-new-row" />
-						<?php _e('This column should start a new row', 'ultimate') ?>
-					</label>
-				</p>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-				<p class="field-description description description-wide hide-if-mega-menu-column force-show-if-mega-menu-item">
-					<label for="edit-menu-item-description-<?php echo $item_id; ?>">
-						<?php _e( 'Description', 'ultimate' ); ?><br />
-						<textarea id="edit-menu-item-description-<?php echo $item_id; ?>" class="widefat edit-menu-item-description" rows="3" cols="20" name="menu-item-description[<?php echo $item_id; ?>]"><?php echo esc_html( $item->description ); // textarea_escaped ?></textarea>
-						<span class="description"><?php _e('The description will be displayed in the menu if the current theme supports it.', 'ultimate'); ?></span>
-					</label>
-				</p>
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-<?php # Icon ?>
-
-				<p class="field-mega-menu-icon description description-wide empty">
-
-				<p class="field-mega-menu-icon description description-wide empty show-if-screen-options-icon" style="display:none;">
-
-					<label>
-						<?php _e('Icon', 'ultimate') ?><br />
-						<a href="#" class="button" data-action="mega-menu-pick-icon">
-							<span class="inline-if-empty">Add Icon</span>
-							<span class="hide-if-empty">Edit Icon</span>
-						</a>&nbsp;
-						<span data-action="mega-menu-pick-icon" class="mega-menu-icon-frame hide-if-empty" style="position: relative;">
-							<i data-subject="mega-menu-icon-i"></i>
-							<a href="#" class="mega-menu-icon-remove dashicons ultimate-x" data-action="mega-menu-remove-icon" title="Remove Icon">&#xf153;</a>
-						</span>
-						<span class="mega-menu-icon-frame inline-if-empty" data-action="mega-menu-pick-icon"><i class="fa fa-lg fa-eye" style="position: relative; top: -1px;"></i></span>
-						<input type="hidden" name="<?php echo name_mega_menu_meta($item, 'icon') ?>" value="<?php echo esc_attr(get_mega_menu_meta($item, 'icon')) ?>" data-subject="mega-menu-icon-input" />
-					</label>
-				</p>
-<?php # Use as Mega Menu ?>
-				<p class="description description-wide show-if-menu-top">
-					<label>
-						<input type="checkbox" name="<?php echo name_mega_menu_meta($item, 'enabled') ?>" <?php checked(get_mega_menu_meta($item, 'enabled')) ?> class="mega-menu-enabled" />
-						Use as Mega Menu
-					</label>
-				</p>
-				<p class="field-move hide-if-no-js description description-wide hide-if-mega-menu-column">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-					<label>
-						<span><?php _e( 'Move', 'ultimate' ); ?></span>
-						<a href="#" class="menus-move-up"><?php _e( 'Up one', 'ultimate' ); ?></a>
-						<a href="#" class="menus-move-down"><?php _e( 'Down one', 'ultimate' ); ?></a>
-						<a href="#" class="menus-move-left"></a>
-						<a href="#" class="menus-move-right"></a>
-						<a href="#" class="menus-move-top"><?php _e( 'To the top', 'ultimate' ); ?></a>
-					</label>
-				</p>
-
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-				<div class="menu-item-actions description-wide submitbox">
-<?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-					<?php if( 'custom' != $item->type && $original_title !== false ) : ?>
-						<p class="link-to-original hide-if-mega-menu-column">
-							<?php printf( __('Original: %s', 'ultimate'), '<a href="' . esc_attr( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
-						</p>
-					<?php endif; ?>
-					<a class="item-delete submitdelete deletion" id="delete-<?php echo $item_id; ?>" href="<?php
-					echo wp_nonce_url(
-						add_query_arg(
-							array(
-								'action' => 'delete-menu-item',
-								'menu-item' => $item_id,
-							),
-							admin_url( 'nav-menus.php' )
-						),
-						'delete-menu_item_' . $item_id
-					); ?>"><?php _e( 'Remove', 'ultimate' ); ?></a> <span class="meta-sep hide-if-no-js"> | </span> <a class="item-cancel submitcancel hide-if-no-js" id="cancel-<?php echo $item_id; ?>" href="<?php echo esc_url( add_query_arg( array( 'edit-menu-item' => $item_id, 'cancel' => time() ), admin_url( 'nav-menus.php' ) ) );
-						?>#menu-item-settings-<?php echo $item_id; ?>"><?php _e('Cancel', 'ultimate'); ?></a>
-				</div>
-
-				<input class="menu-item-data-db-id" type="hidden" name="menu-item-db-id[<?php echo $item_id; ?>]" value="<?php echo $item_id; ?>" />
-				<input class="menu-item-data-object-id" type="hidden" name="menu-item-object-id[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->object_id ); ?>" />
-				<input class="menu-item-data-object" type="hidden" name="menu-item-object[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->object ); ?>" />
-				<input class="menu-item-data-parent-id" type="hidden" name="menu-item-parent-id[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->menu_item_parent ); ?>" />
-				<input class="menu-item-data-position" type="hidden" name="menu-item-position[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->menu_order ); ?>" />
-				<input class="menu-item-data-type" type="hidden" name="menu-item-type[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->type ); ?>" />
-			</div><!-- .menu-item-settings-->
-			<ul class="menu-item-transport"></ul>
-		<?php
-		$output .= ob_get_clean();
-	}
-}
-
-add_filter('wp_edit_nav_menu_walker', 'ult_admin_filter_wp_edit_nav_menu_walker');
-function ult_admin_filter_wp_edit_nav_menu_walker()
-	{
-		return 'ULT_Admin_Menu_Walker';
-	}
-/**
- * @internal
- */
-function _mega_menu_meta($post, $key, $default = null, $write = false)
-{
-	static $meta = array();
-
-	$post_id = is_object($post) ? $post->ID : $post;
-
-	if (!isset($meta[$post_id])) {
-		$meta[$post_id] = (array) get_post_meta($post_id, 'mega-menu', true);
-	}
-
-	if ($write) {
-		if (is_array($key)) {
-			$meta[$post_id] = array_filter(array_merge($meta[$post_id], $key));
+	
+		/* If viewing a singular post. */
+		elseif ( is_singular() ) {
+	
+			$post = $wp_query->get_queried_object();
+			$post_id = (int) $wp_query->get_queried_object_id();
+			$post_type = $post->post_type;
+	
+			$post_type_object = get_post_type_object( $post_type );
+	
+			if ( 'post' === $wp_query->post->post_type && $args['show_blog'] ) {
+				$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . get_permalink( get_option( 'page_for_posts' ) ) . '">' . get_the_title( get_option( 'page_for_posts' ) ) . '</a></span>';
+			}
+	
+			if ( 'page' !== $wp_query->post->post_type ) {
+	
+				/* If there's an archive page, add it. */
+				if ( function_exists( 'get_post_type_archive_link' ) && !empty( $post_type_object->has_archive ) )
+					$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . get_post_type_archive_link( $post_type ) . '" title="' . esc_attr( $post_type_object->labels->name ) . '">' . $post_type_object->labels->name . '</a></span>';
+	
+				if ( isset( $args["singular_{$wp_query->post->post_type}_taxonomy"] ) && is_taxonomy_hierarchical( $args["singular_{$wp_query->post->post_type}_taxonomy"] ) ) {
+					$terms = wp_get_object_terms( $post_id, $args["singular_{$wp_query->post->post_type}_taxonomy"] );
+					$item = array_merge( $item, rdfa_breadcrumb_get_term_parents( $terms[0], $args["singular_{$wp_query->post->post_type}_taxonomy"] ) );
+				}
+	
+				elseif ( isset( $args["singular_{$wp_query->post->post_type}_taxonomy"] ) )
+					$item[] = get_the_term_list( $post_id, $args["singular_{$wp_query->post->post_type}_taxonomy"], '', ', ', '' );
+			}
+	
+			if ( ( is_post_type_hierarchical( $wp_query->post->post_type ) || 'attachment' === $wp_query->post->post_type ) && $parents = rdfa_breadcrumb_get_parents( $wp_query->post->post_parent ) ) {
+				$item = array_merge( $item, $parents );
+			}
+	
+			$item['last'] = get_the_title();
 		}
-		else {
-			$meta[$post_id][$key] = $default;
-			$meta[$post_id][$key] = array_filter($meta[$post_id][$key]);
+	
+		/* If viewing any type of archive. */
+		else if ( is_archive() ) {
+	
+			if ( is_category() || is_tag() || is_tax() ) {
+	
+				$term = $wp_query->get_queried_object();
+				$taxonomy = get_taxonomy( $term->taxonomy );
+	
+				if ( ( is_taxonomy_hierarchical( $term->taxonomy ) && $term->parent ) && $parents = rdfa_breadcrumb_get_term_parents( $term->parent, $term->taxonomy ) )
+					$item = array_merge( $item, $parents );
+	
+				$item['last'] = $term->name;
+			}
+	
+			else if ( function_exists( 'is_post_type_archive' ) && is_post_type_archive() ) {
+				$post_type_object = get_post_type_object( get_query_var( 'post_type' ) );
+				$item['last'] = $post_type_object->labels->name;
+			}
+	
+			else if ( is_date() ) {
+	
+				if ( is_day() )
+					$item['last'] = __( 'Archives for ', 'rdfa-breadcrumb' ) . get_the_time( 'F j, Y' );
+	
+				elseif ( is_month() )
+					$item['last'] = __( 'Archives for ', 'rdfa-breadcrumb' ) . single_month_title( ' ', false );
+	
+				elseif ( is_year() )
+					$item['last'] = __( 'Archives for ', 'rdfa-breadcrumb' ) . get_the_time( 'Y' );
+			}
+	
+			else if ( is_author() )
+				$item['last'] = __( 'Archives by: ', 'rdfa-breadcrumb' ) . get_the_author_meta( 'display_name', $wp_query->post->post_author );
 		}
-		ult_update_post_meta($post_id, 'mega-menu', $meta[$post_id]);
-		return null;
+	
+		/* If viewing search results. */
+		else if ( is_search() )
+			$item['last'] = __( 'Search results for "', 'rdfa-breadcrumb' ) . stripslashes( strip_tags( get_search_query() ) ) . '"';
+	
+		/* If viewing a 404 error page. */
+		else if ( is_404() )
+			$item['last'] = __( 'Page Not Found', 'rdfa-breadcrumb' );
+	
+		return apply_filters( 'rdfa_breadcrumb_items', $item );
 	}
-
-	return isset($meta[$post_id][$key]) ? $meta[$post_id][$key] : $default;
-}
-
-function name_mega_menu_meta($post, $key)
-{
-	$post_id = is_object($post) ? $post->ID : $post;
-
-	return "mega-menu[$post_id][$key]";
-}
-
-function request_mega_menu_meta($post)
-{
-	$post_id = is_object($post) ? $post->ID : $post;
-
-	return (array) @$_POST['mega-menu'][$post_id];
-}
-
-function get_mega_menu_meta($post, $key, $default = null)
-{
-	return _mega_menu_meta($post, $key, $default);
-}
-
-function update_mega_menu_meta($post, array $array)
-{
-	return _mega_menu_meta($post, $array, null, true);
-}
-
-/* Enqueue Scripts and Styles */
-add_action('admin_enqueue_scripts','ult_megamenu_scripts');
-function ult_megamenu_scripts($hook){
-	if($hook == "nav-menus.php"){
-
-		wp_enqueue_script('ult-backend-options',get_template_directory_uri().'/admin/assets/js/backend-options.js','','',true);
-		wp_enqueue_script('ult-fw-events',get_template_directory_uri().'/admin/assets/js/fw-events.js','','',true);
-		wp_enqueue_script('ult-option-types',get_template_directory_uri().'/admin/assets/js/option-types.js','','',true);
-		wp_enqueue_script('ult-fw',get_template_directory_uri().'/admin/assets/js/fw.js','','',true);
-		wp_enqueue_script('ult-admin',get_template_directory_uri().'/admin/assets/js/admin.js','','',true);
-		wp_enqueue_style('ult-admin',get_template_directory_uri().'/admin/assets/css/admin.css');
-
-		wp_localize_script('ult-fw', '_fw_localized', array(
-			'SITE_URI' => site_url(),
-		));
-
-		wp_enqueue_script('ult-admin',get_template_directory_uri().'/admin/assets/js/admin.js');
-		wp_enqueue_style('ult-admin',get_template_directory_uri().'/admin/assets/css/admin.css');
-
+	
+	/**
+	 * Gets the items for the breadcrumb item if bbPress is installed.
+	 *
+	 * @since 0.4
+	 *
+	 * @param array $args Mixed arguments for the menu.
+	 * @return array List of items to be shown in the item.
+	 */
+	function rdfa_breadcrumb_get_bbpress_items( $args = array() ) {
+	
+		$item = array();
+	
+		$post_type_object = get_post_type_object( bbp_get_forum_post_type() );
+	
+		if ( !empty( $post_type_object->has_archive ) && !bbp_is_forum_archive() )
+			$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . get_post_type_archive_link( bbp_get_forum_post_type() ) . '">' . bbp_get_forum_archive_title() . '</a></span>';
+	
+		if ( bbp_is_forum_archive() )
+			$item[] = bbp_get_forum_archive_title();
+	
+		elseif ( bbp_is_topic_archive() )
+			$item[] = bbp_get_topic_archive_title();
+	
+		elseif ( bbp_is_single_view() )
+			$item[] = bbp_get_view_title();
+	
+		elseif ( bbp_is_single_topic() ) {
+	
+			$topic_id = get_queried_object_id();
+	
+			$item = array_merge( $item, rdfa_breadcrumb_get_parents( bbp_get_topic_forum_id( $topic_id ) ) );
+	
+			if ( bbp_is_topic_split() || bbp_is_topic_merge() || bbp_is_topic_edit() )
+				$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . bbp_get_topic_permalink( $topic_id ) . '">' . bbp_get_topic_title( $topic_id ) . '</a></span>';
+			else
+				$item[] = bbp_get_topic_title( $topic_id );
+	
+			if ( bbp_is_topic_split() )
+				$item[] = __( 'Split', 'rdfa-breadcrumb' );
+	
+			elseif ( bbp_is_topic_merge() )
+				$item[] = __( 'Merge', 'rdfa-breadcrumb' );
+	
+			elseif ( bbp_is_topic_edit() )
+				$item[] = __( 'Edit', 'rdfa-breadcrumb' );
+		}
+	
+		elseif ( bbp_is_single_reply() ) {
+	
+			$reply_id = get_queried_object_id();
+	
+			$item = array_merge( $item, rdfa_breadcrumb_get_parents( bbp_get_reply_topic_id( $reply_id ) ) );
+	
+			if ( !bbp_is_reply_edit() ) {
+				$item[] = bbp_get_reply_title( $reply_id );
+	
+			} else {
+				$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . bbp_get_reply_url( $reply_id ) . '">' . bbp_get_reply_title( $reply_id ) . '</a></span>';
+				$item[] = __( 'Edit', 'rdfa-breadcrumb' );
+			}
+	
+		}
+	
+		elseif ( bbp_is_single_forum() ) {
+	
+			$forum_id = get_queried_object_id();
+			$forum_parent_id = bbp_get_forum_parent( $forum_id );
+	
+			if ( 0 !== $forum_parent_id)
+				$item = array_merge( $item, rdfa_breadcrumb_get_parents( $forum_parent_id ) );
+	
+			$item[] = bbp_get_forum_title( $forum_id );
+		}
+	
+		elseif ( bbp_is_single_user() || bbp_is_single_user_edit() ) {
+	
+			if ( bbp_is_single_user_edit() ) {
+				$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . bbp_get_user_profile_url() . '">' . bbp_get_displayed_user_field( 'display_name' ) . '</a></span>';
+				$item[] = __( 'Edit', 'ultimate');
+			} else {
+				$item[] = bbp_get_displayed_user_field( 'display_name' );
+			}
+		}
+	
+		return apply_filters( 'rdfa_breadcrumb_get_bbpress_items', $item, $args );
 	}
-}
-
-add_action('wp_update_nav_menu_item', 'ult_admin_action_wp_update_nav_menu_item', 10, 3);
-function ult_admin_action_wp_update_nav_menu_item($menu_id, $menu_item_db_id, $args)
-{
-	$flags = array('enabled', 'title-off', 'new-row');
-	$meta = request_mega_menu_meta($menu_item_db_id);
-	foreach ($flags as $flag) {
-		$meta[$flag] = isset($meta[$flag]);
+	
+	/**
+	 * Gets parent pages of any post type.
+	 *
+	 * @since 0.1
+	 * @param int $post_id ID of the post whose parents we want.
+	 * @param string $separator.
+	 * @return string $html String of parent page links.
+	 */
+	function rdfa_breadcrumb_get_parents( $post_id = '', $separator = '/' ) {
+	
+		$parents = array();
+	
+		if ( $post_id == 0 )
+			return $parents;
+	
+		while ( $post_id ) {
+			$page = get_page( $post_id );
+			$parents[]  = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . get_permalink( $post_id ) . '" title="' . esc_attr( get_the_title( $post_id ) ) . '">' . get_the_title( $post_id ) . '</a></span>';
+			$post_id = $page->post_parent;
+		}
+	
+		if ( $parents )
+			$parents = array_reverse( $parents );
+	
+		return $parents;
 	}
-	update_mega_menu_meta($menu_item_db_id, $meta);
+	
+	/**
+	 * Searches for term parents of hierarchical taxonomies.
+	 *
+	 * @since 0.1
+	 * @param int $parent_id The ID of the first parent.
+	 * @param object|string $taxonomy The taxonomy of the term whose parents we want.
+	 * @return string $html String of links to parent terms.
+	 */
+	function rdfa_breadcrumb_get_term_parents( $parent_id = '', $taxonomy = '', $separator = '/' ) {
+	
+		$html = array();
+		$parents = array();
+	
+		if ( empty( $parent_id ) || empty( $taxonomy ) )
+			return $parents;
+	
+		while ( $parent_id ) {
+			$parent = get_term( $parent_id, $taxonomy );
+			$parents[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . get_term_link( $parent, $taxonomy ) . '" title="' . esc_attr( $parent->name ) . '">' . $parent->name . '</a></span>';
+			$parent_id = $parent->parent;
+		}
+	
+		if ( $parents )
+			$parents = array_reverse( $parents );
+	
+		return $parents;
+	}
 }

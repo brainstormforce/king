@@ -105,6 +105,9 @@ img {
 	max-width: 100%;
 	-ms-interpolation-mode: bicubic;
 }
+p {
+	color: #707070;
+}
 /* Clearing floats */
 .clear:after,
 .wrapper:after,
@@ -144,7 +147,7 @@ button,
 input,
 select,
 textarea {
-	border: 1px solid #EDEDED;
+	border: 1px solid #dddddd;
 	border-radius: 3px;
 	font-family: inherit;
 	padding: 6px;
@@ -183,8 +186,8 @@ article.post-password-required input[type=submit],
 	line-height: 1.428571429;
 	font-weight: normal;
 	color: #FFF;
-	background-color: #2383E2;
-	border: 1px solid #2383E2;
+	background-color: #DE5034;
+	border: 1px solid #DE5034;
 	border-radius: 3px;
 	box-shadow: 0 1px 2px rgba(64, 64, 64, 0.1);
 }
@@ -194,7 +197,7 @@ input[type="submit"],
 input[type="button"],
 input[type="reset"] {
 	cursor: pointer;
-	background: #2383E2;
+	background: #DE5034;
 	color: #FFF;
 	transition: all 0.2s ease-In;
 }
@@ -209,9 +212,9 @@ input[type="submit"]:hover,
 input[type="button"]:hover,
 input[type="reset"]:hover,
 article.post-password-required input[type=submit]:hover {
-	color: #2383E2;
+	color: #DE5034;
 	background-color: #FFF;
-	border-color: #2383E2;
+	border-color: #DE5034;
 	transition: all 0.2s ease-In;
 }
 .menu-toggle:active,
@@ -430,16 +433,19 @@ body {
 	line-height: 1;
 	font-family: Helvetica, Arial, sans-serif;
 	text-rendering: optimizeLegibility;
-	color: #444;
-	background: #e8e8e8;
+	color: #707070;
+	background: #f7f7f7;
 }
 body.custom-font-enabled {
 	font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 a {
 	outline: none;
-	color: #21759b;
+	color: #DE5034;
 	text-decoration: none;
+	-webkit-transition: color 250ms linear;
+	-moz-transition: color 250ms linear;
+	transition: color 250ms linear;
 }
 /* Assistive text */
 .assistive-text,
@@ -483,14 +489,18 @@ a {
 	margin: 0;
 	background: #303030;
 }
-.header-box,
-.header-style2 .nav-menu,
-.header-style3 .nav-menu {
+.header-box {
 	max-width: 1170px;
 	margin-left: auto;
 	margin-right: auto;
 	padding-left: 15px;
 	padding-right: 15px;
+}
+.header-style2 .nav-menu,
+.header-style3 .nav-menu {
+	max-width: 1170px;
+	margin-left: auto;
+	margin-right: auto;
 }
 .site-header h1,
 .site-header h2 {
@@ -506,7 +516,7 @@ a {
 }
 .site-header h1 a:hover,
 .site-header h2 a:hover {
-	color: #21759b;
+	color: #DE5034;
 }
 .site-header h1 {
 	font-size: 24px;
@@ -517,17 +527,17 @@ a {
 	font-weight: normal;
 	font-size: 13px;
 	line-height: inherit;
-	color: #757575;
+	color: #DDDDDD;
 }
 .header-image {
 	margin-top: 24px;
 }
-span.blog-description {
+.site-header .blog-description {
 	display: inline-block;
 	padding: 0 15px;
 	font-size: 14px;
 	line-height: inherit;
-	color: #ccc;
+	color: #DDDDDD;
 }
 
 
@@ -635,7 +645,7 @@ h1.entry-title {
 .mu_register p {
 	margin: 0 0 24px;
 	line-height: 1.714285714;
-	color: #868686;
+	/*color: #707070;*/
 }
 .entry-content a:visited,
 .comment-content a:visited {

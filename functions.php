@@ -126,7 +126,8 @@ function ultimate_scripts_styles() {
     //wp_enqueue_script('jquery.bootstrap.min');
 	
 	// Load Masonry Javascript
-	if ( get_theme_mod('blog_layout') !== 'normal' ) {
+	$masonry_blog_layout = get_theme_mod('blog_layout');
+	if ( $masonry_blog_layout !== 'normal' ) {
 		if ( is_home() || is_front_page() || is_archive() || is_search() || is_category() ) {
 			wp_enqueue_script('jquery-masonry');
 			add_action('wp_footer', 'ultimate_masonry_blog');
@@ -138,11 +139,16 @@ function ultimate_scripts_styles() {
 	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/js/slick.min.js' );
     wp_enqueue_script( 'slick-slider-script' );
 
+
     wp_register_script( 'widget-script', get_template_directory_uri() . '/js/widget.js' );
     wp_enqueue_script( 'widget-script' );
 
-    wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/SmoothScroll.js' );
-    wp_enqueue_script( 'smooth-scroll-script' );
+    // Smooth Scroll
+	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/SmoothScroll.js' );
+	$smooth_scroll = get_theme_mod( 'smooth_scroll' );
+   	if($smooth_scroll) {
+   		wp_enqueue_script( 'smooth-scroll-script' );
+	}
 	
     wp_register_script('jquery.functions', get_template_directory_uri() . '/js/functions.js', array('jquery'),'1.0.0',true);
     wp_enqueue_script('jquery.functions');
@@ -204,42 +210,6 @@ function ultimate_widgets_init() {
 		'after_title' => '</span></h3>',
 	) );
 	register_sidebar( array(
-		'name' => __( 'Front Page Main Widget Area', 'ultimate' ),
-		'id' => 'sidebar-2',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'First Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-3',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Second Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-4',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Third Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-5',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
 		'name' => __( 'Footer Widget Area 1', 'ultimate' ),
 		'id' => 'sidebar-footer-1',
 		'description' => __( 'Appears in footer sidebar widget area at first position.', 'ultimate' ),
@@ -273,6 +243,42 @@ function ultimate_widgets_init() {
 		'name' => __( 'Footer Widget Area 4', 'ultimate' ),
 		'id' => 'sidebar-footer-4',
 		'description' => __( 'Appears in footer sidebar widget area at fourth position.', 'ultimate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'Front Page Main Widget Area', 'ultimate' ),
+		'id' => 'sidebar-front-main',
+		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'First Front Page Widget Area', 'ultimate' ),
+		'id' => 'sidebar-front-1',
+		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'Second Front Page Widget Area', 'ultimate' ),
+		'id' => 'sidebar-front-2',
+		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+		'after_widget' => '</aside>',
+		'before_title' => '<h3 class="widget-title">',
+		'after_title' => '</h3>',
+	) );
+	register_sidebar( array(
+		'name' => __( 'Third Front Page Widget Area', 'ultimate' ),
+		'id' => 'sidebar-front-3',
+		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget' => '</aside>',
 		'before_title' => '<h3 class="widget-title">',
@@ -492,6 +498,41 @@ function ultimate_masonry_blog() {
 <?php
 }
 
+
+/**
+ * Include Scroll To Top Feature
+ *
+ * @since Ultimate 1.0
+ */
+function ultimate_scroll_to_top() {
+?>
+	<script type="text/javascript">
+		jQuery(function() {
+		  jQuery('a[href*=#]:not([href=#])').click(function() {
+		    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+		      var target = jQuery(this.hash);
+		      target = target.length ? target : jQuery('[name=' + this.hash.slice(1) +']');
+		      if (target.length) {
+		        jQuery('html,body').animate({
+		          scrollTop: target.offset().top
+		        }, 1000);
+		        return false;
+		      }
+		    }
+		  });
+		});
+	</script>
+	<a class="ult-scroll-top" href="#page"><span class="ent entarrow-up6"></span></a>
+	<!--End Smooth Scroll-->
+<?php
+}
+$scroll_to_top = get_theme_mod( 'scroll_to_top' );
+if($scroll_to_top) {
+	add_action('wp_footer', 'ultimate_scroll_to_top');
+}
+
+
+
 /* Adds a meta box to the post editing screen */
 function ult_custom_meta() {
 	add_meta_box( 'ult_meta', __( 'Header & Menu Settings', 'ultimate' ), 'ult_meta_callback', 'page' );
@@ -675,7 +716,6 @@ function ultimate_gallery( $post_id , $post_content ) {
 		?>
 
 		<script type="text/javascript">
-			// Apply Masonry Effect To Blog
 			jQuery(window).load(function() {
 				jQuery('.ultimate-gallery-slider').slick({
 					adaptiveHeight: true
@@ -689,9 +729,17 @@ function ultimate_gallery( $post_id , $post_content ) {
 endif; 
 
 add_action( 'load-widgets.php', 'my_custom_load' );
-
 function my_custom_load() {    
 	wp_enqueue_style( 'wp-color-picker' );        
 	wp_enqueue_script( 'wp-color-picker' );    
 }
+
+add_filter( 'embed_defaults', 'modify_embed_defaults' );
+function modify_embed_defaults() {
+    return array(
+        'width'  => 750, 
+        'height' => 375
+    );
+}
+
 ?>

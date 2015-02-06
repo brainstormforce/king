@@ -118,3 +118,12 @@ jQuery(window).on('resize',function() {
     };
 	jQuery(".widget-thumbnail").css( front_widget_styles );
 });
+
+
+// Random Class
+var colorClasses = ['blueviolet', 'aliceblue', 'antiquewhite', 'aquamarine', 'beige', 'turquoise', 'thistle', 'skyblue'];
+jQuery(".blog-masonry .post").each(function(e){
+    classIndex = Math.floor(Math.random() * colorClasses.length);
+    jQuery(this).addClass(colorClasses[classIndex]);
+});
+
