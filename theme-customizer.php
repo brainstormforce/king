@@ -1354,8 +1354,6 @@ function ultimate_sanitize_callback($input){
 	return $input;
 }
 
-
-// Reset Customizer Setting To Default
 $customizer_reset = get_theme_mod( 'reset_settings' );
 if ($customizer_reset == "reset" || $customizer_reset == "RESET" || $customizer_reset == "Reset") {
 	remove_theme_mods();

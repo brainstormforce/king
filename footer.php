@@ -9,9 +9,9 @@
  * @since Twenty Twelve 1.0
  */
 ?>
-	</div><!-- #main .wrapper -->
-	<div id="footer">
-			<?php
+    </div><!-- #main .wrapper -->
+    <div id="footer">
+            <?php
                 $sidebars = array("sidebar-footer-1", "sidebar-footer-2", "sidebar-footer-3", "sidebar-footer-4");
                 $n = 0;
                 foreach($sidebars as $key => $sidebar){
@@ -23,21 +23,21 @@
                 }
                 if($n !== 0){
                     $cols = 12 / $n;
-			?>
-			<div class="main-footer">
-				<div class="footer-widget-area">
+            ?>
+            <div class="main-footer">
+                <div class="footer-widget-area">
              <?php
                     foreach($sidebars as $key => $sidebar){
                         echo '<div class="col-sm-'.$cols.'">';
                         dynamic_sidebar($sidebar);
                         echo '</div>'; 
                     }
-			  ?>
-				</div>
-			</div>
-          	<?php } ?>
+              ?>
+                </div>
+            </div>
+            <?php } ?>
         <footer id="colophon" role="contentinfo">
-        	<div class="footer-bottom-container">
+            <div class="footer-bottom-container">
 
                 <?php 
                     // Change footer class w.r.t. to copyright text
@@ -64,7 +64,7 @@
                     </div>
                 <?php } // end if ?>
 
-			</div>
+            </div>
         </footer><!-- #colophon -->
        </div>
 </div><!-- #page -->
