@@ -105,6 +105,9 @@ img {
 	max-width: 100%;
 	-ms-interpolation-mode: bicubic;
 }
+p {
+	color: #707070;
+}
 /* Clearing floats */
 .clear:after,
 .wrapper:after,
@@ -642,7 +645,7 @@ h1.entry-title {
 .mu_register p {
 	margin: 0 0 24px;
 	line-height: 1.714285714;
-	color: #707070;
+	/*color: #707070;*/
 }
 .entry-content a:visited,
 .comment-content a:visited {
