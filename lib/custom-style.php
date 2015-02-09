@@ -173,7 +173,7 @@ ul.nav-menu li a, .main-navigation li ul li a {
 body{
 	background:<?php echo get_theme_mod( 'site-bg-color' );?>;
 }
-body *{
+body {
 	font-family:<?php echo $default_font_family;?>;
 	font-weight:<?php echo $default_font_weight;?>;
 	font-style:<?php echo $default_font_style;?>;

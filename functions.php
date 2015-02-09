@@ -28,8 +28,6 @@ function ultimate_setup() {
 	load_theme_textdomain( 'ultimate', get_template_directory() . '/languages' );
 	// This theme styles the visual editor with editor-style.css to match the theme style.
 	add_editor_style();
-	// Adds RSS feed links to <head> for posts and comments.
-	add_theme_support( 'automatic-feed-links' );
 	// This theme supports a variety of post formats.
 	add_theme_support( 'post-formats', array( 'aside', 'image', 'link', 'video', 'quote', 'status', 'gallery', 'audio') );
 	// This theme uses wp_nav_menu() in two locations.
@@ -111,6 +109,7 @@ function ultimate_scripts_styles() {
 	 */
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
 		wp_enqueue_script( 'comment-reply' );
+
 	wp_enqueue_style( 'ultimate-fonts', get_template_directory_uri().'/css/entypo.css');
 	wp_enqueue_style( 'ultimate-fonts', get_template_directory_uri().'/css/font-awesome.css');
 	// Loads our main stylesheet.
@@ -122,29 +121,39 @@ function ultimate_scripts_styles() {
 	
 	wp_enqueue_script('jQuery');
 	$wp_styles->add_data( 'ultimate-ie', 'conditional', 'lt IE 9' );
-    wp_enqueue_script('jquery.bootstrap.min', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'),'1.0.0',true);
+    wp_enqueue_script('jquery.bootstrap.min', get_template_directory_uri() . '/js/jquery.bootstrap.min.js', array('jquery'),'1.0.0',true);
     //wp_enqueue_script('jquery.bootstrap.min');
 	
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_layout');
 	if ( $masonry_blog_layout !== 'normal' ) {
-		if ( is_home() || is_front_page() || is_archive() || is_search() || is_category() ) {
+		if ( is_home() || is_front_page() || is_archive() || is_search() ) {
 			wp_enqueue_script('jquery-masonry');
 			add_action('wp_footer', 'ultimate_masonry_blog');
 		}
 	}
 
 	// Slick SLider
-	wp_enqueue_style( 'slick-slider-css', get_template_directory_uri().'/css/slick/slick.css');
-	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/js/slick.min.js' );
+	wp_enqueue_style( 'slick-slider', get_template_directory_uri().'/css/slick/slick.css');
+	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/js/jquery.slick.min.js' );
     wp_enqueue_script( 'slick-slider-script' );
 
+    // Justified Grid Gallery
+    wp_enqueue_style( 'ultimate_justified_gallery', get_template_directory_uri().'/css/justifiedGallery.min.css');
+    wp_register_script( 'ultimate_justified_gallery_script', get_template_directory_uri() . '/js/jquery.justifiedGallery.min.js', array( 'jquery' ), '1.0.0', true );
+    wp_enqueue_script( 'ultimate_justified_gallery_script' );
+
     // Smooth Scroll
-	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/SmoothScroll.js' );
+	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/jquery.smoothScroll.min.js' );
 	$smooth_scroll = get_theme_mod( 'smooth_scroll' );
    	if($smooth_scroll) {
    		wp_enqueue_script( 'smooth-scroll-script' );
 	}
+
+	// Lightbox - Colorbox
+	wp_enqueue_style( 'ultimate_colorbox', get_template_directory_uri().'/css/colorbox/colorbox.css');
+	wp_register_script( 'ultimate_colorbox_script', get_template_directory_uri() . '/js/jquery.colorbox.min.js', array( 'jquery' ), null, true );
+	wp_enqueue_script( 'ultimate_colorbox_script' );
 	
     wp_register_script('jquery.functions', get_template_directory_uri() . '/js/functions.js', array('jquery'),'1.0.0',true);
     wp_enqueue_script('jquery.functions');
@@ -188,6 +197,8 @@ function ultimate_page_menu_args( $args ) {
 	return $args;
 }
 add_filter( 'wp_page_menu_args', 'ultimate_page_menu_args' );
+
+
 /**
  * Register sidebars.
  *
@@ -282,6 +293,9 @@ function ultimate_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'ultimate_widgets_init' );
+
+
+
 if ( ! function_exists( 'ultimate_content_nav' ) ) :
 /**
  * Displays navigation to next/previous pages when applicable.
@@ -300,6 +314,8 @@ function ultimate_content_nav( $html_id ) {
 	<?php endif;
 }
 endif;
+
+
 if ( ! function_exists( 'ultimate_comment' ) ) :
 /**
  * Template for comments and pingbacks.
@@ -360,6 +376,9 @@ function ultimate_comment( $comment, $args, $depth ) {
 	endswitch; // end comment_type check
 }
 endif;
+
+
+
 if ( ! function_exists( 'ultimate_entry_meta' ) ) :
 /**
  * Set up post entry meta.
@@ -403,6 +422,10 @@ function ultimate_entry_meta() {
 	);
 }
 endif;
+
+
+
+
 /**
  * Extend the default WordPress body classes.
  *
@@ -425,13 +448,17 @@ function ultimate_body_class( $classes ) {
 	$background_image = get_background_image();
 	if ( ! is_active_sidebar( 'sidebar-1' ) || is_page_template( 'page-templates/full-width.php' ) )
 		$classes[] = 'full-width';
+
 	if ( is_page_template( 'page-templates/front-page.php' ) ) {
 		$classes[] = 'template-front-page';
+
 		if ( has_post_thumbnail() )
 			$classes[] = 'has-post-thumbnail';
+		
 		if ( is_active_sidebar( 'sidebar-2' ) && is_active_sidebar( 'sidebar-3' ) )
 			$classes[] = 'two-sidebars';
 	}
+
 	if ( empty( $background_image ) ) {
 		if ( empty( $background_color ) )
 			$classes[] = 'custom-background-empty';
@@ -441,11 +468,15 @@ function ultimate_body_class( $classes ) {
 	// Enable custom font class only if the font CSS is queued to load.
 	if ( wp_style_is( 'ultimate-fonts', 'queue' ) )
 		$classes[] = 'custom-font-enabled';
+
 	if ( ! is_multi_author() )
 		$classes[] = 'single-author';
+
 	return $classes;
 }
 add_filter( 'body_class', 'ultimate_body_class' );
+
+
 /**
  * Adjust content width in certain contexts.
  *
@@ -461,17 +492,6 @@ function ultimate_content_width() {
 	}
 }
 add_action( 'template_redirect', 'ultimate_content_width' );
-/**
- * Enqueue Javascript postMessage handlers for the Customizer.
- *
- * Binds JS handlers to make the Customizer preview reload changes asynchronously.
- *
- * @since Ultimate 1.0
- */
-function ultimate_customize_preview_js() {
-	wp_enqueue_script( 'ultimate-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
-}
-add_action( 'customize_preview_init', 'ultimate_customize_preview_js' );
 
 
 /**
@@ -527,150 +547,31 @@ if($scroll_to_top) {
 	add_action('wp_footer', 'ultimate_scroll_to_top');
 }
 
-
-
-/* Adds a meta box to the post editing screen */
-function ult_custom_meta() {
-	add_meta_box( 'ult_meta', __( 'Header & Menu Settings', 'ultimate' ), 'ult_meta_callback', 'page' );
-}
-add_action( 'add_meta_boxes', 'ult_custom_meta' );
-/* Outputs the content of the meta box */
-function ult_meta_callback( $post ) {
-    wp_nonce_field( basename( __FILE__ ), 'ult_nonce' );
-    $ult_stored_meta = get_post_meta( $post->ID );
-    $fixed_header = get_theme_mod( 'site_fixed_header' );
-   	if($fixed_header): ?>
-    <p>
-    <div class="ult-row-content">
-    	<label><?php _e( 'Enable transparant menu -', 'ultimate' )?></label>
-        <label for="meta-radio-one">
-            <input type="radio" name="meta-radio" id="meta-radio-one" value="true" <?php 
-				if ( isset ( $ult_stored_meta['meta-radio'] ) ) 
-					checked( $ult_stored_meta['meta-radio'][0], 'true' ); 
-			?>>
-            <?php _e( 'Yes', 'ultimate' )?>
-        </label>
-
-        <label for="meta-radio-two">
-            <input type="radio" name="meta-radio" id="meta-radio-two" value="false" <?php 
-				if ( isset ( $ult_stored_meta['meta-radio'] ) ) 
-					checked( $ult_stored_meta['meta-radio'][0], 'false' );
-				else
-					echo 'checked="checked"'; 
-			?>>
-            <?php _e( 'No', 'ultimate' )?>
-        </label>
-    </div>
-    </p>
-     <?php endif; ?>
-     <p>
-    <div class="ult-row-content">
-    	<label><?php _e( 'Enable light menu -', 'ultimate' )?></label>
-        <label for="meta-radio-one">
-            <input type="radio" name="meta-radio1" id="meta-radio-three" value="true" <?php if ( isset ( $ult_stored_meta['meta-radio1'] ) ) checked( $ult_stored_meta['meta-radio1'][0], 'true' ); ?>>
-            <?php _e( 'Yes', 'ultimate' )?>
-        </label>
-        <label for="meta-radio-two">
-            <input type="radio" name="meta-radio1" id="meta-radio-four" value="false" <?php 
-				if ( isset ( $ult_stored_meta['meta-radio1'] ) ) 
-					checked( $ult_stored_meta['meta-radio1'][0], 'false' ); 
-				else
-					echo 'checked="checked"';
-			?>>
-            <?php _e( 'No', 'ultimate' )?>
-        </label>
-    </div>
-	</p>
-
-	<p>
-    <div class="ult-row-content">
-    	<label><?php _e( 'Enable Breadcrumbs -', 'ultimate' )?></label>
-        <label for="meta-radio-five">
-            <input type="radio" name="meta-breadcrumb" id="meta-radio-five" value="true" <?php 
-            	if ( isset ( $ult_stored_meta['meta-breadcrumb'] ) ) 
-            			checked( $ult_stored_meta['meta-breadcrumb'][0], 'true' ); 
-            	else
-					echo 'checked="checked"';
-            	?>>
-            <?php _e( 'Yes', 'ultimate' )?>
-        </label>
-        <label for="meta-radio-six">
-            <input type="radio" name="meta-breadcrumb" id="meta-radio-six" value="false" <?php 
-				if ( isset ( $ult_stored_meta['meta-breadcrumb'] ) ) 
-					checked( $ult_stored_meta['meta-breadcrumb'][0], 'false' ); 
-			?>>
-            <?php _e( 'No', 'ultimate' )?>
-        </label>
-    </div>
-	</p>
- 
-    <?php
-}
-/* Saves the custom meta input */
-function ult_meta_save( $post_id ) {
- 
-    // Checks save status
-    $is_autosave = wp_is_post_autosave( $post_id );
-    $is_revision = wp_is_post_revision( $post_id );
-    $is_valid_nonce = ( isset( $_POST[ 'ult_nonce' ] ) && wp_verify_nonce( $_POST[ 'ult_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
- 
-    // Exits script depending on save status
-    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
-        return;
-    }
- 
-     // Checks for input and saves if needed
-	if( isset( $_POST[ 'meta-radio' ] ) ) {
-		update_post_meta( $post_id, 'meta-radio', $_POST[ 'meta-radio' ] );
-	}
-	if( isset( $_POST[ 'meta-radio1' ] ) ) {
-		update_post_meta( $post_id, 'meta-radio1', $_POST[ 'meta-radio1' ] );
-	}
-	if( isset( $_POST[ 'meta-breadcrumb' ] ) ) {
-		update_post_meta( $post_id, 'meta-breadcrumb', $_POST[ 'meta-breadcrumb' ] );
-	}
-}
-add_action( 'save_post', 'ult_meta_save' );
-
-/* Add specific CSS class by filter */
-add_filter('body_class','ultimate_body_class_name');
-function ultimate_body_class_name($classes) {
-	global $post;
-	
-	// add a custom class for transparent header
-	$meta_value = get_post_meta( get_the_ID(), 'meta-radio', true );
-	$meta_value1 = get_post_meta( get_the_ID(), 'meta-radio1', true );
-	if( $meta_value == 'true' ) {
-		$classes[] = 'ult-transparent-header';
-	}	
-	
-	if( $meta_value1 == 'true' ) {
-		$classes[] = 'ult-light-menu';
-	}	 
-    return $classes;
-	
-}
 require_once('theme-customizer.php');
+require_once('admin/meta.php');
+require_once('admin/megamenu-admin-walker.php');
+
 require_once('lib/ultimate-breadcrumbs.php');
+require_once('lib/ultimate-menu-walker.php');
+require_once('lib/ultimate-pagination.php');
+require_once('lib/ultimate-post-meta.php');
+require_once('lib/ultimate-post-gallery.php');
 require_once('lib/ultimate-widget.php');
 
-function wpt_register_js() {
-    wp_register_script('jquery.bootstrap.min', get_template_directory_uri() . '/js/bootstrap.min.js', 'array(jquery)');
-    wp_enqueue_script('jquery.bootstrap.min');
+
+
+
+/**
+ * Enqueue Javascript postMessage handlers for the Customizer.
+ *
+ * Binds JS handlers to make the Customizer preview reload changes asynchronously.
+ *
+ * @since Ultimate 1.0
+ */
+function ultimate_customize_preview_js() {
+	wp_enqueue_script( 'ultimate-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
 }
-
-// add_action( 'init', 'wpt_register_js' );
-function wpt_register_css() {
-   // wp_register_style( 'bootstrap.min', get_template_directory_uri() . '/css/bootstrap.min.css' );
-   // wp_enqueue_style( 'bootstrap.min' );
-
-    wp_register_style( 'pratik.css', get_template_directory_uri() . '/css/pratik.css' );
-    wp_enqueue_style( 'pratik.css' );
-
-    wp_register_style( 'supriya.css', get_template_directory_uri() . '/css/supriya.css' );
-    wp_enqueue_style( 'supriya.css' );
-}
-add_action( 'wp_enqueue_scripts', 'wpt_register_css' );
+add_action( 'customize_preview_init', 'ultimate_customize_preview_js' );
 
 /**
  * Enqueue script for custom customize control.
@@ -687,51 +588,78 @@ function custom_customize_enqueue() {
 }
 add_action( 'customize_controls_enqueue_scripts', 'custom_customize_enqueue' );
 
-require_once('admin/meta.php');
-require_once('admin/megamenu-admin-walker.php');
-require_once('lib/ultimate-menu-walker.php');
-require_once('lib/ultimate-pagination.php');
 
 
-if ( ! function_exists( 'ultimate_gallery' ) ) :
 
-function ultimate_gallery( $post_id , $post_content ) {
 
-	if( has_shortcode( $post_content , 'gallery' ) ) :
-		$gallery = get_post_gallery_images( $post_id );
-		$galleryslider = "ultimate-gallery-".$post_id;
-		$image_list ='<div class="ultimate-gallery '.$galleryslider.'"/>';
-		$image_list .= '<div class="ultimate-gallery-slider">';                       
-		foreach( $gallery as $image ) {
-			// Loop through each image in each gallery
-			$image_list .= '<div class="ultimate-gallery-img"><img src=" ' . str_replace('-150x150','',$image) . ' "  /></div>';
-		}
-		$image_list .= '</div>';
-		$image_list .= '</div>';
-		echo $image_list; 
-		?>
 
-		<script type="text/javascript">
-			jQuery(window).load(function() {
-				jQuery('.ultimate-gallery-slider').slick({
-					adaptiveHeight: true
-				});
-			});
-		</script>
+// Temporary
 
-<?php
-	endif; 
+function wpt_register_css() {
+   // wp_register_style( 'bootstrap.min', get_template_directory_uri() . '/css/bootstrap.min.css' );
+   // wp_enqueue_style( 'bootstrap.min' );
+
+    wp_register_style( 'pratik.css', get_template_directory_uri() . '/css/pratik.css' );
+    wp_enqueue_style( 'pratik.css' );
+
+    wp_register_style( 'supriya.css', get_template_directory_uri() . '/css/supriya.css' );
+    wp_enqueue_style( 'supriya.css' );
 }
-endif; 
+add_action( 'wp_enqueue_scripts', 'wpt_register_css' );
 
 
-add_filter( 'embed_defaults', 'modify_embed_defaults' );
-function modify_embed_defaults() {
-    return array(
-        'width'  => 750, 
-        'height' => 375
-    );
-}
 
+// Post Meta
+
+if ( ! function_exists( 'ultimate_post_meta' ) ) :
+	function ultimate_post_meta($post) {
+
+		if( get_theme_mod( 'blog_author_meta' )) :
+			echo '<span class="post-meta-item">';
+			echo __('By ','ultimate'); 
+			echo '<span class="vcard author">'. the_author_posts_link() .'</span>'; 
+			echo '</span>'; // .post-meta-item
+		endif;
+
+		if( get_theme_mod( 'blog_date_meta' )) :
+			$archive_year  = get_the_time('Y');
+			$archive_month = get_the_time('m');
+			echo '<span class="post-meta-item">';
+			echo '<span class="post-meta-date"><a href="'. get_month_link( $archive_year, $archive_month ) .'">'. get_the_date('d M, Y') .'</a></span>';
+			echo '</span>'; // .post-meta-item
+		endif;
+
+		if( get_theme_mod( 'blog_category_meta' )) :
+			$categories_list = get_the_category_list( __( ' ', 'ultimate' ) );		
+			if( $categories_list ) :
+				echo '<span class="post-meta-item">';
+	        	echo '<span class="post-meta-category">'. get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'ultimate' ) ) .'</span>';
+	        	echo '</span>'; // .post-meta-item
+			endif;
+		endif;
+
+		if( get_theme_mod( 'blog_comment_meta' )) :
+			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
+				echo '<span class="post-meta-item">';
+	            echo '<span class="post-meta-comment">'. comments_popup_link( __( 'Leave a comment ', 'ultimate' ), __( 'Comment (1)', 'ultimate' ), __( 'Comments (%)', 'ultimate' ) ) .'</span>'; 
+	            echo '</span>'; // .post-meta-item
+	        endif;
+		endif;		
+
+		if( get_theme_mod( 'blog_link_meta' )) :
+			if ( !is_single() ) :
+				echo '<span class="post-meta-item">';
+				echo '<span class="post-meta-link"><a href="'. get_the_permalink() .'" rel="bookmark">'.__('Read More...','ultimate') .'</a></span>';
+				echo '</span>'; // .post-meta-item
+			endif;
+		endif;
+        
+        if( is_user_logged_in() ):
+        		echo '<span class="post-meta-item">';
+	            echo '<span class="post-meta-edit">'. edit_post_link( __( 'Edit', 'ultimate' ) ) .'</span>';
+	        	echo '</span>'; // .post-meta-item
+		endif;
+	}
+endif;
 
 ?>

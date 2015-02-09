@@ -24,7 +24,7 @@ $cls = ($blog_layout !== 'grid-3' && $blog_layout !== 'grid-4') ? 'col-md-9 col-
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
             	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') { ?>
-					<?php get_template_part( 'content', 'grid' ); ?>
+					<?php get_template_part( 'content', 'masonry' ); ?>
 				<?php } else if($blog_layout == 'banner-blog-2' || $blog_layout == 'banner-blog-3' || $blog_layout == 'banner-blog-4') { ?>
 					<?php get_template_part( 'content', 'banner' ); ?>
                 <?php } else { ?>

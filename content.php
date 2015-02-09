@@ -65,20 +65,7 @@
 
 		<div class="entry-summary-meta">
 		<div class="post-meta">
-            <?php
-				$categories_list = get_the_category_list( __( ' ', 'ultimate' ) );
-                echo __('By ','imedica'); echo '<span class="vcard author"><span class="fn">'; the_author_posts_link(); echo '</span></span>';
-				echo '<span class="updated post-date"><span class="sep"> | </span>'.get_the_date('d M, Y').'</span>';
-				if($categories_list){
-                	echo '<span class="sep"> | </span>'; echo get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'ultimate' ) );
-				}
-                if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
-                    echo '<span class="sep"> | </span>'; echo comments_popup_link( __( 'Leave a comment ', 'ultimate' ), __( 'Comment (1)', 'twentyfourteen' ), __( 'Comments (%)', 'ultimate' ) ); 
-                endif;
-                if ( !is_single() ){echo '<span class="sep"> | </span>'; echo '<a href="'.get_the_permalink().'" rel="bookmark">'.__('Read More...','imedica').'</a>';}
-                if(is_user_logged_in())
-                    echo '<span class="sep"> | </span>'; edit_post_link( __( 'Edit', 'imedica' ), '<span class="edit-link">', '</span>' );
-            ?>
+            <?php ultimate_post_meta($post); ?>
         </div>
 
 		<footer class="entry-meta">

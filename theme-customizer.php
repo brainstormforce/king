@@ -35,12 +35,37 @@ function ultimate_customize_register( $wp_customize ) {
             'priority' => 1,
         )
     );
+
+    $wp_customize->add_panel( 'blog_panel', array(
+	    'priority' => 2,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Blog Settings', 'ultimate' ),
+	    'description' => __( 'Customize your blog layout.', 'ultimate' ),
+	) );
+	$wp_customize->add_section( 'blog_layout_section', array(
+	    'priority' => 1,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Layout', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'blog_panel',
+	) );
+	$wp_customize->add_section( 'blog_meta_section', array(
+	    'priority' => 2,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Select Post Meta', 'ultimate' ),
+	    'description' => '',
+	    'panel' => 'blog_panel',
+	) );
+
 	$wp_customize->add_section(
         'title_tagline',
         array(
             'title' => 'Header Settings',
             'description' => 'Customize logo and menu.',
-            'priority' => 2,
+            'priority' => 3,
         )
     );
     $wp_customize->add_section(
@@ -48,12 +73,12 @@ function ultimate_customize_register( $wp_customize ) {
         array(
             'title' => 'Footer Settings',
             'description' => 'Customize footer credit text.',
-            'priority' => 3,
+            'priority' => 4,
         )
     );
     
     $wp_customize->add_panel( 'colors_panel', array(
-	    'priority' => 4,
+	    'priority' => 5,
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
 	    'title' => __( 'Color Settings', 'ultimate' ),
@@ -93,7 +118,7 @@ function ultimate_customize_register( $wp_customize ) {
 	) );
 
 	$wp_customize->add_panel( 'typography_panel', array(
-	    'priority' => 5,
+	    'priority' => 6,
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
 	    'title' => __( 'Typography Settings', 'ultimate' ),
@@ -141,7 +166,7 @@ function ultimate_customize_register( $wp_customize ) {
 	) );
 
 	$wp_customize->add_panel( 'advanced_panel', array(
-	    'priority' => 6,
+	    'priority' => 7,
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
 	    'title' => __( 'Advanced Settings', 'ultimate' ),
@@ -230,7 +255,12 @@ function ultimate_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	//==========================
+	// Blog Settings
+	//==========================
 	
+	// Layout
 	$wp_customize->add_setting(
 		'blog_layout',
 		array(
@@ -243,7 +273,7 @@ function ultimate_customize_register( $wp_customize ) {
 		array(
 			'type' => 'select',
 			'label' => 'Blog Layout',
-			'section' => 'layout_setting',
+			'section' => 'blog_layout_section',
 			'choices' => array(
 				'normal' => 'Normal Blog',
 				'grid-2' => 'Grid - 2 Column Layout',
@@ -251,6 +281,92 @@ function ultimate_customize_register( $wp_customize ) {
 				'grid-4' => 'Grid - 4 Column Layout W/O Sidebar',
 				'banner-blog-2' => 'Image Banner - Grid 2 Column Layout',
 			),
+		)
+	);
+
+	// Post Meta
+	$wp_customize->add_setting(
+    	'blog_author_meta',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_author_meta',
+		array(
+			'label' => 'Author',
+			'section' => 'blog_meta_section',
+			'description' =>  '',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'blog_category_meta',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_category_meta',
+		array(
+			'label' => 'Category',
+			'section' => 'blog_meta_section',
+			'description' =>  '',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'blog_comment_meta',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_comment_meta',
+		array(
+			'label' => 'Comment',
+			'section' => 'blog_meta_section',
+			'description' =>  '',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'blog_date_meta',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_date_meta',
+		array(
+			'label' => 'Date',
+			'section' => 'blog_meta_section',
+			'description' =>  '',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'blog_link_meta',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_link_meta',
+		array(
+			'label' => 'Link',
+			'section' => 'blog_meta_section',
+			'description' =>  '',
+			'type'        => 'checkbox',
 		)
 	);
 	

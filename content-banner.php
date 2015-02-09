@@ -28,7 +28,7 @@
 							<?php 
 							$post_content = $post->post_content;						   
 							$post_id =$post->ID;
-							ultimate_gallery($post_id, $post_content);
+							ultimate_gallery_shortcode($post_id, $post_content);
 							?>
 						<?php else : ?>
 							the_post_thumbnail();
@@ -84,16 +84,10 @@
 						<h1 class="entry-title">
 							<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
 						</h1>
-						<p class="post-meta">
-				        <?php
-				            echo __('By ','imedica'); echo '<span class="vcard author"><span class="fn">'; the_author_posts_link(); echo '</span></span>';
-							echo '<span class="updated post-date"><span class="sep"> | </span>'.get_the_date('d M, Y').'</span>';
-				            if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
-				                echo '<span class="sep"> | </span>'; echo comments_popup_link( __( 'Leave a comment ', 'ultimate' ), __( 'Comment (1)', 'twentyfourteen' ), __( 'Comments (%)', 'ultimate' ) ); 
-				            endif;
-				            if ( !is_single() ){echo '<span class="sep"> | </span>'; echo '<a href="'.get_the_permalink().'" rel="bookmark">'.__('Read More...','imedica').'</a>';}
-				        ?>
-				    	</p>
+						
+						<div class="post-meta">
+				        	<?php ultimate_post_meta($post); ?>
+				    	</div>
 
 					</div> <!-- .banner-blog-info -->
 

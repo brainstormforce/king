@@ -122,7 +122,7 @@ jQuery(window).on('resize',function() {
 
 // Random Class
 var colorClasses = ['blueviolet', 'aliceblue', 'antiquewhite', 'aquamarine', 'beige', 'turquoise', 'thistle', 'skyblue'];
-jQuery(".blog-masonry .post").each(function(e){
+jQuery(".blog-masonry .post-container").each(function(e){
     classIndex = Math.floor(Math.random() * colorClasses.length);
     jQuery(this).addClass(colorClasses[classIndex]);
 });
