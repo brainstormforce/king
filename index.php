@@ -25,7 +25,7 @@ $cls = ($blog_layout !== 'grid-3' && $blog_layout !== 'grid-4') ? 'col-md-9 col-
 			<?php while ( have_posts() ) : the_post(); ?>
 			
             	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') { ?>
-					<?php get_template_part( 'content', 'grid' ); ?>
+					<?php get_template_part( 'content', 'blog-grid' ); ?>
                 <?php } else { ?>
                 	<?php get_template_part( 'content', get_post_format() ); ?>
                 <?php } ?>
