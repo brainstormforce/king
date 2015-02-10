@@ -199,6 +199,8 @@ function ultimate_page_menu_args( $args ) {
 add_filter( 'wp_page_menu_args', 'ultimate_page_menu_args' );
 
 
+
+
 /**
  * Register sidebars.
  *
@@ -444,8 +446,10 @@ endif;
  * @return array Filtered class values.
  */
 function ultimate_body_class( $classes ) {
+
 	$background_color = get_background_color();
 	$background_image = get_background_image();
+
 	if ( ! is_active_sidebar( 'sidebar-1' ) || is_page_template( 'page-templates/full-width.php' ) )
 		$classes[] = 'full-width';
 
@@ -471,6 +475,11 @@ function ultimate_body_class( $classes ) {
 
 	if ( ! is_multi_author() )
 		$classes[] = 'single-author';
+
+	// Site Layout
+	$site_layout = get_theme_mod('site_layout');
+	if ( $site_layout )
+		$classes[] = get_theme_mod('site_layout');
 
 	return $classes;
 }
@@ -551,6 +560,7 @@ require_once('theme-customizer.php');
 require_once('admin/meta.php');
 require_once('admin/megamenu-admin-walker.php');
 
+require_once('lib/ultimate-custom-style.php');
 require_once('lib/ultimate-breadcrumbs.php');
 require_once('lib/ultimate-menu-walker.php');
 require_once('lib/ultimate-pagination.php');
@@ -661,5 +671,18 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 		endif;
 	}
 endif;
+
+// Fevicom Image
+if ( ! function_exists( 'ultimate_favicon' ) ) :
+	function ultimate_favicon() {
+		$favicom_image = get_theme_mod( 'favicon-img' );
+		if ($favicom_image)
+		echo '<link rel="icon" href="'. get_theme_mod( 'favicon-img' ) .'" type="image/x-png"/>';
+	}
+	add_action('wp_head', 'ultimate_favicon');
+endif;
+
+
+
 
 ?>

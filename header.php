@@ -25,17 +25,14 @@
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-<link rel="icon" href="<?php echo get_theme_mod( 'favicon-img' ); ?>" type="image/x-png"/>
 <?php // Loads HTML5 JavaScript file to add support for HTML5 elements in older IE versions. ?>
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
-<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
 <?php wp_head(); ?>
-<?php get_template_part( 'lib/custom', 'style' );?>
 </head>
 <body <?php body_class(); ?>>
-<div id="page" class="hfeed site <?php echo get_theme_mod('site_layout'); ?>">
+<div id="page" class="site">
 
 	<?php
 		// Select Header Style
@@ -63,32 +60,3 @@
 	?>
 	
 	<div id="main" class="wrapper">
-
-    <?php
-	// if(!is_home())
-	// 		get_header('title-bar');
-	?>
-	<script>
-	
-	jQuery( function() {
-        jQuery('.menu-toggle-wrap').click( function() {
-        	jQuery('.nav-menu').toggle()});
-	});
-
-	jQuery(document).ready(function($) {
-    	$("li.menu-item-has-children").click(function () {
-      		$(this).toggleClass("ulopen");
-    	});
-    	$("li.page_item_has_children").click(function () {
-      		$(this).toggleClass("ulopen");
-    	});  
-    	  	
-        $(this).find("li.page_item_has_children > a").after( "<span class='ent entarrow-down7'></span>" );
-        $(this).find("li.menu-item-has-children > a").after( "<span class='ent entarrow-down7'></span>" );
-   	});
-   /*	jQuery(document).ready(function($) {
-   	var icn=$(this);
-    	console.log($(this));
-  		$('li:has(div.mega-menu)').parent().addClass('menu-item-has-mega-menu');
-	});*/
-	</script>

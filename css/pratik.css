@@ -874,18 +874,19 @@ body.page-template-ultimate-full-width .site-content .entry-content > .vc_row {
 /* Fluid Layout */
 .fluid .header-box,
 .fluid .ultimate-container,
-body .fluid #main,
+.fluid #main,
 .fluid .main-footer .footer-widget-area,
 .fluid footer#colophon .footer-bottom-container {
 	max-width: 100%;
 }
 
 /* Boxed Layout */
-.site.boxed {
+.boxed .site {
 	margin: 0 auto;
 	overflow: hidden;
+	max-width: 1170px;
 }
-.js_active .site.boxed {
+.js_active .boxed .site {
 	overflow: visible;
 }
 

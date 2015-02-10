@@ -127,3 +127,21 @@ jQuery(".blog-masonry .post-container").each(function(e){
     jQuery(this).addClass(colorClasses[classIndex]);
 });
 
+
+// Menu Toggle
+jQuery( function() {
+    jQuery('.menu-toggle-wrap').click( function() {
+    	jQuery('.nav-menu').toggle()});
+});
+
+jQuery(document).ready(function(jQuery) {
+	jQuery("li.menu-item-has-children").click(function () {
+  		jQuery(this).toggleClass("ulopen");
+	});
+	jQuery("li.page_item_has_children").click(function () {
+  		jQuery(this).toggleClass("ulopen");
+	});	  	
+    jQuery(this).find("li.page_item_has_children > a").after( "<span class='ent entarrow-down7'></span>" );
+    jQuery(this).find("li.menu-item-has-children > a").after( "<span class='ent entarrow-down7'></span>" );
+});
+
