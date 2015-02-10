@@ -1,43 +1,3 @@
-/**
- * Mega Menu
- */
-/*jQuery(function ($) {
-    function hoverIn() {
-        var a = jQuery(this);
-        var nav = a.closest('.nav-menu');
-        var mega = a.find('.mega-menu');
-        var offset = rightSide(nav) - leftSide(a);
-        		
-		mega.width(Math.min(rightSide(nav), columns(mega)*240));
-       	mega.css('left', Math.min(0, offset - mega.width()+100));
-		
-		console.log(columns(mega));
-    }
-    function hoverOut() {
-    }
-    function columns(mega) {
-        var columns = 0;
-        mega.children('.mega-menu-row').each(function () {
-            columns = Math.max(columns, jQuery(this).children('.menu-item').length);
-        });
-        return columns;
-    }
-    function leftSide(elem) {
-        return elem.offset().left;
-    }
-    function rightSide(elem) {
-        return elem.offset().left + elem.outerWidth();
-    }
-    jQuery('.menu-item-has-mega-menu').hover(hoverIn, hoverOut);
-	
-	jQuery('.blog-masonry').isotope({
-		itemSelector: '.post-item',
-		masonry: {
-		  columnWidth: '.post-item'
-		}
-	});
-});*/
-
 // Enable Fixed Menu Through jQuery
 jQuery(function( jQuery ) {
 	var starting_position = jQuery('.ult-fixed-menu').outerHeight( true );
@@ -76,29 +36,6 @@ jQuery(window).on('resize',function() {
 });
 
 
-// Arrange Website Name & Description, Vertically Center
-/*
-jQuery(document).ready(function() {
-	var header_height1 = jQuery('.ult-main-menu-container').outerHeight( true );
-	if( window.innerWidth > 768 ) {
-		jQuery(".site-title").css('line-height',header_height1 + "px");
-	}
-	else {
-		jQuery(".site-title").css('line-height',0);
-	}
-});
-jQuery(window).on('resize',function() {
-	var header_height1 = jQuery('.ult-main-menu-container').outerHeight( true );
-	if( window.innerWidth > 768 ) {
-		jQuery(".site-title").css('line-height',header_height1 + "px");
-	}
-	else {
-		jQuery(".site-title").css('line-height',0);
-	}
-});
-*/
-
-
 // Assign Browser Width to Row - If Front Page Widget Area has Featured Image
 jQuery(document).ready(function() {
 	var browser_width = jQuery('#page').outerWidth( true );
@@ -117,14 +54,6 @@ jQuery(window).on('resize',function() {
       "left": - front_widget_offset.left,
     };
 	jQuery(".widget-thumbnail").css( front_widget_styles );
-});
-
-
-// Random Class
-var colorClasses = ['blueviolet', 'aliceblue', 'antiquewhite', 'aquamarine', 'beige', 'turquoise', 'thistle', 'skyblue'];
-jQuery(".blog-masonry .post-container").each(function(e){
-    classIndex = Math.floor(Math.random() * colorClasses.length);
-    jQuery(this).addClass(colorClasses[classIndex]);
 });
 
 

@@ -18,8 +18,8 @@ $bl = get_theme_mod('blog_layout');
 $blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 $cls = ($blog_layout !== 'grid-3' && $blog_layout !== 'grid-4') ? 'col-md-9 col-sm-8 col-xl-12 col-xs-12' : 'col-md-12 col-sm-12 col-xl-12 col-xs-12';
 ?>
-	<div id="primary" class="site-content <?php echo $cls.' '.$blog_layout; ?>">
-		<div id="content" role="main" class="<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4' || $blog_layout == 'banner-blog-2'): ?> blog-masonry <?php else: ?> blog-normal <?php endif; ?> clear">
+	<div id="primary" class="site-content <?php echo $cls; ?>">
+		<div id="content" role="main" class="clear">
 		<?php if ( have_posts() ) : ?>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -56,13 +56,7 @@ $cls = ($blog_layout !== 'grid-3' && $blog_layout !== 'grid-4') ? 'col-md-9 col-
 			</article><!-- #post-0 -->
 		<?php endif; // end have_posts() check ?>
 		</div><!-- #content -->
-		<?php 
-			if(function_exists('ultimate_pagination')){
-				ultimate_pagination();
-			} else {
-				ultimate_content_nav( 'nav-below' ); 
-			}
-		?>
+		<?php ultimate_pagination(); ?>
 	</div><!-- #primary -->
 <?php if($blog_layout !== 'grid-3' && $blog_layout !== 'grid-4') get_sidebar(); ?>
 <?php get_footer(); ?>

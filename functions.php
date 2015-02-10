@@ -297,27 +297,6 @@ function ultimate_widgets_init() {
 add_action( 'widgets_init', 'ultimate_widgets_init' );
 
 
-
-if ( ! function_exists( 'ultimate_content_nav' ) ) :
-/**
- * Displays navigation to next/previous pages when applicable.
- *
- * @since Ultimate 1.0
- */
-function ultimate_content_nav( $html_id ) {
-	global $wp_query;
-	$html_id = esc_attr( $html_id );
-	if ( $wp_query->max_num_pages > 1 ) : ?>
-		<nav id="<?php echo $html_id; ?>" class="navigation clear" role="navigation">
-			<h3 class="assistive-text"><?php _e( 'Post navigation', 'ultimate' ); ?></h3>
-			<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'ultimate' ) ); ?></div>
-			<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'ultimate' ) ); ?></div>
-		</nav><!-- #<?php echo $html_id; ?> .navigation -->
-	<?php endif;
-}
-endif;
-
-
 if ( ! function_exists( 'ultimate_comment' ) ) :
 /**
  * Template for comments and pingbacks.
@@ -480,6 +459,15 @@ function ultimate_body_class( $classes ) {
 	$site_layout = get_theme_mod('site_layout');
 	if ( $site_layout )
 		$classes[] = get_theme_mod('site_layout');
+
+
+	// Blog Layout
+	$blog_layout = get_theme_mod('blog_layout');
+	if ( $blog_layout )
+		$classes[] = get_theme_mod('blog_layout');
+
+	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4')
+		$classes[] = 'blog-grid';
 
 	return $classes;
 }

@@ -23,7 +23,7 @@ if ($bl == 'grid-2' || $bl == 'grid-3' || $bl == 'grid-4') {
 				<div class="archive-meta"><?php echo category_description(); ?></div>
 			<?php endif; ?>
 		</header><!-- .archive-header -->
-		<div id="content" role="main" class="<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4'): ?> blog-masonry <?php else: ?> blog-normal <?php endif; ?> clear">
+		<div id="content" role="main" class="clear">
 		<?php if ( have_posts() ) : ?>
 			<?php /* Start the Loop */
 			while ( have_posts() ) : the_post(); ?>
@@ -37,12 +37,7 @@ if ($bl == 'grid-2' || $bl == 'grid-3' || $bl == 'grid-4') {
 			<?php get_template_part( 'content', 'none' ); ?>
 		<?php endif; ?>
 		</div><!-- #content -->
-		<?php 
-			if(function_exists('ultimate_pagination')){
-				ultimate_pagination();
-			} else {
-				ultimate_content_nav( 'nav-below' );
-			} ?>
+		<?php ultimate_pagination(); ?>
 	</section><!-- #primary -->
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>

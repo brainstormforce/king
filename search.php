@@ -17,13 +17,7 @@ get_header(); ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php get_template_part( 'content', get_post_format() ); ?>
 			<?php endwhile; ?>
-			<?php 
-				if(function_exists('ultimate_pagination')){
-					ultimate_pagination();
-				} else {
-					ultimate_content_nav( 'nav-below' );
-				}
-			?>
+			<?php ultimate_pagination(); ?>
 		<?php else : ?>
 			<article id="post-0" class="post no-results not-found">
 				<header class="entry-header">

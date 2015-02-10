@@ -275,12 +275,47 @@ function ultimate_customize_register( $wp_customize ) {
 			'label' => 'Blog Layout',
 			'section' => 'blog_layout_section',
 			'choices' => array(
-				'normal' => 'Normal Blog',
+				'normal' => 'Normal - Large Image Layout',
+				'medium-image' => 'Medium Image Layout',
 				'grid-2' => 'Grid - 2 Column Layout',
 				'grid-3' => 'Grid - 3 Column Layout W/O Sidebar',
 				'grid-4' => 'Grid - 4 Column Layout W/O Sidebar',
 				'banner-blog-2' => 'Image Banner - Grid 2 Column Layout',
 			),
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'blog_masonry_layout',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_masonry_layout',
+		array(
+			'label' => 'Enable Masonry',
+			'section' => 'blog_layout_section',
+			'description' =>  'This setting will be applied to <strong>Only Grid Layouts</strong>.',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'blog_pagination',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_pagination',
+		array(
+			'label' => 'Enable Number Pagination',
+			'section' => 'blog_layout_section',
+			'description' =>  '',
+			'type'        => 'checkbox',
 		)
 	);
 

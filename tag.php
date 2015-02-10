@@ -31,7 +31,7 @@ if ($bl == 'grid-2' || $bl == 'grid-3' || $bl == 'grid-4') {
 
 		</header><!-- .archive-header -->
 
-		<div id="content" role="main" class="<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4'): ?> blog-masonry <?php else: ?> blog-normal <?php endif; ?> clear">
+		<div id="content" role="main" class="clear">
 			<?php if ( have_posts() ) : ?>
 				
 				<?php /* Start the Loop */
@@ -49,13 +49,7 @@ if ($bl == 'grid-2' || $bl == 'grid-3' || $bl == 'grid-4') {
 				
 			<?php endif; ?>
 		</div><!-- #content -->
-		<?php 
-			if(function_exists('ultimate_pagination')){
-				ultimate_pagination();
-			} else {
-				ultimate_content_nav( 'nav-below' );
-			}
-		?>
+		<?php ultimate_pagination(); ?>
 
 	</section><!-- #primary -->
 
