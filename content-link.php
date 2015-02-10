@@ -17,11 +17,9 @@
 	    </div><!-- .entry-summary -->
 
 	    <div class="entry-summary-meta">
-			<div class="post-meta">
-	            <div class="post-meta">
-		        	<?php ultimate_post_meta($post); ?>
-		    	</div>
-	        </div>
+            <div class="post-meta">
+	        	<?php ultimate_post_meta($post); ?>
+	    	</div>
         </div><!-- .entry-summary-meta -->
 
 	</article><!-- #post -->

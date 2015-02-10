@@ -701,13 +701,24 @@ function ultimate_post_class( $classes ) {
 		$classes[] = 'col-md-6 col-lg-6 col-xl-6 col-xs-12 col-sm-12';
 	} else if ($blog_layout == 'grid-3') {
 		$classes[] = 'col-md-4 col-lg-4 col-xl-4 col-xs-12 col-sm-12';
-	} else {
+	} else if ($blog_layout == 'grid-4') {
 		$classes[] = 'col-md-3 col-lg-3 col-xl-3 col-xs-12 col-sm-12';
+	} else {
+		$classes[] = '';
 	}
 
 	return $classes;
 }
 add_filter( 'post_class', 'ultimate_post_class' );
+
+// Add new image Size for Medium Image Blog
+add_image_size( 'medium-image-blog', 330, 215, true ); // (cropped)
+add_filter( 'image_size_names_choose', 'ultimate_image_sizes' );
+function ultimate_image_sizes( $sizes ) {
+    return array_merge( $sizes, array(
+        'medium-image-blog' => __( 'Medium Blog Image' ),
+    ) );
+}
 
 
 ?>

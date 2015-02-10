@@ -29,24 +29,24 @@
 
 
     <?php if(has_post_thumbnail() || $gallery_post ) : ?>
-		<header class="entry-header <?php echo $cls2; ?>">
+		<div class="entry-header <?php echo $cls2; ?>">
 			<?php if ( ! post_password_required() && ! is_attachment() ) :
 				if ( $gallery_post ) :
 					get_post_gallery( $post, true );
 				else :
-					the_post_thumbnail();
+					the_post_thumbnail('medium-image-blog');
 				endif; 
 			endif; ?>
-		</header><!-- .entry-header -->
+		</div><!-- .entry-header -->
     <?php endif; ?>
 
 
-        <div class="entry-summary <?php echo $cls; ?>">
-			<h1 class="entry-title">
-				<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
-			</h1>
-			<?php the_excerpt(); ?>
-		</div><!-- .entry-summary -->
+    <div class="entry-summary <?php echo $cls; ?>">
+		<h1 class="entry-title">
+			<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
+		</h1>
+		<?php the_excerpt(); ?>
+	</div><!-- .entry-summary -->
 
 		
 
