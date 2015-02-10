@@ -690,4 +690,24 @@ if ( ! function_exists( 'ultimate_excerpt_length' ) ) :
 	add_filter( 'excerpt_length', 'ultimate_excerpt_length', 999 );
 endif;
 
+
+// Append Post Class
+function ultimate_post_class( $classes ) {
+
+	global $post;
+	$blog_layout = get_theme_mod('blog_layout');
+	
+	if ($blog_layout == 'grid-2') {
+		$classes[] = 'col-md-6 col-lg-6 col-xl-6 col-xs-12 col-sm-12';
+	} else if ($blog_layout == 'grid-3') {
+		$classes[] = 'col-md-4 col-lg-4 col-xl-4 col-xs-12 col-sm-12';
+	} else {
+		$classes[] = 'col-md-3 col-lg-3 col-xl-3 col-xs-12 col-sm-12';
+	}
+
+	return $classes;
+}
+add_filter( 'post_class', 'ultimate_post_class' );
+
+
 ?>

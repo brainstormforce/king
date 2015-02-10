@@ -12,15 +12,11 @@
  * @since Ultimate 1.0
  */
 get_header();
+
 $bl = get_theme_mod('blog_layout');
-//$blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal'; 
-if ($bl == 'grid-2' || $bl == 'grid-3' || $bl == 'grid-4') {
-	$blog_layout = 'grid-2';
-} else {
-	$blog_layout = 'normal';
-}
+$blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 ?>
-	<section id="primary" class="site-content col-md-9 col-sm-8 col-xl-12 col-xs-12 <?php echo $blog_layout; ?>">
+	<section id="primary" class="site-content col-md-9 col-sm-8 col-xl-12 col-xs-12">
 
 		<header class="archive-header">
 			<h1 class="archive-title"><?php printf( __( 'Tag Archives: %s', 'ultimate' ), '<span>' . single_tag_title( '', false ) . '</span>' ); ?></h1>

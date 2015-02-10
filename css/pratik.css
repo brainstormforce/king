@@ -1327,12 +1327,12 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 
 @media only screen and (min-width: 992px) {	
 	/* Blog - Index Page */
-	.has-post-thumbnail .entry-header {
+	.medium-image .entry-header.col-md-4 {
 		padding-left: 0;
 		padding-right: 15px;
 		padding-bottom: 0;
 	}
-	.has-post-thumbnail .entry-summary {
+	.medium-image .entry-summary.col-md-8 {
 		padding-left: 15px;
 		padding-right: 0;
 	}

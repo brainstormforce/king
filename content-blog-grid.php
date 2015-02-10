@@ -10,29 +10,19 @@
  */
 ?>
 <?php
-	$blog_layout = get_theme_mod('blog_layout');
-
-	if ($blog_layout == 'grid-2') {
-		$post_class = 'col-md-6 col-lg-6 col-xl-6 col-xs-12 col-sm-12';
-	} else if ($blog_layout == 'grid-3') {
-		$post_class = 'col-md-4 col-lg-4 col-xl-4 col-xs-12 col-sm-12';
-	} else {
-		$post_class = 'col-md-3 col-lg-3 col-xl-3 col-xs-12 col-sm-12';
-	}
-
-	$grid_post_format = get_post_format(); // Get Post Format
+	$gallery_post = has_shortcode( $post->post_content, 'gallery' );
 ?>
 
 
-<article id="post-<?php the_ID(); ?>" <?php post_class($post_class); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<div class="post-container">
 
-        <?php if(has_post_thumbnail() || get_post_gallery()) : ?>
+        <?php if(has_post_thumbnail() || $gallery_post) : ?>
 			<header class="entry-header">
 				<?php 
-					if ( get_post_gallery() ) :
-						get_post_gallery();
+					if ( $gallery_post ) :
+						get_post_gallery( $post, true );
 					else :
 						the_post_thumbnail();
 					endif; 
