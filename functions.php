@@ -125,13 +125,16 @@ function ultimate_scripts_styles() {
     //wp_enqueue_script('jquery.bootstrap.min');
 	
 	// Load Masonry Javascript
-	$masonry_blog_layout = get_theme_mod('blog_layout');
-	if ( $masonry_blog_layout !== 'normal' ) {
-		if ( is_home() || is_front_page() || is_archive() || is_search() ) {
-			wp_enqueue_script('jquery-masonry');
-			add_action('wp_footer', 'ultimate_masonry_blog');
-		}
-	}
+	$masonry_blog_layout = get_theme_mod('blog_masonry_layout');
+	$blog_layout = get_theme_mod('blog_layout');
+	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
+		if ( $masonry_blog_layout ) :
+			if ( is_home() || is_front_page() || is_archive() || is_search() ) {
+				wp_enqueue_script('jquery-masonry');
+				add_action('wp_footer', 'ultimate_masonry_blog');
+			}
+		endif;
+	endif;
 
 	// Slick SLider
 	wp_enqueue_style( 'slick-slider', get_template_directory_uri().'/css/slick/slick.css');
@@ -469,6 +472,13 @@ function ultimate_body_class( $classes ) {
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4')
 		$classes[] = 'blog-grid';
 
+	// Enable Masonry Layout
+	$masonry_layout = get_theme_mod('blog_masonry_layout');
+	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
+		if ( $masonry_layout )
+			$classes[] = 'blog-masonry';
+	endif;
+
 	return $classes;
 }
 add_filter( 'body_class', 'ultimate_body_class' );
@@ -501,7 +511,7 @@ function ultimate_masonry_blog() {
 	<script type="text/javascript">
 		// Apply Masonry Effect To Blog
 		jQuery(window).load(function() {
-			var container = document.querySelector('.blog-masonry');
+			var container = document.querySelector('.blog-masonry #content');
 			var msnry = new Masonry( container, {
 				columnWidth: '.post',
 				itemSelector: '.post'
@@ -671,6 +681,13 @@ if ( ! function_exists( 'ultimate_favicon' ) ) :
 endif;
 
 
-
+// Custom Excerpt Length
+if ( ! function_exists( 'ultimate_excerpt_length' ) ) :
+	function ultimate_excerpt_length( $length ) {
+		$excerpt_length = get_theme_mod( 'post_excerpt_length' );
+		return $excerpt_length;
+	}
+	add_filter( 'excerpt_length', 'ultimate_excerpt_length', 999 );
+endif;
 
 ?>

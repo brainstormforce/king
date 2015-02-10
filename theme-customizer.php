@@ -280,8 +280,29 @@ function ultimate_customize_register( $wp_customize ) {
 				'grid-2' => 'Grid - 2 Column Layout',
 				'grid-3' => 'Grid - 3 Column Layout W/O Sidebar',
 				'grid-4' => 'Grid - 4 Column Layout W/O Sidebar',
-				'banner-blog-2' => 'Image Banner - Grid 2 Column Layout',
 			),
+		)
+	);
+
+	$wp_customize->add_setting( 
+		'separator-5', 
+		array(
+			'default' => '',
+			'type' => 'theme_mod',
+			'capability' => 'edit_theme_options',
+			'transport' => '',
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		) 
+	);
+	$wp_customize->add_control(
+		new Ultimate_Separator_Control(
+			$wp_customize,
+			'separator-5',
+			array(
+				'label' => '',
+				'section' => 'blog_layout_section',
+				'settings' => 'separator-5',
+			)
 		)
 	);
 
@@ -316,6 +337,29 @@ function ultimate_customize_register( $wp_customize ) {
 			'section' => 'blog_layout_section',
 			'description' =>  '',
 			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'post_excerpt_length',
+		array(
+			'default' => 25,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'post_excerpt_length',
+		array(
+			'label' => 'Custom Excerpt Length (Words)',
+			'section' => 'blog_layout_section',
+			'description' =>  '',
+			'type'        => 'number',
+			'input_attrs' => array(
+				'min'   => 10,
+				'max'   => 72,
+				'step'  => 1,
+				'style' => 'width: 80px;',
+			),
 		)
 	);
 
