@@ -6,9 +6,7 @@
  * For example, puts together date-based pages if no date.php file exists.
  *
  * If you'd like to further customize these archive views, you may create a
- * new template file for each specific one. For example, Twenty Twelve already
- * has tag.php for Tag archives, category.php for Category archives, and
- * author.php for Author archives.
+ * new template file for each specific one.
  *
  * @link http://codex.wordpress.org/Template_Hierarchy
  *

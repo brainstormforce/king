@@ -3,8 +3,8 @@
  * The Template for displaying all single posts
  *
  * @package WordPress
- * @subpackage Twenty_Twelve
- * @since Twenty Twelve 1.0
+ * @subpackage Ultimate
+ * @since Ultimate 1.0
  */
 get_header(); ?>
 	<div id="primary" class="site-content col-md-9 col-sm-9 col-xl-12 col-xs-12">

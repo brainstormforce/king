@@ -129,10 +129,10 @@ function ultimate_scripts_styles() {
 	$blog_layout = get_theme_mod('blog_layout');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
-			if ( is_home() || is_front_page() || is_archive() || is_search() ) {
+			if ( is_home() || is_front_page() || is_archive() || is_search() ) :
 				wp_enqueue_script('jquery-masonry');
 				add_action('wp_footer', 'ultimate_masonry_blog');
-			}
+			endif;
 		endif;
 	endif;
 

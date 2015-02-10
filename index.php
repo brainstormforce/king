@@ -10,8 +10,8 @@
  * @link http://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage Twenty_Twelve
- * @since Twenty Twelve 1.0
+ * @subpackage Ultimate
+ * @since Ultimate 1.0
  */
 get_header();
 $bl = get_theme_mod('blog_layout');
@@ -23,10 +23,9 @@ $cls = ($blog_layout !== 'grid-3' && $blog_layout !== 'grid-4') ? 'col-md-9 col-
 		<?php if ( have_posts() ) : ?>
 			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
+			
             	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') { ?>
 					<?php get_template_part( 'content', 'grid' ); ?>
-				<?php } else if($blog_layout == 'banner-blog-2' || $blog_layout == 'banner-blog-3' || $blog_layout == 'banner-blog-4') { ?>
-					<?php get_template_part( 'content', 'banner' ); ?>
                 <?php } else { ?>
                 	<?php get_template_part( 'content', get_post_format() ); ?>
                 <?php } ?>

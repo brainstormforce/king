@@ -4,7 +4,9 @@
  *
  * Add postMessage support for site title and description for the Customizer.
  *
- * @since Twenty Twelve 1.0
+ * @package WordPress
+ * @subpackage Ultimate
+ * @since Ultimate 1.0
  *
  * @param WP_Customize_Manager $wp_customize Customizer object.
  */
