@@ -1,43 +1,48 @@
 <?php
 /**
- * The template for displaying the footer
- *
- * Contains footer content and the closing of the #main and #page div elements.
- *
- * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
- */
+* The template for displaying the footer
+*
+* Contains footer content and the closing of the #main and #page div elements.
+*
+* @package WordPress
+* @subpackage Ultimate
+* @since Ultimate 1.0
+*/
 ?>
-	</div><!-- #main .wrapper -->
-	<div id="footer">
-			<?php
-                $sidebars = array("sidebar-footer-1", "sidebar-footer-2", "sidebar-footer-3", "sidebar-footer-4");
-                $n = 0;
-                foreach($sidebars as $key => $sidebar){
-                    if(is_active_sidebar($sidebar)){
-                        $n++;
-                    } else {
-                        unset($sidebars[$key]);
-                    }
-                }
-                if($n !== 0){
-                    $cols = 12 / $n;
-			?>
-			<div class="main-footer">
-				<div class="footer-widget-area">
-             <?php
-                    foreach($sidebars as $key => $sidebar){
-                        echo '<div class="col-sm-'.$cols.'">';
-                        dynamic_sidebar($sidebar);
-                        echo '</div>'; 
-                    }
-			  ?>
-				</div>
-			</div>
-          	<?php } ?>
+
+    </div><!-- #main .wrapper -->
+
+    <div id="footer">
+    <?php
+        $sidebars = array("sidebar-footer-1", "sidebar-footer-2", "sidebar-footer-3", "sidebar-footer-4");
+        $n = 0;
+        foreach($sidebars as $key => $sidebar){
+            if(is_active_sidebar($sidebar)){
+                $n++;
+            } else {
+                unset($sidebars[$key]);
+            }
+        }
+        if($n !== 0){
+            $cols = 12 / $n; ?>
+
+            <div class="main-footer">
+                <div class="footer-widget-area">
+                    <?php
+                        foreach($sidebars as $key => $sidebar){
+                            echo '<div class="col-sm-'.$cols.'">';
+                            dynamic_sidebar($sidebar);
+                            echo '</div>'; 
+                        }
+                    ?>
+                </div> <!-- .footer-widget-area -->
+            </div> <!-- .main-footer -->
+
+            <?php 
+        } ?>
+
         <footer id="colophon" role="contentinfo">
-        	<div class="footer-bottom-container">
+            <div class="footer-bottom-container">
 
                 <?php 
                     // Change footer class w.r.t. to copyright text
@@ -48,7 +53,8 @@
                         $footer_class = "col-md-12 col-sm-12 col-xl-12 col-xs-12";
                     } 
                 ?>
-                <?php if( get_theme_mod( 'display_copyright' ) != '') { ?>
+
+                <?php if( get_theme_mod( 'display_copyright' ) != '') : ?>
                     <div class="site-info <?php echo $footer_class; ?>">
                         <?php if( get_theme_mod( 'copyright_text_link' ) == '') { ?>
                             <?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?>
@@ -56,17 +62,19 @@
                             <a href="<?php echo get_theme_mod( 'copyright_text_link', 'http://www.brainstormforce.com/' ); ?>" title="<?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?>"><?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?></a>
                         <?php } // end if ?>
                     </div><!-- .site-info -->
-                <?php } // end if ?>
+                <?php endif; ?>
 
-                <?php if ( has_nav_menu( 'footer-menu' ) ) { ?>
+                <?php if ( has_nav_menu( 'footer-menu' ) ) : ?>
                     <div class="footer-menu <?php echo $footer_class; ?>">                    
                         <?php wp_nav_menu( array( 'theme_location' => 'footer-menu', 'menu_class' => 'nav-menu','depth' => 1 ) ); ?>                  
-                    </div>
-                <?php } // end if ?>
+                    </div> <!-- .footer-menu -->
+                <?php endif; ?>
 
-			</div>
-        </footer><!-- #colophon -->
-       </div>
+            </div> <!-- .footer-bottom-container -->
+        </footer> <!-- #colophon -->
+
+    </div> <!-- #footer -->
+
 </div><!-- #page -->
 <?php wp_footer(); ?>
 </body>

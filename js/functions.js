@@ -74,3 +74,15 @@ jQuery(document).ready(function(jQuery) {
     jQuery(this).find("li.menu-item-has-children > a").after( "<span class='ent entarrow-down7'></span>" );
 });
 
+// ColorBox
+jQuery(document).ready(function() {
+    jQuery('#page').find('a.ultimate-lightbox').colorbox({
+        maxWidth : '80%',
+        maxHeight : '90%',
+        rel: 'ultimate-lightbox',
+        opacity : 0.8,
+        transition : 'elastic',
+        current : ''
+    });
+});
+
