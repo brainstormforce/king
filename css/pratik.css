@@ -451,7 +451,7 @@ footer[role="contentinfo"] .footer-bottom-container {
 	color: #DE5034;
 }
 /* Post Which Have Featured Image */
-.has-post-thumbnail .entry-header,
+/*.has-post-thumbnail .entry-header,
 .has-post-thumbnail .entry-summary,
 .format-image.has-post-thumbnail .entry-header,
 .format-image.has-post-thumbnail .entry-summary {
@@ -460,9 +460,16 @@ footer[role="contentinfo"] .footer-bottom-container {
 }
 .has-post-thumbnail .entry-header {
 	margin-bottom: 24px;
+}*/
+
+/* Featured Image / Gallery */
+.blog-featured-media {
+	margin-bottom: 24px;
 }
+
+
 /* Sticky Post */
-.normal .post.sticky .featured-post {
+.featured-post h2 {
 	text-transform: uppercase;
 	font-size: 17px;
 	font-weight: normal;
@@ -584,6 +591,12 @@ footer[role="contentinfo"] .footer-bottom-container {
 	border: 1px solid #eaeaea;
 	padding: 5px;
 	box-shadow: 0 0 5px #f0f0f0;
+}
+time.entry-date {
+	font-weight: normal;
+	display: block;
+	margin-bottom: 15px;
+	font-style: italic;
 }
 
 /* Link posts */
