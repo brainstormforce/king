@@ -86,3 +86,20 @@ jQuery(document).ready(function() {
     });
 });
 
+// Responsive iframe
+jQuery(document).ready(function() {
+	jQuery(".ultiamte-iframe").each(function(index, element) {
+		var w = jQuery(this).parent().width();
+		var h = (w*(9/16));
+		jQuery(this).css({"width":w+"px","height":h+"px"});
+	});
+});
+jQuery(window).on('resize',function() {
+	jQuery(".ultiamte-iframe").each(function(index, element) {
+		var w = jQuery(this).parent().width();
+		var c = w/10;
+		var h = (w*(9/16))+c;
+		jQuery(this).css({"width":w+"px","height":h+"px"});
+	});
+});
+

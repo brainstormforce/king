@@ -665,6 +665,12 @@ time.entry-date {
 	margin-right: 21px;
 }
 
+/* Video */
+.wp-video,
+.ultiamte-iframe {
+	margin-bottom: 24px;
+}
+
 /* Justified Grid Gallery */
 .ultimate-justified-grid-gallery {
     max-height: 260px;

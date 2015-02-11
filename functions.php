@@ -730,7 +730,10 @@ function ultimate_post_video($post) {
 	ob_start();
 	ob_end_clean();
 
-	if ( preg_match('/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches)) {
+	if ( preg_match('/\[(\[?)(video)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)/', $post->post_content, $matches)) {
+		echo do_shortcode($matches[0]);	
+	}
+	elseif ( preg_match('/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches)) {
 		echo '<iframe class="ultiamte-iframe" width="1280" height="720" src="';
 		echo $matches[1];
 		echo '" frameborder="0" allowfullscreen></iframe>';
