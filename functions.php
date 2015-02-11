@@ -721,4 +721,38 @@ function ultimate_image_sizes( $sizes ) {
 }
 
 
+
+// Retrive video from post
+if ( ! function_exists( 'ultimate_post_video' ) ) :
+function ultimate_post_video($post) {
+
+	global $post;
+	ob_start();
+	ob_end_clean();
+
+	if ( preg_match('/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches)) {
+		echo '<iframe class="ultiamte-iframe" width="1280" height="720" src="';
+		echo $matches[1];
+		echo '" frameborder="0" allowfullscreen></iframe>';
+	}
+	elseif ( preg_match( '#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#', $post->post_content, $matches ) ) {
+		echo '<iframe class="ultiamte-iframe" width="1280" height="720" src="https://www.youtube.com/embed/';
+		echo $matches[0];
+		echo '?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
+	} 
+	elseif ( preg_match('/vimeo.com\/([1-9.-_]+)/', $post->post_content, $matches) ) {
+		echo '<iframe class="ultiamte-iframe" src="//player.vimeo.com/video/';
+		echo $matches[1];
+		echo'?title=0&byline=0&portrait=0" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+	}
+	else {
+		echo '<div class="entry-content">';
+			the_content();
+		echo '</div>';
+	}
+
+}
+endif;
+
+//<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/0QYKa8AHo5g?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
 ?>
