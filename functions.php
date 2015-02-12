@@ -696,16 +696,18 @@ function ultimate_post_class( $classes ) {
 
 	global $post;
 	$blog_layout = get_theme_mod('blog_layout');
-	
-	if ($blog_layout == 'grid-2') {
-		$classes[] = 'col-md-6 col-lg-6 col-xl-6 col-xs-12 col-sm-12';
-	} else if ($blog_layout == 'grid-3') {
-		$classes[] = 'col-md-4 col-lg-4 col-xl-4 col-xs-12 col-sm-12';
-	} else if ($blog_layout == 'grid-4') {
-		$classes[] = 'col-md-3 col-lg-3 col-xl-3 col-xs-12 col-sm-12';
-	} else {
-		$classes[] = '';
-	}
+
+	if ( !is_single() && !is_page()) :	
+		if ($blog_layout == 'grid-2') {
+			$classes[] = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+		} else if ($blog_layout == 'grid-3') {
+			$classes[] = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
+		} else if ($blog_layout == 'grid-4') {
+			$classes[] = 'col-lg-3 col-md-3 col-sm-4 col-xs-12';
+		} else {
+			$classes[] = '';
+		}
+	endif;
 
 	return $classes;
 }
@@ -757,5 +759,51 @@ function ultimate_post_video($post) {
 }
 endif;
 
-//<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/0QYKa8AHo5g?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+
+
+if ( ! function_exists( 'ultimate_post_audio' ) ) :
+	function ultimate_post_audio($post) { // for audio post type - grab
+		global $post;
+		if ( preg_match( '/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches ) ) {
+			echo '<iframe class="ultiamte-audio-iframe" width="100%" height="350" src="';
+			echo $matches[1];
+			echo '" scrolling="no" frameborder="no"></iframe>';
+		}
+		/*
+		else if ( preg_match( '((https?:)?\/\/(www\.)?soundcloud\.com\/[a-z?,-?,1-9?]+)', $post->post_content, $matches ) ) {
+			print_r($matches);
+			ultimate_get_soundcloud_id( $matches[0] );
+		} else if ( preg_match('/\[(\[?)(soundcloud)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)/', $post->post_content, $matches)) {
+			if ( preg_match('/^(.+?)\/(sets|groups|playlists)\/(.+?)$/', $matches[3], $ma)) {
+				echo '<iframe class="ultiamte-audio-iframe" width="100%" height="350" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
+				echo $ma[3];
+				echo '" scrolling="no" frameborder="no"></iframe>';
+			}
+		}
+		*/
+		else {
+			echo '<div class="entry-content">';
+				the_content();
+			echo '</div>';
+		}
+	}
+	/*
+	function ultimate_get_soundcloud_id( $sc_url ) {
+		$url   = strip_tags( $sc_url );
+		echo $url;
+		// if $sc_url is not empty, do
+		if ( ! empty( $sc_url ) ) {
+			$unparsed_json = wp_remote_get( 'http://api.soundcloud.com/resolve.json?url=' . $url . '&client_id=c7b853e983a53f5d1e0d278a8a461781' );
+			if ( $unparsed_json['response']['code'] != 200 ) {
+				$json_object = json_decode( $unparsed_json['boody'] );
+				$roster_id = $json_object->{'id'};
+				echo '<iframe class="ultiamte-audio-iframe" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' . $roster_id . '&amp;color=red&amp;auto_play=false&amp;hide_related=true&amp;show_artwork=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>';
+			}
+		}
+	}
+	*/
+endif;
+
+
+
 ?>

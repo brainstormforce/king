@@ -8,16 +8,6 @@
  */
 ?>
 
-<?php
-/**
- * The template for displaying posts in the Video post format
- *
- * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
- */
-?>
-
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<header class="entry-header clear">
@@ -35,5 +25,4 @@
 	    </div>
     </div><!-- .entry-summary-meta -->
 
-</article><!-- #post -->	
-
+</article><!-- #post -->
