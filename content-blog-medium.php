@@ -12,7 +12,7 @@
 <?php
 	$gallery_post = has_shortcode( $post->post_content, 'gallery' );
 	$cls_big = $cls_small = '';	
-	if(has_post_thumbnail() || $gallery_post || has_post_format('video') || has_post_format('audio') ){
+	if(has_post_thumbnail() || $gallery_post /*|| has_post_format('video') || has_post_format('audio') */){
 		$cls_big = 'col-lg-8 col-md-8 col-sm-8 col-xs-12';
 		$cls_small = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
 	} else {

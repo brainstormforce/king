@@ -105,9 +105,10 @@
   margin: 0;
   color: white;
   font-size: 12px;
-  line-height: 2em;
+  line-height: 1.7em;
   font-weight: 300;
-  font-family: sans-serif;
+  font-family: inherit;
+  text-align: center;
 }
 .justified-gallery > a > .caption.caption-visible,
 .justified-gallery > div > .caption.caption-visible {

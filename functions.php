@@ -697,7 +697,7 @@ function ultimate_post_class( $classes ) {
 	global $post;
 	$blog_layout = get_theme_mod('blog_layout');
 
-	if ( !is_single() && !is_page()) :	
+	if ( !is_singular() ) :	
 		if ($blog_layout == 'grid-2') {
 			$classes[] = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
 		} else if ($blog_layout == 'grid-3') {

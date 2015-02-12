@@ -72,7 +72,7 @@ function ultimate_gallery_shortcode( $atts ) {
 
         if (($gallery_type == "metro")) { // If gallery Type is Metro 
 
-            add_action( 'wp_footer', 'ultimate_justified_grid_gallery' );
+           add_action( 'wp_footer', 'ultimate_justified_grid_gallery' );
             ?>
 
                 <div id="<?php echo $smgid; ?>" class="ultimate-justified-grid-gallery">
@@ -169,7 +169,7 @@ function ultimate_gallery_shortcode( $atts ) {
 
         <?php } else { // If gallery Type is Slideshow ?>
 
-            <div id="<?php echo $smgid; ?>" class="ultimate-slideshow-gallery">                                  
+            <div id="<?php echo $smgid; ?>" class="ultimate-slideshow-gallery">  
                 <?php 
                     $n = 0;
                     foreach ( $images as $id ) {
@@ -280,8 +280,8 @@ function ultimate_justified_grid_gallery() {
                     margins: 3,
                     captions: true,
                 <?php } else { ?>
-                    rowHeight: 130,
-                    maxRowHeight: 130,
+                    rowHeight: 120,
+                    maxRowHeight: 120,
                     margins: 3,
                     captions: false,
                 <?php } ?>              

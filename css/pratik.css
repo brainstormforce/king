@@ -712,7 +712,7 @@ footer[role="contentinfo"] .footer-bottom-container {
 
 /* Justified Grid Gallery */
 .ultimate-justified-grid-gallery {
-    max-height: 260px;
+    max-height: 240px;
     overflow: hidden;
     display: block;
 }
@@ -735,7 +735,8 @@ footer[role="contentinfo"] .footer-bottom-container {
 .ultimate-grid-gallery a {
     display: inline-block;
     float: left;
-    padding: 2px;
+    padding: 2px 2px 0;
+    margin: 0;
     width: 33.33%;
     position: relative;
     overflow: hidden;
@@ -745,12 +746,26 @@ footer[role="contentinfo"] .footer-bottom-container {
     margin: 0 !important;
     padding: 0;
     max-width: 100%;
+    border: none;
+	box-shadow: none;
 }
-
+.ultimate-grid-gallery h4.ultimate-grid-img-caption {
+	position: absolute;
+	background: rgba(0,0,0,0.6);
+	padding: 0;
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.7em;
+	bottom: 2px;
+	width: 100%;
+	width: calc(100% - 4px);
+    opacity: 0;
+    -webkit-transition: -webkit-transform 300ms linear;
+    -moz-transition: -moz-transform 300ms linear;
+    transition: transform 300ms linear;
+}
 .ultimate-grid-gallery a:hover h4.ultimate-grid-img-caption {
-    -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
-    transform: translateY(0);
+    opacity: 1;
 }
 .ultimate-grid-column-1 a {
     width: 100%;
