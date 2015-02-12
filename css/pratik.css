@@ -1,3 +1,64 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('open-sans/OpenSans-Regular.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: url('open-sans/OpenSans-Italic.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: url('open-sans/OpenSans-Light.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 300;
+  src: url('open-sans/OpenSans-LightItalic.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 600;
+  src: url('open-sans/OpenSans-Semibold.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 600;
+  src: url('open-sans/OpenSans-SemiboldItalic.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('open-sans/OpenSans-Bold.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+  src: url('open-sans/OpenSans-BoldItalic.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: url('open-sans/OpenSans-ExtraBold.ttf');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 800;
+  src: url('open-sans/OpenSans-ExtraBoldItalic.ttf');
+}
+
 /* =Sidebar
 ----------------------------------------------- */
 /* Sidebar - Left, Right & Footer */
@@ -395,10 +456,8 @@ footer[role="contentinfo"] .footer-bottom-container {
 
 /* Normal Blog */
 .post {
-	/*width: 100%;*/
 	display: block;
 	position: relative;
-	/*padding: 0;*/
 	margin-top: 0;
 	margin-bottom: 5em;
 }
@@ -409,9 +468,6 @@ footer[role="contentinfo"] .footer-bottom-container {
 }
 .post:after {
 	clear: both;
-}
-.post h1.entry-title {
-	margin-bottom: 20px;
 }
 /* Post Meta Information */
 .entry-summary-meta {
@@ -450,23 +506,11 @@ footer[role="contentinfo"] .footer-bottom-container {
 .post-meta a:hover {
 	color: #DE5034;
 }
-/* Post Which Have Featured Image */
-/*.has-post-thumbnail .entry-header,
-.has-post-thumbnail .entry-summary,
-.format-image.has-post-thumbnail .entry-header,
-.format-image.has-post-thumbnail .entry-summary {
-	padding-left: 0;
-	padding-right: 0;
-}
-.has-post-thumbnail .entry-header {
-	margin-bottom: 24px;
-}*/
 
 /* Featured Image / Gallery */
 .blog-featured-media {
 	margin-bottom: 24px;
 }
-
 
 /* Sticky Post */
 .featured-post h2 {
@@ -477,7 +521,6 @@ footer[role="contentinfo"] .footer-bottom-container {
 	margin-bottom: 20px;
 	color: #333333;
 }
-
 
 /***** Grid Blog - 2, 3 & 4 Grid *****/
 /* Normal Grid Blog - Without Masonry*/
@@ -492,12 +535,6 @@ footer[role="contentinfo"] .footer-bottom-container {
     clear: right;
     margin-right: 0 !important;
 }
-/*
-.blog-grid .site-content {
-	margin-left: -15px;
-	margin-right: -15px;
-}
-*/
 .blog-grid .site-content:before,
 .blog-grid .site-content:after {
 	content: " ";
