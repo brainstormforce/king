@@ -252,7 +252,9 @@ if(!function_exists("ultimate_custom_style")) :
 		.entry-meta a, 
 		.site-header h1 a:hover, 
 		.site-header h2 a:hover,
-		.post-meta a:hover {
+		.post-meta a:hover,
+		.slick-prev:before, 
+		.slick-next:before {
 			color:<?php echo get_theme_mod('site-color'); ?>;
 		}
 		button#searchsubmit, 

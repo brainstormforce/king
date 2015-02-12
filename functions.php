@@ -705,7 +705,7 @@ function ultimate_post_class( $classes ) {
 		} else if ($blog_layout == 'grid-4') {
 			$classes[] = 'col-lg-3 col-md-3 col-sm-4 col-xs-12';
 		} else {
-			$classes[] = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
+			$classes[] = '';
 		}
 	endif;
 
@@ -749,11 +749,9 @@ function ultimate_post_video($post) {
 		echo '<iframe class="ultiamte-iframe" src="//player.vimeo.com/video/';
 		echo $matches[1];
 		echo'?title=0&byline=0&portrait=0" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-	}
+	} 
 	else {
-		echo '<div class="entry-content">';
-			the_content();
-		echo '</div>';
+		echo '';
 	}
 
 }

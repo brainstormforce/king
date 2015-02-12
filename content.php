@@ -18,7 +18,7 @@
 		</div>
 	<?php endif; ?>
 
-	<header class="entry-header clear">
+	<header class="entry-header">
 		<?php if ( has_post_thumbnail() ) : ?>
 			<div class="blog-featured-media">
 				<?php the_post_thumbnail('full'); ?>

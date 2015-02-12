@@ -454,12 +454,19 @@ footer[role="contentinfo"] .footer-bottom-container {
 /* =Blog
 ----------------------------------------------- */
 
+.entry-header,
+.entry-summary,
+.entry-content,
+.entry-summary-meta {
+	margin-bottom: 24px;
+}
+
 /* Normal Blog */
 .post {
 	display: block;
 	position: relative;
 	margin-top: 0;
-	margin-bottom: 5em;
+	margin-bottom: 60px;
 }
 .post:before,
 .post:after {
@@ -472,8 +479,10 @@ footer[role="contentinfo"] .footer-bottom-container {
 /* Post Meta Information */
 .entry-summary-meta {
 	display: block;
-	float: left;
 	width: 100%;
+}
+.medium-image .entry-summary-meta {
+	float: left;
 }
 .entry-summary-meta .post-meta {
 	padding: 8px 0;
@@ -507,8 +516,11 @@ footer[role="contentinfo"] .footer-bottom-container {
 	color: #DE5034;
 }
 
-/* Featured Image / Gallery */
-.blog-featured-media {
+/* Featured Image / Gallery / Video */
+.blog-featured-media,
+.wp-video,
+.ultiamte-iframe,
+.ultiamte-audio-iframe {
 	margin-bottom: 24px;
 }
 
@@ -621,9 +633,6 @@ footer[role="contentinfo"] .footer-bottom-container {
 	margin-bottom: 0;
 }
 
-.normal .site-content .format-aside .post-meta {
-	margin: 35px 0 0;
-}
 
 /* Image Post Format */
 .format-image img {
@@ -631,10 +640,10 @@ footer[role="contentinfo"] .footer-bottom-container {
 	padding: 5px;
 	box-shadow: 0 0 5px #f0f0f0;
 }
-time.entry-date {
+.format-image .entry-date {
 	font-weight: normal;
 	display: block;
-	margin-bottom: 15px;
+	margin: -10px 0 24px 0;
 	font-style: italic;
 }
 
@@ -675,9 +684,6 @@ time.entry-date {
 }
 
 /* Status posts */
-.format-status .entry-header {
-	margin-bottom: 24px;
-}
 .format-status .entry-header header {
 	display: inline-block;
 }
@@ -702,12 +708,6 @@ time.entry-date {
 .format-status .entry-header img {
 	float: left;
 	margin-right: 21px;
-}
-
-/* Video */
-.wp-video,
-.ultiamte-iframe {
-	margin-bottom: 24px;
 }
 
 /* Justified Grid Gallery */
@@ -809,15 +809,6 @@ time.entry-date {
 
 .single .post {
 	margin-bottom: 3em;
-}
-
-/* Post Meta */
-.single .site-content .post .entry-summary-meta {
-	display: block;
-	width: 100%;
-}
-.single .site-content .post .entry-summary-meta .post-meta {
-	margin: 40px 0 0;
 }
 
 
@@ -1400,4 +1391,13 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 		padding-left: 0;
 		padding-right: 0;
 	}
+}
+
+/* Slick Slider */
+.slick-prev:before, .slick-next:before {
+	color: #DE5034;
+}
+.slick-slide img {
+	display: block;
+	margin: 0 auto;
 }
