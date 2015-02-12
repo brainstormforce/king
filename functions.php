@@ -705,7 +705,7 @@ function ultimate_post_class( $classes ) {
 		} else if ($blog_layout == 'grid-4') {
 			$classes[] = 'col-lg-3 col-md-3 col-sm-4 col-xs-12';
 		} else {
-			$classes[] = '';
+			$classes[] = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
 		}
 	endif;
 

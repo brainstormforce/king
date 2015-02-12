@@ -492,10 +492,12 @@ footer[role="contentinfo"] .footer-bottom-container {
     clear: right;
     margin-right: 0 !important;
 }
+/*
 .blog-grid .site-content {
 	margin-left: -15px;
 	margin-right: -15px;
 }
+*/
 .blog-grid .site-content:before,
 .blog-grid .site-content:after {
 	content: " ";
