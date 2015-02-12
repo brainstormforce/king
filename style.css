@@ -587,6 +587,7 @@ section[role="banner"] {
 h1.entry-title {
 	margin-bottom: 24px;
 	font-size: 20px;
+	line-height: 1.35em;
 }
 .entry-content,
 .entry-summary,

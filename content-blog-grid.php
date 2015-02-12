@@ -16,10 +16,10 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<div class="post-container">
+	<div class="grid-post-container">
 
         <?php if(has_post_thumbnail() || $gallery_post) : ?>
-			<header class="entry-header">
+			<div class="grid-post-media">
 				<?php 
 					if ( $gallery_post ) :
 						get_post_gallery( $post, true );
@@ -27,10 +27,10 @@
 						the_post_thumbnail();
 					endif; 
 				?>
-			</header><!-- .entry-header -->
+			</div><!-- .grid-post-media -->
         <?php endif; ?>
 
-        <div class="entry-summary">
+        <div class="grid-post-content">
 			<h1 class="entry-title">
 				<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
 			</h1>
@@ -38,10 +38,11 @@
 	        	<?php ultimate_post_meta($post); ?>
 	    	</div>
 	    	<div class="content-sep"></div>
-			<?php the_excerpt(); ?>
+			<div class="entry-summary">
+				<?php the_excerpt(); ?>
+			</div><!-- .entry-summary -->
+		</div> <!-- .grid-post-content -->
 
-		</div> <!-- .entry-summary -->
-
-	</div> <!-- .post-container -->
+	</div> <!-- .grid-post-container -->
 	
 </article><!-- #post -->

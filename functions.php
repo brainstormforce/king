@@ -479,6 +479,10 @@ function ultimate_body_class( $classes ) {
 			$classes[] = 'blog-masonry';
 	endif;
 
+	// Is not singular
+	if ( ! is_singular() )
+		$classes[] = 'not-singular';
+
 	return $classes;
 }
 add_filter( 'body_class', 'ultimate_body_class' );

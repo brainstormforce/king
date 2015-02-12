@@ -535,6 +535,11 @@ footer[role="contentinfo"] .footer-bottom-container {
 }
 
 /***** Grid Blog - 2, 3 & 4 Grid *****/
+
+.blog-grid.not-singular #content {
+	margin-left: -15px;
+	margin-right: -15px;
+}
 /* Normal Grid Blog - Without Masonry*/
 .grid-2 #content .post:nth-child(2n+1),
 .grid-3 #content .post:nth-child(3n+1),
@@ -555,7 +560,7 @@ footer[role="contentinfo"] .footer-bottom-container {
 .blog-grid .site-content:after {
 	clear: both;
 }
-.blog-grid .site-content .post-container {
+.grid-post-container {
 	display: block;
 	width: 100%;
 	position: relative;
@@ -568,50 +573,66 @@ footer[role="contentinfo"] .footer-bottom-container {
 	-moz-hyphens: auto;
 	hyphens: auto;
 }
-.blog-grid .site-content .post .entry-header {
+.grid-post-media {
 	padding: 0;
 	margin: 0;
 	width: 100%;
+	display: block;
 }
-.blog-grid .site-content .post .entry-header img {
+.grid-post-media img {
 	padding: 0;
 	margin: 0;
 	width: 100%;
+	max-width: 100%;
 	border: none;
 	border-radius: 0;
 	box-shadow: none;
 	display: block;
 }
-.blog-grid .site-content .post .entry-summary {
+.grid-post-content {
 	padding: 25px;
 	width: 100%;
+	display: block;
 }
-.blog-grid .site-content .post h1.entry-title {
-	margin: 0 0 10px;
-}
-.blog-grid .site-content .post .entry-summary p {
-	margin: 0 0 20px;
-}
-.blog-grid .site-content .post .entry-summary p.post-meta {
+.grid-post-content .entry-title {
+	margin: 0 0 12px;
 	padding: 0;
-	margin: 0 0 10px;	
+}
+.grid-post-content .post-meta {
+	padding: 0;
+	margin: 0 0 12px;	
 	border: none;
 }
-.blog-grid .site-content .post .entry-summary .content-sep {
+.grid-post-content .post-meta .post-meta-item {
+	line-height: 1.8em;
+}
+.grid-post-content .content-sep {
 	width: 100%;
 	display: block;
 	padding: 0;
-	margin: 0 0 20px;
+	margin: 0 0 15px;
 	height: 5px;
 	border-top: 1px solid #eaeaea;
 	border-bottom: 1px solid #eaeaea;
 }
+.grid-post-content .entry-summary {
+	margin: 0;
+	padding: 0;
+}
+.grid-post-content .entry-summary p {
+	margin: 0 0 10px;
+	padding: 0;
+}
+.grid-post-content .entry-summary p:last-child {
+	margin: 0;
+}
+
 .blog-grid .site-content .post {
 	margin-bottom: 30px;
 }
 
 /* Sticky Post */
-.blog-grid .site-content .post.sticky .post-container {
+.sticky .grid-post-container {
 	background: #f7f7f7;
 }
 
