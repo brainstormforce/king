@@ -513,14 +513,26 @@ add_action( 'template_redirect', 'ultimate_content_width' );
 function ultimate_masonry_blog() { 
 ?>
 	<script type="text/javascript">
-		// Apply Masonry Effect To Blog
-		jQuery(window).load(function() {
-			var container = document.querySelector('.blog-masonry #content');
-			var msnry = new Masonry( container, {
-				columnWidth: '.post',
-				itemSelector: '.post'
-			});
-		});
+		(function($) {
+			"use strict";
+			function blog_masonry() {
+				jQuery('.blog-masonry #content').imagesLoaded(function () {
+					jQuery('.blog-masonry #content').masonry({
+						columnWidth: '.post',
+						itemSelector: '.post',
+						transitionDuration: 0
+					});
+				});
+			}
+			$(document).ready(function() { blog_masonry(); });
+			jQuery(window).load(function(){
+				setTimeout(function(){
+					jQuery('.blog-masonry #content').masonry('reload');
+				},1000);
+				
+			});			
+			//$(window).on('resize',function() { blog_masonry(); });
+		})(jQuery);
 	</script>
 <?php
 }
@@ -779,18 +791,6 @@ function ultimate_post_video() {
 		$html .= $matches[1];
 		$html .= '" frameborder="0" allowfullscreen></iframe>';
 	}
-	/*
-	elseif ( preg_match( '#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#', $post->post_content, $matches ) ) {
-		$html .= '<iframe class="ultiamte-iframe" width="1280" height="720" src="https://www.youtube.com/embed/';
-		$html .= $matches[0];
-		$html .= '?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
-	} 
-	elseif ( preg_match('/vimeo.com\/([1-9.-_]+)/', $post->post_content, $matches) ) {
-		$html .= '<iframe class="ultiamte-iframe" src="//player.vimeo.com/video/';
-		$html .= $matches[1];
-		$html .= '?title=0&byline=0&portrait=0" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-	}
-	*/
 	elseif ( 
 			preg_match('#https?://wordpress.tv/.*#i', $post->post_content, $matches) ||
 			preg_match('#http://(www\.)?youtube\.com/watch.*#i', $post->post_content, $matches) ||
@@ -841,12 +841,6 @@ if ( ! function_exists( 'ultimate_post_audio' ) ) :
 			$html .= $matches[1];
 			$html .= '" scrolling="no" frameborder="no"></iframe>';
 		}
-		/*
-		elseif ( preg_match( '((https?:)?\/\/(www\.)?soundcloud\.com\/[a-z?,-?,1-9?]+)', $post->post_content, $matches ) ) {
-			$url_audio = get_soundcloud_id( $matches[0] );
-			$html .= $url_audio;
-		}
-		*/
 		elseif ( 
 				preg_match('#https?://(www\.)?mixcloud\.com/.*#i', $post->post_content, $matches) ||
 				preg_match('#https?://(www\.)?rdio\.com/.*#i', $post->post_content, $matches) ||
@@ -868,21 +862,7 @@ if ( ! function_exists( 'ultimate_post_audio' ) ) :
 		return $html;
 	}
 
-	/*
-	function get_soundcloud_id( $sc_url ) {
-		$url   = strip_tags( $sc_url );
-		if ( ! empty( $sc_url ) ) {
-			$unparsed_json = file_get_contents( 'http://api.soundcloud.com/resolve.json?url=' . $url . '&client_id=c7b853e983a53f5d1e0d278a8a461781' );
-			$json_object   = json_decode( $unparsed_json );
-			$roster_id = $json_object->{'id'};
-			return '<iframe class="ultiamte-audio-iframe" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' . $roster_id . '&amp;color=DE5034&amp;auto_play=false&amp;hide_related=true&amp;show_artwork=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>';
-		}
-	}
-	*/
-
 endif;
-
-
 
 
 if ( ! function_exists( 'ultimate_post_social' ) ) :

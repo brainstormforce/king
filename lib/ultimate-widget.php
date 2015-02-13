@@ -57,7 +57,7 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 			while ($query->have_posts()) : $query->the_post(); ?>
 
 
-				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+				<article id="post-<?php the_ID(); ?>">
 
 					<div class="entry-content">
 						<?php the_content(); ?>
