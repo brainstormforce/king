@@ -142,15 +142,15 @@ jQuery(function ($) {
         $(this).closest('.field-mega-menu-icon').find('input').val('').change();
     });
 
-	// The problem is in using **change** event for initialization.
-	//
-	// Internally WordPress listen this inputs for **change** event
-	// and sets **menuChanged** flag. It also sets window.onbeforeunload handler
-	// which decides whether or not display
-	//
-	//     "The changes you made will be lost if you navigate away from this page."
-	//
-	// dialog based on this flag.
-	wpNavMenu.menusChanged = false;
+    // The problem is in using **change** event for initialization.
+    //
+    // Internally WordPress listen this inputs for **change** event
+    // and sets **menuChanged** flag. It also sets window.onbeforeunload handler
+    // which decides whether or not display
+    //
+    //     "The changes you made will be lost if you navigate away from this page."
+    //
+    // dialog based on this flag.
+    wpNavMenu.menusChanged = false;
 
 });

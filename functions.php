@@ -146,6 +146,9 @@ function ultimate_scripts_styles() {
     wp_register_script( 'ultimate_justified_gallery_script', get_template_directory_uri() . '/js/jquery.justifiedGallery.min.js', array( 'jquery' ), '1.0.0', true );
     wp_enqueue_script( 'ultimate_justified_gallery_script' );
 
+    wp_register_script( 'widget-script', get_template_directory_uri() . '/js/widget.js' );
+    wp_enqueue_script( 'widget-script' );
+
     // Smooth Scroll
 	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/jquery.smoothScroll.min.js' );
 	$smooth_scroll = get_theme_mod( 'smooth_scroll' );
@@ -769,6 +772,11 @@ function ultimate_image_sizes( $sizes ) {
     ) );
 }
 
+add_action( 'load-widgets.php', 'my_custom_load' );
+function my_custom_load() {    
+	wp_enqueue_style( 'wp-color-picker' );        
+	wp_enqueue_script( 'wp-color-picker' );    
+}
 
 
 // Retrive video from post
@@ -822,8 +830,6 @@ function ultimate_post_video() {
 	return $html;
 }
 endif;
-
-
 
 if ( ! function_exists( 'ultimate_post_audio' ) ) :
 	function ultimate_post_audio() { // for audio post type - grab
@@ -892,5 +898,4 @@ if ( ! function_exists( 'ultimate_post_social' ) ) :
 	}
 
 endif;
-
 ?>
