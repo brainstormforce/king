@@ -11,7 +11,19 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<header class="entry-header">
-		<?php ultimate_post_video($post); ?>
+
+		<?php $video = ultimate_post_video(); ?>
+
+		<?php if(!$video) :
+				the_content();
+
+			else:
+				echo $video;
+
+			endif;
+		?>
+
+
         <?php if( !is_single() ) : ?>
         	<h1 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
         <?php else : ?>        	

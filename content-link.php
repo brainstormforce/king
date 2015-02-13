@@ -20,7 +20,7 @@
 
 	<div class="entry-summary-meta">
 		<div class="post-meta">
-	        <?php ultimate_post_meta($post); ?>
+	        <?php ultimate_post_meta(); ?>
 	    </div>
     </div><!-- .entry-summary-meta -->
 

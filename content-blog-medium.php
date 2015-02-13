@@ -33,11 +33,7 @@
 			<?php the_excerpt(); ?>
 		</div><!-- .entry-summary -->	
 
-		<div class="entry-summary-meta">
-			<div class="post-meta">
-		        <?php ultimate_post_meta($post); ?>
-		    </div>
-	    </div><!-- .entry-summary-meta -->
+		<?php ultimate_post_meta(); ?>
 
 	</article><!-- #post -->	
 
@@ -54,11 +50,7 @@
 			<?php the_excerpt(); ?>
 		</div><!-- .entry-summary -->	
 
-		<div class="entry-summary-meta">
-			<div class="post-meta">
-		        <?php ultimate_post_meta($post); ?>
-		    </div>
-	    </div><!-- .entry-summary-meta -->
+		<?php ultimate_post_meta(); ?>
 
 	</article><!-- #post -->	
 
@@ -91,11 +83,7 @@
 			<?php the_excerpt(); ?>
 		</div><!-- .entry-summary -->	
 
-		<div class="entry-summary-meta">
-			<div class="post-meta">
-		        <?php ultimate_post_meta($post); ?>
-		    </div>
-	    </div><!-- .entry-summary-meta -->
+		<?php ultimate_post_meta(); ?>
 
 	</article><!-- #post -->
 

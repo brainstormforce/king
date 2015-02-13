@@ -622,54 +622,76 @@ add_action( 'wp_enqueue_scripts', 'wpt_register_css' );
 
 
 // Post Meta
-
 if ( ! function_exists( 'ultimate_post_meta' ) ) :
-	function ultimate_post_meta($post) {
+	function ultimate_post_meta() {
+
+		global $post;
+		if (! $post)
+			return false;
+		ob_start();
+		ob_end_clean();
+		$html = '';
 
 		if( get_theme_mod( 'blog_author_meta' )) :
-			echo '<span class="post-meta-item">';
-			echo __('By ','ultimate'); 
-			echo '<span class="vcard author">'. the_author_posts_link() .'</span>'; 
-			echo '</span>'; // .post-meta-item
+			$html .= '<span class="post-meta-item">';
+			$html .= __('By ','ultimate'); 
+			$html .= '<span class="vcard author"><a href="'. get_author_posts_url( get_the_author_meta( 'ID' ) ) .'" title="Posts by '. get_the_author() .'" rel="author">'. get_the_author() .'</a></span>'; 
+			$html .= '</span>'; // .post-meta-item
 		endif;
 
 		if( get_theme_mod( 'blog_date_meta' )) :
 			$archive_year  = get_the_time('Y');
 			$archive_month = get_the_time('m');
-			echo '<span class="post-meta-item">';
-			echo '<span class="post-meta-date"><a href="'. get_month_link( $archive_year, $archive_month ) .'">'. get_the_date('d M, Y') .'</a></span>';
-			echo '</span>'; // .post-meta-item
+			$html .= '<span class="post-meta-item">';
+			$html .= '<span class="post-meta-date"><a href="'. get_month_link( $archive_year, $archive_month ) .'">'. get_the_date('d M, Y') .'</a></span>';
+			$html .= '</span>'; // .post-meta-item
 		endif;
 
 		if( get_theme_mod( 'blog_category_meta' )) :
 			$categories_list = get_the_category_list( __( ' ', 'ultimate' ) );		
 			if( $categories_list ) :
-				echo '<span class="post-meta-item">';
-	        	echo '<span class="post-meta-category">'. get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'ultimate' ) ) .'</span>';
-	        	echo '</span>'; // .post-meta-item
+				$html .=  '<span class="post-meta-item">';
+	        	$html .=  '<span class="post-meta-category">'. get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'ultimate' ) ) .'</span>';
+	        	$html .=  '</span>'; // .post-meta-item
 			endif;
 		endif;
 
 		if( get_theme_mod( 'blog_comment_meta' )) :
 			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
-				echo '<span class="post-meta-item">';
-	            echo '<span class="post-meta-comment">'. comments_popup_link( __( 'Leave a comment ', 'ultimate' ), __( 'Comment (1)', 'ultimate' ), __( 'Comments (%)', 'ultimate' ) ) .'</span>'; 
-	            echo '</span>'; // .post-meta-item
+				$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
+				if ( $num_comments == 0 ) {
+					$comments = __('Leave a Comment');
+				} elseif ( $num_comments > 1 ) {
+					$comments = $num_comments . __(' Comments');
+				} else {
+					$comments = __('1 Comment');
+				}
+				$html .=  '<span class="post-meta-item">';
+	            $html .=  '<span class="post-meta-comment"><a href="'. get_comments_link() .'" title="Comment on '. get_the_title() .'">'. $comments .'</a></span>'; 
+	            $html .=  '</span>'; // .post-meta-item
 	        endif;
 		endif;		
 
 		if( get_theme_mod( 'blog_link_meta' )) :
 			if ( !is_single() ) :
-				echo '<span class="post-meta-item">';
-				echo '<span class="post-meta-link"><a href="'. get_the_permalink() .'" rel="bookmark">'.__('Read More...','ultimate') .'</a></span>';
-				echo '</span>'; // .post-meta-item
+				$html .=  '<span class="post-meta-item">';
+				$html .=  '<span class="post-meta-link"><a href="'. get_the_permalink() .'" rel="bookmark">'.__('Read More...','ultimate') .'</a></span>';
+				$html .=  '</span>'; // .post-meta-item
 			endif;
 		endif;
         
         if( is_user_logged_in() ):
-        		echo '<span class="post-meta-item">';
-	            echo '<span class="post-meta-edit">'. edit_post_link( __( 'Edit', 'ultimate' ) ) .'</span>';
-	        	echo '</span>'; // .post-meta-item
+        		$html .=  '<span class="post-meta-item">';
+	            $html .=  '<span class="post-meta-edit"><a class="post-edit-link" href="'. get_edit_post_link() .'">'. __( 'Edit', 'ultimate' ) .'</a></span>';
+	        	$html .=  '</span>'; // .post-meta-item
+		endif;
+
+		if ($html != '') :
+			echo '<div class="entry-summary-meta">';
+			echo '<div class="post-meta">';
+			echo $html;
+			echo '</div>';
+			echo '</div>';
 		endif;
 	}
 endif;
@@ -730,34 +752,38 @@ function ultimate_image_sizes( $sizes ) {
 
 // Retrive video from post
 if ( ! function_exists( 'ultimate_post_video' ) ) :
-function ultimate_post_video($post) {
+function ultimate_post_video() {
 
 	global $post;
+	if (! $post)
+		return false;
 	ob_start();
 	ob_end_clean();
 
+	$html = '';
+
 	if ( preg_match('/\[(\[?)(video)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)/', $post->post_content, $matches)) {
-		echo do_shortcode($matches[0]);	
+		$html = do_shortcode($matches[0]);	
 	}
 	elseif ( preg_match('/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches)) {
-		echo '<iframe class="ultiamte-iframe" width="1280" height="720" src="';
-		echo $matches[1];
-		echo '" frameborder="0" allowfullscreen></iframe>';
+		$html = '<iframe class="ultiamte-iframe" width="1280" height="720" src="';
+		$html .= $matches[1];
+		$html .= '" frameborder="0" allowfullscreen></iframe>';
 	}
 	elseif ( preg_match( '#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#', $post->post_content, $matches ) ) {
-		echo '<iframe class="ultiamte-iframe" width="1280" height="720" src="https://www.youtube.com/embed/';
-		echo $matches[0];
-		echo '?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
+		$html = '<iframe class="ultiamte-iframe" width="1280" height="720" src="https://www.youtube.com/embed/';
+		$html .= $matches[0];
+		$html .= '?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
 	} 
 	elseif ( preg_match('/vimeo.com\/([1-9.-_]+)/', $post->post_content, $matches) ) {
-		echo '<iframe class="ultiamte-iframe" src="//player.vimeo.com/video/';
-		echo $matches[1];
-		echo'?title=0&byline=0&portrait=0" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
+		$html = '<iframe class="ultiamte-iframe" src="//player.vimeo.com/video/';
+		$html .= $matches[1];
+		$html .= '?title=0&byline=0&portrait=0" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
 	} 
 	else {
-		echo '';
+		return false;
 	}
-
+	return $html;
 }
 endif;
 

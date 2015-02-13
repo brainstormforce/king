@@ -34,9 +34,7 @@
 			<h1 class="entry-title">
 				<a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a>
 			</h1>
-			<div class="post-meta">
-	        	<?php ultimate_post_meta($post); ?>
-	    	</div>
+			<?php ultimate_post_meta(); ?>
 	    	<div class="content-sep"></div>
 			<div class="entry-summary">
 				<?php the_excerpt(); ?>

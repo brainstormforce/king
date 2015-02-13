@@ -25,10 +25,6 @@
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'ultimate' ) ); ?>
 	</div><!-- .entry-content -->
 
-	<div class="entry-summary-meta">
-		<div class="post-meta">
-	        <?php ultimate_post_meta($post); ?>
-	    </div>
-    </div><!-- .entry-summary-meta -->
+	<?php ultimate_post_meta(); ?>
 
 </article><!-- #post -->	
