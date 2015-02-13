@@ -19,11 +19,19 @@
 	<?php endif; ?>
 
 	<header class="entry-header">
-		<?php if ( has_post_thumbnail() ) : ?>
-			<div class="blog-featured-media">
-				<?php the_post_thumbnail('full'); ?>
-			</div>
+
+		<?php if ( has_post_thumbnail() || ultimate_post_social() ) : ?>
+
+			<?php if ( has_post_thumbnail() ) : ?>
+				<div class="blog-featured-media">
+					<?php the_post_thumbnail('full'); ?>
+				</div>
+			<?php elseif ( ultimate_post_social() && !is_single() ) : ?>
+				<?php echo ultimate_post_social(); ?>
+			<?php endif; ?>
+
 		<?php endif; ?>
+
         <?php if( !is_single() ) : ?>
         	<h1 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
         <?php else : ?>        	
@@ -31,10 +39,12 @@
         <?php endif; ?>
 	</header><!-- .entry-header -->
 
-	<?php if ( !is_single() ) : // Only display Excerpts for Search ?>
-        <div class="entry-summary">
-			<?php the_excerpt(); ?>
-		</div><!-- .entry-summary -->
+	<?php if ( !is_single() ) : ?>
+		<?php if ( !ultimate_post_social() ) : ?>
+	        <div class="entry-summary">
+				<?php the_excerpt(); ?>
+			</div><!-- .entry-summary -->
+		<?php endif; ?>
 	<?php else : ?>
 		<div class="entry-content">
 			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'ultimate' ) ); ?>

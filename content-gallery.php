@@ -3,17 +3,14 @@
  * The template for displaying posts in the Gallery post format
  */
 ?>
-<?php
-	$gallery_post = has_shortcode( $post->post_content, 'gallery' );
-?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<header class="entry-header">
-		<?php if(has_post_thumbnail() || $gallery_post) : ?>
+		<?php if( has_post_thumbnail() || has_shortcode($post->post_content, 'gallery') ) : ?>
 			<div class="blog-featured-media">
 				<?php 
-					if ( $gallery_post ) :
+					if ( has_shortcode($post->post_content, 'gallery') ) :
 						get_post_gallery( $post, true );
 					else :
 						the_post_thumbnail('full');

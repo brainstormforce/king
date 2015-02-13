@@ -656,6 +656,15 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 			endif;
 		endif;
 
+		if( get_theme_mod( 'blog_tag_meta' )) :
+			$tag_list = get_the_tag_list( __( ' ', 'ultimate' ) );		
+			if( $tag_list ) :
+				$html .=  '<span class="post-meta-item">';
+	        	$html .=  '<span class="post-meta-category">'. get_the_tag_list('',', ', '') .'</span>';
+	        	$html .=  '</span>'; // .post-meta-item
+			endif;
+		endif;
+
 		if( get_theme_mod( 'blog_comment_meta' )) :
 			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
 				$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
@@ -763,23 +772,50 @@ function ultimate_post_video() {
 	$html = '';
 
 	if ( preg_match('/\[(\[?)(video)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)/', $post->post_content, $matches)) {
-		$html = do_shortcode($matches[0]);	
+		$html .= do_shortcode($matches[0]);	
 	}
 	elseif ( preg_match('/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches)) {
-		$html = '<iframe class="ultiamte-iframe" width="1280" height="720" src="';
+		$html .= '<iframe class="ultiamte-iframe" width="1280" height="720" src="';
 		$html .= $matches[1];
 		$html .= '" frameborder="0" allowfullscreen></iframe>';
 	}
+	/*
 	elseif ( preg_match( '#(?<=v=)[a-zA-Z0-9-]+(?=&)|(?<=v\/)[^&\n]+(?=\?)|(?<=v=)[^&\n]+|(?<=youtu.be/)[^&\n]+#', $post->post_content, $matches ) ) {
-		$html = '<iframe class="ultiamte-iframe" width="1280" height="720" src="https://www.youtube.com/embed/';
+		$html .= '<iframe class="ultiamte-iframe" width="1280" height="720" src="https://www.youtube.com/embed/';
 		$html .= $matches[0];
 		$html .= '?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>';
 	} 
 	elseif ( preg_match('/vimeo.com\/([1-9.-_]+)/', $post->post_content, $matches) ) {
-		$html = '<iframe class="ultiamte-iframe" src="//player.vimeo.com/video/';
+		$html .= '<iframe class="ultiamte-iframe" src="//player.vimeo.com/video/';
 		$html .= $matches[1];
 		$html .= '?title=0&byline=0&portrait=0" width="1280" height="720" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>';
-	} 
+	}
+	*/
+	elseif ( 
+			preg_match('#https?://wordpress.tv/.*#i', $post->post_content, $matches) ||
+			preg_match('#http://(www\.)?youtube\.com/watch.*#i', $post->post_content, $matches) ||
+			preg_match('#https://(www\.)?youtube\.com/watch.*#i', $post->post_content, $matches) ||
+			preg_match('#http://(www\.)?youtube\.com/playlist.*#i', $post->post_content, $matches) ||
+			preg_match('#https://(www\.)?youtube\.com/playlist.*#i', $post->post_content, $matches) ||
+			preg_match('#http://youtu\.be/.*#i', $post->post_content, $matches) ||
+			preg_match('#https://youtu\.be/.*#i', $post->post_content, $matches) ||
+			preg_match('#http://blip.tv/.*#i', $post->post_content, $matches) ||
+			preg_match('#https?://(.+\.)?vimeo\.com/.*#i', $post->post_content, $matches) ||
+			preg_match('#https?://(www\.)?dailymotion\.com/.*#i', $post->post_content, $matches) ||
+			preg_match('#http://dai.ly/.*#i', $post->post_content, $matches) ||
+			preg_match('#https?://(www\.)?funnyordie\.com/videos/.*#i', $post->post_content, $matches) ||
+			preg_match('#https?://(www\.)?hulu\.com/watch/.*#i', $post->post_content, $matches) ||
+			preg_match('#https?://(www\.|embed\.)?ted\.com/talks/.*#i', $post->post_content, $matches) ||
+			preg_match('#https?://vine.co/v/.*#i', $post->post_content, $matches) 
+		) {
+			$embedurl = $matches[0];
+			if (!empty($embedurl)) {
+			       $var = apply_filters('the_content', "[embed]" . $embedurl . "[/embed]");
+			}
+			$html .= '<div class="blog-oembed">';
+			$html .= $var;
+			$html .= '</div>';
+	}
 	else {
 		return false;
 	}
@@ -790,48 +826,91 @@ endif;
 
 
 if ( ! function_exists( 'ultimate_post_audio' ) ) :
-	function ultimate_post_audio($post) { // for audio post type - grab
+	function ultimate_post_audio() { // for audio post type - grab
+
 		global $post;
+		if (! $post)
+			return false;
+		ob_start();
+		ob_end_clean();
+
+		$html = '';
+
 		if ( preg_match( '/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches ) ) {
-			echo '<iframe class="ultiamte-audio-iframe" width="100%" height="350" src="';
-			echo $matches[1];
-			echo '" scrolling="no" frameborder="no"></iframe>';
+			$html .= '<iframe class="ultiamte-audio-iframe" width="100%" height="350" src="';
+			$html .= $matches[1];
+			$html .= '" scrolling="no" frameborder="no"></iframe>';
 		}
 		/*
-		else if ( preg_match( '((https?:)?\/\/(www\.)?soundcloud\.com\/[a-z?,-?,1-9?]+)', $post->post_content, $matches ) ) {
-			print_r($matches);
-			ultimate_get_soundcloud_id( $matches[0] );
-		} else if ( preg_match('/\[(\[?)(soundcloud)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)/', $post->post_content, $matches)) {
-			if ( preg_match('/^(.+?)\/(sets|groups|playlists)\/(.+?)$/', $matches[3], $ma)) {
-				echo '<iframe class="ultiamte-audio-iframe" width="100%" height="350" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/';
-				echo $ma[3];
-				echo '" scrolling="no" frameborder="no"></iframe>';
-			}
+		elseif ( preg_match( '((https?:)?\/\/(www\.)?soundcloud\.com\/[a-z?,-?,1-9?]+)', $post->post_content, $matches ) ) {
+			$url_audio = get_soundcloud_id( $matches[0] );
+			$html .= $url_audio;
 		}
 		*/
-		else {
-			echo '<div class="entry-content">';
-				the_content();
-			echo '</div>';
+		elseif ( 
+				preg_match('#https?://(www\.)?mixcloud\.com/.*#i', $post->post_content, $matches) ||
+				preg_match('#https?://(www\.)?rdio\.com/.*#i', $post->post_content, $matches) ||
+				preg_match('#https?://rd\.io/x/.*#i', $post->post_content, $matches) ||
+				preg_match('#https?://(www\.)?soundcloud\.com/.*#i', $post->post_content, $matches) ||
+				preg_match('#https?://(open|play)\.spotify\.com/.*#i', $post->post_content, $matches)
+			) {
+				$embedurl = $matches[0];
+				if (!empty($embedurl)) {
+				       $var = apply_filters('the_content', "[embed]" . $embedurl . "[/embed]");
+				}
+				$html .= '<div class="blog-oembed">';
+				$html .= $var;
+				$html .= '</div>';
 		}
+		else {
+			return false;
+		}
+		return $html;
 	}
+
 	/*
-	function ultimate_get_soundcloud_id( $sc_url ) {
+	function get_soundcloud_id( $sc_url ) {
 		$url   = strip_tags( $sc_url );
-		echo $url;
-		// if $sc_url is not empty, do
 		if ( ! empty( $sc_url ) ) {
-			$unparsed_json = wp_remote_get( 'http://api.soundcloud.com/resolve.json?url=' . $url . '&client_id=c7b853e983a53f5d1e0d278a8a461781' );
-			if ( $unparsed_json['response']['code'] != 200 ) {
-				$json_object = json_decode( $unparsed_json['boody'] );
-				$roster_id = $json_object->{'id'};
-				echo '<iframe class="ultiamte-audio-iframe" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' . $roster_id . '&amp;color=red&amp;auto_play=false&amp;hide_related=true&amp;show_artwork=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>';
-			}
+			$unparsed_json = file_get_contents( 'http://api.soundcloud.com/resolve.json?url=' . $url . '&client_id=c7b853e983a53f5d1e0d278a8a461781' );
+			$json_object   = json_decode( $unparsed_json );
+			$roster_id = $json_object->{'id'};
+			return '<iframe class="ultiamte-audio-iframe" width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/' . $roster_id . '&amp;color=DE5034&amp;auto_play=false&amp;hide_related=true&amp;show_artwork=false&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>';
 		}
 	}
 	*/
+
 endif;
 
 
+
+
+if ( ! function_exists( 'ultimate_post_social' ) ) :
+	function ultimate_post_social() { // for social media embeds
+
+		global $post;
+		if (! $post)
+			return false;
+		ob_start();
+		ob_end_clean();
+
+		$html = '';
+
+		if ( preg_match('#https?://(www\.)?twitter\.com/.+?/status(es)?/.*#i', $post->post_content, $matches) ) {
+				$embedurl = $matches[0];
+				if (!empty($embedurl)) {
+				       $var = apply_filters('the_content', "[embed]" . $embedurl . "[/embed]");
+				}
+				$html .= '<div class="blog-oembed">';
+				$html .= $var;
+				$html .= '</div>';
+		}
+		else {
+			return false;
+		}
+		return $html;
+	}
+
+endif;
 
 ?>

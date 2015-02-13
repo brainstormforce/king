@@ -1,105 +1,93 @@
-// Enable Fixed Menu Through jQuery
-jQuery(function( jQuery ) {
-	var starting_position = jQuery('.ult-fixed-menu').outerHeight( true );
-	jQuery(window).scroll(function() {
-		var yPos = ( jQuery(window).scrollTop() );
-		if( yPos > starting_position && window.innerWidth > 768 ) { 
-			jQuery(".ult-fixed-menu").addClass("ult-sticky-menu");
-		} else {
-			jQuery(".ult-fixed-menu").removeClass("ult-sticky-menu");
+(function($) {
+	"use strict";
+
+	// Responsive iframe
+	function resp_iframe() {
+		$(".blog-oembed iframe, .ultiamte-iframe").each(function(index, element) {
+			var w = $(this).parent().width();
+			var h = (w*(9/16));
+			$(this).css({"width":w+"px","height":h+"px"});
+		});		
+	}
+
+	// Assign Browser Width to Row - If Front Page Widget Area has Featured Image
+	function full_front_widget() {
+		var browser_width = $('#page').outerWidth( true );
+		var front_widget_offset = $("#content").offset();
+		var front_widget_styles = {
+	      "width": browser_width,
+	      "left": - front_widget_offset.left,
+	    };
+		$(".widget-thumbnail").css( front_widget_styles );
+	}
+
+	// Assign Top Padding When Transparent Menu Is Set
+	function transperent_top_padding() {
+		var header_height = $('.ult-fixed-menu').outerHeight( true );
+		if( window.innerWidth > 768 ) {
+			$("body #main").css('padding-top',header_height);
+			$(".ultimate-page-header").css('padding-top',header_height);
 		}
-	});
-});
-
-// Aissign Top Padding When Transparent Menu Is Set
-jQuery(document).ready(function() {
-	var header_height = jQuery('.ult-fixed-menu').outerHeight( true );
-	if( window.innerWidth > 768 ) {
-		jQuery("body #main").css('padding-top',header_height);
-		jQuery(".ultimate-page-header").css('padding-top',header_height);
+		else {
+			$("body #main").css('padding-top',0);
+			$(".ultimate-page-header").css('padding-top',0);
+		}
 	}
-	else {
-		jQuery("body #main").css('padding-top',0);
-		jQuery(".ultimate-page-header").css('padding-top',0);
-	}
-});
-jQuery(window).on('resize',function() {
-	var header_height = jQuery('.ult-fixed-menu').outerHeight( true );
-	if( window.innerWidth > 768 ) {
-		jQuery("body #main").css('padding-top',header_height);
-		jQuery(".ultimate-page-header").css('padding-top',header_height);
-	}
-	else {
-		jQuery("body #main").css('padding-top',0);
-		jQuery(".ultimate-page-header").css('padding-top',0);
-	}
-});
 
+	$(document).ready(function() {
+		// Meny Toggle
+	    $('.menu-toggle-wrap').click( function() {
+	    $('.nav-menu').toggle()});
+		$("li.menu-item-has-children").click(function () {
+	  		$(this).toggleClass("ulopen");
+		});
+		$("li.page_item_has_children").click(function () {
+	  		$(this).toggleClass("ulopen");
+		});	  	
+	    $(this).find("li.page_item_has_children > a").after( "<span class='ent entarrow-down7'></span>" );
+	    $(this).find("li.menu-item-has-children > a").after( "<span class='ent entarrow-down7'></span>" );
 
-// Assign Browser Width to Row - If Front Page Widget Area has Featured Image
-jQuery(document).ready(function() {
-	var browser_width = jQuery('#page').outerWidth( true );
-	var front_widget_offset = jQuery("#content").offset();
-	var front_widget_styles = {
-      "width": browser_width,
-      "left": - front_widget_offset.left,
-    };
-	jQuery(".widget-thumbnail").css( front_widget_styles );
-});
-jQuery(window).on('resize',function() {
-	var browser_width = jQuery('#page').outerWidth( true );
-	var front_widget_offset = jQuery("#content").offset();
-	var front_widget_styles = {
-      "width": browser_width,
-      "left": - front_widget_offset.left,
-    };
-	jQuery(".widget-thumbnail").css( front_widget_styles );
-});
+	    // Enable Fixed Menu Through jQuery
+		var starting_position = $('.ult-fixed-menu').outerHeight( true );
+		$(window).scroll(function() {
+			var yPos = ( $(window).scrollTop() );
+			if( yPos > starting_position && window.innerWidth > 768 ) { 
+				$(".ult-fixed-menu").addClass("ult-sticky-menu");
+			} else {
+				$(".ult-fixed-menu").removeClass("ult-sticky-menu");
+			}
+		});
 
+		// ColorBox
+	    $('#page').find('a.ultimate-lightbox').colorbox({
+	        maxWidth : '80%',
+	        maxHeight : '90%',
+	        rel: 'ultimate-lightbox',
+	        opacity : 0.8,
+	        transition : 'elastic',
+	        current : ''
+	    });
 
-// Menu Toggle
-jQuery( function() {
-    jQuery('.menu-toggle-wrap').click( function() {
-    	jQuery('.nav-menu').toggle()});
-});
+	    // Responsive iframe 
+	    resp_iframe();
 
-jQuery(document).ready(function(jQuery) {
-	jQuery("li.menu-item-has-children").click(function () {
-  		jQuery(this).toggleClass("ulopen");
+	    // Assign Browser Width to Row - If Front Page Widget Area has Featured Image
+	    full_front_widget();
+
+	    // Assign Top Padding When Transparent Menu Is Set
+		transperent_top_padding();
+
+    });	
+
+	$(window).on('resize',function() {
+		// Responsive iframe
+		resp_iframe();
+
+		// Assign Browser Width to Row - If Front Page Widget Area has Featured Image
+	    full_front_widget();
+
+	    // Assign Top Padding When Transparent Menu Is Set
+		transperent_top_padding();
 	});
-	jQuery("li.page_item_has_children").click(function () {
-  		jQuery(this).toggleClass("ulopen");
-	});	  	
-    jQuery(this).find("li.page_item_has_children > a").after( "<span class='ent entarrow-down7'></span>" );
-    jQuery(this).find("li.menu-item-has-children > a").after( "<span class='ent entarrow-down7'></span>" );
-});
 
-// ColorBox
-jQuery(document).ready(function() {
-    jQuery('#page').find('a.ultimate-lightbox').colorbox({
-        maxWidth : '80%',
-        maxHeight : '90%',
-        rel: 'ultimate-lightbox',
-        opacity : 0.8,
-        transition : 'elastic',
-        current : ''
-    });
-});
-
-// Responsive iframe
-jQuery(document).ready(function() {
-	jQuery(".ultiamte-iframe").each(function(index, element) {
-		var w = jQuery(this).parent().width();
-		var h = (w*(9/16));
-		jQuery(this).css({"width":w+"px","height":h+"px"});
-	});
-});
-jQuery(window).on('resize',function() {
-	jQuery(".ultiamte-iframe").each(function(index, element) {
-		var w = jQuery(this).parent().width();
-		var c = w/10;
-		var h = (w*(9/16))+c;
-		jQuery(this).css({"width":w+"px","height":h+"px"});
-	});
-});
-
+})(jQuery);

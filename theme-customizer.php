@@ -401,6 +401,23 @@ function ultimate_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
+    	'blog_tag_meta',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_tag_meta',
+		array(
+			'label' => 'Tag',
+			'section' => 'blog_meta_section',
+			'description' =>  '',
+			'type'        => 'checkbox',
+		)
+	);
+
+	$wp_customize->add_setting(
     	'blog_comment_meta',
 		array(
 			'default' => true,

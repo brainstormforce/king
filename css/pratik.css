@@ -520,7 +520,8 @@ footer[role="contentinfo"] .footer-bottom-container {
 .blog-featured-media,
 .wp-video,
 .ultiamte-iframe,
-.ultiamte-audio-iframe {
+.ultiamte-audio-iframe,
+.blog-oembed {
 	margin-bottom: 24px;
 }
 
