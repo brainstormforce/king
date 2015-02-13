@@ -9,13 +9,11 @@
 	<header class="entry-header">
 		<?php if( has_post_thumbnail() || has_shortcode($post->post_content, 'gallery') ) : ?>
 			<div class="blog-featured-media">
-				<?php 
-					if ( has_shortcode($post->post_content, 'gallery') ) :
-						get_post_gallery( $post, true );
-					else :
-						the_post_thumbnail('full');
-					endif; 
-				?> 
+				<?php if ( has_shortcode($post->post_content, 'gallery') ) : ?>
+					<?php get_post_gallery( $post, true ); ?>
+				<?php else : ?>
+					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail('full'); ?></a>
+				<?php endif; ?>
 			</div> <!-- .blog-featured-media -->
 		<?php endif; ?>
 

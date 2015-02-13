@@ -24,7 +24,7 @@
 
 			<?php if ( has_post_thumbnail() ) : ?>
 				<div class="blog-featured-media">
-					<?php the_post_thumbnail('full'); ?>
+					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail('full'); ?></a>
 				</div>
 			<?php elseif ( ultimate_post_social() && !is_single() ) : ?>
 				<?php echo ultimate_post_social(); ?>

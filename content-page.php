@@ -12,7 +12,7 @@
 			<?php // if ( ! is_page_template( 'page-templates/front-page.php' ) ) : ?>
 				<?php if( has_post_thumbnail() ) : ?>
 					<div class="page-featured-img">
-						<?php the_post_thumbnail('full'); ?>
+						<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail('full'); ?></a>
 					</div>
 				<?php endif; ?>
 			<?php // endif; ?>

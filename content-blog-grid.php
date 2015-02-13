@@ -25,7 +25,7 @@
 				<?php elseif ( ultimate_post_social() ) : ?>
 					<?php echo ultimate_post_social(); ?>
 				<?php elseif ( has_post_thumbnail() ) : ?>
-					<?php the_post_thumbnail(); ?>
+					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail(); ?></a>
 				<?php endif; ?>
 			</div><!-- .grid-post-media -->
         <?php endif; ?>
