@@ -47,7 +47,6 @@ function ultimate_media_templates(){
 /**
 * Overrite the HTML output of gallery shortcode to the custom output for carousel slider
 */
-add_shortcode( 'gallery', 'ultimate_gallery_shortcode' );
 function ultimate_gallery_shortcode( $atts ) {
     $ids = '';
     extract( shortcode_atts( array(
@@ -265,6 +264,7 @@ function ultimate_gallery_shortcode( $atts ) {
     }
     echo ob_get_clean();
 }
+add_shortcode( 'gallery', 'ultimate_gallery_shortcode' );
 
 
 // iMedica Justified Grid Gallery

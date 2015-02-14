@@ -570,17 +570,18 @@ if($scroll_to_top) {
 	add_action('wp_footer', 'ultimate_scroll_to_top');
 }
 
-require_once('theme-customizer.php');
+require_once('inc/customizer/customizer.php');
+require_once('inc/customizer/customizer-style.php');
+
 require_once('admin/meta.php');
 require_once('admin/megamenu-admin-walker.php');
 
-require_once('lib/ultimate-custom-style.php');
-require_once('lib/ultimate-breadcrumbs.php');
-require_once('lib/ultimate-menu-walker.php');
-require_once('lib/ultimate-pagination.php');
-require_once('lib/ultimate-post-meta.php');
-require_once('lib/ultimate-post-gallery.php');
-require_once('lib/ultimate-widget.php');
+require_once('inc/ultimate-breadcrumbs.php');
+require_once('inc/ultimate-menu-walker.php');
+require_once('inc/ultimate-pagination.php');
+require_once('inc/ultimate-post-meta.php');
+require_once('inc/ultimate-post-gallery.php');
+require_once('inc/ultimate-widget.php');
 
 
 
@@ -593,7 +594,7 @@ require_once('lib/ultimate-widget.php');
  * @since Ultimate 1.0
  */
 function ultimate_customize_preview_js() {
-	wp_enqueue_script( 'ultimate-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
+	wp_enqueue_script( 'ultimate-customizer', get_template_directory_uri() . '/inc/customizer/assets/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
 }
 add_action( 'customize_preview_init', 'ultimate_customize_preview_js' );
 
@@ -681,11 +682,11 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
 				$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
 				if ( $num_comments == 0 ) {
-					$comments = __('Leave a Comment');
+					$comments = __('Leave a Comment', 'ultimate' );
 				} elseif ( $num_comments > 1 ) {
-					$comments = $num_comments . __(' Comments');
+					$comments = $num_comments . __(' Comments', 'ultimate' );
 				} else {
-					$comments = __('1 Comment');
+					$comments = __('1 Comment', 'ultimate' );
 				}
 				$html .=  '<span class="post-meta-item">';
 	            $html .=  '<span class="post-meta-comment"><a href="'. get_comments_link() .'" title="Comment on '. get_the_title() .'">'. $comments .'</a></span>'; 
@@ -765,7 +766,7 @@ add_image_size( 'medium-image-blog', 330, 215, true ); // (cropped)
 add_filter( 'image_size_names_choose', 'ultimate_image_sizes' );
 function ultimate_image_sizes( $sizes ) {
     return array_merge( $sizes, array(
-        'medium-image-blog' => __( 'Medium Blog Image' ),
+        'medium-image-blog' => __( 'Medium Blog Image', 'ultimate' ),
     ) );
 }
 
