@@ -11,14 +11,22 @@
  * @param WP_Customize_Manager $wp_customize Customizer object.
  */
 function ultimate_customize_register( $wp_customize ) {
+
+	// Enque Required JS & CSS
+	add_action( 'customize_controls_print_styles', 'customizer_scripts' );
+	function customizer_scripts() {
+		$ultimate_url = get_template_directory_uri() . '/inc/customizer/assets/';
+		wp_enqueue_style( 'ultimate-customizer-css', $ultimate_url . 'css/customizer.css' );
+		wp_enqueue_style( 'ultimate-customizer-ui',  $ultimate_url . 'css/jquery-ui-1.10.0.custom.css' );
+		wp_enqueue_script( 'jquery-ui-core' );
+		wp_enqueue_script( 'jquery-ui-slider' );
+	}
 	
-	get_template_part('lib/custom','google_fonts');
-	get_template_part('lib/customizer','typography');
+	// Add Controls
+	get_template_part('inc/customizer/controls/class','Ultimate_Separator_Control');
+	get_template_part('inc/customizer/controls/class','Ultimate_Typography_Control');
+	get_template_part('inc/customizer/controls/class','Ultimate_Sliderui_Control');
 
-
-	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
-	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	$wp_customize->remove_control('background_color');
 	$wp_customize->remove_control('display_header_text');
 	
@@ -184,6 +192,15 @@ function ultimate_customize_register( $wp_customize ) {
 	) );
 
 	$wp_customize->add_section(
+        'custom_code',
+        array(
+            'title' => 'Custom Code',
+            'description' => 'Put Custom CSS here.',
+            'priority' => 999,
+        )
+    );
+
+	$wp_customize->add_section(
         'reset_default',
         array(
             'title' => 'Reset To Default',
@@ -220,32 +237,41 @@ function ultimate_customize_register( $wp_customize ) {
     	'content_width',
 		array(
 			'default' => 1170,
+			'capability' => 'edit_theme_options',
 			'sanitize_callback' => 'ultimate_sanitize_callback',
 		)
 	);
 	$wp_customize->add_control(
-		'content_width',
-		array(
-			'label' => 'Site Content Width',
-			'section' => 'layout_setting',
-			'description' =>  'This setting will not be applied to <strong>Fluid Layout</strong>.',
-			'type' => 'number',
-			'input_attrs' => array(
-				'min'   => 420,
-				'max'   => 1900,
-				'step'  => 10,
-				'style' => 'width: 80px;',
-			),
+		new Ultimate_Sliderui_Control(
+			$wp_customize,
+			'content_width',
+			array(
+				'label' => 'Site Content Width',
+				'section' => 'layout_setting',
+				'settings' => 'content_width',
+				'type' => 'slider',
+				'subtitle' => '',
+				'description' =>  'This setting will not be applied to <strong>Fluid Layout</strong>.',				
+				'choices' => array(
+					'min'   => 420,
+					'max'   => 1900,
+					'step'  => 10,
+					'style' => '',
+				),
+			)
 		)
 	);
 	
-	$wp_customize->add_setting( 'separator-blog', array(
-		'default' => '',
-		'type' => 'theme_mod',
-		'capability' => 'edit_theme_options',
-		'transport' => '',
-		'sanitize_callback' => 'ultimate_sanitize_callback',
-	) );
+	$wp_customize->add_setting( 
+		'separator-blog', 
+		array(
+			'default' => '',
+			'type' => 'theme_mod',
+			'capability' => 'edit_theme_options',
+			'transport' => '',
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		) 
+	);
 	$wp_customize->add_control(
 		new Ultimate_Separator_Control(
 			$wp_customize,
@@ -1541,6 +1567,27 @@ function ultimate_customize_register( $wp_customize ) {
 
 
 	//==========================
+	// Custom CSS
+	//==========================
+
+	$wp_customize->add_setting( 
+		'custom_css', 
+		array(
+		    'default' => '',
+		    'sanitize_callback' => 'ultimate_sanitize_callback',
+		) 
+	);
+	$wp_customize->add_control(
+	    'custom_css',
+	    array(
+	        'label' => 'Custom CSS',
+	        'section' => 'custom_code',
+	        'type' => 'text',
+	    )
+	);
+
+
+	//==========================
 	// Reset To Default
 	//==========================
 
@@ -1560,6 +1607,12 @@ function ultimate_customize_register( $wp_customize ) {
 	    )
 	);
 
+
+	// Post Values For Live Preview
+	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
+	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
+	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+	$wp_customize->get_setting( 'content_width' )->transport 	= 'postMessage';
 
 }
 

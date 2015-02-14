@@ -1,0 +1,26 @@
+li.customize-control.customize-control-slider input[type=text] {
+  width: 20%;
+  float: left;
+  text-align: center;
+}
+
+li.customize-control.customize-control-slider .ss-slider {
+  width: 70%;
+  margin-left: 25%;
+  margin-top: 12px;
+}
+.customize-control-slider .ui-state-default, 
+.customize-control-slider .ui-widget-content .ui-state-default, 
+.customize-control-slider .ui-widget-header .ui-state-default {
+  background-color: #2ea2cc;
+  color: #333;
+  font-size: 13px;
+  line-height: normal;
+  border: 1px solid #0074a2;
+  -webkit-transition: 0.1s linear background-image;
+  -moz-transition: 0.1s linear background-image;
+  -ms-transition: 0.1s linear background-image;
+  -o-transition: 0.1s linear background-image;
+  transition: 0.1s linear background-image;
+  overflow: visible;
+}
