@@ -19,7 +19,7 @@ get_header(); ?>
 
 
 
-	<div id="primary" class="site-content col-lg-9 col-md-8 col-sm-8 col-xs-12">
+	<div id="primary" class="site-content">
 		<div id="content" role="main">
 
 			<?php while ( have_posts() ) : the_post(); ?>

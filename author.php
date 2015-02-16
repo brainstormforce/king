@@ -15,7 +15,7 @@ get_header();
 $bl = get_theme_mod('blog_layout');
 $blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 ?>
-	<section id="primary" class="site-content col-md-9 col-sm-8 col-xl-12 col-xs-12">
+	<section id="primary" class="site-content">
 
 		<header class="archive-header">
 			<h1 class="archive-title"><?php printf( __( 'Author Archives: %s', 'ultimate' ), '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' ); ?></h1>

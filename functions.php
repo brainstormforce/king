@@ -1,7 +1,7 @@
 <?php
 // Set up the content width value based on the theme's design and stylesheet.
-if ( ! isset( $content_width ) )
-	$content_width = 625;
+if ( ! isset( $site_width ) )
+	$site_width = 625;
 /**
  * Ultimate setup.
  *
@@ -490,19 +490,19 @@ add_filter( 'body_class', 'ultimate_body_class' );
 
 /**
  * Adjust content width in certain contexts.
- *
- * Adjusts content_width value for full-width and single image attachment
+ * site_width
+ * Adjusts  value for full-width and single image attachment
  * templates, and when there are no active widgets in the sidebar.
  *
  * @since Ultimate 1.0
  */
-function ultimate_content_width() {
+function ultimate_site_width() {
 	if ( is_page_template( 'page-templates/full-width.php' ) || is_attachment() || ! is_active_sidebar( 'sidebar-1' ) ) {
-		global $content_width;
-		$content_width = 960;
+		global $site_width;
+		$site_width = 960;
 	}
 }
-add_action( 'template_redirect', 'ultimate_content_width' );
+add_action( 'template_redirect', 'ultimate_site_width' );
 
 
 /**

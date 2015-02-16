@@ -202,9 +202,18 @@ if(!function_exists("ultimate_custom_style")) :
 			.footer-bottom-container, 
 			.smile-row, 
 			.boxed .site-header.ult-fixed-menu {
-				max-width: <?php echo get_theme_mod( 'content_width' );?>px !important;
+				max-width: <?php echo get_theme_mod( 'site_width' );?>px !important;
 			}
 		<?php } ?>
+
+		@media only screen and (min-width: 768px) {
+			#primary {
+				width: <?php echo get_theme_mod( 'content_width' );?>%;
+			}
+			#secondary {
+				width: <?php echo ( 100 - get_theme_mod( 'content_width' ));?>%;
+			}
+		}
 
 		/**
 		* 2.0 Header Settings
