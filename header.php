@@ -16,9 +16,10 @@
 <html class="ie ie8" <?php language_attributes(); ?>>
 <![endif]-->
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
-<html <?php language_attributes(); ?>>
+<?php ult_html_before(); ?><html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
+<?php ult_head_top(); ?>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width" />
 <title><?php wp_title( '|', true, 'right' ); ?></title>
@@ -28,24 +29,32 @@
 <!--[if lt IE 9]>
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
+<?php ult_head_bottom(); ?>
 <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
+<?php ult_body_top(); ?>
 <div id="page" class="site">
 
-	<?php
-		// Select Header Style
-		$header_layout = get_theme_mod('header_layout');
-		if($header_layout == 'header_2'){
-			get_header('style2');
-		} 
-		else if($header_layout == 'header_3'){
-			get_header('style3');
-		} 
-		else {
-			get_header('style1');
-		}
-	?>
+	<?php ult_header_before(); ?>
+	<div id="header">
+		<?php ult_header_top(); ?>
+			<?php
+				// Select Header Style
+				$header_layout = get_theme_mod('header_layout');
+				if($header_layout == 'header_2'){
+					get_header('style2');
+				} 
+				else if($header_layout == 'header_3'){
+					get_header('style3');
+				} 
+				else {
+					get_header('style1');
+				}
+			?>
+		<?php ult_header_bottom(); ?>
+	</div> <!-- #header -->
+	<?php ult_header_after(); ?>
 	
 	<?php 
 		// Title & Breadcrumb Bar
@@ -57,5 +66,5 @@
 			}
 		}
 	?>
-	
+
 	<div id="main" class="wrapper">

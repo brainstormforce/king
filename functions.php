@@ -573,6 +573,8 @@ if($scroll_to_top) {
 require_once('inc/customizer/customizer.php');
 require_once('inc/customizer/customizer-style.php');
 
+require_once('inc/hooks/ultimate-theme-hooks.php');
+
 require_once('admin/meta.php');
 require_once('admin/megamenu-admin-walker.php');
 
@@ -716,16 +718,6 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 			echo '</div>';
 		endif;
 	}
-endif;
-
-// Fevicom Image
-if ( ! function_exists( 'ultimate_favicon' ) ) :
-	function ultimate_favicon() {
-		$favicom_image = get_theme_mod( 'favicon-img' );
-		if ($favicom_image)
-		echo '<link rel="icon" href="'. get_theme_mod( 'favicon-img' ) .'" type="image/x-png"/>';
-	}
-	add_action('wp_head', 'ultimate_favicon');
 endif;
 
 
@@ -892,6 +884,46 @@ if ( ! function_exists( 'ultimate_post_social' ) ) :
 		return $html;
 	}
 
+endif;
+
+
+// Sidebar Position
+$sp = get_theme_mod('sidebar_position');
+$sidebar_position = isset($sp) ? get_theme_mod('sidebar_position') : 'right-sidebar';
+if ($sidebar_position == 'right-sidebar') :
+	add_action('ult_content_after','get_sidebar');
+elseif ($sidebar_position == 'left-sidebar') :
+	add_action('ult_content_before','get_sidebar');
+endif;
+
+// Fevicom Image
+if ( ! function_exists( 'ultimate_favicon' ) ) :
+	function ultimate_favicon() {
+		$favicom_image = get_theme_mod( 'favicon-img' );
+		if ($favicom_image)
+		echo '<link rel="icon" href="'. get_theme_mod( 'favicon-img' ) .'" type="image/x-png"/>';
+	}
+	add_action('ult_head_bottom', 'ultimate_favicon');
+endif;
+
+// Custom CSS
+if ( ! function_exists( 'ultimate_custom_css' ) ) :
+	function ultimate_custom_css() {
+		$custom_css = get_theme_mod( 'custom_css' );
+		if ($custom_css)
+		echo '<style type="text/css">'. $custom_css .'</style>';
+	}
+	add_action('wp_head', 'ultimate_custom_css');
+endif;
+
+// Custom Script
+if ( ! function_exists( 'ultimate_custom_script' ) ) :
+	function ultimate_custom_script() {
+		$custom_script = get_theme_mod( 'custom_script' );
+		if ($custom_script)
+		echo $custom_script;
+	}
+	add_action('wp_footer', 'ultimate_custom_script');
 endif;
 
 ?>
