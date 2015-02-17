@@ -26,6 +26,7 @@ function ultimate_customize_register( $wp_customize ) {
 	get_template_part('inc/customizer/controls/class','Ultimate_Separator_Control');
 	get_template_part('inc/customizer/controls/class','Ultimate_Typography_Control');
 	get_template_part('inc/customizer/controls/class','Ultimate_Sliderui_Control');
+	get_template_part('inc/customizer/controls/class','Ultimate_Textarea_Control');
 
 	$wp_customize->remove_control('background_color');
 	$wp_customize->remove_control('display_header_text');
@@ -179,8 +180,8 @@ function ultimate_customize_register( $wp_customize ) {
 	    'priority' => 7,
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
-	    'title' => __( 'Advanced Settings', 'ultimate' ),
-	    'description' => __( 'Description of what this panel does.', 'ultimate' ),
+	    'title' => __( 'Advanced Options', 'ultimate' ),
+	    'description' => __( 'Advanced options of your theme', 'ultimate' ),
 	) );
 	$wp_customize->add_section( 'general_advanced', array(
 	    'priority' => 1,
@@ -190,15 +191,14 @@ function ultimate_customize_register( $wp_customize ) {
 	    'description' => '',
 	    'panel' => 'advanced_panel',
 	) );
-
-	$wp_customize->add_section(
-        'custom_code',
-        array(
-            'title' => 'Custom Code',
-            'description' => 'Put Custom CSS here.',
-            'priority' => 999,
-        )
-    );
+	$wp_customize->add_section( 'custom_code', array(
+		'priority' => 999,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Custom Code', 'ultimate' ),
+	    'description' => 'Put Custom Scripts & CSS here.',
+	    'panel' => 'advanced_panel',
+    ) );
 
 	$wp_customize->add_section(
         'reset_default',
@@ -232,9 +232,52 @@ function ultimate_customize_register( $wp_customize ) {
 			),
 		)
 	);
+
+	$wp_customize->add_setting(
+		'sidebar_position',
+		array(
+			'default' => 'right-sidebar',
+			'sanitize_callback' => 'ultimate_sanitize_callback'
+		)
+	);	 
+	$wp_customize->add_control(
+		'sidebar_position',
+		array(
+			'type' => 'select',
+			'label' => 'Sidebar Position',
+			'section' => 'layout_setting',
+			'choices' => array(
+				'right-sidebar' => 'Right Sidebar',
+				'left-sidebar' => 'Left Sidebar',
+				'no-sidebar' => 'No Sidebar',
+			),
+		)
+	);
+
+	$wp_customize->add_setting( 
+		'separator-width', 
+		array(
+			'default' => '',
+			'type' => 'theme_mod',
+			'capability' => 'edit_theme_options',
+			'transport' => '',
+			'sanitize_callback' => 'ultimate_sanitize_callback',
+		) 
+	);
+	$wp_customize->add_control(
+		new Ultimate_Separator_Control(
+			$wp_customize,
+			'separator-width',
+			array(
+				'label' => '',
+				'section' => 'layout_setting',
+				'settings' => 'separator-width',
+			)
+		)
+	);
 	
 	$wp_customize->add_setting(
-    	'content_width',
+    	'site_width',
 		array(
 			'default' => 1170,
 			'capability' => 'edit_theme_options',
@@ -244,11 +287,11 @@ function ultimate_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		new Ultimate_Sliderui_Control(
 			$wp_customize,
-			'content_width',
+			'site_width',
 			array(
-				'label' => 'Site Content Width',
+				'label' => 'Site Width (px)',
 				'section' => 'layout_setting',
-				'settings' => 'content_width',
+				'settings' => 'site_width',
 				'type' => 'slider',
 				'subtitle' => '',
 				'description' =>  'This setting will not be applied to <strong>Fluid Layout</strong>.',				
@@ -261,28 +304,37 @@ function ultimate_customize_register( $wp_customize ) {
 			)
 		)
 	);
-	
-	$wp_customize->add_setting( 
-		'separator-blog', 
+
+	$wp_customize->add_setting(
+    	'content_width',
 		array(
-			'default' => '',
-			'type' => 'theme_mod',
+			'default' => 75,
 			'capability' => 'edit_theme_options',
-			'transport' => '',
 			'sanitize_callback' => 'ultimate_sanitize_callback',
-		) 
+		)
 	);
 	$wp_customize->add_control(
-		new Ultimate_Separator_Control(
+		new Ultimate_Sliderui_Control(
 			$wp_customize,
-			'separator-blog',
+			'content_width',
 			array(
-				'label' => '',
+				'label' => 'Primary Content Width (%)',
 				'section' => 'layout_setting',
-				'settings' => 'separator-blog',
+				'settings' => 'content_width',
+				'type' => 'slider',
+				'subtitle' => '',
+				'description' =>  'Set primary content width (except sidebar)',				
+				'choices' => array(
+					'min'   => 10,
+					'max'   => 90,
+					'step'  => 1,
+					'style' => '',
+				),
 			)
 		)
 	);
+
+	
 
 	//==========================
 	// Blog Settings
@@ -1541,6 +1593,48 @@ function ultimate_customize_register( $wp_customize ) {
 		)
 	);
 
+	// Custom Code
+	$wp_customize->add_setting( 
+		'custom_css', 
+		array(
+		    'default' => '',
+		    'sanitize_callback' => 'ultimate_sanitize_callback',
+		) 
+	);
+	$wp_customize->add_control(
+		new Ultimate_Textarea_Control(
+			$wp_customize,
+			'custom_css',
+			array(
+				'label' => 'Custom CSS',
+				'section' => 'custom_code',
+				'type' => 'textarea',
+				'description' =>  'This setting will add custom CSS (Write your CSS without style tag)',
+			)
+		)
+	);
+
+	$wp_customize->add_setting( 
+		'custom_script', 
+		array(
+		    'default' => '',
+		    'sanitize_callback' => 'ultimate_sanitize_callback',
+		) 
+	);
+	$wp_customize->add_control(
+		new Ultimate_Textarea_Control(
+			$wp_customize,
+			'custom_script',
+			array(
+				'label' => 'Custom Script',
+				'section' => 'custom_code',
+				'type' => 'textarea',
+				'description' =>  'This setting will add custom Script (Write your CSS with script tag)',
+			)
+		)
+	);
+
+
 
 	//==========================
 	// Background Image
@@ -1563,27 +1657,6 @@ function ultimate_customize_register( $wp_customize ) {
 				'priority' => 1
 			)
 		)
-	);
-
-
-	//==========================
-	// Custom CSS
-	//==========================
-
-	$wp_customize->add_setting( 
-		'custom_css', 
-		array(
-		    'default' => '',
-		    'sanitize_callback' => 'ultimate_sanitize_callback',
-		) 
-	);
-	$wp_customize->add_control(
-	    'custom_css',
-	    array(
-	        'label' => 'Custom CSS',
-	        'section' => 'custom_code',
-	        'type' => 'text',
-	    )
 	);
 
 
@@ -1612,7 +1685,10 @@ function ultimate_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+	$wp_customize->get_setting( 'site_width' )->transport 		= 'postMessage';
 	$wp_customize->get_setting( 'content_width' )->transport 	= 'postMessage';
+	$wp_customize->get_setting( 'copyright_textbox' )->transport= 'postMessage';
+	
 
 }
 
@@ -1620,7 +1696,6 @@ add_action( 'customize_register', 'ultimate_customize_register' );
 function ultimate_sanitize_callback($input){
 	return $input;
 }
-
 
 // Reset Customizer Setting To Default
 $customizer_reset = get_theme_mod( 'reset_settings' );

@@ -1,7 +1,7 @@
 <?php
 // Set up the content width value based on the theme's design and stylesheet.
-if ( ! isset( $content_width ) )
-	$content_width = 625;
+if ( ! isset( $site_width ) )
+	$site_width = 625;
 /**
  * Ultimate setup.
  *
@@ -490,19 +490,19 @@ add_filter( 'body_class', 'ultimate_body_class' );
 
 /**
  * Adjust content width in certain contexts.
- *
- * Adjusts content_width value for full-width and single image attachment
+ * site_width
+ * Adjusts  value for full-width and single image attachment
  * templates, and when there are no active widgets in the sidebar.
  *
  * @since Ultimate 1.0
  */
-function ultimate_content_width() {
+function ultimate_site_width() {
 	if ( is_page_template( 'page-templates/full-width.php' ) || is_attachment() || ! is_active_sidebar( 'sidebar-1' ) ) {
-		global $content_width;
-		$content_width = 960;
+		global $site_width;
+		$site_width = 960;
 	}
 }
-add_action( 'template_redirect', 'ultimate_content_width' );
+add_action( 'template_redirect', 'ultimate_site_width' );
 
 
 /**
@@ -572,6 +572,8 @@ if($scroll_to_top) {
 
 require_once('inc/customizer/customizer.php');
 require_once('inc/customizer/customizer-style.php');
+
+require_once('inc/hooks/ultimate-theme-hooks.php');
 
 require_once('admin/meta.php');
 require_once('admin/megamenu-admin-walker.php');
@@ -716,16 +718,6 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 			echo '</div>';
 		endif;
 	}
-endif;
-
-// Fevicom Image
-if ( ! function_exists( 'ultimate_favicon' ) ) :
-	function ultimate_favicon() {
-		$favicom_image = get_theme_mod( 'favicon-img' );
-		if ($favicom_image)
-		echo '<link rel="icon" href="'. get_theme_mod( 'favicon-img' ) .'" type="image/x-png"/>';
-	}
-	add_action('wp_head', 'ultimate_favicon');
 endif;
 
 
@@ -892,6 +884,46 @@ if ( ! function_exists( 'ultimate_post_social' ) ) :
 		return $html;
 	}
 
+endif;
+
+
+// Sidebar Position
+$sp = get_theme_mod('sidebar_position');
+$sidebar_position = isset($sp) ? get_theme_mod('sidebar_position') : 'right-sidebar';
+if ($sidebar_position == 'right-sidebar') :
+	add_action('ult_content_after','get_sidebar');
+elseif ($sidebar_position == 'left-sidebar') :
+	add_action('ult_content_before','get_sidebar');
+endif;
+
+// Fevicom Image
+if ( ! function_exists( 'ultimate_favicon' ) ) :
+	function ultimate_favicon() {
+		$favicom_image = get_theme_mod( 'favicon-img' );
+		if ($favicom_image)
+		echo '<link rel="icon" href="'. get_theme_mod( 'favicon-img' ) .'" type="image/x-png"/>';
+	}
+	add_action('ult_head_bottom', 'ultimate_favicon');
+endif;
+
+// Custom CSS
+if ( ! function_exists( 'ultimate_custom_css' ) ) :
+	function ultimate_custom_css() {
+		$custom_css = get_theme_mod( 'custom_css' );
+		if ($custom_css)
+		echo '<style type="text/css">'. $custom_css .'</style>';
+	}
+	add_action('wp_head', 'ultimate_custom_css');
+endif;
+
+// Custom Script
+if ( ! function_exists( 'ultimate_custom_script' ) ) :
+	function ultimate_custom_script() {
+		$custom_script = get_theme_mod( 'custom_script' );
+		if ($custom_script)
+		echo $custom_script;
+	}
+	add_action('wp_footer', 'ultimate_custom_script');
 endif;
 
 ?>

@@ -16,7 +16,7 @@ get_header();
 $bl = get_theme_mod('blog_layout');
 $blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 ?>
-	<section id="primary" class="site-content col-md-9 col-sm-8 col-xl-12 col-xs-12">
+	<section id="primary" class="site-content">
 
 		<header class="archive-header">
 			<h1 class="archive-title"><?php

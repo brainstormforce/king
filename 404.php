@@ -8,7 +8,7 @@
  */
 get_header(); ?>
 
-	<div id="primary" class="site-content col-md-9 col-sm-8 col-xl-12 col-xs-12">
+	<div id="primary" class="site-content">
 		<div id="content" role="main">
 
 			<article id="post-0" class="post error404 no-results not-found">

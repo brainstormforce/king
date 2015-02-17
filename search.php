@@ -7,7 +7,7 @@
  * @since Ultimate 1.0
  */
 get_header(); ?>
-	<section id="primary" class="site-content col-md-9 col-sm-8 col-xl-12 col-xs-12">
+	<section id="primary" class="site-content">
 		<div id="content" role="main">
 		<?php if ( have_posts() ) : ?>
 			<header class="page-header">
