@@ -952,7 +952,7 @@ if ( ! function_exists( 'ultimate_single_post_navigation' ) ) :
 			<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'ultimate' ) . '</span>' ); ?></span>
 			</nav><!-- .nav-single -->
 		<?php endif;
-	}
+	} 
 	add_action('ult_entry_after', 'ultimate_single_post_navigation');
 endif;
 
