@@ -39,32 +39,8 @@
 	<?php ult_header_before(); ?>
 	<div id="header">
 		<?php ult_header_top(); ?>
-			<?php
-				// Select Header Style
-				$header_layout = get_theme_mod('header_layout');
-				if($header_layout == 'header_2'){
-					get_header('style2');
-				} 
-				else if($header_layout == 'header_3'){
-					get_header('style3');
-				} 
-				else {
-					get_header('style1');
-				}
-			?>
 		<?php ult_header_bottom(); ?>
 	</div> <!-- #header -->
 	<?php ult_header_after(); ?>
-	
-	<?php 
-		// Title & Breadcrumb Bar
-		global $post;
-		$meta_value = get_post_meta( $post->ID, 'meta-breadcrumb', true );
-		if($meta_value != 'false'){
-			if(!is_home()){
-				get_header('title-bar');
-			}
-		}
-	?>
 
 	<div id="main" class="wrapper">

@@ -206,14 +206,16 @@ if(!function_exists("ultimate_custom_style")) :
 			}
 		<?php } ?>
 
-		@media only screen and (min-width: 768px) {
-			#primary {
-				width: <?php echo get_theme_mod( 'content_width' );?>%;
+		<?php if ( get_theme_mod('sidebar_position') != 'no-sidebar') : ?>
+			@media only screen and (min-width: 768px) {
+				#primary {
+					width: <?php echo get_theme_mod( 'content_width' );?>%;
+				}
+				#secondary {
+					width: <?php echo ( 100 - get_theme_mod( 'content_width' ));?>%;
+				}
 			}
-			#secondary {
-				width: <?php echo ( 100 - get_theme_mod( 'content_width' ));?>%;
-			}
-		}
+		<?php endif; ?>
 
 		/**
 		* 2.0 Header Settings

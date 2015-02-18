@@ -33,6 +33,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<?php ult_entry_top(); ?>
 
 	<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
 		<div class="featured-post">
@@ -67,4 +68,5 @@
 
 	<?php ultimate_post_meta(); ?>
 
+<?php ult_entry_bottom(); ?>
 </article><!-- #post -->

@@ -60,5 +60,7 @@ $blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 		</div><!-- #content -->
 		<?php ultimate_pagination(); ?>
 	</div><!-- #primary -->
-<?php /*if($blog_layout !== 'grid-3' && $blog_layout !== 'grid-4')*/ get_sidebar(); ?>
+
+
+<?php ult_content_after(); ?>
 <?php get_footer(); ?>

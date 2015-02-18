@@ -26,4 +26,5 @@ get_header(); ?>
 	</div><!-- #primary -->
 
 <?php get_sidebar( 'front' ); ?>
+<?php ult_content_after(); ?>
 <?php get_footer(); ?>

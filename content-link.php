@@ -9,6 +9,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<?php ult_entry_top(); ?>
 
 	<div class="entry-summary">
 		<header><?php _e( 'Link', 'ultimate' ); ?></header>
@@ -20,4 +21,5 @@
 
 	<?php ultimate_post_meta(); ?>
 
+<?php ult_entry_bottom(); ?>
 </article><!-- #post -->	

@@ -5,7 +5,7 @@ Author: 		Brainstorm Force
 Author URI: 	http://codecanyon.net/user/BrainstormForce
 Description:    The Ultimate theme is a simple & responsive theme, which is very flexible, lightweight & specifically for demo site of our “Ultimate Addons for Visual Composer” plugin.
 Version:        0.3
-Tags: 			light, white, one-column, two-columns, right-sidebar, fluid-layout, responsive-layout, custom-background
+Tags: 			light
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -1130,6 +1130,12 @@ section.comment-content.comment, .reply {
 }
 /* =Sidebar
 ----------------------------------------------- */
+.left-sidebar #primary {
+	float: right;
+}
+.left-sidebar #secondary {
+	float: left;
+}
 /* Sidebar - Left, Right & Footer */
 .widget ul {
 	display: block;
@@ -2400,6 +2406,9 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 	/* Content Width */
 	#primary {
 		width: 75%;
+	}
+	.no-sidebar #primary {
+		width: 100%;
 	}
 	#secondary {
 		width: 25%;

@@ -7,7 +7,7 @@
  * @since Ultimate 1.0
  */
 get_header(); ?>
-	<section id="primary" class="site-content">
+	<div id="primary" class="site-content">
 		<div id="content" role="main">
 		<?php if ( have_posts() ) : ?>
 			<header class="page-header">
@@ -30,6 +30,6 @@ get_header(); ?>
 			</article><!-- #post-0 -->
 		<?php endif; ?>
 		</div><!-- #content -->
-	</section><!-- #primary -->
-<?php get_sidebar(); ?>
+	</div><!-- #primary -->
+<?php ult_content_after(); ?>
 <?php get_footer(); ?>

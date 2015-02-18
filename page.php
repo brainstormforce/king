@@ -37,7 +37,6 @@ get_header(); ?>
 			<?php ult_content_bottom(); ?>
 		</div><!-- #content -->
 	</div><!-- #primary -->
+	
 <?php ult_content_after(); ?>
-
-<?php // get_sidebar(); ?>
 <?php get_footer(); ?>

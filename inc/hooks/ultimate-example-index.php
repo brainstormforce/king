@@ -18,38 +18,46 @@
 	</div><!-- #header -->
 	<?php// ult_header_after(); ?>
 
+
+
+
+
+
+
+
 	<?php // ult_content_before(); ?>
 	<div id="content">
 		<?php // ult_content_top(); ?>
 
-		<!-- This roughly encapsulates The Loop portion of the layout -->
 		<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
 			<?php // ult_entry_before(); ?>
-			<!-- Post Entry Begin -->
 			<div <?php post_class( 'entry' ); ?>>
 				<?php// ult_entry_top(); ?>
 				<h2><?php the_title(); ?></h2>
 				<div class="itemtext">
 					<?php the_content(); ?>
-				</div><!-- .itemtext -->
+				</div>
 				<?php// ult_entry_bottom(); ?>
 			</div>
-			<!-- Post Entry End -->
 			<?php // ult_entry_after(); ?>
 
 		<?php endwhile; endif; ?>
-		<!-- Close The Loop -->
 		
 		<?php // ult_comments_before(); ?>
-		<!-- Post Comments Begin -->
 		<?php comments_template(); ?>
-		<!-- post Comments End -->
 		<?php // ult_comments_after(); ?>
 
 		<?php // ult_content_bottom(); ?>
-	</div><!-- #content -->
+	</div>
 	<?php// ult_content_after(); ?>
+
+
+
+
+
+
+
 	
 	<?php // ult_sidebars_before(); ?>
 	<div id="sidebar">

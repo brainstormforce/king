@@ -28,4 +28,5 @@ get_header(); ?>
 		</div><!-- #content -->
 	</div><!-- #primary -->
 
+<?php ult_content_after(); ?>
 <?php get_footer(); ?>

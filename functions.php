@@ -347,10 +347,10 @@ function ultimate_comment( $comment, $args, $depth ) {
 			<?php if ( '0' == $comment->comment_approved ) : ?>
 				<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'ultimate' ); ?></p>
 			<?php endif; ?>
-			<section class="comment-content comment">
+			<div class="comment-content comment">
 				<?php comment_text(); ?>
 				<?php edit_comment_link( __( 'Edit', 'ultimate' ), '<p class="edit-link">', '</p>' ); ?>
-			</section><!-- .comment-content -->
+			</div><!-- .comment-content -->
 			<div class="reply">
 				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply', 'ultimate' ), 'after' => ' <span>&darr;</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 			</div><!-- .reply -->
@@ -445,43 +445,62 @@ function ultimate_body_class( $classes ) {
 			$classes[] = 'two-sidebars';
 	}
 
-	if ( empty( $background_image ) ) {
-		if ( empty( $background_color ) )
+	if ( empty( $background_image ) ) :
+		if ( empty( $background_color ) ) :
 			$classes[] = 'custom-background-empty';
-		elseif ( in_array( $background_color, array( 'fff', 'ffffff' ) ) )
+		elseif ( in_array( $background_color, array( 'fff', 'ffffff' ) ) ) :
 			$classes[] = 'custom-background-white';
-	}
-	// Enable custom font class only if the font CSS is queued to load.
-	if ( wp_style_is( 'ultimate-fonts', 'queue' ) )
-		$classes[] = 'custom-font-enabled';
+		endif;
+	endif;
 
-	if ( ! is_multi_author() )
+	// Enable custom font class only if the font CSS is queued to load.
+	if ( wp_style_is( 'ultimate-fonts', 'queue' ) ) :
+		$classes[] = 'custom-font-enabled';
+	endif;
+
+	if ( ! is_multi_author() ) :
 		$classes[] = 'single-author';
+	endif;
 
 	// Site Layout
 	$site_layout = get_theme_mod('site_layout');
-	if ( $site_layout )
+	if ( $site_layout ) :
 		$classes[] = get_theme_mod('site_layout');
+	endif;
 
 
 	// Blog Layout
 	$blog_layout = get_theme_mod('blog_layout');
-	if ( $blog_layout )
+	if ($blog_layout) :
 		$classes[] = get_theme_mod('blog_layout');
+	endif;
 
-	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4')
+	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		$classes[] = 'blog-grid';
+	endif;
 
 	// Enable Masonry Layout
 	$masonry_layout = get_theme_mod('blog_masonry_layout');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
-		if ( $masonry_layout )
+		if ($masonry_layout) :
 			$classes[] = 'blog-masonry';
+		endif;
 	endif;
 
 	// Is not singular
-	if ( ! is_singular() )
+	if ( ! is_singular() ) :
 		$classes[] = 'not-singular';
+	endif;
+
+	// Sidebar Position
+	$sidebar_position = get_theme_mod('sidebar_position');
+	if ($sidebar_position == 'right-sidebar') :
+		$classes[] = 'right-sidebar';
+	elseif ($sidebar_position == 'left-sidebar') :
+		$classes[] = 'left-sidebar';
+	elseif ($sidebar_position == 'no-sidebar') :
+		$classes[] = 'no-sidebar';	
+	endif;
 
 	return $classes;
 }
@@ -888,12 +907,9 @@ endif;
 
 
 // Sidebar Position
-$sp = get_theme_mod('sidebar_position');
-$sidebar_position = isset($sp) ? get_theme_mod('sidebar_position') : 'right-sidebar';
-if ($sidebar_position == 'right-sidebar') :
+$sidebar_pos = get_theme_mod('sidebar_position');
+if ($sidebar_pos != 'no-sidebar') :
 	add_action('ult_content_after','get_sidebar');
-elseif ($sidebar_position == 'left-sidebar') :
-	add_action('ult_content_before','get_sidebar');
 endif;
 
 // Fevicom Image
@@ -926,4 +942,165 @@ if ( ! function_exists( 'ultimate_custom_script' ) ) :
 	add_action('wp_footer', 'ultimate_custom_script');
 endif;
 
+// Next / Previous post link on single page
+if ( ! function_exists( 'ultimate_single_post_navigation' ) ) :
+	function ultimate_single_post_navigation() { ?> 
+		<?php if(is_single()) : ?>
+			<nav class="nav-single clear">
+			<h3 class="assistive-text"><?php _e( 'Post navigation', 'ultimate' ); ?></h3>
+			<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'ultimate' ) . '</span> %title' ); ?></span>
+			<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'ultimate' ) . '</span>' ); ?></span>
+			</nav><!-- .nav-single -->
+		<?php endif;
+	}
+	add_action('ult_entry_after', 'ultimate_single_post_navigation');
+endif;
+
+// Header Text on Archive Pages
+if ( ! function_exists( 'ultimate_archive_header_text' ) ) :
+	function ultimate_archive_header_text() { ?>
+		<?php if(is_archive()) : ?>
+
+			<?php if(is_date()) : ?>
+
+				<header class="archive-header">
+					<h1 class="archive-title"><?php
+						if ( is_day() ) :
+							printf( __( 'Daily Archives: %s', 'ultimate' ), '<span>' . get_the_date() . '</span>' );
+						elseif ( is_month() ) :
+							printf( __( 'Monthly Archives: %s', 'ultimate' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'ultimate' ) ) . '</span>' );
+						elseif ( is_year() ) :
+							printf( __( 'Yearly Archives: %s', 'ultimate' ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', 'ultimate' ) ) . '</span>' );
+						else :
+							_e( 'Archives', 'ultimate' );
+						endif;
+					?></h1>
+				</header><!-- .archive-header -->
+
+			<?php elseif(is_category()) : ?>
+
+				<header class="archive-header">
+					<h1 class="archive-title"><?php printf( __( 'Category Archives: %s', 'ultimate' ), '<span>' . single_cat_title( '', false ) . '</span>' ); ?></h1>
+					<?php if ( category_description() ) : // Show an optional category description ?>
+						<div class="archive-meta"><?php echo category_description(); ?></div>
+					<?php endif; ?>
+				</header><!-- .archive-header -->
+
+			<?php elseif(is_tag()) : ?>
+
+					<header class="archive-header">
+						<h1 class="archive-title"><?php printf( __( 'Tag Archives: %s', 'ultimate' ), '<span>' . single_tag_title( '', false ) . '</span>' ); ?></h1>
+						<?php if ( tag_description() ) : // Show an optional tag description ?>
+							<div class="archive-meta"><?php echo tag_description(); ?></div>
+						<?php endif; ?>
+					</header><!-- .archive-header -->
+
+			<?php elseif(is_author()) : ?>
+
+				<header class="archive-header">
+					<h1 class="archive-title"><?php printf( __( 'Author Archives: %s', 'ultimate' ), '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' ); ?></h1>
+				</header><!-- .archive-header -->
+
+				<?php
+				// If a user has filled out their description, show a bio on their entries.
+				if ( get_the_author_meta( 'description' ) ) : ?>
+					<div class="author-info">
+						<div class="author-avatar">
+							<?php
+								$author_bio_avatar_size = apply_filters( 'ultimate_author_bio_avatar_size', 68 );
+								echo get_avatar( get_the_author_meta( 'user_email' ), $author_bio_avatar_size );
+							?>
+						</div><!-- .author-avatar -->
+						<div class="author-description">
+							<h2><?php printf( __( 'About %s', 'ultimate' ), get_the_author() ); ?></h2>
+							<p><?php the_author_meta( 'description' ); ?></p>
+						</div><!-- .author-description	-->
+					</div><!-- .author-info -->
+				<?php endif; ?>
+
+			<?php endif; ?>
+
+		<?php endif;
+	}	
+	add_action('ult_content_top', 'ultimate_archive_header_text');
+endif;
+
+// Pagination Position 
+if ( ! function_exists( 'ultimate_pagination_position' ) ) :
+	function ultimate_pagination_position() { ?>
+		<?php if(is_archive()) : ?>
+			<?php ultimate_pagination(); ?>
+		<?php endif;
+	}	
+	add_action('ult_content_bottom', 'ultimate_pagination_position');
+endif;
+
+// Header Layout
+if ( ! function_exists( 'ultimate_header_layout' ) ) :
+	function ultimate_header_layout() { 
+		$header_layout = get_theme_mod('header_layout');
+		if($header_layout == 'header_2'){
+			get_header('style2');
+		} 
+		else if($header_layout == 'header_3'){
+			get_header('style3');
+		} 
+		else {
+			get_header('style1');
+		}
+	}	
+	add_action('ult_header_bottom', 'ultimate_header_layout');
+endif;
+
+// Title & Breadcrumb Bar
+if ( ! function_exists( 'ultimate_title_breadcrumb_bar' ) ) :
+	function ultimate_title_breadcrumb_bar() { ?>
+
+		<?php
+			global $post;
+			$meta_value = get_post_meta( $post->ID, 'meta-breadcrumb', true );
+			if($meta_value != 'false') :
+				if(!is_home()) : ?>
+
+					<div class="ultimate-page-header">
+						<div class="ultimate-row">
+							<div class="ultimate-container imd-pagetitle-container">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left ultimate-title">
+									<?php
+										if(is_404()){
+											$title = '404 - Page Not Found!';
+										} elseif(is_search()){
+											$title = 'Search Results -';
+										} elseif(is_archive()){
+											$title = 'Archives';
+										} else {
+											if( is_home() && get_option('page_for_posts') ) {
+												$blog_page_id = get_option('page_for_posts');
+												$title = get_page($blog_page_id)->post_title;
+											} else {
+												$title = $post->post_title;
+											}
+										}
+										echo '<div class="ultimate-breadcrumb-title">';
+										echo '<h3>'.$title.'</h3>';
+										echo '</div>';
+									?>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right ultimate-breadcrumb">
+									<?php
+										if( function_exists('ultimate_breadcrumb')) {
+											ultimate_breadcrumb();
+										}
+									?>
+								</div>
+							</div><!-- .ultimate-container --> 
+						</div><!-- .ultimate-row --> 
+					</div><!-- .ultimate-page-header --> 
+
+				<?php endif; ?>
+			<?php endif; ?>
+		<?php 
+	}	
+	add_action('ult_header_after', 'ultimate_title_breadcrumb_bar');
+endif;
 ?>
