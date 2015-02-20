@@ -23,7 +23,7 @@
 
 	// Assign Top Padding When Transparent Menu Is Set
 	function transperent_top_padding() {
-		var header_height = $('.ult-fixed-menu').outerHeight( true );
+		var header_height = $('.ult-fixed-menu .site-header').outerHeight( true );
 		if( window.innerWidth > 768 ) {
 			$("body #main").css('padding-top',header_height);
 			$(".ultimate-page-header").css('padding-top',header_height);
@@ -48,13 +48,13 @@
 	    $(this).find("li.menu-item-has-children > a").after( "<span class='ent entarrow-down7'></span>" );
 
 	    // Enable Fixed Menu Through jQuery
-		var starting_position = $('.ult-fixed-menu').outerHeight( true );
+		var starting_position = $('.ult-fixed-menu .site-header').outerHeight( true );
 		$(window).scroll(function() {
 			var yPos = ( $(window).scrollTop() );
 			if( yPos > starting_position && window.innerWidth > 768 ) { 
-				$(".ult-fixed-menu").addClass("ult-sticky-menu");
+				$(".ult-fixed-menu .site-header").addClass("ult-sticky-menu");
 			} else {
-				$(".ult-fixed-menu").removeClass("ult-sticky-menu");
+				$(".ult-fixed-menu .site-header").removeClass("ult-sticky-menu");
 			}
 		});
 

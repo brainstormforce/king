@@ -37,7 +37,7 @@
 <div id="page" class="site">
 
 	<?php ult_header_before(); ?>
-	<div id="header">
+	<div id="header" class="clear">
 		<?php ult_header_top(); ?>
 		<?php ult_header_bottom(); ?>
 	</div> <!-- #header -->

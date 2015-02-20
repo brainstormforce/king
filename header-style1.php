@@ -1,14 +1,4 @@
-<?php 
-	// Sticky Menu
-	$fixed_header = get_theme_mod( 'site_fixed_header' );
-	if($fixed_header){
-		$cls = 'ult-fixed-menu';
-	} else {
-		$cls = '';
-	}
-?>
-
-<header id="masthead" class="site-header header-style1 <?php echo $cls; ?>" role="banner">
+<header id="masthead" class="site-header header-style1" role="banner">
 	<div class="header-box <?php if( get_theme_mod( 'logo-img' ) ) {  echo 'header-logo-menu';}?>">
 		<nav id="site-navigation" class="main-navigation" role="navigation">
 			<div class="ult-main-menu-container clear">

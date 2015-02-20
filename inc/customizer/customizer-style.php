@@ -201,7 +201,7 @@ if(!function_exists("ultimate_custom_style")) :
 			.footer-widget-area, 
 			.footer-bottom-container, 
 			.smile-row, 
-			.boxed .site-header.ult-fixed-menu {
+			.boxed.ult-fixed-menu .site-header {
 				max-width: <?php echo get_theme_mod( 'site_width' );?>px !important;
 			}
 		<?php } ?>

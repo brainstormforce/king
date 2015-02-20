@@ -2344,15 +2344,16 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 	}
 
 	/* Fixed Menu */
-	.site-header.ult-fixed-menu {
+	.ult-fixed-menu .site-header {
 		position: fixed;
 		z-index: 99999;
 		width: 100%;
 		left: 0;
 	}
-	.boxed .site-header.ult-fixed-menu {
+	.boxed.ult-fixed-menu .site-header {
 		left: auto;
 		right: auto;
+		max-width: 1170px;
 	}
 	.ultimate-page-header + #main {
 		padding-top: 0 !important;
@@ -2360,14 +2361,14 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 	
 
 	/* Transparent Menu */
-	.ult-transparent-header .site-header.ult-fixed-menu,
-	.ult-transparent-header .ult-fixed-menu .header-box {
+	.ult-fixed-menu .ult-transparent-header .site-header,
+	.ult-fixed-menu .ult-transparent-header .header-box {
 		background: rgba(0,0,0,0) !important;
 		-webkit-transition: background 400ms linear;
 		-moz-transition: background 400ms linear;
 		transition: background 400ms linear;
 	}
-	.ult-transparent-header .ult-fixed-menu.ult-sticky-menu {
+	.ult-fixed-menu .ult-transparent-header .ult-sticky-menu {
 		background: #303030 !important;
 	}
 

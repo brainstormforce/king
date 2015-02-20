@@ -68,7 +68,7 @@
 	// Site Width
 	wp.customize( 'site_width', function( value ) {
         value.bind( function( to ) {
-            $( 'body #main, .boxed .site, .header-box, .header-style2 .primary-menu-container, .header-style2 .nav-menu, .header-style3 .primary-menu-container, .header-style3 .nav-menu, .ultimate-container, .footer-widget-area, .footer-bottom-container, .smile-row, .boxed .site-header.ult-fixed-menu' ).attr( 'style', 'max-width:'+to+'px !important' );
+            $( 'body #main, .boxed .site, .header-box, .header-style2 .primary-menu-container, .header-style2 .nav-menu, .header-style3 .primary-menu-container, .header-style3 .nav-menu, .ultimate-container, .footer-widget-area, .footer-bottom-container, .smile-row, .boxed.ult-fixed-menu .site-header' ).attr( 'style', 'max-width:'+to+'px !important' );
         } );
     });
 

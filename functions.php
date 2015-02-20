@@ -2,6 +2,24 @@
 // Set up the content width value based on the theme's design and stylesheet.
 if ( ! isset( $site_width ) )
 	$site_width = 625;
+
+
+require_once('inc/customizer/customizer.php');
+require_once('inc/customizer/customizer-style.php');
+
+require_once('inc/hooks/ultimate-theme-hooks.php');
+
+require_once('admin/meta.php');
+require_once('admin/megamenu-admin-walker.php');
+
+require_once('inc/ultimate-breadcrumbs.php');
+require_once('inc/ultimate-menu-walker.php');
+require_once('inc/ultimate-pagination.php');
+require_once('inc/ultimate-post-meta.php');
+require_once('inc/ultimate-post-gallery.php');
+require_once('inc/ultimate-widget.php');
+
+
 /**
  * Ultimate setup.
  *
@@ -60,6 +78,7 @@ function ultimate_setup() {
 	set_post_thumbnail_size( 624, 9999 ); // Unlimited height, soft crop
 }
 add_action( 'after_setup_theme', 'ultimate_setup' );
+
 /**
  * Return the Google font stylesheet URL if available.
  *
@@ -96,6 +115,7 @@ function ultimate_get_font_url() {
 	}
 	return $font_url;
 }
+
 /**
  * Enqueue scripts and styles for front-end.
  *
@@ -200,9 +220,6 @@ function ultimate_page_menu_args( $args ) {
 	return $args;
 }
 add_filter( 'wp_page_menu_args', 'ultimate_page_menu_args' );
-
-
-
 
 /**
  * Register sidebars.
@@ -361,8 +378,6 @@ function ultimate_comment( $comment, $args, $depth ) {
 }
 endif;
 
-
-
 if ( ! function_exists( 'ultimate_entry_meta' ) ) :
 /**
  * Set up post entry meta.
@@ -406,9 +421,6 @@ function ultimate_entry_meta() {
 	);
 }
 endif;
-
-
-
 
 /**
  * Extend the default WordPress body classes.
@@ -502,6 +514,12 @@ function ultimate_body_class( $classes ) {
 		$classes[] = 'no-sidebar';	
 	endif;
 
+	// If fixed menu
+	$fixed_header = get_theme_mod( 'site_fixed_header' );
+	if($fixed_header) :
+		$classes[] = 'ult-fixed-menu';
+	endif;
+
 	return $classes;
 }
 add_filter( 'body_class', 'ultimate_body_class' );
@@ -588,24 +606,6 @@ $scroll_to_top = get_theme_mod( 'scroll_to_top' );
 if($scroll_to_top) {
 	add_action('wp_footer', 'ultimate_scroll_to_top');
 }
-
-require_once('inc/customizer/customizer.php');
-require_once('inc/customizer/customizer-style.php');
-
-require_once('inc/hooks/ultimate-theme-hooks.php');
-
-require_once('admin/meta.php');
-require_once('admin/megamenu-admin-walker.php');
-
-require_once('inc/ultimate-breadcrumbs.php');
-require_once('inc/ultimate-menu-walker.php');
-require_once('inc/ultimate-pagination.php');
-require_once('inc/ultimate-post-meta.php');
-require_once('inc/ultimate-post-gallery.php');
-require_once('inc/ultimate-widget.php');
-
-
-
 
 /**
  * Enqueue Javascript postMessage handlers for the Customizer.
@@ -739,6 +739,19 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 	}
 	add_action('ult_entry_bottom', 'ultimate_post_meta', 10, 1);
 endif;
+
+// Remove Post Meta For Grid Layout
+if ( ! function_exists( 'ultimate_grid_post_layout' ) ) :
+	function ultimate_grid_post_layout() {
+		$blog_layout = get_theme_mod('blog_layout');
+		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
+			if (is_search() || is_home() || is_archive()) :
+				remove_action('ult_entry_bottom', 'ultimate_post_meta');
+			endif;
+		endif;
+	}
+endif;
+add_action( 'wp', 'ultimate_grid_post_layout' );
 
 
 // Custom Excerpt Length

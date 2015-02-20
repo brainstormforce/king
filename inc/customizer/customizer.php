@@ -1567,7 +1567,7 @@ function ultimate_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		'smooth_scroll',
 		array(
-			'label' => 'Enable Smooth Header',
+			'label' => 'Enable Smooth Scroll',
 			'section' => 'general_advanced',
 			'description' =>  '',
 			'type'        => 'checkbox',
