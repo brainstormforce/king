@@ -34,8 +34,6 @@
 			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'ultimate' ), 'after' => '</div>' ) ); ?>
 		</div><!-- .entry-content -->
 	<?php endif; ?>
-
-	<?php ultimate_post_meta(); ?>	
 	
 <?php ult_entry_bottom(); ?>
 </article><!-- #post -->

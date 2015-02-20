@@ -33,7 +33,5 @@
 		</div><!-- .entry-content -->
 	<?php endif; ?>		
 
-	<?php ultimate_post_meta(); ?>
-
 <?php ult_entry_bottom(); ?>
 </article><!-- #post -->	

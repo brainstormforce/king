@@ -19,7 +19,5 @@
 		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'ultimate' ) ); ?>
 	</div><!-- .entry-content -->
 
-	<?php ultimate_post_meta(); ?>
-
 <?php ult_entry_bottom(); ?>
 </article><!-- #post -->	

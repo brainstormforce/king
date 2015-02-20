@@ -66,7 +66,5 @@
 		<?php the_excerpt(); ?>
 	</div><!-- .entry-summary -->	
 
-	<?php ultimate_post_meta(); ?>
-
 <?php ult_entry_bottom(); ?>
 </article><!-- #post -->

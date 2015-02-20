@@ -737,6 +737,7 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 			echo '</div>';
 		endif;
 	}
+	add_action('ult_entry_bottom', 'ultimate_post_meta', 10, 1);
 endif;
 
 
@@ -783,7 +784,7 @@ function ultimate_image_sizes( $sizes ) {
 
 
 
-// Retrive video from post
+// Retrive & Embed video from post
 if ( ! function_exists( 'ultimate_post_video' ) ) :
 function ultimate_post_video() {
 
@@ -836,7 +837,7 @@ function ultimate_post_video() {
 endif;
 
 
-
+// Embed Audio Post
 if ( ! function_exists( 'ultimate_post_audio' ) ) :
 	function ultimate_post_audio() { // for audio post type - grab
 
@@ -877,6 +878,7 @@ if ( ! function_exists( 'ultimate_post_audio' ) ) :
 endif;
 
 
+// Embed social data - Twitter
 if ( ! function_exists( 'ultimate_post_social' ) ) :
 	function ultimate_post_social() { // for social media embeds
 
@@ -909,7 +911,7 @@ endif;
 // Sidebar Position
 $sidebar_pos = get_theme_mod('sidebar_position');
 if ($sidebar_pos != 'no-sidebar') :
-	add_action('ult_content_after','get_sidebar');
+	add_action('ult_content_after','get_sidebar', 10, 1);
 endif;
 
 // Fevicom Image
@@ -944,14 +946,21 @@ endif;
 
 // Next / Previous post link on single page
 if ( ! function_exists( 'ultimate_single_post_navigation' ) ) :
-	function ultimate_single_post_navigation() { ?> 
-		<?php if(is_single()) : ?>
+	function ultimate_single_post_navigation() { ?>
+		<?php if(is_attachment()) : ?>
+			<nav class="nav-single clear">
+			<h3 class="assistive-text"><?php _e( 'Image navigation', 'ultimate' ); ?></h3>			
+			<span class="nav-previous"><?php previous_image_link( false, __( '<span class="meta-nav">&larr; Previous</span>', 'ultimate' ) ); ?></span>
+			<span class="nav-next"><?php next_image_link( false, __( '<span class="meta-nav">Next &rarr;</span>', 'ultimate' ) ); ?></span>
+			</nav><!-- .nav-single -->
+		<?php elseif(is_single()) : ?>
 			<nav class="nav-single clear">
 			<h3 class="assistive-text"><?php _e( 'Post navigation', 'ultimate' ); ?></h3>
 			<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'ultimate' ) . '</span> %title' ); ?></span>
 			<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'ultimate' ) . '</span>' ); ?></span>
 			</nav><!-- .nav-single -->
-		<?php endif;
+		<?php endif; ?>
+		<?php
 	} 
 	add_action('ult_entry_after', 'ultimate_single_post_navigation');
 endif;
@@ -1020,7 +1029,9 @@ if ( ! function_exists( 'ultimate_archive_header_text' ) ) :
 
 			<?php endif; ?>
 
-		<?php endif;
+		<?php endif; ?>
+
+		<?php
 	}	
 	add_action('ult_content_top', 'ultimate_archive_header_text');
 endif;
@@ -1028,7 +1039,7 @@ endif;
 // Pagination Position 
 if ( ! function_exists( 'ultimate_pagination_position' ) ) :
 	function ultimate_pagination_position() { ?>
-		<?php if(is_archive()) : ?>
+		<?php if(is_archive() || is_search() || is_home()) : ?>
 			<?php ultimate_pagination(); ?>
 		<?php endif;
 	}	
@@ -1103,4 +1114,85 @@ if ( ! function_exists( 'ultimate_title_breadcrumb_bar' ) ) :
 	}	
 	add_action('ult_header_after', 'ultimate_title_breadcrumb_bar');
 endif;
+
+
+// Author Bio
+if ( ! function_exists( 'ultimate_author_bio' ) ) :
+	function ultimate_author_bio() { ?>
+		<?php if( is_single() ) : ?>		
+			<footer class="entry-meta">
+				<?php if ( is_singular() && get_the_author_meta( 'description' ) && is_multi_author() ) : // If a user has filled out their description and this is a multi-author blog, show a bio on their entries. ?>
+					<div class="author-info">
+						<div class="author-avatar">
+							<?php
+							/** This filter is documented in author.php */
+							$author_bio_avatar_size = apply_filters( 'ultimate_author_bio_avatar_size', 68 );
+							echo get_avatar( get_the_author_meta( 'user_email' ), $author_bio_avatar_size );
+							?>
+						</div><!-- .author-avatar -->
+						<div class="author-description">
+							<h2><?php printf( __( 'About %s', 'ultimate' ), get_the_author() ); ?></h2>
+							<p><?php the_author_meta( 'description' ); ?></p>
+							<div class="author-link">
+								<a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
+									<?php printf( __( 'View all posts by %s <span class="meta-nav">&rarr;</span>', 'ultimate' ), get_the_author() ); ?>
+								</a>
+							</div><!-- .author-link	-->
+						</div><!-- .author-description -->
+					</div><!-- .author-info -->
+				<?php endif; ?>
+			</footer><!-- .entry-meta -->
+		<?php endif; ?>	
+	<?php 
+	}	
+	add_action('ult_entry_bottom', 'ultimate_author_bio', 20, 1);
+endif;
+
+// Custom Search Form
+if ( ! function_exists( 'ultimate_search_form' ) ) :
+	function ultimate_search_form( $form ) {
+		$value_placeholder = __( "type here..." , "ultimate" );
+		$placeholder = __( "'type here...'" , "ultimate" );
+		$empty_placeholder = __( "''" , "ultimate" );
+		$form = '<form action="' . home_url( "/" ) . '" method="get" id="searchform">
+				<fieldset>
+				<div id="searchbox">
+				<input class="input" name="s" type="text" id="s" value="'.  $value_placeholder .'" onfocus="if (this.value == '. $placeholder .') {this.value = '. $empty_placeholder .' }" onblur="if (this.value == '. $empty_placeholder .') {this.value = '. $placeholder .'}">
+				<button type="submit" id="searchsubmit" class="ultimate-bkg ultimate-bkg-dark-hover"><i class="ent entsearch"></i></button>
+				</div>
+				</fieldset>
+				</form>';
+		return $form;
+	}
+	add_filter( 'get_search_form', 'ultimate_search_form' );
+endif;
+
+
+// Ultiamte Front Page Bottom Sidebar
+if ( ! function_exists( 'ultimate_front_page_bottom_sidebar' ) ) :
+	function ultimate_front_page_bottom_sidebar() {
+		if (is_page_template( 'page-templates/front-page.php' )) {
+			get_sidebar('front');
+		}
+	}
+	add_action('ult_content_after', 'ultimate_front_page_bottom_sidebar', 20, 1);
+endif;
+
+
+
+// Ultiamte Front Page Content Sidebar
+if ( ! function_exists( 'ultimate_front_page_content_sidebar' ) ) :
+	function ultimate_front_page_content_sidebar() { 
+		?>
+		<?php if ( is_active_sidebar( 'sidebar-front-main' ) ) : ?>
+			<div class="frontpage-main-widget-area clear">
+				<?php dynamic_sidebar( 'sidebar-front-main' ); ?>
+			</div><!-- .first -->
+		<?php endif; ?>
+		<?php
+	}
+	add_action('ult_entry_after', 'ultimate_front_page_content_sidebar', 10, 1);
+endif;
+
+
 ?>

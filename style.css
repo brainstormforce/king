@@ -873,7 +873,11 @@ footer.entry-meta {
 	overflow: hidden;
 }
 .image-attachment div.attachment {
-	text-align: center;
+	text-align: left;
+}
+.image-attachment div.attachment > a {
+	text-align: left;
+	display: inline-block;
 }
 .image-attachment div.attachment p {
 	text-align: center;
@@ -881,11 +885,12 @@ footer.entry-meta {
 .image-attachment div.attachment img {
 	display: block;
 	height: auto;
-	margin: 0 auto;
+	margin: 0;
 	max-width: 100%;
 }
 .image-attachment .entry-caption {
 	margin-top: 8px;
+	text-align: center;
 }
 
 /* =Comments
@@ -1104,8 +1109,12 @@ section.comment-content.comment, .reply {
 	border: 0;
 	margin-bottom: 0;
 }
-.template-front-page .widget-area {
+#secondary-front {
+	display: block;
 	clear: both;
+}
+.template-front-page .widget-area {
+	clear: right;
 	float: none;
 	width: auto;
 	padding-top: 24px;
@@ -1600,6 +1609,10 @@ footer[role="contentinfo"] .footer-bottom-container {
 .blog-grid.not-singular #content {
 	margin-left: -15px;
 	margin-right: -15px;
+}
+.search-no-results.blog-grid.not-singular #content {
+	margin-left: 0;
+	margin-right: 0;
 }
 /* Normal Grid Blog - Without Masonry*/
 .grid-2 #content .post:nth-child(2n+1),

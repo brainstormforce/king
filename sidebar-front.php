@@ -21,7 +21,7 @@ if ( ! is_active_sidebar( 'sidebar-front-1' ) && ! is_active_sidebar( 'sidebar-f
 
 // If we get this far, we have widgets. Let do this.
 ?>
-<div id="secondary" class="widget-area front-sidebar clear" role="complementary">
+<div id="secondary-front" class="widget-area front-sidebar clear" role="complementary">
 
 	<?php
         $front_sidebars = array("sidebar-front-1", "sidebar-front-2", "sidebar-front-3");

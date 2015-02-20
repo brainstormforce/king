@@ -20,7 +20,5 @@
 		</div><!-- .aside -->
 	</div><!-- .entry-summary -->
 
-	<?php ultimate_post_meta(); ?>
-
 <?php ult_entry_bottom(); ?>
 </article><!-- #post -->

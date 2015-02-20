@@ -28,8 +28,5 @@
         <?php endif; ?>
 	</header><!-- .entry-header -->
 
-
-	<?php ultimate_post_meta(); ?>
-
 <?php ult_entry_bottom(); ?>
 </article><!-- #post -->

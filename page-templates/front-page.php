@@ -9,22 +9,25 @@
  *
  */
 get_header(); ?>
+<?php ult_content_before(); ?>
+<div id="primary" class="site-content">
 
-	<div id="primary" class="site-content col-md-12 col-sm-12 col-xl-12 col-xs-12 clear">
-		<div id="content" role="main">
-			<?php while ( have_posts() ) : the_post(); ?>
+	<?php ult_content_top(); ?>
+	<div id="content" role="main">	
+
+		<?php while ( have_posts() ) : the_post(); ?>
+
+			<?php ult_entry_before(); ?>
 				<?php get_template_part( 'content', 'page' ); ?>
-			<?php endwhile; // end of the loop. ?>
+			<?php ult_entry_after(); ?>
+			
+			<?php comments_template( '', true ); ?>			
 
-			<?php if ( is_active_sidebar( 'sidebar-front-main' ) ) : ?>
-				<div class="frontpage-main-widget-area clear">
-				<?php dynamic_sidebar( 'sidebar-front-main' ); ?>
-				</div><!-- .first -->
-			<?php endif; ?>
+		<?php endwhile; // end of the loop. ?>
+	
+	</div><!-- #content -->
+	<?php ult_content_bottom(); ?>	
 
-		</div><!-- #content -->
-	</div><!-- #primary -->
-
-<?php get_sidebar( 'front' ); ?>
+</div><!-- #primary -->
 <?php ult_content_after(); ?>
 <?php get_footer(); ?>

@@ -9,24 +9,25 @@
  */
 
 get_header(); ?>
+<?php ult_content_before(); ?>
+<div id="primary" class="site-content ult-full-width-template">
 
-	<div id="primary" class="site-content ult-full-width-template">
-		<div id="content" role="main">
-			<?php while ( have_posts() ) : the_post(); ?>
-					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<?php ult_content_top(); ?>
+	<div id="content" role="main">	
 
-						<div class="entry-content">
-							<?php the_content(); ?>
-						</div><!-- .entry-content -->
+		<?php while ( have_posts() ) : the_post(); ?>
 
-						<footer class="entry-meta">
-							<?php edit_post_link( __( 'Edit', 'ultimate' ), '<span class="edit-link">', '</span>' ); ?>
-						</footer><!-- .entry-meta -->
+			<?php ult_entry_before(); ?>
+				<?php get_template_part( 'content', 'page' ); ?>
+			<?php ult_entry_after(); ?>
+			
+			<?php comments_template( '', true ); ?>			
 
-					</article><!-- #post -->
-			<?php endwhile; // end of the loop. ?>
-		</div><!-- #content -->
-	</div><!-- #primary -->
+		<?php endwhile; // end of the loop. ?>
+	
+	</div><!-- #content -->
+	<?php ult_content_bottom(); ?>	
 
+</div><!-- #primary -->
 <?php ult_content_after(); ?>
 <?php get_footer(); ?>
