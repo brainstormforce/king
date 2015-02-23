@@ -15,18 +15,18 @@ function ultimate_customize_register( $wp_customize ) {
 	// Enque Required JS & CSS
 	add_action( 'customize_controls_print_styles', 'customizer_scripts' );
 	function customizer_scripts() {
-		$ultimate_url = get_template_directory_uri() . '/inc/customizer/assets/';
-		wp_enqueue_style( 'ultimate-customizer-css', $ultimate_url . 'css/customizer.css' );
-		wp_enqueue_style( 'ultimate-customizer-ui',  $ultimate_url . 'css/jquery-ui-1.10.0.custom.css' );
+		$ultimate_admin_url = get_template_directory_uri() . '/inc/admin/assets/';
+		wp_enqueue_style( 'ultimate-customizer-css', $ultimate_admin_url . 'css/customizer.css' );
+		wp_enqueue_style( 'ultimate-customizer-ui',  $ultimate_admin_url . 'css/jquery-ui-1.10.0.custom.css' );
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-slider' );
 	}
 	
 	// Add Controls
-	get_template_part('inc/customizer/controls/class','Ultimate_Separator_Control');
-	get_template_part('inc/customizer/controls/class','Ultimate_Typography_Control');
-	get_template_part('inc/customizer/controls/class','Ultimate_Sliderui_Control');
-	get_template_part('inc/customizer/controls/class','Ultimate_Textarea_Control');
+	get_template_part('inc/admin/customizer/controls/class','Ultimate_Separator_Control');
+	get_template_part('inc/admin/customizer/controls/class','Ultimate_Typography_Control');
+	get_template_part('inc/admin/customizer/controls/class','Ultimate_Sliderui_Control');
+	get_template_part('inc/admin/customizer/controls/class','Ultimate_Textarea_Control');
 
 	$wp_customize->remove_control('background_color');
 	$wp_customize->remove_control('display_header_text');

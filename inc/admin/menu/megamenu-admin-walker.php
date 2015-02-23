@@ -311,12 +311,13 @@ function update_mega_menu_meta($post, array $array)
 add_action('admin_enqueue_scripts','ult_megamenu_scripts');
 function ult_megamenu_scripts($hook){
 	if($hook == "nav-menus.php"){
-		wp_enqueue_script('ult-backend-options',get_template_directory_uri().'/admin/assets/js/backend-options.js','','',true);
-		wp_enqueue_script('ult-fw-events',get_template_directory_uri().'/admin/assets/js/fw-events.js','','',true);
-		wp_enqueue_script('ult-option-types',get_template_directory_uri().'/admin/assets/js/option-types.js','','',true);
-		wp_enqueue_script('ult-fw',get_template_directory_uri().'/admin/assets/js/fw.js','','',true);
-		wp_enqueue_script('ult-admin',get_template_directory_uri().'/admin/assets/js/admin.js','','',true);
-		wp_enqueue_style('ult-admin',get_template_directory_uri().'/admin/assets/css/admin.css');
+		$ultimate_admin_url = get_template_directory_uri() . '/inc/admin/assets/';
+		wp_enqueue_script('ult-backend-options', $ultimate_admin_url.'js/backend-options.js','','',true);
+		wp_enqueue_script('ult-fw-events', $ultimate_admin_url.'js/fw-events.js','','',true);
+		wp_enqueue_script('ult-option-types', $ultimate_admin_url.'js/option-types.js','','',true);
+		wp_enqueue_script('ult-fw', $ultimate_admin_url.'js/fw.js','','',true);
+		wp_enqueue_script('ult-admin', $ultimate_admin_url.'js/admin.js','','',true);
+		wp_enqueue_style('ult-admin', $ultimate_admin_url.'css/admin.css');
 
 		wp_localize_script('ult-fw', '_fw_localized', array(
 			'SITE_URI' => site_url(),
