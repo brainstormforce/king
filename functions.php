@@ -12,8 +12,8 @@ require_once('inc/ultimate-theme-hooks.php');
 require_once('inc/ultimate-breadcrumbs.php');
 require_once('inc/ultimate-menu-walker.php');
 require_once('inc/ultimate-pagination.php');
-require_once('inc/ultimate-post-meta.php');
 require_once('inc/ultimate-post-gallery.php');
+require_once('inc/ultimate-post-meta.php');
 require_once('inc/ultimate-widget.php');
 
 
@@ -639,9 +639,6 @@ add_action( 'customize_controls_enqueue_scripts', 'custom_customize_enqueue' );
 // Temporary
 
 function wpt_register_css() {
-
-    wp_register_style( 'pratik.css', get_template_directory_uri() . '/inc/css/pratik.css' );
-    wp_enqueue_style( 'pratik.css' );
 
     wp_register_style( 'supriya.css', get_template_directory_uri() . '/inc/css/supriya.css' );
     wp_enqueue_style( 'supriya.css' );
