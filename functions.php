@@ -5,6 +5,7 @@ if ( ! isset( $site_width ) )
 
 
 require_once('inc/admin/customizer/customizer.php');
+require_once('inc/admin/customizer/customizer-init.php');
 require_once('inc/admin/customizer/customizer-style.php');
 require_once('inc/admin/menu/megamenu-admin-walker.php');
 
@@ -45,9 +46,7 @@ function ultimate_setup() {
 	add_editor_style();
 	// This theme supports a variety of post formats.
 	add_theme_support( 'post-formats', array( 'aside', 'image', 'link', 'video', 'quote', 'status', 'gallery', 'audio') );
-	// This theme uses wp_nav_menu() in two locations.
-	register_nav_menu( 'primary', __( 'Primary Menu', 'ultimate' ) );
-	register_nav_menu( 'footer-menu', __( 'Footer Menu', 'ultimate' ) );
+	
 	/*
 	 * This theme supports custom background color and image,
 	 * and here we also set up the default background color.
@@ -73,6 +72,13 @@ function ultimate_setup() {
 	// This theme uses a custom image size for featured images, displayed on "standard" posts.
 	add_theme_support( 'post-thumbnails' );
 	set_post_thumbnail_size( 624, 9999 ); // Unlimited height, soft crop
+
+	// This theme uses wp_nav_menu() in two locations.
+	register_nav_menu( 'primary', __( 'Primary Menu', 'ultimate' ) );
+	register_nav_menu( 'footer-menu', __( 'Footer Menu', 'ultimate' ) );
+
+	// Declare support for all custom hooks
+	add_theme_support( 'ult_hooks', array( 'all' ) );
 }
 add_action( 'after_setup_theme', 'ultimate_setup' );
 
