@@ -1999,6 +1999,15 @@ footer[role="contentinfo"] .footer-bottom-container {
 	margin: 0;
 	padding: 0;
 }
+.ultimate-breadcrumb .fa-home:before {
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	transform: translate(0, 0);
+}
 
 body #main {
 	max-width: 1170px;
@@ -2422,7 +2431,9 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 	#primary {
 		width: 75%;
 	}
-	.no-sidebar #primary {
+	.no-sidebar #primary,
+	.page-template-ultimate-full-width #primary,
+	.page-template-front-page #primary {
 		width: 100%;
 	}
 	#secondary {
