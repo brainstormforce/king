@@ -16,41 +16,31 @@ get_header();
 $bl = get_theme_mod('blog_layout');
 $blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 ?>
-	<section id="primary" class="site-content col-md-9 col-sm-8 col-xl-12 col-xs-12">
 
-		<header class="archive-header">
-			<h1 class="archive-title"><?php
-				if ( is_day() ) :
-					printf( __( 'Daily Archives: %s', 'ultimate' ), '<span>' . get_the_date() . '</span>' );
-				elseif ( is_month() ) :
-					printf( __( 'Monthly Archives: %s', 'ultimate' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'ultimate' ) ) . '</span>' );
-				elseif ( is_year() ) :
-					printf( __( 'Yearly Archives: %s', 'ultimate' ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', 'ultimate' ) ) . '</span>' );
-				else :
-					_e( 'Archives', 'ultimate' );
-				endif;
-			?></h1>
-		</header><!-- .archive-header -->
+<?php ult_content_before(); ?>
+<div id="primary" class="site-content">
 
-		<div id="content" role="main" class="clear">
-			<?php if ( have_posts() ) : ?>
-				
-				<?php /* Start the Loop */
-					while ( have_posts() ) : the_post(); ?>
-		        	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4'): ?>
-						<?php get_template_part( 'content', 'blog-grid' ); ?>
-		            <?php else: ?>
-		            	<?php get_template_part( 'content', get_post_format() ); ?>
-		            <?php endif; ?>
-				<?php endwhile; ?>
+	<?php ult_content_top(); ?>
+	<div id="content" role="main" class="clear">
 
-			<?php else : ?>
+		<?php ult_entry_before(); ?>
+		<?php if ( have_posts() ) : ?>			
+			<?php /* Start the Loop */
+				while ( have_posts() ) : the_post(); ?>
+	        	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4'): ?>
+					<?php get_template_part( 'content', 'blog-grid' ); ?>
+	            <?php else: ?>
+	            	<?php get_template_part( 'content', get_post_format() ); ?>
+	            <?php endif; ?>
+			<?php endwhile; ?>
+		<?php else : ?>
+			<?php get_template_part( 'content', 'none' ); ?>			
+		<?php endif; ?>
+		<?php ult_entry_after(); ?>
 
-				<?php get_template_part( 'content', 'none' ); ?>
-				
-			<?php endif; ?>
-		</div><!-- #content -->
-		<?php ultimate_pagination(); ?>
-	</section><!-- #primary -->
-<?php get_sidebar(); ?>
+	</div><!-- #content -->
+	<?php ult_content_bottom(); ?>	
+
+</div><!-- #primary -->
+<?php ult_content_after(); ?>
 <?php get_footer(); ?>

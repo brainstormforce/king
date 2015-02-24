@@ -1,14 +1,4 @@
-<?php 
-	// Sticky Menu
-	$fixed_header = get_theme_mod( 'site_fixed_header' );
-	if($fixed_header){
-		$cls = 'ult-fixed-menu';
-	} else {
-		$cls = '';
-	}
-?>
-
-<header id="masthead" class="site-header header-style3 <?php echo $cls; ?>" role="banner">
+<header id="masthead" class="site-header header-style3" role="banner">
 	<div class="header-box <?php if( get_theme_mod( 'logo-img' ) ) {  echo 'header-logo-menu';}?>">
 		<div class="ult-main-menu-container clear">
 	        <div class="header-logo">
@@ -50,7 +40,7 @@
 			'container'       	=> 'div',
 			'container_class' 	=> 'primary-menu-container header-style3-menu',
 		) ); ?>
-		<span class="menu-toggle-wrap ent entlist2"></span>
+		<span class="menu-toggle-wrap fa fa-bars"></span>
 	</nav><!-- #site-navigation -->
 
 	<?php if ( get_header_image() ) : ?>

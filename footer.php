@@ -12,8 +12,10 @@
 
     </div><!-- #main .wrapper -->
 
+    <?php ult_footer_before(); ?>
     <div id="footer">
-    <?php
+        <?php ult_footer_top(); ?>
+        <?php
         $sidebars = array("sidebar-footer-1", "sidebar-footer-2", "sidebar-footer-3", "sidebar-footer-4");
         $n = 0;
         foreach($sidebars as $key => $sidebar){
@@ -72,10 +74,13 @@
 
             </div> <!-- .footer-bottom-container -->
         </footer> <!-- #colophon -->
+        <?php ult_footer_bottom(); ?>
 
     </div> <!-- #footer -->
+    <?php ult_footer_after(); ?>
 
 </div><!-- #page -->
+<?php ult_body_bottom(); ?>
 <?php wp_footer(); ?>
 </body>
 </html>

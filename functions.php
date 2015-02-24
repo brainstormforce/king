@@ -1,7 +1,23 @@
 <?php
 // Set up the content width value based on the theme's design and stylesheet.
-if ( ! isset( $content_width ) )
-	$content_width = 625;
+if ( ! isset( $site_width ) )
+	$site_width = 625;
+
+
+require_once('inc/admin/customizer/customizer.php');
+require_once('inc/admin/customizer/customizer-init.php');
+require_once('inc/admin/customizer/customizer-style.php');
+require_once('inc/admin/menu/megamenu-admin-walker.php');
+
+require_once('inc/ultimate-theme-hooks.php');
+require_once('inc/ultimate-breadcrumbs.php');
+require_once('inc/ultimate-menu-walker.php');
+require_once('inc/ultimate-pagination.php');
+require_once('inc/ultimate-post-gallery.php');
+require_once('inc/ultimate-post-meta.php');
+require_once('inc/ultimate-widget.php');
+
+
 /**
  * Ultimate setup.
  *
@@ -30,9 +46,7 @@ function ultimate_setup() {
 	add_editor_style();
 	// This theme supports a variety of post formats.
 	add_theme_support( 'post-formats', array( 'aside', 'image', 'link', 'video', 'quote', 'status', 'gallery', 'audio') );
-	// This theme uses wp_nav_menu() in two locations.
-	register_nav_menu( 'primary', __( 'Primary Menu', 'ultimate' ) );
-	register_nav_menu( 'footer-menu', __( 'Footer Menu', 'ultimate' ) );
+	
 	/*
 	 * This theme supports custom background color and image,
 	 * and here we also set up the default background color.
@@ -58,8 +72,16 @@ function ultimate_setup() {
 	// This theme uses a custom image size for featured images, displayed on "standard" posts.
 	add_theme_support( 'post-thumbnails' );
 	set_post_thumbnail_size( 624, 9999 ); // Unlimited height, soft crop
+
+	// This theme uses wp_nav_menu() in two locations.
+	register_nav_menu( 'primary', __( 'Primary Menu', 'ultimate' ) );
+	register_nav_menu( 'footer-menu', __( 'Footer Menu', 'ultimate' ) );
+
+	// Declare support for all custom hooks
+	add_theme_support( 'ult_hooks', array( 'all' ) );
 }
 add_action( 'after_setup_theme', 'ultimate_setup' );
+
 /**
  * Return the Google font stylesheet URL if available.
  *
@@ -96,6 +118,7 @@ function ultimate_get_font_url() {
 	}
 	return $font_url;
 }
+
 /**
  * Enqueue scripts and styles for front-end.
  *
@@ -110,18 +133,18 @@ function ultimate_scripts_styles() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
 		wp_enqueue_script( 'comment-reply' );
 
-	wp_enqueue_style( 'ultimate-fonts', get_template_directory_uri().'/css/entypo.css');
-	wp_enqueue_style( 'ultimate-fonts', get_template_directory_uri().'/css/font-awesome.css');
+	wp_enqueue_style( 'ultimate-font-icons', get_template_directory_uri().'/inc/css/font-awesome.min.css');
+
 	// Loads our main stylesheet.
 	wp_enqueue_style( 'style', get_stylesheet_uri() );
-	wp_enqueue_style( 'ultimate-bootstrap', get_template_directory_uri().'/css/bootstrap-grids.css');
+	wp_enqueue_style( 'ultimate-bootstrap', get_template_directory_uri().'/inc/css/bootstrap-grids.css');
 		
 	// Loads the Internet Explorer specific stylesheet.
-	wp_enqueue_style( 'ultimate-ie', get_template_directory_uri() . '/css/ie.css', array( 'ultimate-style' ), '20121010' );
+	wp_enqueue_style( 'ultimate-ie', get_template_directory_uri() . '/inc/css/ie.css', array( 'ultimate-style' ), '20121010' );
 	
 	wp_enqueue_script('jQuery');
 	$wp_styles->add_data( 'ultimate-ie', 'conditional', 'lt IE 9' );
-    wp_enqueue_script('jquery.bootstrap.min', get_template_directory_uri() . '/js/jquery.bootstrap.min.js', array('jquery'),'1.0.0',true);
+    wp_enqueue_script('jquery.bootstrap.min', get_template_directory_uri() . '/inc/js/jquery.bootstrap.min.js', array('jquery'),'1.0.0',true);
     //wp_enqueue_script('jquery.bootstrap.min');
 	
 	// Load Masonry Javascript
@@ -137,28 +160,28 @@ function ultimate_scripts_styles() {
 	endif;
 
 	// Slick SLider
-	wp_enqueue_style( 'slick-slider', get_template_directory_uri().'/css/slick/slick.css');
-	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/js/jquery.slick.min.js' );
+	wp_enqueue_style( 'slick-slider', get_template_directory_uri().'/inc/css/slick/slick.css');
+	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/inc/js/jquery.slick.min.js' );
     wp_enqueue_script( 'slick-slider-script' );
 
     // Justified Grid Gallery
-    wp_enqueue_style( 'ultimate_justified_gallery', get_template_directory_uri().'/css/justifiedGallery.min.css');
-    wp_register_script( 'ultimate_justified_gallery_script', get_template_directory_uri() . '/js/jquery.justifiedGallery.min.js', array( 'jquery' ), '1.0.0', true );
+    wp_enqueue_style( 'ultimate_justified_gallery', get_template_directory_uri().'/inc/css/justifiedGallery.min.css');
+    wp_register_script( 'ultimate_justified_gallery_script', get_template_directory_uri() . '/inc/js/jquery.justifiedGallery.min.js', array( 'jquery' ), '1.0.0', true );
     wp_enqueue_script( 'ultimate_justified_gallery_script' );
 
     // Smooth Scroll
-	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/js/jquery.smoothScroll.min.js' );
+	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/inc/js/jquery.smoothScroll.min.js' );
 	$smooth_scroll = get_theme_mod( 'smooth_scroll' );
    	if($smooth_scroll) {
    		wp_enqueue_script( 'smooth-scroll-script' );
 	}
 
 	// Lightbox - Colorbox
-	wp_enqueue_style( 'ultimate_colorbox', get_template_directory_uri().'/css/colorbox/colorbox.css');
-	wp_register_script( 'ultimate_colorbox_script', get_template_directory_uri() . '/js/jquery.colorbox.min.js', array( 'jquery' ), null, true );
+	wp_enqueue_style( 'ultimate_colorbox', get_template_directory_uri().'/inc/css/colorbox/colorbox.css');
+	wp_register_script( 'ultimate_colorbox_script', get_template_directory_uri() . '/inc/js/jquery.colorbox.min.js', array( 'jquery' ), null, true );
 	wp_enqueue_script( 'ultimate_colorbox_script' );
 	
-    wp_register_script('jquery.functions', get_template_directory_uri() . '/js/functions.js', array('jquery'),'1.0.0',true);
+    wp_register_script('jquery.functions', get_template_directory_uri() . '/inc/js/functions.js', array('jquery'),'1.0.0',true);
     wp_enqueue_script('jquery.functions');
 	
 }
@@ -200,9 +223,6 @@ function ultimate_page_menu_args( $args ) {
 	return $args;
 }
 add_filter( 'wp_page_menu_args', 'ultimate_page_menu_args' );
-
-
-
 
 /**
  * Register sidebars.
@@ -347,10 +367,10 @@ function ultimate_comment( $comment, $args, $depth ) {
 			<?php if ( '0' == $comment->comment_approved ) : ?>
 				<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'ultimate' ); ?></p>
 			<?php endif; ?>
-			<section class="comment-content comment">
+			<div class="comment-content comment">
 				<?php comment_text(); ?>
 				<?php edit_comment_link( __( 'Edit', 'ultimate' ), '<p class="edit-link">', '</p>' ); ?>
-			</section><!-- .comment-content -->
+			</div><!-- .comment-content -->
 			<div class="reply">
 				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply', 'ultimate' ), 'after' => ' <span>&darr;</span>', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 			</div><!-- .reply -->
@@ -360,8 +380,6 @@ function ultimate_comment( $comment, $args, $depth ) {
 	endswitch; // end comment_type check
 }
 endif;
-
-
 
 if ( ! function_exists( 'ultimate_entry_meta' ) ) :
 /**
@@ -407,9 +425,6 @@ function ultimate_entry_meta() {
 }
 endif;
 
-
-
-
 /**
  * Extend the default WordPress body classes.
  *
@@ -445,43 +460,68 @@ function ultimate_body_class( $classes ) {
 			$classes[] = 'two-sidebars';
 	}
 
-	if ( empty( $background_image ) ) {
-		if ( empty( $background_color ) )
+	if ( empty( $background_image ) ) :
+		if ( empty( $background_color ) ) :
 			$classes[] = 'custom-background-empty';
-		elseif ( in_array( $background_color, array( 'fff', 'ffffff' ) ) )
+		elseif ( in_array( $background_color, array( 'fff', 'ffffff' ) ) ) :
 			$classes[] = 'custom-background-white';
-	}
-	// Enable custom font class only if the font CSS is queued to load.
-	if ( wp_style_is( 'ultimate-fonts', 'queue' ) )
-		$classes[] = 'custom-font-enabled';
+		endif;
+	endif;
 
-	if ( ! is_multi_author() )
+	// Enable custom font class only if the font CSS is queued to load.
+	if ( wp_style_is( 'ultimate-fonts', 'queue' ) ) :
+		$classes[] = 'custom-font-enabled';
+	endif;
+
+	if ( ! is_multi_author() ) :
 		$classes[] = 'single-author';
+	endif;
 
 	// Site Layout
 	$site_layout = get_theme_mod('site_layout');
-	if ( $site_layout )
+	if ( $site_layout ) :
 		$classes[] = get_theme_mod('site_layout');
+	endif;
 
 
 	// Blog Layout
 	$blog_layout = get_theme_mod('blog_layout');
-	if ( $blog_layout )
+	if ($blog_layout) :
 		$classes[] = get_theme_mod('blog_layout');
+	endif;
 
-	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4')
+	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		$classes[] = 'blog-grid';
+	endif;
 
 	// Enable Masonry Layout
 	$masonry_layout = get_theme_mod('blog_masonry_layout');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
-		if ( $masonry_layout )
+		if ($masonry_layout) :
 			$classes[] = 'blog-masonry';
+		endif;
 	endif;
 
 	// Is not singular
-	if ( ! is_singular() )
+	if ( ! is_singular() ) :
 		$classes[] = 'not-singular';
+	endif;
+
+	// Sidebar Position
+	$sidebar_position = get_theme_mod('sidebar_position');
+	if ($sidebar_position == 'right-sidebar') :
+		$classes[] = 'right-sidebar';
+	elseif ($sidebar_position == 'left-sidebar') :
+		$classes[] = 'left-sidebar';
+	elseif ($sidebar_position == 'no-sidebar') :
+		$classes[] = 'no-sidebar';	
+	endif;
+
+	// If fixed menu
+	$fixed_header = get_theme_mod( 'site_fixed_header' );
+	if($fixed_header) :
+		$classes[] = 'ult-fixed-menu';
+	endif;
 
 	return $classes;
 }
@@ -490,19 +530,19 @@ add_filter( 'body_class', 'ultimate_body_class' );
 
 /**
  * Adjust content width in certain contexts.
- *
- * Adjusts content_width value for full-width and single image attachment
+ * site_width
+ * Adjusts  value for full-width and single image attachment
  * templates, and when there are no active widgets in the sidebar.
  *
  * @since Ultimate 1.0
  */
-function ultimate_content_width() {
+function ultimate_site_width() {
 	if ( is_page_template( 'page-templates/full-width.php' ) || is_attachment() || ! is_active_sidebar( 'sidebar-1' ) ) {
-		global $content_width;
-		$content_width = 960;
+		global $site_width;
+		$site_width = 960;
 	}
 }
-add_action( 'template_redirect', 'ultimate_content_width' );
+add_action( 'template_redirect', 'ultimate_site_width' );
 
 
 /**
@@ -561,7 +601,7 @@ function ultimate_scroll_to_top() {
 		  });
 		});
 	</script>
-	<a class="ult-scroll-top" href="#page"><span class="ent entarrow-up6"></span></a>
+	<a class="ult-scroll-top" href="#page"><span class="fa fa-angle-up"></span></a>
 	<!--End Smooth Scroll-->
 <?php
 }
@@ -569,21 +609,6 @@ $scroll_to_top = get_theme_mod( 'scroll_to_top' );
 if($scroll_to_top) {
 	add_action('wp_footer', 'ultimate_scroll_to_top');
 }
-
-require_once('theme-customizer.php');
-require_once('admin/meta.php');
-require_once('admin/megamenu-admin-walker.php');
-
-require_once('lib/ultimate-custom-style.php');
-require_once('lib/ultimate-breadcrumbs.php');
-require_once('lib/ultimate-menu-walker.php');
-require_once('lib/ultimate-pagination.php');
-require_once('lib/ultimate-post-meta.php');
-require_once('lib/ultimate-post-gallery.php');
-require_once('lib/ultimate-widget.php');
-
-
-
 
 /**
  * Enqueue Javascript postMessage handlers for the Customizer.
@@ -593,7 +618,7 @@ require_once('lib/ultimate-widget.php');
  * @since Ultimate 1.0
  */
 function ultimate_customize_preview_js() {
-	wp_enqueue_script( 'ultimate-customizer', get_template_directory_uri() . '/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
+	wp_enqueue_script( 'ultimate-customizer', get_template_directory_uri() . '/inc/admin/assets/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
 }
 add_action( 'customize_preview_init', 'ultimate_customize_preview_js' );
 
@@ -620,13 +645,8 @@ add_action( 'customize_controls_enqueue_scripts', 'custom_customize_enqueue' );
 // Temporary
 
 function wpt_register_css() {
-   // wp_register_style( 'bootstrap.min', get_template_directory_uri() . '/css/bootstrap.min.css' );
-   // wp_enqueue_style( 'bootstrap.min' );
 
-    wp_register_style( 'pratik.css', get_template_directory_uri() . '/css/pratik.css' );
-    wp_enqueue_style( 'pratik.css' );
-
-    wp_register_style( 'supriya.css', get_template_directory_uri() . '/css/supriya.css' );
+    wp_register_style( 'supriya.css', get_template_directory_uri() . '/inc/css/supriya.css' );
     wp_enqueue_style( 'supriya.css' );
 }
 add_action( 'wp_enqueue_scripts', 'wpt_register_css' );
@@ -681,11 +701,11 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
 				$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
 				if ( $num_comments == 0 ) {
-					$comments = __('Leave a Comment');
+					$comments = __('Leave a Comment', 'ultimate' );
 				} elseif ( $num_comments > 1 ) {
-					$comments = $num_comments . __(' Comments');
+					$comments = $num_comments . __(' Comments', 'ultimate' );
 				} else {
-					$comments = __('1 Comment');
+					$comments = __('1 Comment', 'ultimate' );
 				}
 				$html .=  '<span class="post-meta-item">';
 	            $html .=  '<span class="post-meta-comment"><a href="'. get_comments_link() .'" title="Comment on '. get_the_title() .'">'. $comments .'</a></span>'; 
@@ -715,17 +735,21 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 			echo '</div>';
 		endif;
 	}
+	add_action('ult_entry_bottom', 'ultimate_post_meta', 10, 1);
 endif;
 
-// Fevicom Image
-if ( ! function_exists( 'ultimate_favicon' ) ) :
-	function ultimate_favicon() {
-		$favicom_image = get_theme_mod( 'favicon-img' );
-		if ($favicom_image)
-		echo '<link rel="icon" href="'. get_theme_mod( 'favicon-img' ) .'" type="image/x-png"/>';
+// Remove Post Meta For Grid Layout
+if ( ! function_exists( 'ultimate_grid_post_layout' ) ) :
+	function ultimate_grid_post_layout() {
+		$blog_layout = get_theme_mod('blog_layout');
+		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
+			if (is_search() || is_home() || is_archive()) :
+				remove_action('ult_entry_bottom', 'ultimate_post_meta');
+			endif;
+		endif;
 	}
-	add_action('wp_head', 'ultimate_favicon');
 endif;
+add_action( 'wp', 'ultimate_grid_post_layout' );
 
 
 // Custom Excerpt Length
@@ -765,13 +789,13 @@ add_image_size( 'medium-image-blog', 330, 215, true ); // (cropped)
 add_filter( 'image_size_names_choose', 'ultimate_image_sizes' );
 function ultimate_image_sizes( $sizes ) {
     return array_merge( $sizes, array(
-        'medium-image-blog' => __( 'Medium Blog Image' ),
+        'medium-image-blog' => __( 'Medium Blog Image', 'ultimate' ),
     ) );
 }
 
 
 
-// Retrive video from post
+// Retrive & Embed video from post
 if ( ! function_exists( 'ultimate_post_video' ) ) :
 function ultimate_post_video() {
 
@@ -824,7 +848,7 @@ function ultimate_post_video() {
 endif;
 
 
-
+// Embed Audio Post
 if ( ! function_exists( 'ultimate_post_audio' ) ) :
 	function ultimate_post_audio() { // for audio post type - grab
 
@@ -865,6 +889,7 @@ if ( ! function_exists( 'ultimate_post_audio' ) ) :
 endif;
 
 
+// Embed social data - Twitter
 if ( ! function_exists( 'ultimate_post_social' ) ) :
 	function ultimate_post_social() { // for social media embeds
 
@@ -892,5 +917,293 @@ if ( ! function_exists( 'ultimate_post_social' ) ) :
 	}
 
 endif;
+
+
+// Sidebar Position
+$sidebar_pos = get_theme_mod('sidebar_position');
+if ($sidebar_pos != 'no-sidebar') :
+	add_action('ult_content_after','get_sidebar', 10, 1);
+endif;
+
+// Fevicom Image
+if ( ! function_exists( 'ultimate_favicon' ) ) :
+	function ultimate_favicon() {
+		$favicom_image = get_theme_mod( 'favicon-img' );
+		if ($favicom_image)
+		echo '<link rel="icon" href="'. get_theme_mod( 'favicon-img' ) .'" type="image/x-png"/>';
+	}
+	add_action('ult_head_bottom', 'ultimate_favicon');
+endif;
+
+// Custom CSS
+if ( ! function_exists( 'ultimate_custom_css' ) ) :
+	function ultimate_custom_css() {
+		$custom_css = get_theme_mod( 'custom_css' );
+		if ($custom_css)
+		echo '<style type="text/css">'. $custom_css .'</style>';
+	}
+	add_action('wp_head', 'ultimate_custom_css');
+endif;
+
+// Custom Script
+if ( ! function_exists( 'ultimate_custom_script' ) ) :
+	function ultimate_custom_script() {
+		$custom_script = get_theme_mod( 'custom_script' );
+		if ($custom_script)
+		echo $custom_script;
+	}
+	add_action('wp_footer', 'ultimate_custom_script');
+endif;
+
+// Next / Previous post link on single page
+if ( ! function_exists( 'ultimate_single_post_navigation' ) ) :
+	function ultimate_single_post_navigation() { ?>
+		<?php if(is_attachment()) : ?>
+			<nav class="nav-single clear">
+			<h3 class="assistive-text"><?php _e( 'Image navigation', 'ultimate' ); ?></h3>			
+			<span class="nav-previous"><?php previous_image_link( false, __( '<span class="meta-nav">&larr; Previous</span>', 'ultimate' ) ); ?></span>
+			<span class="nav-next"><?php next_image_link( false, __( '<span class="meta-nav">Next &rarr;</span>', 'ultimate' ) ); ?></span>
+			</nav><!-- .nav-single -->
+		<?php elseif(is_single()) : ?>
+			<nav class="nav-single clear">
+			<h3 class="assistive-text"><?php _e( 'Post navigation', 'ultimate' ); ?></h3>
+			<span class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'ultimate' ) . '</span> %title' ); ?></span>
+			<span class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'ultimate' ) . '</span>' ); ?></span>
+			</nav><!-- .nav-single -->
+		<?php endif; ?>
+		<?php
+	} 
+	add_action('ult_entry_after', 'ultimate_single_post_navigation');
+endif;
+
+// Header Text on Archive Pages
+if ( ! function_exists( 'ultimate_archive_header_text' ) ) :
+	function ultimate_archive_header_text() { ?>
+		<?php if(is_archive()) : ?>
+
+			<?php if(is_date()) : ?>
+
+				<header class="archive-header">
+					<h1 class="archive-title"><?php
+						if ( is_day() ) :
+							printf( __( 'Daily Archives: %s', 'ultimate' ), '<span>' . get_the_date() . '</span>' );
+						elseif ( is_month() ) :
+							printf( __( 'Monthly Archives: %s', 'ultimate' ), '<span>' . get_the_date( _x( 'F Y', 'monthly archives date format', 'ultimate' ) ) . '</span>' );
+						elseif ( is_year() ) :
+							printf( __( 'Yearly Archives: %s', 'ultimate' ), '<span>' . get_the_date( _x( 'Y', 'yearly archives date format', 'ultimate' ) ) . '</span>' );
+						else :
+							_e( 'Archives', 'ultimate' );
+						endif;
+					?></h1>
+				</header><!-- .archive-header -->
+
+			<?php elseif(is_category()) : ?>
+
+				<header class="archive-header">
+					<h1 class="archive-title"><?php printf( __( 'Category Archives: %s', 'ultimate' ), '<span>' . single_cat_title( '', false ) . '</span>' ); ?></h1>
+					<?php if ( category_description() ) : // Show an optional category description ?>
+						<div class="archive-meta"><?php echo category_description(); ?></div>
+					<?php endif; ?>
+				</header><!-- .archive-header -->
+
+			<?php elseif(is_tag()) : ?>
+
+					<header class="archive-header">
+						<h1 class="archive-title"><?php printf( __( 'Tag Archives: %s', 'ultimate' ), '<span>' . single_tag_title( '', false ) . '</span>' ); ?></h1>
+						<?php if ( tag_description() ) : // Show an optional tag description ?>
+							<div class="archive-meta"><?php echo tag_description(); ?></div>
+						<?php endif; ?>
+					</header><!-- .archive-header -->
+
+			<?php elseif(is_author()) : ?>
+
+				<header class="archive-header">
+					<h1 class="archive-title"><?php printf( __( 'Author Archives: %s', 'ultimate' ), '<span class="vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( "ID" ) ) ) . '" title="' . esc_attr( get_the_author() ) . '" rel="me">' . get_the_author() . '</a></span>' ); ?></h1>
+				</header><!-- .archive-header -->
+
+				<?php
+				// If a user has filled out their description, show a bio on their entries.
+				if ( get_the_author_meta( 'description' ) ) : ?>
+					<div class="author-info">
+						<div class="author-avatar">
+							<?php
+								$author_bio_avatar_size = apply_filters( 'ultimate_author_bio_avatar_size', 68 );
+								echo get_avatar( get_the_author_meta( 'user_email' ), $author_bio_avatar_size );
+							?>
+						</div><!-- .author-avatar -->
+						<div class="author-description">
+							<h2><?php printf( __( 'About %s', 'ultimate' ), get_the_author() ); ?></h2>
+							<p><?php the_author_meta( 'description' ); ?></p>
+						</div><!-- .author-description	-->
+					</div><!-- .author-info -->
+				<?php endif; ?>
+
+			<?php endif; ?>
+
+		<?php endif; ?>
+
+		<?php
+	}	
+	add_action('ult_content_top', 'ultimate_archive_header_text');
+endif;
+
+// Pagination Position 
+if ( ! function_exists( 'ultimate_pagination_position' ) ) :
+	function ultimate_pagination_position() { ?>
+		<?php if(is_archive() || is_search() || is_home()) : ?>
+			<?php ultimate_pagination(); ?>
+		<?php endif;
+	}	
+	add_action('ult_content_bottom', 'ultimate_pagination_position');
+endif;
+
+// Header Layout
+if ( ! function_exists( 'ultimate_header_layout' ) ) :
+	function ultimate_header_layout() { 
+		$header_layout = get_theme_mod('header_layout');
+		if($header_layout == 'header_2'){
+			get_header('style2');
+		} 
+		else if($header_layout == 'header_3'){
+			get_header('style3');
+		} 
+		else {
+			get_header('style1');
+		}
+	}	
+	add_action('ult_header_bottom', 'ultimate_header_layout');
+endif;
+
+// Title & Breadcrumb Bar
+if ( ! function_exists( 'ultimate_title_breadcrumb_bar' ) ) :
+	function ultimate_title_breadcrumb_bar() { ?>
+
+		<?php
+			global $post;
+			$meta_value = get_post_meta( $post->ID, 'meta-breadcrumb', true );
+			if($meta_value != 'false') :
+				if(!is_home()) : ?>
+
+					<div class="ultimate-page-header">
+						<div class="ultimate-row">
+							<div class="ultimate-container imd-pagetitle-container">
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left ultimate-title">
+									<?php
+										if(is_404()){
+											$title = '404 - Page Not Found!';
+										} elseif(is_search()){
+											$title = 'Search Results -';
+										} elseif(is_archive()){
+											$title = 'Archives';
+										} else {
+											if( is_home() && get_option('page_for_posts') ) {
+												$blog_page_id = get_option('page_for_posts');
+												$title = get_page($blog_page_id)->post_title;
+											} else {
+												$title = $post->post_title;
+											}
+										}
+										echo '<div class="ultimate-breadcrumb-title">';
+										echo '<h3>'.$title.'</h3>';
+										echo '</div>';
+									?>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right ultimate-breadcrumb">
+									<?php
+										if( function_exists('ultimate_breadcrumb')) {
+											ultimate_breadcrumb();
+										}
+									?>
+								</div>
+							</div><!-- .ultimate-container --> 
+						</div><!-- .ultimate-row --> 
+					</div><!-- .ultimate-page-header --> 
+
+				<?php endif; ?>
+			<?php endif; ?>
+		<?php 
+	}	
+	add_action('ult_header_after', 'ultimate_title_breadcrumb_bar');
+endif;
+
+
+// Author Bio
+if ( ! function_exists( 'ultimate_author_bio' ) ) :
+	function ultimate_author_bio() { ?>
+		<?php if( is_single() ) : ?>		
+			<footer class="entry-meta">
+				<?php if ( is_singular() && get_the_author_meta( 'description' ) && is_multi_author() ) : // If a user has filled out their description and this is a multi-author blog, show a bio on their entries. ?>
+					<div class="author-info">
+						<div class="author-avatar">
+							<?php
+							/** This filter is documented in author.php */
+							$author_bio_avatar_size = apply_filters( 'ultimate_author_bio_avatar_size', 68 );
+							echo get_avatar( get_the_author_meta( 'user_email' ), $author_bio_avatar_size );
+							?>
+						</div><!-- .author-avatar -->
+						<div class="author-description">
+							<h2><?php printf( __( 'About %s', 'ultimate' ), get_the_author() ); ?></h2>
+							<p><?php the_author_meta( 'description' ); ?></p>
+							<div class="author-link">
+								<a href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" rel="author">
+									<?php printf( __( 'View all posts by %s <span class="meta-nav">&rarr;</span>', 'ultimate' ), get_the_author() ); ?>
+								</a>
+							</div><!-- .author-link	-->
+						</div><!-- .author-description -->
+					</div><!-- .author-info -->
+				<?php endif; ?>
+			</footer><!-- .entry-meta -->
+		<?php endif; ?>	
+	<?php 
+	}	
+	add_action('ult_entry_bottom', 'ultimate_author_bio', 20, 1);
+endif;
+
+// Custom Search Form
+if ( ! function_exists( 'ultimate_search_form' ) ) :
+	function ultimate_search_form( $form ) {
+		$value_placeholder = __( "type here..." , "ultimate" );
+		$placeholder = __( "'type here...'" , "ultimate" );
+		$empty_placeholder = __( "''" , "ultimate" );
+		$form = '<form action="' . home_url( "/" ) . '" method="get" id="searchform">
+				<fieldset>
+				<div id="searchbox">
+				<input class="input" name="s" type="text" id="s" value="'.  $value_placeholder .'" onfocus="if (this.value == '. $placeholder .') {this.value = '. $empty_placeholder .' }" onblur="if (this.value == '. $empty_placeholder .') {this.value = '. $placeholder .'}">
+				<button type="submit" id="searchsubmit" class="ultimate-bkg ultimate-bkg-dark-hover"><i class="fa fa-search"></i></button>
+				</div>
+				</fieldset>
+				</form>';
+		return $form;
+	}
+	add_filter( 'get_search_form', 'ultimate_search_form' );
+endif;
+
+
+// Ultiamte Front Page Bottom Sidebar
+if ( ! function_exists( 'ultimate_front_page_bottom_sidebar' ) ) :
+	function ultimate_front_page_bottom_sidebar() {
+		if (is_page_template( 'page-templates/front-page.php' )) {
+			get_sidebar('front');
+		}
+	}
+	add_action('ult_content_after', 'ultimate_front_page_bottom_sidebar', 20, 1);
+endif;
+
+
+
+// Ultiamte Front Page Content Sidebar
+if ( ! function_exists( 'ultimate_front_page_content_sidebar' ) ) :
+	function ultimate_front_page_content_sidebar() { 
+		?>
+		<?php if ( is_active_sidebar( 'sidebar-front-main' ) ) : ?>
+			<div class="frontpage-main-widget-area clear">
+				<?php dynamic_sidebar( 'sidebar-front-main' ); ?>
+			</div><!-- .first -->
+		<?php endif; ?>
+		<?php
+	}
+	add_action('ult_entry_after', 'ultimate_front_page_content_sidebar', 10, 1);
+endif;
+
 
 ?>
