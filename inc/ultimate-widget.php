@@ -188,7 +188,8 @@ function ultimate_widget_script() {
 	wp_enqueue_style('thickbox');
 	wp_enqueue_script('media-upload');
 	wp_enqueue_script('thickbox');
-    wp_enqueue_script('ultimate_widget_script', get_template_directory_uri() . '/inc/js/widget.js', false, '1.0', true);
+    wp_register_script( 'ultimate-widget-script', get_template_directory_uri() . '/inc/js/jquery.colorbox.min.js', false, '1.0.0', true );
+	wp_enqueue_script( 'ultimate-widget-script' );
 }
 
 ?>

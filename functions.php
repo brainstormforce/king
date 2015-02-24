@@ -1,8 +1,146 @@
 <?php
-// Set up the content width value based on the theme's design and stylesheet.
-if ( ! isset( $site_width ) )
-	$site_width = 625;
+// Set content width value based on the theme's design
+if ( ! isset( $content_width ) )
+	$content_width = 600;
 
+
+/**
+ * Ultimate setup.
+ *
+ * Sets up theme defaults and registers the various WordPress features that
+ * Ultimate supports.
+ *
+ * @uses load_theme_textdomain() For translation/localization support.
+ * @uses add_editor_style() To add a Visual Editor stylesheet.
+ * @uses add_theme_support() To add support for post thumbnails, automatic feed links,
+ * 	custom background, and post formats.
+ *
+ * @since Ultimate 1.0
+ */
+function ultimate_setup() {
+
+	// Add theme support for Automatic Feed Links
+	add_theme_support( 'automatic-feed-links' );
+
+	// Add theme support for Post Formats
+	add_theme_support( 'post-formats', array( 'status', 'quote', 'gallery', 'image', 'video', 'audio', 'link', 'aside' ) );
+
+	// Add theme support for Featured Images
+	add_theme_support( 'post-thumbnails' );
+
+	// Add theme support for Custom Background
+	$background_args = array(
+		'default-color'          => '#e6e6e6',
+		'default-image'          => '',
+		'default-repeat'         => '',
+		'default-position-x'     => '',
+		'wp-head-callback'       => '',
+		'admin-head-callback'    => '',
+		'admin-preview-callback' => '',
+	);
+	add_theme_support( 'custom-background', $background_args );
+
+	// Add theme support for HTML5 Semantic Markup
+	add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ) );
+
+	// Add theme support for document Title tag
+	add_theme_support( 'title-tag' );
+
+	// Add theme support for custom CSS in the TinyMCE visual editor
+	add_editor_style();
+
+	// Add theme support for Translation
+	load_theme_textdomain( 'ultimate', get_template_directory() . '/language' );
+
+	// Declare support for all custom hooks
+	add_theme_support( 'ult_hooks', array( 'all' ) );
+
+	// Woocommerce Support
+	add_theme_support( 'woocommerce' );
+}
+add_action( 'after_setup_theme', 'ultimate_setup' );
+
+
+/**
+ * Enqueue scripts and styles for front-end.
+ *
+ * @since Ultimate 1.0
+ */
+function ultimate_scripts_styles() {
+	global $wp_styles;
+	
+	// Loads our main stylesheet.
+	wp_register_style( 'ultimate-style', get_stylesheet_uri(), false, '1.0.0', 'all' );
+	wp_enqueue_style( 'ultimate-style' );
+	wp_register_style( 'ultimate-bootstrap-grid', get_template_directory_uri().'/inc/css/bootstrap-grids.css', false, '1.0.0', 'all' );
+	wp_enqueue_style( 'ultimate-bootstrap-grid' );
+	wp_register_style( 'ultimate-font-icons', get_template_directory_uri().'/inc/css/font-awesome.min.css', false, '4.3.0', 'all' );
+	wp_enqueue_style( 'ultimate-font-icons' );
+		
+	// Loads the Internet Explorer specific stylesheet.
+	$wp_styles->add('ultimate-ie', get_template_directory_uri() . '/inc/css/ie.css');
+	$wp_styles->add_data('ultimate-ie', 'conditional', 'lte IE 9');
+	$wp_styles->enqueue(array('ultimate-ie'));
+
+	// Add global jQuery
+	wp_enqueue_script('jquery');
+
+	// Adds JavaScript to pages with the comment form to support sites with threaded comments (when in use)
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
+		wp_enqueue_script( 'comment-reply' );
+
+	// Bootstrap Javascript
+	wp_register_script( 'ultimate-bootstrap-script', get_template_directory_uri() . '/inc/js/jquery.bootstrap.min.js', array( 'jquery' ), '3.3.1', true );
+	wp_enqueue_script( 'ultimate-bootstrap-script' );
+	
+	// Load Masonry Javascript
+	$masonry_blog_layout = get_theme_mod('blog_masonry_layout');
+	$blog_layout = get_theme_mod('blog_layout');
+	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
+		if ( $masonry_blog_layout ) :
+			if ( is_home() || is_front_page() || is_archive() || is_search() ) :
+				wp_enqueue_script('jquery-masonry');
+				add_action('wp_footer', 'ultimate_masonry_blog');
+			endif;
+		endif;
+	endif;
+
+	// Slick Slider
+	wp_register_style( 'ultimate-slick-slider', get_template_directory_uri().'/inc/css/slick/slick.css', false, '1.4.0', 'all' );
+	wp_enqueue_style( 'ultimate-slick-slider' );
+	wp_register_script( 'ultimate-slick-slider-script', get_template_directory_uri() . '/inc/js/jquery.slick.min.js', array( 'jquery' ), '1.4.0', true );
+	wp_enqueue_script( 'ultimate-slick-slider-script' );
+
+    // Justified Grid Gallery
+    wp_register_style( 'ultimate-justified-gallery', get_template_directory_uri().'/inc/css/justifiedGallery.min.css', false, '3.5.1', 'all' );
+	wp_enqueue_style( 'ultimate-justified-gallery' );
+	wp_register_script( 'ultimate-justified-gallery-script', get_template_directory_uri() . '/inc/js/jquery.justifiedGallery.min.js', array( 'jquery' ), '3.5.1', true );
+	wp_enqueue_script( 'ultimate-justified-gallery-script' );
+
+    // Smooth Scroll
+    wp_register_script( 'ultimate-smooth-scroll-script', get_template_directory_uri() . '/inc/js/jquery.smoothScroll.min.js', array( 'jquery' ), '1.2.1', true );
+	$smooth_scroll = get_theme_mod( 'smooth_scroll' );
+   	if($smooth_scroll) {
+   		wp_enqueue_script( 'ultimate-smooth-scroll-script' );
+	}
+
+	// Lightbox - Colorbox
+	wp_register_style( 'ultimate-colorbox', get_template_directory_uri().'/inc/css/colorbox/colorbox.css', false, '1.5.2', 'all' );
+	wp_enqueue_style( 'ultimate-colorbox' );
+	wp_register_script( 'ultimate-colorbox-script', get_template_directory_uri() . '/inc/js/jquery.colorbox.min.js', array( 'jquery' ), '1.5.2', true );
+	wp_enqueue_script( 'ultimate-colorbox-script' );
+
+	// Theme JavaScript	
+	wp_register_script( 'ultimate-javascript', get_template_directory_uri() . '/inc/js/functions.js', array( 'jquery' ), '1.0.0', true );
+	wp_enqueue_script( 'ultimate-javascript' );
+	
+}
+add_action( 'wp_enqueue_scripts', 'ultimate_scripts_styles' );
+
+/**
+ * Ultimate include basic functions.
+ *
+ */
 
 require_once('inc/admin/customizer/customizer.php');
 require_once('inc/admin/customizer/customizer-init.php');
@@ -19,68 +157,130 @@ require_once('inc/ultimate-widget.php');
 
 
 /**
- * Ultimate setup.
+ * Register menus in theme 
  *
- * Sets up theme defaults and registers the various WordPress features that
- * Ultimate supports.
+ * Added two location primary & footer menu
  *
- * @uses load_theme_textdomain() For translation/localization support.
- * @uses add_editor_style() To add a Visual Editor stylesheet.
- * @uses add_theme_support() To add support for post thumbnails, automatic feed links,
- * 	custom background, and post formats.
- * @uses register_nav_menu() To add support for navigation menus.
- * @uses set_post_thumbnail_size() To set a custom post thumbnail size.
+ * @since Ultimate 1.0
+ *
+ */
+
+if ( ! function_exists( 'ultimate_navigation_menus' ) ) :
+
+	// Register Navigation Menus
+	function ultimate_navigation_menus() {
+
+		$locations = array(
+			'primary' => __( 'Primary Menu', 'ultimate' ),
+			'footer-menu' => __( 'Footer Menu', 'ultimate' ),
+		);
+		register_nav_menus( $locations );
+	}
+
+	// Hook into the 'init' action
+	add_action( 'init', 'ultimate_navigation_menus' );
+
+endif;
+
+
+/**
+ * Register sidebars.
+ *
+ * Registers our main widget area and the front page widget areas.
  *
  * @since Ultimate 1.0
  */
-function ultimate_setup() {
-	/*
-	 * Makes Ultimate available for translation.
-	 *
-	 * Translations can be added to the /languages/ directory.
-	 * If you're building a theme based on Ultimate, use a find and replace
-	 * to change 'ultimate' to the name of your theme in all the template files.
-	 */
-	load_theme_textdomain( 'ultimate', get_template_directory() . '/languages' );
-	// This theme styles the visual editor with editor-style.css to match the theme style.
-	add_editor_style();
-	// This theme supports a variety of post formats.
-	add_theme_support( 'post-formats', array( 'aside', 'image', 'link', 'video', 'quote', 'status', 'gallery', 'audio') );
-	
-	/*
-	 * This theme supports custom background color and image,
-	 * and here we also set up the default background color.
-	 */
-	add_theme_support( 'custom-background', array(
-		'default-color' => 'e6e6e6',
-	) );
-	// Default RSS feed links
-	add_theme_support( 'automatic-feed-links' );
-	
-	// Support post_thumbnail
-	add_theme_support( 'the_post_thumbnail' );
-	
-	// Default custom header
-	add_theme_support( 'custom-header' );
+if ( ! function_exists( 'ultimate_sidebar' ) ) :
+	function ultimate_sidebar() {
+		register_sidebar( array(
+			'name' => __( 'Main Sidebar', 'ultimate' ),
+			'id' => 'sidebar-1',
+			'description' => __( 'Appears on posts and pages except the optional Front Page template, which has its own widgets', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title"><span>',
+			'after_title' => '</span></h3>',
+		) );
+		register_sidebar( array(
+			'name' => __( 'Footer Widget Area 1', 'ultimate' ),
+			'id' => 'sidebar-footer-1',
+			'description' => __( 'Appears in footer sidebar widget area at first position.', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
 		
-	// Woocommerce Support
-	add_theme_support( 'woocommerce' );
-	
-	// Add support to <title> tag
-	add_theme_support( "title-tag" );
-	
-	// This theme uses a custom image size for featured images, displayed on "standard" posts.
-	add_theme_support( 'post-thumbnails' );
-	set_post_thumbnail_size( 624, 9999 ); // Unlimited height, soft crop
+		register_sidebar( array(
+			'name' => __( 'Footer Widget Area 2', 'ultimate' ),
+			'id' => 'sidebar-footer-2',
+			'description' => __( 'Appears in footer sidebar widget area at second position.', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
+		
+		register_sidebar( array(
+			'name' => __( 'Footer Widget Area 3', 'ultimate' ),
+			'id' => 'sidebar-footer-3',
+			'description' => __( 'Appears in footer sidebar widget area at third position.', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
+		
+		register_sidebar( array(
+			'name' => __( 'Footer Widget Area 4', 'ultimate' ),
+			'id' => 'sidebar-footer-4',
+			'description' => __( 'Appears in footer sidebar widget area at fourth position.', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
+		register_sidebar( array(
+			'name' => __( 'Front Page Main Widget Area', 'ultimate' ),
+			'id' => 'sidebar-front-main',
+			'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
+		register_sidebar( array(
+			'name' => __( 'First Front Page Widget Area', 'ultimate' ),
+			'id' => 'sidebar-front-1',
+			'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
+		register_sidebar( array(
+			'name' => __( 'Second Front Page Widget Area', 'ultimate' ),
+			'id' => 'sidebar-front-2',
+			'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
+		register_sidebar( array(
+			'name' => __( 'Third Front Page Widget Area', 'ultimate' ),
+			'id' => 'sidebar-front-3',
+			'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
+			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+			'after_widget' => '</aside>',
+			'before_title' => '<h3 class="widget-title">',
+			'after_title' => '</h3>',
+		) );
+	}
+	add_action( 'widgets_init', 'ultimate_widgets_init' );
+endif;
 
-	// This theme uses wp_nav_menu() in two locations.
-	register_nav_menu( 'primary', __( 'Primary Menu', 'ultimate' ) );
-	register_nav_menu( 'footer-menu', __( 'Footer Menu', 'ultimate' ) );
 
-	// Declare support for all custom hooks
-	add_theme_support( 'ult_hooks', array( 'all' ) );
-}
-add_action( 'after_setup_theme', 'ultimate_setup' );
 
 /**
  * Return the Google font stylesheet URL if available.
@@ -120,74 +320,6 @@ function ultimate_get_font_url() {
 }
 
 /**
- * Enqueue scripts and styles for front-end.
- *
- * @since Ultimate 1.0
- */
-function ultimate_scripts_styles() {
-	global $wp_styles;
-	/*
-	 * Adds JavaScript to pages with the comment form to support
-	 * sites with threaded comments (when in use).
-	 */
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
-		wp_enqueue_script( 'comment-reply' );
-
-	wp_enqueue_style( 'ultimate-font-icons', get_template_directory_uri().'/inc/css/font-awesome.min.css');
-
-	// Loads our main stylesheet.
-	wp_enqueue_style( 'style', get_stylesheet_uri() );
-	wp_enqueue_style( 'ultimate-bootstrap', get_template_directory_uri().'/inc/css/bootstrap-grids.css');
-		
-	// Loads the Internet Explorer specific stylesheet.
-	wp_enqueue_style( 'ultimate-ie', get_template_directory_uri() . '/inc/css/ie.css', array( 'ultimate-style' ), '20121010' );
-	
-	wp_enqueue_script('jQuery');
-	$wp_styles->add_data( 'ultimate-ie', 'conditional', 'lt IE 9' );
-    wp_enqueue_script('jquery.bootstrap.min', get_template_directory_uri() . '/inc/js/jquery.bootstrap.min.js', array('jquery'),'1.0.0',true);
-    //wp_enqueue_script('jquery.bootstrap.min');
-	
-	// Load Masonry Javascript
-	$masonry_blog_layout = get_theme_mod('blog_masonry_layout');
-	$blog_layout = get_theme_mod('blog_layout');
-	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
-		if ( $masonry_blog_layout ) :
-			if ( is_home() || is_front_page() || is_archive() || is_search() ) :
-				wp_enqueue_script('jquery-masonry');
-				add_action('wp_footer', 'ultimate_masonry_blog');
-			endif;
-		endif;
-	endif;
-
-	// Slick SLider
-	wp_enqueue_style( 'slick-slider', get_template_directory_uri().'/inc/css/slick/slick.css');
-	wp_register_script( 'slick-slider-script', get_template_directory_uri() . '/inc/js/jquery.slick.min.js' );
-    wp_enqueue_script( 'slick-slider-script' );
-
-    // Justified Grid Gallery
-    wp_enqueue_style( 'ultimate_justified_gallery', get_template_directory_uri().'/inc/css/justifiedGallery.min.css');
-    wp_register_script( 'ultimate_justified_gallery_script', get_template_directory_uri() . '/inc/js/jquery.justifiedGallery.min.js', array( 'jquery' ), '1.0.0', true );
-    wp_enqueue_script( 'ultimate_justified_gallery_script' );
-
-    // Smooth Scroll
-	wp_register_script( 'smooth-scroll-script', get_template_directory_uri() . '/inc/js/jquery.smoothScroll.min.js' );
-	$smooth_scroll = get_theme_mod( 'smooth_scroll' );
-   	if($smooth_scroll) {
-   		wp_enqueue_script( 'smooth-scroll-script' );
-	}
-
-	// Lightbox - Colorbox
-	wp_enqueue_style( 'ultimate_colorbox', get_template_directory_uri().'/inc/css/colorbox/colorbox.css');
-	wp_register_script( 'ultimate_colorbox_script', get_template_directory_uri() . '/inc/js/jquery.colorbox.min.js', array( 'jquery' ), null, true );
-	wp_enqueue_script( 'ultimate_colorbox_script' );
-	
-    wp_register_script('jquery.functions', get_template_directory_uri() . '/inc/js/functions.js', array('jquery'),'1.0.0',true);
-    wp_enqueue_script('jquery.functions');
-	
-}
-add_action( 'wp_enqueue_scripts', 'ultimate_scripts_styles' );
-
-/**
  * Filter TinyMCE CSS path to include Google Fonts.
  *
  * Adds additional stylesheets to the TinyMCE editor if needed.
@@ -225,103 +357,6 @@ function ultimate_page_menu_args( $args ) {
 add_filter( 'wp_page_menu_args', 'ultimate_page_menu_args' );
 
 /**
- * Register sidebars.
- *
- * Registers our main widget area and the front page widget areas.
- *
- * @since Ultimate 1.0
- */
-function ultimate_widgets_init() {
-	register_sidebar( array(
-		'name' => __( 'Main Sidebar', 'ultimate' ),
-		'id' => 'sidebar-1',
-		'description' => __( 'Appears on posts and pages except the optional Front Page template, which has its own widgets', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title"><span>',
-		'after_title' => '</span></h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Footer Widget Area 1', 'ultimate' ),
-		'id' => 'sidebar-footer-1',
-		'description' => __( 'Appears in footer sidebar widget area at first position.', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	
-	register_sidebar( array(
-		'name' => __( 'Footer Widget Area 2', 'ultimate' ),
-		'id' => 'sidebar-footer-2',
-		'description' => __( 'Appears in footer sidebar widget area at second position.', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	
-	register_sidebar( array(
-		'name' => __( 'Footer Widget Area 3', 'ultimate' ),
-		'id' => 'sidebar-footer-3',
-		'description' => __( 'Appears in footer sidebar widget area at third position.', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	
-	register_sidebar( array(
-		'name' => __( 'Footer Widget Area 4', 'ultimate' ),
-		'id' => 'sidebar-footer-4',
-		'description' => __( 'Appears in footer sidebar widget area at fourth position.', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Front Page Main Widget Area', 'ultimate' ),
-		'id' => 'sidebar-front-main',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'First Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-front-1',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Second Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-front-2',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-	register_sidebar( array(
-		'name' => __( 'Third Front Page Widget Area', 'ultimate' ),
-		'id' => 'sidebar-front-3',
-		'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'ultimate' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget' => '</aside>',
-		'before_title' => '<h3 class="widget-title">',
-		'after_title' => '</h3>',
-	) );
-}
-add_action( 'widgets_init', 'ultimate_widgets_init' );
-
-
-if ( ! function_exists( 'ultimate_comment' ) ) :
-/**
  * Template for comments and pingbacks.
  *
  * To override this walker in a child theme without modifying the comments template
@@ -331,6 +366,7 @@ if ( ! function_exists( 'ultimate_comment' ) ) :
  *
  * @since Ultimate 1.0
  */
+if ( ! function_exists( 'ultimate_comment' ) ) :
 function ultimate_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 	switch ( $comment->comment_type ) :
@@ -378,50 +414,6 @@ function ultimate_comment( $comment, $args, $depth ) {
 	<?php
 		break;
 	endswitch; // end comment_type check
-}
-endif;
-
-if ( ! function_exists( 'ultimate_entry_meta' ) ) :
-/**
- * Set up post entry meta.
- *
- * Prints HTML with meta information for current post: categories, tags, permalink, author, and date.
- *
- * Create your own ultimate_entry_meta() to override in a child theme.
- *
- * @since Ultimate 1.0
- */
-function ultimate_entry_meta() {
-	// Translators: used between list items, there is a space after the comma.
-	$categories_list = get_the_category_list( __( ' ', 'ultimate' ) );
-	// Translators: used between list items, there is a space after the comma.
-	$tag_list = get_the_tag_list( '', __( ' ', 'ultimate' ) );
-	$date = sprintf( '<a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a>',
-		esc_url( get_permalink() ),
-		esc_attr( get_the_time() ),
-		esc_attr( get_the_date( 'c' ) ),
-		esc_html( get_the_date() )
-	);
-	$author = sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%3$s</a></span>',
-		esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-		esc_attr( sprintf( __( 'View all posts by %s', 'ultimate' ), get_the_author() ) ),
-		get_the_author()
-	);
-	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name.
-	if ( $tag_list ) {
-		$utility_text = __( 'This entry was posted in %1$s and tagged %2$s on %3$s<span class="by-author"> by %4$s</span>.', 'ultimate' );
-	} elseif ( $categories_list ) {
-		$utility_text = __( 'This entry was posted in %1$s on %3$s<span class="by-author"> by %4$s</span>.', 'ultimate' );
-	} else {
-		$utility_text = __( 'This entry was posted on %3$s<span class="by-author"> by %4$s</span>.', 'ultimate' );
-	}
-	printf(
-		$utility_text,
-		$categories_list,
-		$tag_list,
-		$date,
-		$author
-	);
 }
 endif;
 
@@ -526,6 +518,38 @@ function ultimate_body_class( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'ultimate_body_class' );
+
+
+/**
+ * Extend the default WordPress post classes.
+ *
+ * Extends the default WordPress post class to denote: grid layouts
+ *
+ * @since Ultimate 1.0
+ *
+ * @param array $classes Existing class values.
+ * @return array Filtered class values.
+ */
+function ultimate_post_class( $classes ) {
+
+	global $post;
+	$blog_layout = get_theme_mod('blog_layout');
+
+	if ( !is_singular() ) :	
+		if ($blog_layout == 'grid-2') {
+			$classes[] = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+		} else if ($blog_layout == 'grid-3') {
+			$classes[] = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
+		} else if ($blog_layout == 'grid-4') {
+			$classes[] = 'col-lg-3 col-md-3 col-sm-4 col-xs-12';
+		} else {
+			$classes[] = '';
+		}
+	endif;
+
+	return $classes;
+}
+add_filter( 'post_class', 'ultimate_post_class' );
 
 
 /**
@@ -748,8 +772,8 @@ if ( ! function_exists( 'ultimate_grid_post_layout' ) ) :
 			endif;
 		endif;
 	}
+	add_action( 'wp', 'ultimate_grid_post_layout' );
 endif;
-add_action( 'wp', 'ultimate_grid_post_layout' );
 
 
 // Custom Excerpt Length
@@ -760,29 +784,6 @@ if ( ! function_exists( 'ultimate_excerpt_length' ) ) :
 	}
 	add_filter( 'excerpt_length', 'ultimate_excerpt_length', 999 );
 endif;
-
-
-// Append Post Class
-function ultimate_post_class( $classes ) {
-
-	global $post;
-	$blog_layout = get_theme_mod('blog_layout');
-
-	if ( !is_singular() ) :	
-		if ($blog_layout == 'grid-2') {
-			$classes[] = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
-		} else if ($blog_layout == 'grid-3') {
-			$classes[] = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
-		} else if ($blog_layout == 'grid-4') {
-			$classes[] = 'col-lg-3 col-md-3 col-sm-4 col-xs-12';
-		} else {
-			$classes[] = '';
-		}
-	endif;
-
-	return $classes;
-}
-add_filter( 'post_class', 'ultimate_post_class' );
 
 // Add new image Size for Medium Image Blog
 add_image_size( 'medium-image-blog', 330, 215, true ); // (cropped)
@@ -920,9 +921,14 @@ endif;
 
 
 // Sidebar Position
-$sidebar_pos = get_theme_mod('sidebar_position');
-if ($sidebar_pos != 'no-sidebar') :
-	add_action('ult_content_after','get_sidebar', 10, 1);
+if ( ! function_exists( 'ultimate_sidebar_position' ) ) :
+	function ultimate_sidebar_position() {
+		$sidebar_pos = get_theme_mod('sidebar_position');
+		if ($sidebar_pos != 'no-sidebar') :
+			add_action('ult_content_after','get_sidebar', 10, 1);
+		endif;
+	}
+	add_action( 'wp', 'ultimate_sidebar_position' );
 endif;
 
 // Fevicom Image
