@@ -44,8 +44,8 @@
 		$("li.page_item_has_children").click(function () {
 	  		$(this).toggleClass("ulopen");
 		});	  	
-	    $(this).find("li.page_item_has_children > a").after( "<span class='ent entarrow-down7'></span>" );
-	    $(this).find("li.menu-item-has-children > a").after( "<span class='ent entarrow-down7'></span>" );
+	    $(this).find("li.page_item_has_children > a").after( "<span class='fa fa-angle-down'></span>" );
+	    $(this).find("li.menu-item-has-children > a").after( "<span class='fa fa-angle-down'></span>" );
 
 	    // Enable Fixed Menu Through jQuery
 		var starting_position = $('.ult-fixed-menu .site-header').outerHeight( true );

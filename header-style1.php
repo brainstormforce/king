@@ -34,7 +34,7 @@
 
 				</div>
 
-				<span class="menu-toggle-wrap ent entlist2"></span>
+				<span class="menu-toggle-wrap fa fa-bars"></span>
 			
 				<?php wp_nav_menu( array( 
 					'theme_location' 	=> 'primary', 

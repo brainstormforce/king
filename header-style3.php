@@ -40,7 +40,7 @@
 			'container'       	=> 'div',
 			'container_class' 	=> 'primary-menu-container header-style3-menu',
 		) ); ?>
-		<span class="menu-toggle-wrap ent entlist2"></span>
+		<span class="menu-toggle-wrap fa fa-bars"></span>
 	</nav><!-- #site-navigation -->
 
 	<?php if ( get_header_image() ) : ?>

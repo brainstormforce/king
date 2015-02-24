@@ -706,8 +706,8 @@ h1.entry-title {
 }
 .entry-content blockquote:after,
 .comment-content blockquote:after {
-	content: "\e629";
-	font-family: 'entypo' !important;
+	content: "\f10d";
+	font-family: 'FontAwesome' !important;
 	speak: none;
 	font-style: italic;
 	font-weight: normal;

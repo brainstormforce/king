@@ -121,7 +121,7 @@
 		visibility: visible;
 		display: block;
 	}
-	span.menu-toggle-wrap.ent.entlist2 {
+	span.menu-toggle-wrap.fa-bars {
     	display: none;
 	}
 	/*------Mega Menu------*/
@@ -195,7 +195,7 @@
 		padding-left: 35px;
 		width: auto;
 	}
-	span.ent.entarrow-down7{
+	span.fa-angle-down {
 		display: none;
 	}
 	
@@ -248,22 +248,22 @@
 	.main-navigation .nav-menu li > ul.children > li.page_item_has_children > a {
 		text-transform: uppercase;
 	}
-	.main-navigation li ul.sub-menu li.menu-item-has-children span.ent.entarrow-down7,
-	.main-navigation li ul.children li.page_item_has_children span.ent.entarrow-down7 {
+	.main-navigation li ul.sub-menu li.menu-item-has-children span.fa-angle-down,
+	.main-navigation li ul.children li.page_item_has_children span.fa-angle-down {
 		display: none;
 	}
-	.main-navigation ul li > ul.sub-menu > li.menu-item-has-children > span.ent.entarrow-down7,
-	.main-navigation ul li > ul.children > li.page_item_has_children > span.ent.entarrow-down7{
+	.main-navigation ul li > ul.sub-menu > li.menu-item-has-children > span.fa-angle-down,
+	.main-navigation ul li > ul.children > li.page_item_has_children > span.fa-angle-down{
 		display: none;
 	}
-	span.menu-toggle-wrap.ent.entlist2 {
+	span.menu-toggle-wrap.fa-bars {
 	    font-size: 32px;
 	    position: absolute;
 	    right: 1%;
 	    top: 15%;
 	    cursor: pointer;
 	}
-	span.ent.entarrow-down7 {
+	span.fa-angle-down {
 	    position: absolute;
 	    right: 3%;
 	    margin-top: 10px;

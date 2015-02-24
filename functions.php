@@ -133,8 +133,8 @@ function ultimate_scripts_styles() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) )
 		wp_enqueue_script( 'comment-reply' );
 
-	wp_enqueue_style( 'ultimate-fonts', get_template_directory_uri().'/inc/css/entypo.css');
-	wp_enqueue_style( 'ultimate-fonts', get_template_directory_uri().'/inc/css/font-awesome.css');
+	wp_enqueue_style( 'ultimate-font-icons', get_template_directory_uri().'/inc/css/font-awesome.min.css');
+
 	// Loads our main stylesheet.
 	wp_enqueue_style( 'style', get_stylesheet_uri() );
 	wp_enqueue_style( 'ultimate-bootstrap', get_template_directory_uri().'/inc/css/bootstrap-grids.css');
@@ -601,7 +601,7 @@ function ultimate_scroll_to_top() {
 		  });
 		});
 	</script>
-	<a class="ult-scroll-top" href="#page"><span class="ent entarrow-up6"></span></a>
+	<a class="ult-scroll-top" href="#page"><span class="fa fa-angle-up"></span></a>
 	<!--End Smooth Scroll-->
 <?php
 }
@@ -1169,7 +1169,7 @@ if ( ! function_exists( 'ultimate_search_form' ) ) :
 				<fieldset>
 				<div id="searchbox">
 				<input class="input" name="s" type="text" id="s" value="'.  $value_placeholder .'" onfocus="if (this.value == '. $placeholder .') {this.value = '. $empty_placeholder .' }" onblur="if (this.value == '. $empty_placeholder .') {this.value = '. $placeholder .'}">
-				<button type="submit" id="searchsubmit" class="ultimate-bkg ultimate-bkg-dark-hover"><i class="ent entsearch"></i></button>
+				<button type="submit" id="searchsubmit" class="ultimate-bkg ultimate-bkg-dark-hover"><i class="fa fa-search"></i></button>
 				</div>
 				</fieldset>
 				</form>';
