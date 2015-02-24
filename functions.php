@@ -794,7 +794,8 @@ endif;
 // Custom Excerpt Length
 if ( ! function_exists( 'ultimate_excerpt_length' ) ) :
 	function ultimate_excerpt_length( $length ) {
-		$excerpt_length = get_theme_mod( 'post_excerpt_length' );
+		$check_excerpt_length = get_theme_mod( 'post_excerpt_length' );
+		$excerpt_length = ($check_excerpt_length != 0) ? $check_excerpt_length : 25;
 		return $excerpt_length;
 	}
 	add_filter( 'excerpt_length', 'ultimate_excerpt_length', 999 );

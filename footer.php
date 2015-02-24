@@ -56,9 +56,9 @@
                     } 
                 ?>
 
-                <?php if( get_theme_mod( 'display_copyright' ) != '') : ?>
+                <?php if( get_theme_mod( 'display_copyright', true ) != '') : ?>
                     <div class="site-info <?php echo $footer_class; ?>">
-                        <?php if( get_theme_mod( 'copyright_text_link' ) == '') { ?>
+                        <?php if( get_theme_mod( 'copyright_text_link', true ) == '') { ?>
                             <?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?>
                         <?php } else { ?>
                             <a href="<?php echo get_theme_mod( 'copyright_text_link', 'http://www.brainstormforce.com/' ); ?>" title="<?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?>"><?php echo get_theme_mod( 'copyright_textbox', 'Proudly powered by WP Shark @BRAINSTORM' ); ?></a>
