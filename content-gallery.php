@@ -5,6 +5,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<?php ult_entry_top(); ?>
 
 	<header class="entry-header">
 		<?php if( has_post_thumbnail() || has_shortcode($post->post_content, 'gallery') ) : ?>
@@ -32,6 +33,5 @@
 		</div><!-- .entry-content -->
 	<?php endif; ?>		
 
-	<?php ultimate_post_meta(); ?>
-
+<?php ult_entry_bottom(); ?>
 </article><!-- #post -->	

@@ -11,6 +11,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<?php ult_entry_top(); ?>
 
 	<div class="grid-post-container">
 
@@ -47,4 +48,5 @@
 
 	</div> <!-- .grid-post-container -->
 	
+<?php ult_entry_bottom(); ?>	
 </article><!-- #post -->

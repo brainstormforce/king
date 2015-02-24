@@ -20,7 +20,7 @@
 if ( post_password_required() )
 	return;
 ?>
-
+<?php ult_comments_before(); ?>
 <div id="comments" class="comments-area">
 
 	<?php // You can start editing here -- including this comment! ?>
@@ -64,3 +64,4 @@ if ( post_password_required() )
 	<?php comment_form(); ?>
 
 </div><!-- #comments .comments-area -->
+<?php ult_comments_after(); ?>

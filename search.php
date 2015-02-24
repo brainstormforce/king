@@ -7,29 +7,31 @@
  * @since Ultimate 1.0
  */
 get_header(); ?>
-	<section id="primary" class="site-content">
-		<div id="content" role="main">
+<?php ult_content_before(); ?>
+<div id="primary" class="site-content">	
+	
+	<?php if ( have_posts() ) : ?>
+		<header class="archive-header">
+			<h1 class="archive-title"><?php printf( __( 'Search Results for: %s', 'ultimate' ), '<span><a>' . get_search_query() . '</a></span>' ); ?></h1>
+		</header><!-- .archive-header -->
+	<?php endif; ?>
+
+	<?php ult_content_top(); ?>
+	<div id="content" role="main">
+
+		<?php ult_entry_before(); ?>
 		<?php if ( have_posts() ) : ?>
-			<header class="page-header">
-				<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'ultimate' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
-			</header>
-			<?php /* Start the Loop */ ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php get_template_part( 'content', get_post_format() ); ?>
 			<?php endwhile; ?>
-			<?php ultimate_pagination(); ?>
 		<?php else : ?>
-			<article id="post-0" class="post no-results not-found">
-				<header class="entry-header">
-					<h1 class="entry-title"><?php _e( 'Nothing Found', 'ultimate' ); ?></h1>
-				</header>
-				<div class="entry-content">
-					<p><?php _e( 'Sorry, but nothing matched your search criteria. Please try again with some different keywords.', 'ultimate' ); ?></p>
-					<?php get_search_form(); ?>
-				</div><!-- .entry-content -->
-			</article><!-- #post-0 -->
+			<?php get_template_part( 'content', 'none' ); ?>
 		<?php endif; ?>
-		</div><!-- #content -->
-	</section><!-- #primary -->
-<?php get_sidebar(); ?>
+		<?php ult_entry_after(); ?>
+	
+	</div><!-- #content -->
+	<?php ult_content_bottom(); ?>
+
+</div><!-- #primary -->
+<?php ult_content_after(); ?>
 <?php get_footer(); ?>

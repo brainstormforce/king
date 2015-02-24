@@ -5,7 +5,7 @@ Author: 		Brainstorm Force
 Author URI: 	http://codecanyon.net/user/BrainstormForce
 Description:    The Ultimate theme is a simple & responsive theme, which is very flexible, lightweight & specifically for demo site of our “Ultimate Addons for Visual Composer” plugin.
 Version:        0.3
-Tags: 			light, white, one-column, two-columns, right-sidebar, fluid-layout, responsive-layout, custom-background
+Tags: 			light
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -706,8 +706,8 @@ h1.entry-title {
 }
 .entry-content blockquote:after,
 .comment-content blockquote:after {
-	content: "\e629";
-	font-family: 'entypo' !important;
+	content: "\f10d";
+	font-family: 'FontAwesome' !important;
 	speak: none;
 	font-style: italic;
 	font-weight: normal;
@@ -873,7 +873,11 @@ footer.entry-meta {
 	overflow: hidden;
 }
 .image-attachment div.attachment {
-	text-align: center;
+	text-align: left;
+}
+.image-attachment div.attachment > a {
+	text-align: left;
+	display: inline-block;
 }
 .image-attachment div.attachment p {
 	text-align: center;
@@ -881,11 +885,12 @@ footer.entry-meta {
 .image-attachment div.attachment img {
 	display: block;
 	height: auto;
-	margin: 0 auto;
+	margin: 0;
 	max-width: 100%;
 }
 .image-attachment .entry-caption {
 	margin-top: 8px;
+	text-align: center;
 }
 
 /* =Comments
@@ -1104,8 +1109,12 @@ section.comment-content.comment, .reply {
 	border: 0;
 	margin-bottom: 0;
 }
-.template-front-page .widget-area {
+#secondary-front {
+	display: block;
 	clear: both;
+}
+.template-front-page .widget-area {
+	clear: right;
 	float: none;
 	width: auto;
 	padding-top: 24px;
@@ -1130,6 +1139,12 @@ section.comment-content.comment, .reply {
 }
 /* =Sidebar
 ----------------------------------------------- */
+.left-sidebar #primary {
+	float: right;
+}
+.left-sidebar #secondary {
+	float: left;
+}
 /* Sidebar - Left, Right & Footer */
 .widget ul {
 	display: block;
@@ -1213,6 +1228,7 @@ button#searchsubmit {
 button#searchsubmit * {
 	color: #FFF;
 	line-height: inherit;
+	font-size: 16px;
 }
 #searchform #s {
 	width: 100%;
@@ -1594,6 +1610,10 @@ footer[role="contentinfo"] .footer-bottom-container {
 .blog-grid.not-singular #content {
 	margin-left: -15px;
 	margin-right: -15px;
+}
+.search-no-results.blog-grid.not-singular #content {
+	margin-left: 0;
+	margin-right: 0;
 }
 /* Normal Grid Blog - Without Masonry*/
 .grid-2 #content .post:nth-child(2n+1),
@@ -1979,6 +1999,15 @@ footer[role="contentinfo"] .footer-bottom-container {
 	margin: 0;
 	padding: 0;
 }
+.ultimate-breadcrumb .fa-home:before {
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	transform: translate(0, 0);
+}
 
 body #main {
 	max-width: 1170px;
@@ -2325,15 +2354,16 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 	}
 
 	/* Fixed Menu */
-	.site-header.ult-fixed-menu {
+	.ult-fixed-menu .site-header {
 		position: fixed;
 		z-index: 99999;
 		width: 100%;
 		left: 0;
 	}
-	.boxed .site-header.ult-fixed-menu {
+	.boxed.ult-fixed-menu .site-header {
 		left: auto;
 		right: auto;
+		max-width: 1170px;
 	}
 	.ultimate-page-header + #main {
 		padding-top: 0 !important;
@@ -2341,14 +2371,14 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 	
 
 	/* Transparent Menu */
-	.ult-transparent-header .site-header.ult-fixed-menu,
-	.ult-transparent-header .ult-fixed-menu .header-box {
+	.ult-fixed-menu .ult-transparent-header .site-header,
+	.ult-fixed-menu .ult-transparent-header .header-box {
 		background: rgba(0,0,0,0) !important;
 		-webkit-transition: background 400ms linear;
 		-moz-transition: background 400ms linear;
 		transition: background 400ms linear;
 	}
-	.ult-transparent-header .ult-fixed-menu.ult-sticky-menu {
+	.ult-fixed-menu .ult-transparent-header .ult-sticky-menu {
 		background: #303030 !important;
 	}
 
@@ -2400,6 +2430,11 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 	/* Content Width */
 	#primary {
 		width: 75%;
+	}
+	.no-sidebar #primary,
+	.page-template-ultimate-full-width #primary,
+	.page-template-front-page #primary {
+		width: 100%;
 	}
 	#secondary {
 		width: 25%;

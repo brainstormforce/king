@@ -65,7 +65,7 @@ if(!function_exists("ultimate_breadcrumb")){
 	
 		/* Link to front page. */
 		if ( !is_front_page() )
-			$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="'. home_url( '/' ) .'" class="ent enthouse">' . $args['home_title'] . '</a></span>';
+			$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="'. home_url( '/' ) .'" class="fa fa-home">' . $args['home_title'] . '</a></span>';
 	
 		/* If bbPress is installed and we're on a bbPress page. */
 		if ( function_exists( 'is_bbpress' ) && is_bbpress() )
