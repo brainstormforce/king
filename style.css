@@ -1228,6 +1228,7 @@ button#searchsubmit {
 button#searchsubmit * {
 	color: #FFF;
 	line-height: inherit;
+	font-size: 16px;
 }
 #searchform #s {
 	width: 100%;
