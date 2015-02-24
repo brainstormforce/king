@@ -31,12 +31,6 @@ function ultimate_setup() {
 	// Add theme support for Custom Background
 	$background_args = array(
 		'default-color'          => '#e6e6e6',
-		'default-image'          => '',
-		'default-repeat'         => '',
-		'default-position-x'     => '',
-		'wp-head-callback'       => '',
-		'admin-head-callback'    => '',
-		'admin-preview-callback' => '',
 	);
 	add_theme_support( 'custom-background', $background_args );
 
@@ -169,7 +163,7 @@ require_once('inc/ultimate-breadcrumbs.php');
 require_once('inc/ultimate-menu-walker.php');
 require_once('inc/ultimate-pagination.php');
 require_once('inc/ultimate-post-gallery.php');
-require_once('inc/ultimate-post-meta.php');
+require_once('inc/ultimate-page-meta.php');
 require_once('inc/ultimate-widget.php');
 
 
@@ -779,17 +773,21 @@ if ( ! function_exists( 'ultimate_post_meta' ) ) :
 	add_action('ult_entry_bottom', 'ultimate_post_meta', 10, 1);
 endif;
 
-// Remove Post Meta For Grid Layout
-if ( ! function_exists( 'ultimate_grid_post_layout' ) ) :
-	function ultimate_grid_post_layout() {
+// Remove Post Meta From Pages, 404, Grid Blog layout
+if ( ! function_exists( 'ultimate_remove_post_meta' ) ) :
+	function ultimate_remove_post_meta() {
 		$blog_layout = get_theme_mod('blog_layout');
 		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 			if (is_search() || is_home() || is_archive()) :
 				remove_action('ult_entry_bottom', 'ultimate_post_meta');
 			endif;
 		endif;
+
+		if (is_page()) :
+			remove_action('ult_entry_bottom', 'ultimate_post_meta');
+		endif;
 	}
-	add_action( 'wp', 'ultimate_grid_post_layout' );
+	add_action( 'wp', 'ultimate_remove_post_meta' );
 endif;
 
 
@@ -940,9 +938,14 @@ endif;
 // Sidebar Position
 if ( ! function_exists( 'ultimate_sidebar_position' ) ) :
 	function ultimate_sidebar_position() {
+
 		$sidebar_pos = get_theme_mod('sidebar_position');
 		if ($sidebar_pos != 'no-sidebar') :
-			add_action('ult_content_after','get_sidebar', 10, 1);
+
+			if ( !is_page_template( 'page-templates/ultimate-full-width.php' ) && !is_page_template( 'page-templates/front-page.php' )) :
+				add_action('ult_content_after','get_sidebar', 10, 1);
+			endif;
+
 		endif;
 	}
 	add_action( 'wp', 'ultimate_sidebar_position' );
