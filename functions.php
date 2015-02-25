@@ -157,6 +157,7 @@ require_once('inc/admin/customizer/customizer.php');
 require_once('inc/admin/customizer/customizer-init.php');
 require_once('inc/admin/customizer/customizer-style.php');
 require_once('inc/admin/menu/megamenu-admin-walker.php');
+require_once('inc/admin/menu/menu-meta.php');
 
 require_once('inc/king-theme-hooks.php');
 require_once('inc/king-breadcrumbs.php');
@@ -1206,7 +1207,7 @@ if ( ! function_exists( 'king_search_form' ) ) :
 endif;
 
 
-// Ultiamte Front Page Bottom Sidebar
+// King Front Page Bottom Sidebar
 if ( ! function_exists( 'king_front_page_bottom_sidebar' ) ) :
 	function king_front_page_bottom_sidebar() {
 		if (is_page_template( 'page-templates/front-page.php' )) {
@@ -1218,7 +1219,7 @@ endif;
 
 
 
-// Ultiamte Front Page Content Sidebar
+// King Front Page Content Sidebar
 if ( ! function_exists( 'king_front_page_content_sidebar' ) ) :
 	function king_front_page_content_sidebar() { 
 		?>
