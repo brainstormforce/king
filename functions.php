@@ -81,7 +81,7 @@ function king_scripts_styles() {
 	global $wp_styles;
 	
 	// Loads our main stylesheet.
-	wp_register_style( 'king-style', get_stylesheet_uri(), false, '1.0.0', 'all' );
+	wp_register_style( 'king-style', get_stylesheet_uri(), array( 'king-slick-slider' ), '1.0.0', 'all' );
 	wp_enqueue_style( 'king-style' );
 	wp_register_style( 'king-bootstrap-grid', get_template_directory_uri().'/inc/css/bootstrap-grids.css', false, '1.0.0', 'all' );
 	wp_enqueue_style( 'king-bootstrap-grid' );

@@ -139,28 +139,28 @@ if(!function_exists("king_custom_style")) :
 			font-family:<?php echo $page_title_font_family;?>;
 			font-weight:<?php echo $page_title_font_weight;?>;
 			font-style:<?php echo $page_title_font_style;?>;
-			font-size:<?php echo $page_title_font_size;?>px !important;
+			font-size:<?php echo $page_title_font_size;?>px;
 		}
 		.widget h3, .widget h3 span{
 			font-family:<?php echo $widget_title_font_family;?>;
 			font-weight:<?php echo $widget_title_font_weight;?>;
 			font-style:<?php echo $widget_title_font_style;?>;
-			font-size:<?php echo $widget_title_font_size;?>px !important;
+			font-size:<?php echo $widget_title_font_size;?>px;
 		}
 		.entry-summary .post-meta, .entry-summary .post-meta a, .entry-summary .post-meta span, .entry-summary-meta .post-meta, .entry-summary-meta .post-meta a, .entry-summary-meta .post-meta span {
 			font-family:<?php echo $post_meta_font_family;?>;
 			font-weight:<?php echo $post_meta_font_weight;?>;
 			font-style:<?php echo $post_meta_font_style;?>;
-			font-size:<?php echo $post_meta_font_size;?>px !important;
+			font-size:<?php echo $post_meta_font_size;?>px;
 		}
 		ul.nav-menu li a, .main-navigation li ul li a {
 			font-family:<?php echo $menu_font_family;?>;
 			font-weight:<?php echo $menu_font_weight;?>;
 			font-style:<?php echo $menu_font_style;?>;
-			font-size:<?php echo $menu_font_size;?>px !important;
+			font-size:<?php echo $menu_font_size;?>px;
 		}
 		.king-page-header {
-			font-size:<?php echo $page_heading_font_size;?>px !important;
+			font-size:<?php echo $page_heading_font_size;?>px;
 		}
 		.king-page-header .king-breadcrumb *{
 			font-family:<?php echo $breadcrumb_font_family;?>;

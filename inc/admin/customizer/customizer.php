@@ -1306,7 +1306,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'post_meta_font_size',
 		array(
-			'default' => 18,
+			'default' => 12,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
