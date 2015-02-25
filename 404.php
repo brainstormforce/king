@@ -3,8 +3,8 @@
  * The template for displaying 404 pages (Not Found)
  *
  * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
+ * @subpackage King
+ * @since King 1.0
  */
 get_header(); ?>	
 <?php ult_content_before(); ?>
@@ -18,10 +18,10 @@ get_header(); ?>
 		<?php ult_entry_top(); ?>
 
 			<header class="entry-header">
-				<h1 class="entry-title"><?php _e( 'This is somewhat embarrassing, isn&rsquo;t it?', 'ultimate' ); ?></h1>
+				<h1 class="entry-title"><?php _e( 'This is somewhat embarrassing, isn&rsquo;t it?', 'king' ); ?></h1>
 			</header>
 			<div class="entry-content">
-				<p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'ultimate' ); ?></p>
+				<p><?php _e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'king' ); ?></p>
 				<?php get_search_form(); ?>
 			</div><!-- .entry-content -->
 

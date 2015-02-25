@@ -1,9 +1,9 @@
 <?php
-add_action('wp_head', 'ultimate_custom_style');
+add_action('wp_head', 'king_custom_style');
 
-if(!function_exists("ultimate_custom_style")) :
+if(!function_exists("king_custom_style")) :
 
-	function ultimate_custom_style() {
+	function king_custom_style() {
 		$fonts = array();
 		/* Global Default Font */
 		$default_font_temp = $page_title_font_temp = array();
@@ -139,36 +139,36 @@ if(!function_exists("ultimate_custom_style")) :
 			font-family:<?php echo $page_title_font_family;?>;
 			font-weight:<?php echo $page_title_font_weight;?>;
 			font-style:<?php echo $page_title_font_style;?>;
-			font-size:<?php echo $page_title_font_size;?>px !important;
+			font-size:<?php echo $page_title_font_size;?>px;
 		}
 		.widget h3, .widget h3 span{
 			font-family:<?php echo $widget_title_font_family;?>;
 			font-weight:<?php echo $widget_title_font_weight;?>;
 			font-style:<?php echo $widget_title_font_style;?>;
-			font-size:<?php echo $widget_title_font_size;?>px !important;
+			font-size:<?php echo $widget_title_font_size;?>px;
 		}
 		.entry-summary .post-meta, .entry-summary .post-meta a, .entry-summary .post-meta span, .entry-summary-meta .post-meta, .entry-summary-meta .post-meta a, .entry-summary-meta .post-meta span {
 			font-family:<?php echo $post_meta_font_family;?>;
 			font-weight:<?php echo $post_meta_font_weight;?>;
 			font-style:<?php echo $post_meta_font_style;?>;
-			font-size:<?php echo $post_meta_font_size;?>px !important;
+			font-size:<?php echo $post_meta_font_size;?>px;
 		}
 		ul.nav-menu li a, .main-navigation li ul li a {
 			font-family:<?php echo $menu_font_family;?>;
 			font-weight:<?php echo $menu_font_weight;?>;
 			font-style:<?php echo $menu_font_style;?>;
-			font-size:<?php echo $menu_font_size;?>px !important;
+			font-size:<?php echo $menu_font_size;?>px;
 		}
-		.ultimate-page-header {
-			font-size:<?php echo $page_heading_font_size;?>px !important;
+		.king-page-header {
+			font-size:<?php echo $page_heading_font_size;?>px;
 		}
-		.ultimate-page-header .ultimate-breadcrumb *{
+		.king-page-header .king-breadcrumb *{
 			font-family:<?php echo $breadcrumb_font_family;?>;
 			font-weight:<?php echo $breadcrumb_font_weight;?>;
 			font-style:<?php echo $breadcrumb_font_style;?>;
 			font-size:<?php echo $breadcrumb_font_size;?>px !important;
 		}
-		.ultimate-page-header .ultimate-breadcrumb-title *{
+		.king-page-header .king-breadcrumb-title *{
 			font-family:<?php echo $page_heading_font_family;?>;
 			font-weight:<?php echo $page_heading_font_weight;?>;
 			font-style:<?php echo $page_heading_font_style;?>;
@@ -197,7 +197,7 @@ if(!function_exists("ultimate_custom_style")) :
 			.header-style2 .nav-menu, 
 			.header-style3 .primary-menu-container, 
 			.header-style3 .nav-menu, 
-			.ultimate-container, 
+			.king-container, 
 			.footer-widget-area, 
 			.footer-bottom-container, 
 			.smile-row, 
@@ -304,8 +304,8 @@ if(!function_exists("ultimate_custom_style")) :
 		input[type="reset"], 
 		article.post-password-required input[type=submit], 
 		.bypostauthor cite span, 
-		.ultimate-pagination a, 
-		.ultimate-pagination .current,
+		.king-pagination a, 
+		.king-pagination .current,
 		.ult-scroll-top,
 		.widget_tag_cloud .tagcloud a:hover,
 		.main-footer .widget_tag_cloud .tagcloud a:hover {

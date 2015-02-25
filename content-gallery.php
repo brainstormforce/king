@@ -28,8 +28,8 @@
 	<?php if ( is_single() ) : ?>
 		<div class="entry-content">
 			<?php add_filter( 'the_content', 'strip_shortcodes' ); ?>
-			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'ultimate' ) ); ?>
-			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'ultimate' ), 'after' => '</div>' ) ); ?>
+			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'king' ) ); ?>
+			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'king' ), 'after' => '</div>' ) ); ?>
 		</div><!-- .entry-content -->
 	<?php endif; ?>		
 

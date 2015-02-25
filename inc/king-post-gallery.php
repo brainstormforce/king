@@ -1,17 +1,17 @@
 <?php
 
 // Add new field in gallery settings
-add_action('print_media_templates', 'ultimate_media_templates');
-function ultimate_media_templates(){
+add_action('print_media_templates', 'king_media_templates');
+function king_media_templates(){
 
   // define your backbone template;
   // the "tmpl-" prefix is required,
   // and your input field should have a data-setting attribute
   // matching the shortcode name
   ?>
-  <script type="text/html" id="tmpl-ultimate-gallery-setting">
+  <script type="text/html" id="tmpl-king-gallery-setting">
     <label class="setting">
-      <span><?php _e('Gallery Type', 'ultimate'); ?></span>
+      <span><?php _e('Gallery Type', 'king'); ?></span>
       <select data-setting="gallery_type">
         <option value="slideshow"> Slideshow </option>
         <option value="metro"> Metro </option>
@@ -34,7 +34,7 @@ function ultimate_media_templates(){
       wp.media.view.Settings.Gallery = wp.media.view.Settings.Gallery.extend({
         template: function(view){
           return wp.media.template('gallery-settings')(view)
-               + wp.media.template('ultimate-gallery-setting')(view);
+               + wp.media.template('king-gallery-setting')(view);
         }
       });
 
@@ -47,7 +47,7 @@ function ultimate_media_templates(){
 /**
 * Overrite the HTML output of gallery shortcode to the custom output for carousel slider
 */
-function ultimate_gallery_shortcode( $atts ) {
+function king_gallery_shortcode( $atts ) {
     $ids = '';
     extract( shortcode_atts( array(
         'ids' => '',
@@ -71,11 +71,11 @@ function ultimate_gallery_shortcode( $atts ) {
 
         if (($gallery_type == "metro")) { // If gallery Type is Metro 
 
-           add_action( 'wp_footer', 'ultimate_justified_grid_gallery' );
+           add_action( 'wp_footer', 'king_justified_grid_gallery' );
             ?>
 
-                <div id="<?php echo $smgid; ?>" class="ultimate-justified-grid-gallery">
-                    <div class="ultimate-justified-grid">
+                <div id="<?php echo $smgid; ?>" class="king-justified-grid-gallery">
+                    <div class="king-justified-grid">
                         <?php 
                             $n = 0;
                             foreach ( $images as $id ) {
@@ -102,7 +102,7 @@ function ultimate_gallery_shortcode( $atts ) {
 
                                 if ( isset( $id ) && $id !== '' ) { ?>
                                     <a <?php if($link == 'file') { 
-                                            echo 'rel="ultimate-lightbox" class="ultimate-lightbox"'; 
+                                            echo 'rel="king-lightbox" class="king-lightbox"'; 
                                         }?> 
                                         href="<?php echo $image_link; ?>" 
                                         <?php if($link == 'none') { 
@@ -116,12 +116,12 @@ function ultimate_gallery_shortcode( $atts ) {
                                 $n ++;
                             } 
                         ?>
-                    </div> <!-- .ultimate-justified-grid -->
-                </div> <!-- .ultimate-justified-grid-gallery -->
+                    </div> <!-- .king-justified-grid -->
+                </div> <!-- .king-justified-grid-gallery -->
 
         <?php } else if (($gallery_type == "grid")) { // If gallery Type is Grid ?>
 
-                <div id="<?php echo $smgid; ?>" class="ultimate-grid-gallery ultimate-grid-column-<?php echo $columns;?> clear">
+                <div id="<?php echo $smgid; ?>" class="king-grid-gallery king-grid-column-<?php echo $columns;?> clear">
                     <?php 
                             $n = 0;
                             foreach ( $images as $id ) {
@@ -148,7 +148,7 @@ function ultimate_gallery_shortcode( $atts ) {
 
                                 if ( isset( $id ) && $id !== '' ) { ?>
                                     <a <?php if($link == 'file') { 
-                                            echo 'rel="ultimate-lightbox" class="ultimate-lightbox"'; 
+                                            echo 'rel="king-lightbox" class="king-lightbox"'; 
                                         }?> 
                                         href="<?php echo $image_link; ?>" 
                                         <?php if($link == 'none') { 
@@ -156,19 +156,19 @@ function ultimate_gallery_shortcode( $atts ) {
                                         }?>
                                         title="<?php echo $image_caption; ?>">
                                         <img src="<?php echo $image_url; ?>" alt="<?php echo $image_caption; ?>"/>
-                                        <h4 class="text-center ultimate-grid-img-caption"><?php echo $image_caption;?></h4>
+                                        <h4 class="text-center king-grid-img-caption"><?php echo $image_caption;?></h4>
                                     </a>
                                 <?php 
                                 }
                                 $n ++;
                             } 
                         ?>
-                </div><!-- .ultimate-grid-gallery -->
+                </div><!-- .king-grid-gallery -->
 
 
         <?php } else { // If gallery Type is Slideshow ?>
 
-            <div id="<?php echo $smgid; ?>" class="ultimate-slideshow-gallery">  
+            <div id="<?php echo $smgid; ?>" class="king-slideshow-gallery">  
                 <?php 
                     $n = 0;
                     foreach ( $images as $id ) {
@@ -195,7 +195,7 @@ function ultimate_gallery_shortcode( $atts ) {
 
                         if ( isset( $id ) && $id !== '' ) { ?>
                             <a <?php if($link == 'file') { 
-                                    echo 'rel="ultimate-lightbox" class="ultimate-lightbox"'; 
+                                    echo 'rel="king-lightbox" class="king-lightbox"'; 
                                 }?> 
                                 href="<?php echo $image_link; ?>" 
                                 <?php if($link == 'none') { 
@@ -246,7 +246,7 @@ function ultimate_gallery_shortcode( $atts ) {
     <?php
     } elseif ( count( $images ) == 1 ) {
         ?>
-        <div id="<?php echo $smgid; ?>" class="ultimate-carousel carousel slide" data-ride="carousel">
+        <div id="<?php echo $smgid; ?>" class="king-carousel carousel slide" data-ride="carousel">
             <?php $n = 0;
             foreach ( $images as $id ) {
                 $cls              = ( $n == 0 ) ? 'active' : '';
@@ -264,16 +264,16 @@ function ultimate_gallery_shortcode( $atts ) {
     }
     echo ob_get_clean();
 }
-add_shortcode( 'gallery', 'ultimate_gallery_shortcode' );
+add_shortcode( 'gallery', 'king_gallery_shortcode' );
 
 
 // iMedica Justified Grid Gallery
-function ultimate_justified_grid_gallery() {
+function king_justified_grid_gallery() {
     // Justified Grid Gallery
     ?>
     <script type="text/javascript">
         jQuery(document).ready(function () {
-            jQuery('.ultimate-justified-grid').justifiedGallery({
+            jQuery('.king-justified-grid').justifiedGallery({
                 <?php if (is_singular()) { ?>
                     rowHeight: 200,
                     maxRowHeight: 200,

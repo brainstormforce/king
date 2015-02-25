@@ -5,8 +5,8 @@
 * Contains footer content and the closing of the #main and #page div elements.
 *
 * @package WordPress
-* @subpackage Ultimate
-* @since Ultimate 1.0
+* @subpackage King
+* @since King 1.0
 */
 ?>
 

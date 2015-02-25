@@ -1,6 +1,6 @@
 <?php
 
-class Ultimate_Textarea_Control extends WP_Customize_Control {
+class King_Textarea_Control extends WP_Customize_Control {
 
 	public $type = 'textarea';
 	public $description = '';

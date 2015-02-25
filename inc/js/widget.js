@@ -13,8 +13,8 @@ jQuery(document).ready( function($) {
             wp.media.editor.send.attachment = function(props, attachment){
                 if ( _custom_media  ) {
                     $('.custom_media_id').val(attachment.id);
-                    $('.ultimate_media_url').val(attachment.url);
-                    $('.ultimate_media_image').attr('src',attachment.url).css('display','block');
+                    $('.king_media_url').val(attachment.url);
+                    $('.king_media_image').attr('src',attachment.url).css('display','block');
                 } else {
                     return _orig_send_attachment.apply( button_id, [props, attachment] );
                 }
@@ -23,7 +23,7 @@ jQuery(document).ready( function($) {
                 return false;
         });
     }
-    media_upload('.button.ultimate_media_button');
+    media_upload('.button.king_media_button');
 });
 
 

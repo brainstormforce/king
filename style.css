@@ -1,11 +1,12 @@
 /*
-Theme Name:   	Ultimate Theme
-Theme URI: 		http://brainstormforce.com/demos/ultimate/
+Theme Name:   	King Theme
+Theme URI: 		http://brainstormforce.com/demos/king/
 Author: 		Brainstorm Force
 Author URI: 	http://codecanyon.net/user/BrainstormForce
-Description:    The Ultimate theme is a simple & responsive theme, which is very flexible, lightweight & specifically for demo site of our “Ultimate Addons for Visual Composer” plugin.
+Description:    The King theme is a simple & responsive theme, which is very flexible, lightweight & specifically for demo site of our "Ultimate Addons for Visual Composer" plugin.
 Version:        1.0
 Tags: 			light
+Text Domain: 	king
 License: 		GNU General Public License v2 or later
 License URI: 	http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -1866,13 +1867,13 @@ footer[role="contentinfo"] .footer-bottom-container {
 *
 */
 /* Justified Grid Gallery */
-.ultimate-justified-grid-gallery {
+.king-justified-grid-gallery {
     max-height: 240px;
     overflow: hidden;
     display: block;
 }
-.single .ultimate-justified-grid-gallery,
-.page .ultimate-justified-grid-gallery {
+.single .king-justified-grid-gallery,
+.page .king-justified-grid-gallery {
     height: auto;
     max-height: 100%;
     overflow: visible;
@@ -1880,13 +1881,13 @@ footer[role="contentinfo"] .footer-bottom-container {
     margin-bottom: 30px;
 }
 /* Grid Gallery */
-.ultimate-grid-gallery, 
-.ultimate-grid-gallery * {
+.king-grid-gallery, 
+.king-grid-gallery * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-.ultimate-grid-gallery a {
+.king-grid-gallery a {
     display: inline-block;
     float: left;
     padding: 2px 2px 0;
@@ -1895,7 +1896,7 @@ footer[role="contentinfo"] .footer-bottom-container {
     position: relative;
     overflow: hidden;
 }
-.ultimate-grid-gallery img {
+.king-grid-gallery img {
     width: 100%;
     margin: 0 !important;
     padding: 0;
@@ -1903,7 +1904,7 @@ footer[role="contentinfo"] .footer-bottom-container {
     border: none;
 	box-shadow: none;
 }
-.ultimate-grid-gallery h4.ultimate-grid-img-caption {
+.king-grid-gallery h4.king-grid-img-caption {
 	position: absolute;
 	background: rgba(0,0,0,0.6);
 	padding: 0;
@@ -1918,56 +1919,56 @@ footer[role="contentinfo"] .footer-bottom-container {
     -moz-transition: -moz-transform 300ms linear;
     transition: transform 300ms linear;
 }
-.ultimate-grid-gallery a:hover h4.ultimate-grid-img-caption {
+.king-grid-gallery a:hover h4.king-grid-img-caption {
     opacity: 1;
 }
-.ultimate-grid-column-1 a {
+.king-grid-column-1 a {
     width: 100%;
 }
-.ultimate-grid-column-2 a {
+.king-grid-column-2 a {
     width: 50%;
 }
-.ultimate-grid-column-3 a {
+.king-grid-column-3 a {
     width: 33.33%;
 }
-.ultimate-grid-column-4 a {
+.king-grid-column-4 a {
     width: 25%;
 }
-.ultimate-grid-column-5 a {
+.king-grid-column-5 a {
     width: 20%;
 }
-.ultimate-grid-column-6 a {
+.king-grid-column-6 a {
     width: 16.66%;
 }
-.ultimate-grid-column-7 a {
+.king-grid-column-7 a {
     width: 14.28%;
 }
-.ultimate-grid-column-8 a {
+.king-grid-column-8 a {
     width: 12.5%;
 }
-.ultimate-grid-column-9 a {
+.king-grid-column-9 a {
     width: 11.11%;
 }
-.ultimate-grid-column-1 a:nth-child(1n+1),
-.ultimate-grid-column-2 a:nth-child(2n+1),
-.ultimate-grid-column-3 a:nth-child(3n+1),
-.ultimate-grid-column-4 a:nth-child(4n+1),
-.ultimate-grid-column-5 a:nth-child(5n+1),
-.ultimate-grid-column-6 a:nth-child(6n+1),
-.ultimate-grid-column-7 a:nth-child(7n+1),
-.ultimate-grid-column-8 a:nth-child(8n+1),
-.ultimate-grid-column-9 a:nth-child(9n+1) {
+.king-grid-column-1 a:nth-child(1n+1),
+.king-grid-column-2 a:nth-child(2n+1),
+.king-grid-column-3 a:nth-child(3n+1),
+.king-grid-column-4 a:nth-child(4n+1),
+.king-grid-column-5 a:nth-child(5n+1),
+.king-grid-column-6 a:nth-child(6n+1),
+.king-grid-column-7 a:nth-child(7n+1),
+.king-grid-column-8 a:nth-child(8n+1),
+.king-grid-column-9 a:nth-child(9n+1) {
     clear: left;
 }
-.ultimate-grid-column-1 a:nth-child(1n+0),
-.ultimate-grid-column-2 a:nth-child(2n+0),
-.ultimate-grid-column-3 a:nth-child(3n+0),
-.ultimate-grid-column-4 a:nth-child(4n+0),
-.ultimate-grid-column-5 a:nth-child(5n+0),
-.ultimate-grid-column-6 a:nth-child(6n+0),
-.ultimate-grid-column-7 a:nth-child(7n+0),
-.ultimate-grid-column-8 a:nth-child(8n+0),
-.ultimate-grid-column-9 a:nth-child(9n+0) {
+.king-grid-column-1 a:nth-child(1n+0),
+.king-grid-column-2 a:nth-child(2n+0),
+.king-grid-column-3 a:nth-child(3n+0),
+.king-grid-column-4 a:nth-child(4n+0),
+.king-grid-column-5 a:nth-child(5n+0),
+.king-grid-column-6 a:nth-child(6n+0),
+.king-grid-column-7 a:nth-child(7n+0),
+.king-grid-column-8 a:nth-child(8n+0),
+.king-grid-column-9 a:nth-child(9n+0) {
     clear: right;
     margin-right: 0 !important;
 }
@@ -1983,21 +1984,21 @@ footer[role="contentinfo"] .footer-bottom-container {
 *
 *  Page Title Header & Breadcrumb */
 /* Page Header */
-.ultimate-container:before,
-.ultimate-container:after {
+.king-container:before,
+.king-container:after {
 	content: " ";
 	display: table;
 }
-.ultimate-container:after {
+.king-container:after {
 	clear: both;
 }
-.ultimate-container {
+.king-container {
 	max-width: 1170px;
 	margin: 0 auto;
 	padding-left: 15px;
 	padding-right: 15px;
 }
-.ultimate-page-header {
+.king-page-header {
 	position: relative;
 	display: block;
 	background: #f7f7f7;
@@ -2009,7 +2010,7 @@ footer[role="contentinfo"] .footer-bottom-container {
 	font-size: 17px;
 	line-height: 3.5em;
 }
-.ultimate-page-header .ultimate-breadcrumb-title h3 {
+.king-page-header .king-breadcrumb-title h3 {
 	color: #333333;
 	font-size: 17px;
 	font-weight: normal;
@@ -2018,14 +2019,14 @@ footer[role="contentinfo"] .footer-bottom-container {
 	margin: 0;
 	padding: 0;
 }
-.ultimate-page-header .ultimate-breadcrumb * {
+.king-page-header .king-breadcrumb * {
 	font-size: 13px;
 	font-weight: normal;
 	line-height: inherit;
 	margin: 0;
 	padding: 0;
 }
-.ultimate-breadcrumb .fa-home:before {
+.king-breadcrumb .fa-home:before {
 	display: inline-block;
 	font: normal normal normal 14px/1 FontAwesome;
 	font-size: inherit;
@@ -2041,7 +2042,7 @@ body #main {
 	padding-right: 15px;
 }
 /*VC Compatibility*/
-.js_active .page-template-ultimate-full-width #main {
+.js_active .page-template-king-full-width #main {
 	width: 100% !important;
 	max-width: 100% !important;
 	display: block;
@@ -2058,7 +2059,7 @@ body #main {
 	padding-right: 0;
 	margin-top: 0;
 }
-body.page-template-ultimate-full-width .site-content .entry-content > .vc_row {
+body.page-template-king-full-width .site-content .entry-content > .vc_row {
 	margin-left: 0;
 	margin-right: 0;
 }
@@ -2093,7 +2094,7 @@ body.page-template-ultimate-full-width .site-content .entry-content > .vc_row {
 */
 /* Fluid Layout */
 .fluid .header-box,
-.fluid .ultimate-container,
+.fluid .king-container,
 .fluid #main,
 .fluid .main-footer .footer-widget-area,
 .fluid footer#colophon .footer-bottom-container {
@@ -2109,13 +2110,13 @@ body.page-template-ultimate-full-width .site-content .entry-content > .vc_row {
 	overflow: visible;
 }
 /* Ultiamte Pagination */
-.ultimate-pagination {
+.king-pagination {
     display: block;
     width: 100%;
     margin: 15px 0;
 }
-.ultimate-pagination a,
-.ultimate-pagination .current {
+.king-pagination a,
+.king-pagination .current {
     display: inline-block;
 	font-size: 14px;
 	width: 2.5em;
@@ -2132,17 +2133,17 @@ body.page-template-ultimate-full-width .site-content .entry-content > .vc_row {
 	-moz-transition: all 250ms linear;
 	transition: all 250ms linear;
 }
-.ultimate-pagination a.inactive,
-.ultimate-pagination a.paginate-next,
-.ultimate-pagination a.paginate-last {
+.king-pagination a.inactive,
+.king-pagination a.paginate-next,
+.king-pagination a.paginate-last {
 	color: #fff;
 }
-.ultimate-pagination a:hover {
+.king-pagination a:hover {
 	border: 1px solid #DDDDDD;
 	background: #F1F1F1;
 	color: #707070;
 } 
-.ultimate-pagination .current {
+.king-pagination .current {
 	opacity: 0.8;
 	cursor: not-allowed;
 }
@@ -2290,7 +2291,7 @@ body.page-template-ultimate-full-width .site-content .entry-content > .vc_row {
 	background-attachment: scroll;
 }
 /* Ultiamte Landing Page Widget*/
-.js_active .page-template-ultimate-landing-page #main {
+.js_active .page-template-king-landing-page #main {
 	width: 100% !important;
 	max-width: 100% !important;
 	display: block;
@@ -2307,7 +2308,7 @@ body.page-template-ultimate-full-width .site-content .entry-content > .vc_row {
 	padding-right: 0;
 	margin-top: 0;
 }
-body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row {
+body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	margin-left: 0;
 	margin-right: 0;
 }
@@ -2385,7 +2386,7 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 		right: auto;
 		max-width: 1170px;
 	}
-	.ultimate-page-header + #main {
+	.king-page-header + #main {
 		padding-top: 0 !important;
 	}
 	/* Transparent Menu */
@@ -2446,7 +2447,7 @@ body.page-template-ultimate-landing-page .site-content .entry-content > .vc_row 
 		width: 75%;
 	}
 	.no-sidebar #primary,
-	.page-template-ultimate-full-width #primary,
+	.page-template-king-full-width #primary,
 	.page-template-front-page #primary {
 		width: 100%;
 	}

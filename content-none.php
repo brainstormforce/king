@@ -3,8 +3,8 @@
  * The template for displaying a "No posts found" message
  *
  * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
+ * @subpackage King
+ * @since King 1.0
  */
 ?>
 
@@ -12,11 +12,11 @@
 <?php ult_entry_top(); ?>
 
 	<header class="entry-header">
-		<h1 class="entry-title"><?php _e( 'Nothing Found', 'ultimate' ); ?></h1>
+		<h1 class="entry-title"><?php _e( 'Nothing Found', 'king' ); ?></h1>
 	</header>
 
 	<div class="entry-content">
-		<p><?php _e( 'Apologies, but no results were found. Perhaps searching will help find a related post.', 'ultimate' ); ?></p>
+		<p><?php _e( 'Apologies, but no results were found. Perhaps searching will help find a related post.', 'king' ); ?></p>
 		<?php get_search_form(); ?>
 	</div><!-- .entry-content -->
 

@@ -40,11 +40,11 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 		if ( ! empty( $item->_invalid ) ) {
 			$classes[] = 'menu-item-invalid';
 			/* translators: %s: title of menu item which is invalid */
-			$title = sprintf( __( '%s (Invalid)', 'ultimate' ), $item->title );
+			$title = sprintf( __( '%s (Invalid)', 'king' ), $item->title );
 		} elseif ( isset( $item->post_status ) && 'draft' == $item->post_status ) {
 			$classes[] = 'pending';
 			/* translators: %s: title of menu item in draft status */
-			$title = sprintf( __('%s (Pending)', 'ultimate'), $item->title );
+			$title = sprintf( __('%s (Pending)', 'king'), $item->title );
 		}
 
 		$title = ( ! isset( $item->label ) || '' == $item->label ) ? $title : $item->label;
@@ -57,11 +57,11 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 		<li id="menu-item-<?php echo $item_id; ?>" class="<?php echo implode(' ', $classes ); ?>">
 			<dl class="menu-item-bar">
 				<dt class="menu-item-handle">
-					<span class="item-title"><span class="menu-item-title"><?php echo esc_html( $title ); ?></span> <span class="is-submenu" <?php echo $submenu_text; ?>><?php _e( 'sub item', 'ultimate' ); ?></span></span>
+					<span class="item-title"><span class="menu-item-title"><?php echo esc_html( $title ); ?></span> <span class="is-submenu" <?php echo $submenu_text; ?>><?php _e( 'sub item', 'king' ); ?></span></span>
 					<span class="item-controls">
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
-						<span class="item-type show-if-mega-menu-top"><?php echo __('Mega Menu', 'ultimate') ?></span>
-						<span class="item-type show-if-mega-menu-column"><?php echo __('Column', 'ultimate') ?></span>
+						<span class="item-type show-if-mega-menu-top"><?php echo __('Mega Menu', 'king') ?></span>
+						<span class="item-type show-if-mega-menu-column"><?php echo __('Column', 'king') ?></span>
 						<span class="item-type hide-if-mega-menu-top hide-if-mega-menu-column"><?php echo esc_html($item->type_label) ?></span>
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 						<span class="item-order hide-if-js">
@@ -76,7 +76,7 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 									),
 									'move-menu_item'
 								);
-							?>" class="item-move-up"><abbr title="<?php esc_attr_e('Move up', 'ultimate'); ?>">&#8593;</abbr></a>
+							?>" class="item-move-up"><abbr title="<?php esc_attr_e('Move up', 'king'); ?>">&#8593;</abbr></a>
 							|
 							<a href="<?php
 								echo wp_nonce_url(
@@ -93,7 +93,7 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 						</span>
 						<a class="item-edit" id="edit-<?php echo $item_id; ?>" title="<?php esc_attr_e('Edit Menu Item'); ?>" href="<?php
 							echo ( isset( $_GET['edit-menu-item'] ) && $item_id == $_GET['edit-menu-item'] ) ? admin_url( 'nav-menus.php' ) : add_query_arg( 'edit-menu-item', $item_id, remove_query_arg( $removed_args, admin_url( 'nav-menus.php#menu-item-settings-' . $item_id ) ) );
-						?>"><?php _e( 'Edit Menu Item', 'ultimate' ); ?></a>
+						?>"><?php _e( 'Edit Menu Item', 'king' ); ?></a>
 					</span>
 				</dt>
 			</dl>
@@ -104,7 +104,7 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 					<p class="field-url description description-wide hide-if-mega-menu-column">
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 						<label for="edit-menu-item-url-<?php echo $item_id; ?>">
-							<?php _e( 'URL', 'ultimate' ); ?><br />
+							<?php _e( 'URL', 'king' ); ?><br />
 							<input type="text" id="edit-menu-item-url-<?php echo $item_id; ?>" class="widefat code edit-menu-item-url" name="menu-item-url[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->url ); ?>" />
 						</label>
 					</p>
@@ -113,7 +113,7 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 				<p class="description description-thin hide-if-mega-menu-column hide-if-mega-menu-item">
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 					<label for="edit-menu-item-title-<?php echo $item_id; ?>">
-						<?php _e( 'Navigation Label', 'ultimate' ); ?><br />
+						<?php _e( 'Navigation Label', 'king' ); ?><br />
 						<input type="text" id="edit-menu-item-title-<?php echo $item_id; ?>" class="widefat edit-menu-item-title" name="menu-item-title[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->title ); ?>" />
 					</label>
 				</p>
@@ -121,7 +121,7 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 				<p class="description description-thin hide-if-mega-menu-column hide-if-mega-menu-item">
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 					<label for="edit-menu-item-attr-title-<?php echo $item_id; ?>">
-						<?php _e( 'Title Attribute', 'ultimate' ); ?><br />
+						<?php _e( 'Title Attribute', 'king' ); ?><br />
 						<input type="text" id="edit-menu-item-attr-title-<?php echo $item_id; ?>" class="widefat edit-menu-item-attr-title" name="menu-item-attr-title[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->post_excerpt ); ?>" />
 					</label>
 				</p>
@@ -130,14 +130,14 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 					<label for="edit-menu-item-target-<?php echo $item_id; ?>">
 						<input type="checkbox" id="edit-menu-item-target-<?php echo $item_id; ?>" value="_blank" name="menu-item-target[<?php echo $item_id; ?>]"<?php checked( $item->target, '_blank' ); ?> />
-						<?php _e( 'Open link in a new window/tab', 'ultimate' ); ?>
+						<?php _e( 'Open link in a new window/tab', 'king' ); ?>
 					</label>
 				</p>
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 				<p class="field-css-classes description description-thin hide-if-mega-menu-column">
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 					<label for="edit-menu-item-classes-<?php echo $item_id; ?>">
-						<?php _e( 'CSS Classes (optional)', 'ultimate' ); ?><br />
+						<?php _e( 'CSS Classes (optional)', 'king' ); ?><br />
 						<input type="text" id="edit-menu-item-classes-<?php echo $item_id; ?>" class="widefat code edit-menu-item-classes" name="menu-item-classes[<?php echo $item_id; ?>]" value="<?php echo esc_attr( implode(' ', $item->classes ) ); ?>" />
 					</label>
 				</p>
@@ -145,7 +145,7 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 				<p class="field-xfn description description-thin hide-if-mega-menu-column">
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 					<label for="edit-menu-item-xfn-<?php echo $item_id; ?>">
-						<?php _e( 'Link Relationship (XFN)', 'ultimate' ); ?><br />
+						<?php _e( 'Link Relationship (XFN)', 'king' ); ?><br />
 						<input type="text" id="edit-menu-item-xfn-<?php echo $item_id; ?>" class="widefat code edit-menu-item-xfn" name="menu-item-xfn[<?php echo $item_id; ?>]" value="<?php echo esc_attr( $item->xfn ); ?>" />
 					</label>
 				</p>
@@ -153,8 +153,8 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 <?php # Column ?>
 				<p class="description description-wide show-if-mega-menu-column show-if-mega-menu-item">
 					<label>
-						<span class="hide-if-mega-menu-item"><?php _e('Mega Menu Column Title', 'ultimate') ?></span>
-						<span class="hide-if-mega-menu-column"><?php _e('Item Title', 'ultimate') ?></span><br />
+						<span class="hide-if-mega-menu-item"><?php _e('Mega Menu Column Title', 'king') ?></span>
+						<span class="hide-if-mega-menu-column"><?php _e('Item Title', 'king') ?></span><br />
 						<?php // -------------------------- ?>
 						<?php // NOTE this is a post title! ?>
 						<?php // -------------------------- ?>
@@ -168,29 +168,29 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 				<p class="description description-wide show-if-mega-menu-column">
 					<label>
 						<input type="checkbox" name="<?php echo name_mega_menu_meta($item, 'new-row') ?>" <?php checked(get_mega_menu_meta($item, 'new-row')) ?> class="mega-menu-column-new-row" />
-						<?php _e('This column should start a new row', 'ultimate') ?>
+						<?php _e('This column should start a new row', 'king') ?>
 					</label>
 				</p>
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 				<p class="field-description description description-wide hide-if-mega-menu-column force-show-if-mega-menu-item">
 					<label for="edit-menu-item-description-<?php echo $item_id; ?>">
-						<?php _e( 'Description', 'ultimate' ); ?><br />
+						<?php _e( 'Description', 'king' ); ?><br />
 						<textarea id="edit-menu-item-description-<?php echo $item_id; ?>" class="widefat edit-menu-item-description" rows="3" cols="20" name="menu-item-description[<?php echo $item_id; ?>]"><?php echo esc_html( $item->description ); // textarea_escaped ?></textarea>
-						<span class="description"><?php _e('The description will be displayed in the menu if the current theme supports it.', 'ultimate'); ?></span>
+						<span class="description"><?php _e('The description will be displayed in the menu if the current theme supports it.', 'king'); ?></span>
 					</label>
 				</p>
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 <?php # Icon ?>
 				<p class="field-mega-menu-icon description description-wide empty">
 					<label>
-						<?php _e('Icon', 'ultimate') ?><br />
+						<?php _e('Icon', 'king') ?><br />
 						<a href="#" class="button" data-action="mega-menu-pick-icon">
 							<span class="inline-if-empty">Add Icon</span>
 							<span class="hide-if-empty">Edit Icon</span>
 						</a>&nbsp;
 						<span data-action="mega-menu-pick-icon" class="mega-menu-icon-frame hide-if-empty" style="position: relative;">
 							<i data-subject="mega-menu-icon-i"></i>
-							<a href="#" class="mega-menu-icon-remove dashicons ultimate-x" data-action="mega-menu-remove-icon" title="Remove Icon">&#xf153;</a>
+							<a href="#" class="mega-menu-icon-remove dashicons king-x" data-action="mega-menu-remove-icon" title="Remove Icon">&#xf153;</a>
 						</span>
 						<span class="mega-menu-icon-frame inline-if-empty" data-action="mega-menu-pick-icon"><i class="fa fa-lg fa-eye" style="position: relative; top: -1px;"></i></span>
 						<input type="hidden" name="<?php echo name_mega_menu_meta($item, 'icon') ?>" value="<?php echo esc_attr(get_mega_menu_meta($item, 'icon')) ?>" data-subject="mega-menu-icon-input" />
@@ -206,12 +206,12 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 				<p class="field-move hide-if-no-js description description-wide hide-if-mega-menu-column">
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 					<label>
-						<span><?php _e( 'Move', 'ultimate' ); ?></span>
-						<a href="#" class="menus-move-up"><?php _e( 'Up one', 'ultimate' ); ?></a>
-						<a href="#" class="menus-move-down"><?php _e( 'Down one', 'ultimate' ); ?></a>
+						<span><?php _e( 'Move', 'king' ); ?></span>
+						<a href="#" class="menus-move-up"><?php _e( 'Up one', 'king' ); ?></a>
+						<a href="#" class="menus-move-down"><?php _e( 'Down one', 'king' ); ?></a>
 						<a href="#" class="menus-move-left"></a>
 						<a href="#" class="menus-move-right"></a>
-						<a href="#" class="menus-move-top"><?php _e( 'To the top', 'ultimate' ); ?></a>
+						<a href="#" class="menus-move-top"><?php _e( 'To the top', 'king' ); ?></a>
 					</label>
 				</p>
 
@@ -220,7 +220,7 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 <?php # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ?>
 					<?php if( 'custom' != $item->type && $original_title !== false ) : ?>
 						<p class="link-to-original hide-if-mega-menu-column">
-							<?php printf( __('Original: %s', 'ultimate'), '<a href="' . esc_attr( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
+							<?php printf( __('Original: %s', 'king'), '<a href="' . esc_attr( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
 						</p>
 					<?php endif; ?>
 					<a class="item-delete submitdelete deletion" id="delete-<?php echo $item_id; ?>" href="<?php
@@ -233,8 +233,8 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 							admin_url( 'nav-menus.php' )
 						),
 						'delete-menu_item_' . $item_id
-					); ?>"><?php _e( 'Remove', 'ultimate' ); ?></a> <span class="meta-sep hide-if-no-js"> | </span> <a class="item-cancel submitcancel hide-if-no-js" id="cancel-<?php echo $item_id; ?>" href="<?php echo esc_url( add_query_arg( array( 'edit-menu-item' => $item_id, 'cancel' => time() ), admin_url( 'nav-menus.php' ) ) );
-						?>#menu-item-settings-<?php echo $item_id; ?>"><?php _e('Cancel', 'ultimate'); ?></a>
+					); ?>"><?php _e( 'Remove', 'king' ); ?></a> <span class="meta-sep hide-if-no-js"> | </span> <a class="item-cancel submitcancel hide-if-no-js" id="cancel-<?php echo $item_id; ?>" href="<?php echo esc_url( add_query_arg( array( 'edit-menu-item' => $item_id, 'cancel' => time() ), admin_url( 'nav-menus.php' ) ) );
+						?>#menu-item-settings-<?php echo $item_id; ?>"><?php _e('Cancel', 'king'); ?></a>
 				</div>
 
 				<input class="menu-item-data-db-id" type="hidden" name="menu-item-db-id[<?php echo $item_id; ?>]" value="<?php echo $item_id; ?>" />
@@ -311,13 +311,13 @@ function update_mega_menu_meta($post, array $array)
 add_action('admin_enqueue_scripts','ult_megamenu_scripts');
 function ult_megamenu_scripts($hook){
 	if($hook == "nav-menus.php"){
-		$ultimate_admin_url = get_template_directory_uri() . '/inc/admin/assets/';
-		wp_enqueue_script('ult-backend-options', $ultimate_admin_url.'js/backend-options.js','','',true);
-		wp_enqueue_script('ult-fw-events', $ultimate_admin_url.'js/fw-events.js','','',true);
-		wp_enqueue_script('ult-option-types', $ultimate_admin_url.'js/option-types.js','','',true);
-		wp_enqueue_script('ult-fw', $ultimate_admin_url.'js/fw.js','','',true);
-		wp_enqueue_script('ult-admin', $ultimate_admin_url.'js/admin.js','','',true);
-		wp_enqueue_style('ult-admin', $ultimate_admin_url.'css/admin.css');
+		$king_admin_url = get_template_directory_uri() . '/inc/admin/assets/';
+		wp_enqueue_script('ult-backend-options', $king_admin_url.'js/backend-options.js','','',true);
+		wp_enqueue_script('ult-fw-events', $king_admin_url.'js/fw-events.js','','',true);
+		wp_enqueue_script('ult-option-types', $king_admin_url.'js/option-types.js','','',true);
+		wp_enqueue_script('ult-fw', $king_admin_url.'js/fw.js','','',true);
+		wp_enqueue_script('ult-admin', $king_admin_url.'js/admin.js','','',true);
+		wp_enqueue_style('ult-admin', $king_admin_url.'css/admin.css');
 
 		wp_localize_script('ult-fw', '_fw_localized', array(
 			'SITE_URI' => site_url(),

@@ -3,8 +3,8 @@
  * The Template for displaying all single posts
  *
  * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
+ * @subpackage King
+ * @since King 1.0
  */
 get_header(); ?>
 <?php ult_content_before(); ?>

@@ -1,6 +1,6 @@
 <?php
-if(!function_exists("ultimate_breadcrumb")){
-	function ultimate_breadcrumb() {
+if(!function_exists("king_breadcrumb")){
+	function king_breadcrumb() {
 	
 		/* Set up the arguments for the breadcrumb. */
 	
@@ -237,7 +237,7 @@ if(!function_exists("ultimate_breadcrumb")){
 	
 			if ( bbp_is_single_user_edit() ) {
 				$item[] = '<span typeof="v:Breadcrumb"><a rel="v:url" property="v:title" href="' . bbp_get_user_profile_url() . '">' . bbp_get_displayed_user_field( 'display_name' ) . '</a></span>';
-				$item[] = __( 'Edit', 'ultimate');
+				$item[] = __( 'Edit', 'king');
 			} else {
 				$item[] = bbp_get_displayed_user_field( 'display_name' );
 			}

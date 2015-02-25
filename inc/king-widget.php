@@ -1,17 +1,17 @@
 <?php 
 /**
- * Adds Ultimate_Front_Page_Widget widget.
+ * Adds King_Front_Page_Widget widget.
  */
-class Ultimate_Front_Page_Widget extends WP_Widget {
+class King_Front_Page_Widget extends WP_Widget {
 
 	/**
 	 * Register widget with WordPress.
 	 */
 	function __construct() {
 		parent::__construct(
-			'ultimate_front_page_widget', // Base ID
-			__( 'Ultimate Page Select', 'ultimate' ), // Name
-			array( 'description' => __( 'Display content of selected page.', 'ultimate' ), ) // Args
+			'king_front_page_widget', // Base ID
+			__( 'King Page Select', 'king' ), // Name
+			array( 'description' => __( 'Display content of selected page.', 'king' ), ) // Args
 		);
 	}
 
@@ -32,9 +32,9 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 
 
 		// Check values		
-		$title =  isset( $instance['title'] ) ? apply_filters('widget_title', $instance['title']) : __( '', 'ultimate' );
-		$selectbox = isset( $instance['selectbox'] ) ? $instance['selectbox'] : __( '', 'ultimate' );	
-		$image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'ultimate' );
+		$title =  isset( $instance['title'] ) ? apply_filters('widget_title', $instance['title']) : __( '', 'king' );
+		$selectbox = isset( $instance['selectbox'] ) ? $instance['selectbox'] : __( '', 'king' );	
+		$image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'king' );
 
 	   // Display the widget
 	   echo $before_widget;
@@ -70,7 +70,7 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 							$widget_bg_image = esc_url($instance['image']);
 						}
 						else if( has_post_thumbnail() ) { 
-							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'ultimate' ); 
+							$featured_image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'king' ); 
 							$widget_bg_image = $featured_image[0];
 						}
 						else if ( $image && has_post_thumbnail() ) {
@@ -101,20 +101,20 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 	public function form( $instance ) {
 		
 		// Check values		
-		$title = isset( $instance['title'] ) ? $instance['title'] : __( '', 'ultimate' );
-		$selectbox = isset( $instance['selectbox'] ) ? $instance['selectbox'] : __( '', 'ultimate' );	
-		$image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'ultimate' );	
+		$title = isset( $instance['title'] ) ? $instance['title'] : __( '', 'king' );
+		$selectbox = isset( $instance['selectbox'] ) ? $instance['selectbox'] : __( '', 'king' );	
+		$image = isset( $instance['image'] ) ? $instance['image'] : __( '', 'king' );	
 
-		$background = isset( $instance['background'] ) ? $instance['background'] : __( '', 'ultimate' );	
+		$background = isset( $instance['background'] ) ? $instance['background'] : __( '', 'king' );	
 		?>
 
 		<p>
-		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title', 'ultimate'); ?></label>
+		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Widget Title', 'king'); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 
 		<p>
-		<label for="<?php echo $this->get_field_id('selectbox'); ?>"><?php _e('Select Page', 'ultimate'); ?></label>
+		<label for="<?php echo $this->get_field_id('selectbox'); ?>"><?php _e('Select Page', 'king'); ?></label>
 		<select name="<?php echo $this->get_field_name('selectbox'); ?>" id="<?php echo $this->get_field_id('selectbox'); ?>" class="widefat">
 		<?php
 		global $post;
@@ -128,11 +128,11 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 		</p>
 
 		<p>
-		<label for="<?php echo $this->get_field_id('background'); ?>"><?php _e('Select Background', 'ultimate'); ?></label>
+		<label for="<?php echo $this->get_field_id('background'); ?>"><?php _e('Select Background', 'king'); ?></label>
 		<select name="<?php echo $this->get_field_name('background'); ?>" id="<?php // echo $this->get_field_id('background'); ?>pratik" class="widefat">
-			<option id="bgnone" value="bgnone" <?php if($background == 'bgnone') { echo 'selected="selected"'; }?>><?php _e('None', 'ultimate'); ?></option>
-			<option id="bgimage" value="bgimage" <?php if($background == 'bgimage') { echo 'selected="selected"'; }?>><?php _e('Image', 'ultimate'); ?></option>
-			<option id="bgcolor" value="bgcolor" <?php if($background == 'bgcolor') { echo 'selected="selected"'; }?>><?php _e('Color', 'ultimate'); ?></option>
+			<option id="bgnone" value="bgnone" <?php if($background == 'bgnone') { echo 'selected="selected"'; }?>><?php _e('None', 'king'); ?></option>
+			<option id="bgimage" value="bgimage" <?php if($background == 'bgimage') { echo 'selected="selected"'; }?>><?php _e('Image', 'king'); ?></option>
+			<option id="bgcolor" value="bgcolor" <?php if($background == 'bgcolor') { echo 'selected="selected"'; }?>><?php _e('Color', 'king'); ?></option>
 		</select>
 		</p>
 
@@ -144,11 +144,11 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
         <label for="<?php echo $this->get_field_id('image'); ?>">Background Image</label><br />
 		<?php
 		if ( $image != '' ) {
-		echo '<img class="ultimate_media_image" src="' . $image . '" style="margin:10px 0;padding:0;max-width:100%;float:left;display:inline-block" /><br />';
+		echo '<img class="king_media_image" src="' . $image . '" style="margin:10px 0;padding:0;max-width:100%;float:left;display:inline-block" /><br />';
 		}
 		?>
-		<input type="text" class="widefat ultimate_media_url" name="<?php echo $this->get_field_name('image'); ?>" id="<?php echo $this->get_field_id('image'); ?>" value="<?php echo $image; ?>" style="display: none;">
-		<input type="button" class="button button-primary ultimate_media_button" id="ultimate_media_button" name="<?php echo $this->get_field_name('image'); ?>" value="Upload Image" style="margin-top:5px;" />
+		<input type="text" class="widefat king_media_url" name="<?php echo $this->get_field_name('image'); ?>" id="<?php echo $this->get_field_id('image'); ?>" value="<?php echo $image; ?>" style="display: none;">
+		<input type="button" class="button button-primary king_media_button" id="king_media_button" name="<?php echo $this->get_field_name('image'); ?>" value="Upload Image" style="margin-top:5px;" />
 		</p>
 
 		<?php
@@ -173,23 +173,23 @@ class Ultimate_Front_Page_Widget extends WP_Widget {
 		return $instance;
 	}
 
-} // class Ultimate_Front_Page_Widget
+} // class King_Front_Page_Widget
 
-// register Ultimate_Front_Page_Widget widget
-function ultimate_register_page_select_widget() {
-    register_widget( 'Ultimate_Front_Page_Widget' );
+// register King_Front_Page_Widget widget
+function king_register_page_select_widget() {
+    register_widget( 'King_Front_Page_Widget' );
 }
-add_action( 'widgets_init', 'ultimate_register_page_select_widget' );
+add_action( 'widgets_init', 'king_register_page_select_widget' );
 
 // add admin scripts
-add_action('admin_enqueue_scripts', 'ultimate_widget_script');
-function ultimate_widget_script() {
+add_action('admin_enqueue_scripts', 'king_widget_script');
+function king_widget_script() {
     wp_enqueue_media();
 	wp_enqueue_style('thickbox');
 	wp_enqueue_script('media-upload');
 	wp_enqueue_script('thickbox');
-    wp_register_script( 'ultimate-widget-script', get_template_directory_uri() . '/inc/js/jquery.colorbox.min.js', false, '1.0.0', true );
-	wp_enqueue_script( 'ultimate-widget-script' );
+    wp_register_script( 'king-widget-script', get_template_directory_uri() . '/inc/js/jquery.colorbox.min.js', false, '1.0.0', true );
+	wp_enqueue_script( 'king-widget-script' );
 }
 
 ?>

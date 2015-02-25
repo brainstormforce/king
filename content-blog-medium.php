@@ -5,8 +5,8 @@
  * Used for Grid Layouts
  *
  * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
+ * @subpackage King
+ * @since King 1.0
  */
 ?>
 <?php
@@ -15,15 +15,15 @@
 		$cls_big = 'col-lg-8 col-md-8 col-sm-8 col-xs-12';
 		$cls_small = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
 	}
-	elseif( ultimate_post_video() && has_post_format('video') ) {
+	elseif( king_post_video() && has_post_format('video') ) {
 		$cls_big = 'col-lg-8 col-md-8 col-sm-8 col-xs-12';
 		$cls_small = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
 	}
-	elseif( ultimate_post_audio() && has_post_format('audio') ) {
+	elseif( king_post_audio() && has_post_format('audio') ) {
 		$cls_big = 'col-lg-8 col-md-8 col-sm-8 col-xs-12';
 		$cls_small = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
 	}
-	elseif( has_post_thumbnail() || ultimate_post_social() ){
+	elseif( has_post_thumbnail() || king_post_social() ){
 		$cls_big = 'col-lg-8 col-md-8 col-sm-8 col-xs-12';
 		$cls_small = 'col-lg-4 col-md-4 col-sm-4 col-xs-12';
 	} 
@@ -37,22 +37,22 @@
 
 	<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
 		<div class="featured-post">
-			<h2><?php _e( 'Featured Post', 'ultimate' ); ?></h2>
+			<h2><?php _e( 'Featured Post', 'king' ); ?></h2>
 		</div>
 	<?php endif; ?>
 
-	<?php if( has_post_thumbnail() || ultimate_post_social() || has_shortcode($post->post_content, 'gallery') || ultimate_post_video() || ultimate_post_audio() ) : ?>
+	<?php if( has_post_thumbnail() || king_post_social() || has_shortcode($post->post_content, 'gallery') || king_post_video() || king_post_audio() ) : ?>
 		<header class="entry-header <?php echo $cls_small; ?>">
 			<?php if ( has_shortcode($post->post_content, 'gallery') && has_post_format('gallery') ) : ?>
 				<div class="blog-featured-media">
 					<?php get_post_gallery( $post, true ); ?>
 				</div>
-			<?php elseif ( ultimate_post_video() && has_post_format('video') ) : ?>
-				<?php echo ultimate_post_video(); ?>
-			<?php elseif ( ultimate_post_audio() && has_post_format('audio') ) : ?>
-				<?php echo ultimate_post_audio(); ?>
-			<?php elseif ( ultimate_post_social() ) : ?>
-				<?php echo ultimate_post_social(); ?>
+			<?php elseif ( king_post_video() && has_post_format('video') ) : ?>
+				<?php echo king_post_video(); ?>
+			<?php elseif ( king_post_audio() && has_post_format('audio') ) : ?>
+				<?php echo king_post_audio(); ?>
+			<?php elseif ( king_post_social() ) : ?>
+				<?php echo king_post_social(); ?>
 			<?php elseif ( has_post_thumbnail() ) : ?>
 				<div class="blog-featured-media">
 					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail('medium-image-blog'); ?></a>
