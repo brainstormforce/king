@@ -9,7 +9,7 @@
 ?>
 
 <article id="post-0" class="post no-results not-found">
-<?php ult_entry_top(); ?>
+<?php king_entry_top(); ?>
 
 	<header class="entry-header">
 		<h1 class="entry-title"><?php _e( 'Nothing Found', 'king' ); ?></h1>
@@ -20,5 +20,5 @@
 		<?php get_search_form(); ?>
 	</div><!-- .entry-content -->
 
-<?php ult_entry_bottom(); ?>	
+<?php king_entry_bottom(); ?>	
 </article><!-- #post-0 -->

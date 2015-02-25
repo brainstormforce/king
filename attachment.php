@@ -9,18 +9,18 @@
  * @since King 1.0
  */
 get_header(); ?>
-<?php ult_content_before(); ?>
+<?php king_content_before(); ?>
 <div id="primary" class="site-content">
 
-	<?php ult_content_top(); ?>
+	<?php king_content_top(); ?>
 	<div id="content" role="main">	
 
 		<?php while ( have_posts() ) : the_post(); ?>
 
-			<?php ult_entry_before(); ?>
+			<?php king_entry_before(); ?>
 
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'image-attachment' ); ?>>
-				<?php ult_entry_top(); ?>
+				<?php king_entry_top(); ?>
 
 					<header class="entry-header">
 						<h1 class="entry-title"><?php the_title(); ?></h1>
@@ -45,18 +45,18 @@ get_header(); ?>
 						</div><!-- .entry-description -->
 					</div><!-- .entry-content -->
 
-				<?php ult_entry_bottom(); ?>
+				<?php king_entry_bottom(); ?>
 				</article><!-- #post -->
 
-				<?php ult_entry_after(); ?>
+				<?php king_entry_after(); ?>
 			
 			<?php comments_template( '', true ); ?>			
 
 		<?php endwhile; // end of the loop. ?>
 	
 	</div><!-- #content -->
-	<?php ult_content_bottom(); ?>	
+	<?php king_content_bottom(); ?>	
 
 </div><!-- #primary -->
-<?php ult_content_after(); ?>
+<?php king_content_after(); ?>
 <?php get_footer(); ?>

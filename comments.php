@@ -20,7 +20,7 @@
 if ( post_password_required() )
 	return;
 ?>
-<?php ult_comments_before(); ?>
+<?php king_comments_before(); ?>
 <div id="comments" class="comments-area">
 
 	<?php // You can start editing here -- including this comment! ?>
@@ -29,12 +29,12 @@ if ( post_password_required() )
 		<h2 class="comments-title">
 
 			<?php 
-				$ult_cmnt_no = get_comments_number();
-				$ult_cmnt_msg = (($ult_cmnt_no == 0 || $ult_cmnt_no == 1) ? 'REPLY' : 'REPLIES')
+				$king_cmnt_no = get_comments_number();
+				$king_cmnt_msg = (($king_cmnt_no == 0 || $king_cmnt_no == 1) ? 'REPLY' : 'REPLIES')
 			 ?>
-			<div class="ult-cmnt-circle">
-				<span class="ult-cmnt-number"><?php _e( number_format_i18n( get_comments_number()), 'king'); ?></span>
-				<span class="ult-cmnt-message"><?php echo $ult_cmnt_msg; ?></span>
+			<div class="king-cmnt-circle">
+				<span class="king-cmnt-number"><?php _e( number_format_i18n( get_comments_number()), 'king'); ?></span>
+				<span class="king-cmnt-message"><?php echo $king_cmnt_msg; ?></span>
 			</div>
 
 		</h2>
@@ -64,4 +64,4 @@ if ( post_password_required() )
 	<?php comment_form(); ?>
 
 </div><!-- #comments .comments-area -->
-<?php ult_comments_after(); ?>
+<?php king_comments_after(); ?>

@@ -10,14 +10,14 @@
  */
 ?>
 
-<?php ult_sidebars_before(); ?>
+<?php king_sidebars_before(); ?>
 
 	<?php if ( is_active_sidebar( 'sidebar-1' ) ) : ?>
 		<div id="secondary" class="widget-area" role="complementary">
-			<?php ult_sidebar_top(); ?>
+			<?php king_sidebar_top(); ?>
 				<?php dynamic_sidebar( 'sidebar-1' ); ?>
-			<?php ult_sidebar_bottom(); ?>
+			<?php king_sidebar_bottom(); ?>
 		</div><!-- #secondary -->
 	<?php endif; ?>
 
-<?php ult_sidebars_after(); ?>
+<?php king_sidebars_after(); ?>

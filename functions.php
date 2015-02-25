@@ -64,7 +64,7 @@ function king_setup() {
 	load_theme_textdomain( 'king', get_template_directory() . '/language' );
 
 	// Declare support for all custom hooks
-	add_theme_support( 'ult_hooks', array( 'all' ) );
+	add_theme_support( 'king_hooks', array( 'all' ) );
 
 	// Woocommerce Support
 	add_theme_support( 'woocommerce' );
@@ -144,6 +144,10 @@ function king_scripts_styles() {
 	// Theme JavaScript	
 	wp_register_script( 'king-javascript', get_template_directory_uri() . '/inc/js/functions.js', array( 'jquery' ), '1.0.0', true );
 	wp_enqueue_script( 'king-javascript' );
+
+	// Menu CSS
+	wp_register_style( 'king-menu-css', get_template_directory_uri() . '/inc/css/menu.css', false, '1.0.0', 'all' );
+    wp_enqueue_style( 'king-menu-css' );
 	
 }
 add_action( 'wp_enqueue_scripts', 'king_scripts_styles' );
@@ -524,7 +528,7 @@ function king_body_class( $classes ) {
 	// If fixed menu
 	$fixed_header = get_theme_mod( 'site_fixed_header' );
 	if($fixed_header) :
-		$classes[] = 'ult-fixed-menu';
+		$classes[] = 'king-fixed-menu';
 	endif;
 
 	return $classes;
@@ -637,7 +641,7 @@ function king_scroll_to_top() {
 		  });
 		});
 	</script>
-	<a class="ult-scroll-top" href="#page"><span class="fa fa-angle-up"></span></a>
+	<a class="king-scroll-top" href="#page"><span class="fa fa-angle-up"></span></a>
 	<!--End Smooth Scroll-->
 <?php
 }
@@ -672,21 +676,6 @@ function custom_customize_enqueue() {
 		  </style>';
 }
 add_action( 'customize_controls_enqueue_scripts', 'custom_customize_enqueue' );
-
-
-
-
-
-
-// Temporary
-
-function wpt_register_css() {
-
-    wp_register_style( 'supriya.css', get_template_directory_uri() . '/inc/css/supriya.css' );
-    wp_enqueue_style( 'supriya.css' );
-}
-add_action( 'wp_enqueue_scripts', 'wpt_register_css' );
-
 
 
 // Post Meta
@@ -771,7 +760,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			echo '</div>';
 		endif;
 	}
-	add_action('ult_entry_bottom', 'king_post_meta', 10, 1);
+	add_action('king_entry_bottom', 'king_post_meta', 10, 1);
 endif;
 
 // Remove Post Meta From Pages, 404, Grid Blog layout
@@ -780,12 +769,12 @@ if ( ! function_exists( 'king_remove_post_meta' ) ) :
 		$blog_layout = get_theme_mod('blog_layout');
 		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 			if (is_search() || is_home() || is_archive()) :
-				remove_action('ult_entry_bottom', 'king_post_meta');
+				remove_action('king_entry_bottom', 'king_post_meta');
 			endif;
 		endif;
 
 		if (is_page()) :
-			remove_action('ult_entry_bottom', 'king_post_meta');
+			remove_action('king_entry_bottom', 'king_post_meta');
 		endif;
 	}
 	add_action( 'wp', 'king_remove_post_meta' );
@@ -827,11 +816,6 @@ function king_post_video() {
 
 	if ( preg_match('/\[(\[?)(video)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)/', $post->post_content, $matches)) {
 		$html .= do_shortcode($matches[0]);	
-	}
-	elseif ( preg_match('/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches)) {
-		$html .= '<iframe class="ultiamte-iframe" width="1280" height="720" src="';
-		$html .= $matches[1];
-		$html .= '" frameborder="0" allowfullscreen></iframe>';
 	}
 	elseif ( 
 			preg_match('#https?://wordpress.tv/.*#i', $post->post_content, $matches) ||
@@ -878,12 +862,7 @@ if ( ! function_exists( 'king_post_audio' ) ) :
 
 		$html = '';
 
-		if ( preg_match( '/<iframe.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches ) ) {
-			$html .= '<iframe class="ultiamte-audio-iframe" width="100%" height="350" src="';
-			$html .= $matches[1];
-			$html .= '" scrolling="no" frameborder="no"></iframe>';
-		}
-		elseif ( 
+		if ( 
 				preg_match('#https?://(www\.)?mixcloud\.com/.*#i', $post->post_content, $matches) ||
 				preg_match('#https?://(www\.)?rdio\.com/.*#i', $post->post_content, $matches) ||
 				preg_match('#https?://rd\.io/x/.*#i', $post->post_content, $matches) ||
@@ -945,7 +924,7 @@ if ( ! function_exists( 'king_sidebar_position' ) ) :
 		if ($sidebar_pos != 'no-sidebar') :
 
 			if ( !is_page_template( 'page-templates/king-full-width.php' ) && !is_page_template( 'page-templates/front-page.php' )) :
-				add_action('ult_content_after','get_sidebar', 10, 1);
+				add_action('king_content_after','get_sidebar', 10, 1);
 			endif;
 
 		endif;
@@ -960,7 +939,7 @@ if ( ! function_exists( 'king_favicon' ) ) :
 		if ($favicom_image)
 		echo '<link rel="icon" href="'. get_theme_mod( 'favicon-img' ) .'" type="image/x-png"/>';
 	}
-	add_action('ult_head_bottom', 'king_favicon');
+	add_action('king_head_bottom', 'king_favicon');
 endif;
 
 // Custom CSS
@@ -1001,7 +980,7 @@ if ( ! function_exists( 'king_single_post_navigation' ) ) :
 		<?php endif; ?>
 		<?php
 	} 
-	add_action('ult_entry_after', 'king_single_post_navigation');
+	add_action('king_entry_after', 'king_single_post_navigation');
 endif;
 
 // Header Text on Archive Pages
@@ -1072,7 +1051,7 @@ if ( ! function_exists( 'king_archive_header_text' ) ) :
 
 		<?php
 	}	
-	add_action('ult_content_top', 'king_archive_header_text');
+	add_action('king_content_top', 'king_archive_header_text');
 endif;
 
 // Pagination Position 
@@ -1082,7 +1061,7 @@ if ( ! function_exists( 'king_pagination_position' ) ) :
 			<?php king_pagination(); ?>
 		<?php endif;
 	}	
-	add_action('ult_content_bottom', 'king_pagination_position');
+	add_action('king_content_bottom', 'king_pagination_position');
 endif;
 
 // Header Layout
@@ -1099,7 +1078,7 @@ if ( ! function_exists( 'king_header_layout' ) ) :
 			get_header('style1');
 		}
 	}	
-	add_action('ult_header_bottom', 'king_header_layout');
+	add_action('king_header_bottom', 'king_header_layout');
 endif;
 
 // Title & Breadcrumb Bar
@@ -1151,7 +1130,7 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 			<?php endif; ?>
 		<?php 
 	}	
-	add_action('ult_header_after', 'king_title_breadcrumb_bar');
+	add_action('king_header_after', 'king_title_breadcrumb_bar');
 endif;
 
 
@@ -1184,7 +1163,7 @@ if ( ! function_exists( 'king_author_bio' ) ) :
 		<?php endif; ?>	
 	<?php 
 	}	
-	add_action('ult_entry_bottom', 'king_author_bio', 20, 1);
+	add_action('king_entry_bottom', 'king_author_bio', 20, 1);
 endif;
 
 // Custom Search Form
@@ -1214,7 +1193,7 @@ if ( ! function_exists( 'king_front_page_bottom_sidebar' ) ) :
 			get_sidebar('front');
 		}
 	}
-	add_action('ult_content_after', 'king_front_page_bottom_sidebar', 20, 1);
+	add_action('king_content_after', 'king_front_page_bottom_sidebar', 20, 1);
 endif;
 
 
@@ -1230,7 +1209,7 @@ if ( ! function_exists( 'king_front_page_content_sidebar' ) ) :
 		<?php endif; ?>
 		<?php
 	}
-	add_action('ult_entry_after', 'king_front_page_content_sidebar', 10, 1);
+	add_action('king_entry_after', 'king_front_page_content_sidebar', 10, 1);
 endif;
 
 

@@ -7,7 +7,7 @@
  * @since King 1.0
  */
 get_header(); ?>
-<?php ult_content_before(); ?>
+<?php king_content_before(); ?>
 <div id="primary" class="site-content">	
 	
 	<?php if ( have_posts() ) : ?>
@@ -16,10 +16,10 @@ get_header(); ?>
 		</header><!-- .archive-header -->
 	<?php endif; ?>
 
-	<?php ult_content_top(); ?>
+	<?php king_content_top(); ?>
 	<div id="content" role="main">
 
-		<?php ult_entry_before(); ?>
+		<?php king_entry_before(); ?>
 		<?php if ( have_posts() ) : ?>
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php get_template_part( 'content', get_post_format() ); ?>
@@ -27,11 +27,11 @@ get_header(); ?>
 		<?php else : ?>
 			<?php get_template_part( 'content', 'none' ); ?>
 		<?php endif; ?>
-		<?php ult_entry_after(); ?>
+		<?php king_entry_after(); ?>
 	
 	</div><!-- #content -->
-	<?php ult_content_bottom(); ?>
+	<?php king_content_bottom(); ?>
 
 </div><!-- #primary -->
-<?php ult_content_after(); ?>
+<?php king_content_after(); ?>
 <?php get_footer(); ?>

@@ -1,5 +1,5 @@
 <?php 
-class ULT_Theme_Menu_Walker extends Walker_Nav_Menu
+class KING_Theme_Menu_Walker extends Walker_Nav_Menu
 {
 	/**
 	 * Start the element output.
@@ -173,14 +173,14 @@ class ULT_Theme_Menu_Walker extends Walker_Nav_Menu
 		$output .= "\n$indent<ul class=\"$class\">\n";
 	}
 }
-add_filter('wp_nav_menu_args', 'ult_theme_filter_wp_nav_menu_args');
+add_filter('wp_nav_menu_args', 'king_theme_filter_wp_nav_menu_args');
 /**
  * @internal
  */
-function ult_theme_filter_wp_nav_menu_args($args)
+function king_theme_filter_wp_nav_menu_args($args)
 {
 	if(has_nav_menu( 'primary' )){
-		$args['walker'] = new ULT_Theme_Menu_Walker();
+		$args['walker'] = new KING_Theme_Menu_Walker();
 	}
 	$args['fallback_cb'] = 'wp_page_menu';
 	return $args;

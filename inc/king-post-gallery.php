@@ -47,7 +47,8 @@ function king_media_templates(){
 /**
 * Overrite the HTML output of gallery shortcode to the custom output for carousel slider
 */
-function king_gallery_shortcode( $atts ) {
+function king_gallery_shortcode( $output = '', $atts ) {
+
     $ids = '';
     extract( shortcode_atts( array(
         'ids' => '',
@@ -264,7 +265,7 @@ function king_gallery_shortcode( $atts ) {
     }
     echo ob_get_clean();
 }
-add_shortcode( 'gallery', 'king_gallery_shortcode' );
+add_filter( 'post_gallery', 'king_gallery_shortcode', 10, 4 );
 
 
 // iMedica Justified Grid Gallery

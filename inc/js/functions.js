@@ -3,7 +3,7 @@
 
 	// Responsive iframe
 	function resp_iframe() {
-		$(".blog-oembed iframe, .ultiamte-iframe").each(function(index, element) {
+		$(".blog-oembed iframe, .king-iframe").each(function(index, element) {
 			var w = $(this).parent().width();
 			var h = (w*(9/16));
 			$(this).css({"width":w+"px","height":h+"px"});
@@ -23,7 +23,7 @@
 
 	// Assign Top Padding When Transparent Menu Is Set
 	function transperent_top_padding() {
-		var header_height = $('.ult-fixed-menu .site-header').outerHeight( true );
+		var header_height = $('.king-fixed-menu .site-header').outerHeight( true );
 		if( window.innerWidth > 768 ) {
 			$("body #main").css('padding-top',header_height);
 			$(".king-page-header").css('padding-top',header_height);
@@ -48,13 +48,13 @@
 	    $(this).find("li.menu-item-has-children > a").after( "<span class='fa fa-angle-down'></span>" );
 
 	    // Enable Fixed Menu Through jQuery
-		var starting_position = $('.ult-fixed-menu .site-header').outerHeight( true );
+		var starting_position = $('.king-fixed-menu .site-header').outerHeight( true );
 		$(window).scroll(function() {
 			var yPos = ( $(window).scrollTop() );
 			if( yPos > starting_position && window.innerWidth > 768 ) { 
-				$(".ult-fixed-menu .site-header").addClass("ult-sticky-menu");
+				$(".king-fixed-menu .site-header").addClass("king-sticky-menu");
 			} else {
-				$(".ult-fixed-menu .site-header").removeClass("ult-sticky-menu");
+				$(".king-fixed-menu .site-header").removeClass("king-sticky-menu");
 			}
 		});
 

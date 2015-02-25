@@ -9,7 +9,7 @@
 	} 
 	.header-logo{
 		float: left;
-		width: 25%;
+		width: 30%;
 	}
 	.main-navigation ul {
 	    margin: 0;
@@ -125,7 +125,7 @@
     	display: none;
 	}
 	/*------Mega Menu------*/
-	.ult-main-menu-container {
+	.king-main-menu-container {
 		position: relative;
 	}
 	.main-navigation .nav-menu > li.mega-menu-item{
