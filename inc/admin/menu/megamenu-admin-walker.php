@@ -1,5 +1,5 @@
 <?php 
-class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fatal Error: Class Not Found */
+class KING_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fatal Error: Class Not Found */
 {
 	function start_lvl( &$output, $depth = 0, $args = array() ) {}
 	function end_lvl( &$output, $depth = 0, $args = array() ) {}
@@ -250,10 +250,10 @@ class ULT_Admin_Menu_Walker extends Walker_Nav_Menu /* Walker_Nav_Menu_Edit: Fat
 	}
 }
 
-add_filter('wp_edit_nav_menu_walker', 'ult_admin_filter_wp_edit_nav_menu_walker');
-function ult_admin_filter_wp_edit_nav_menu_walker()
+add_filter('wp_edit_nav_menu_walker', 'king_admin_filter_wp_edit_nav_menu_walker');
+function king_admin_filter_wp_edit_nav_menu_walker()
 	{
-		return 'ULT_Admin_Menu_Walker';
+		return 'KING_Admin_Menu_Walker';
 	}
 /**
  * @internal
@@ -276,7 +276,7 @@ function _mega_menu_meta($post, $key, $default = null, $write = false)
 			$meta[$post_id][$key] = $default;
 			$meta[$post_id][$key] = array_filter($meta[$post_id][$key]);
 		}
-		ult_update_post_meta($post_id, 'mega-menu', $meta[$post_id]);
+		king_update_post_meta($post_id, 'mega-menu', $meta[$post_id]);
 		return null;
 	}
 
@@ -308,25 +308,25 @@ function update_mega_menu_meta($post, array $array)
 }
 
 /* Enqueue Scripts and Styles */
-add_action('admin_enqueue_scripts','ult_megamenu_scripts');
-function ult_megamenu_scripts($hook){
+add_action('admin_enqueue_scripts','king_megamenu_scripts');
+function king_megamenu_scripts($hook){
 	if($hook == "nav-menus.php"){
 		$king_admin_url = get_template_directory_uri() . '/inc/admin/assets/';
-		wp_enqueue_script('ult-backend-options', $king_admin_url.'js/backend-options.js','','',true);
-		wp_enqueue_script('ult-fw-events', $king_admin_url.'js/fw-events.js','','',true);
-		wp_enqueue_script('ult-option-types', $king_admin_url.'js/option-types.js','','',true);
-		wp_enqueue_script('ult-fw', $king_admin_url.'js/fw.js','','',true);
-		wp_enqueue_script('ult-admin', $king_admin_url.'js/admin.js','','',true);
-		wp_enqueue_style('ult-admin', $king_admin_url.'css/admin.css');
+		wp_enqueue_script('king-backend-options', $king_admin_url.'js/backend-options.js','','',true);
+		wp_enqueue_script('king-fw-events', $king_admin_url.'js/fw-events.js','','',true);
+		wp_enqueue_script('king-option-types', $king_admin_url.'js/option-types.js','','',true);
+		wp_enqueue_script('king-fw', $king_admin_url.'js/fw.js','','',true);
+		wp_enqueue_script('king-admin', $king_admin_url.'js/admin.js','','',true);
+		wp_enqueue_style('king-admin', $king_admin_url.'css/admin.css');
 
-		wp_localize_script('ult-fw', '_fw_localized', array(
+		wp_localize_script('king-fw', '_fw_localized', array(
 			'SITE_URI' => site_url(),
 		));
 	}
 }
 
-add_action('wp_update_nav_menu_item', 'ult_admin_action_wp_update_nav_menu_item', 10, 3);
-function ult_admin_action_wp_update_nav_menu_item($menu_id, $menu_item_db_id, $args)
+add_action('wp_update_nav_menu_item', 'king_admin_action_wp_update_nav_menu_item', 10, 3);
+function king_admin_action_wp_update_nav_menu_item($menu_id, $menu_item_db_id, $args)
 {
 	$flags = array('enabled', 'title-off', 'new-row');
 	$meta = request_mega_menu_meta($menu_item_db_id);

@@ -9,7 +9,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-<?php ult_entry_top(); ?>
+<?php king_entry_top(); ?>
 
 	<div class="entry-summary">
 		<div class="aside">
@@ -20,5 +20,5 @@
 		</div><!-- .aside -->
 	</div><!-- .entry-summary -->
 
-<?php ult_entry_bottom(); ?>
+<?php king_entry_bottom(); ?>
 </article><!-- #post -->

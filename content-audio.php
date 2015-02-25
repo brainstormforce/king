@@ -6,7 +6,7 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-<?php ult_entry_top(); ?>
+<?php king_entry_top(); ?>
 
 	<header class="entry-header">
 
@@ -35,5 +35,5 @@
 		</div><!-- .entry-content -->
 	<?php endif; ?>
 	
-<?php ult_entry_bottom(); ?>
+<?php king_entry_bottom(); ?>
 </article><!-- #post -->

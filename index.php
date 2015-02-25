@@ -17,13 +17,13 @@ get_header();
 $bl = get_theme_mod('blog_layout');
 $blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 ?>
-<?php ult_content_before(); ?>
+<?php king_content_before(); ?>
 <div id="primary" class="site-content">	
 
-	<?php ult_content_top(); ?>
+	<?php king_content_top(); ?>
 	<div id="content" role="main" class="clear">
 
-		<?php ult_entry_before(); ?>
+		<?php king_entry_before(); ?>
 		<?php if ( have_posts() ) : ?>
 			<?php while ( have_posts() ) : the_post(); ?>			
 	        	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') { ?>
@@ -37,11 +37,11 @@ $blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
 		<?php else : ?>
 			<?php get_template_part( 'content', 'none' ); ?>
 		<?php endif; // end have_posts() check ?>
-		<?php ult_entry_after(); ?>
+		<?php king_entry_after(); ?>
 	
 	</div><!-- #content -->
-	<?php ult_content_bottom(); ?>
+	<?php king_content_bottom(); ?>
 
 </div><!-- #primary -->
-<?php ult_content_after(); ?>
+<?php king_content_after(); ?>
 <?php get_footer(); ?>

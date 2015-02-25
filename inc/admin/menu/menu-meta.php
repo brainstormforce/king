@@ -20,7 +20,7 @@
  *
  * @return int|bool The meta ID on success, false on failure.
  */
-function ult_add_metadata( $meta_type, $object_id, $meta_key, $meta_value, $unique = false ) {
+function king_add_metadata( $meta_type, $object_id, $meta_key, $meta_value, $unique = false ) {
 
 	/**
 	 * @var WPDB $wpdb
@@ -134,7 +134,7 @@ function ult_add_metadata( $meta_type, $object_id, $meta_key, $meta_value, $uniq
  *
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
-function ult_update_metadata( $meta_type, $object_id, $meta_key, $meta_value, $prev_value = '' ) {
+function king_update_metadata( $meta_type, $object_id, $meta_key, $meta_value, $prev_value = '' ) {
 	global $wpdb;
 
 	if ( ! $meta_type || ! $meta_key || ! is_numeric( $object_id ) ) {
@@ -191,7 +191,7 @@ function ult_update_metadata( $meta_type, $object_id, $meta_key, $meta_value, $p
 	}
 
 	if ( ! $meta_id = $wpdb->get_var( $wpdb->prepare( "SELECT $id_column FROM $table WHERE meta_key = %s AND $column = %d LIMIT 1", $meta_key, $object_id ) ) ) {
-		return ult_add_metadata( $meta_type, $object_id, $meta_key, $passed_value );
+		return king_add_metadata( $meta_type, $object_id, $meta_key, $passed_value );
 	}
 
 	$_meta_value = $meta_value;
@@ -282,7 +282,7 @@ function ult_update_metadata( $meta_type, $object_id, $meta_key, $meta_value, $p
  *
  * @return bool True on successful delete, false on failure.
  */
-function ult_delete_metadata( $meta_type, $object_id, $meta_key, $meta_value = '', $delete_all = false ) {
+function king_delete_metadata( $meta_type, $object_id, $meta_key, $meta_value = '', $delete_all = false ) {
 	/**
 	 * @var WPDB $wpdb
 	 */
@@ -427,8 +427,8 @@ function ult_delete_metadata( $meta_type, $object_id, $meta_key, $meta_value = '
  *
  * @return int|bool Meta ID on success, false on failure.
  */
-function ult_add_user_meta( $user_id, $meta_key, $meta_value, $unique = false ) {
-	return ult_add_metadata( 'user', $user_id, $meta_key, $meta_value, $unique );
+function king_add_user_meta( $user_id, $meta_key, $meta_value, $unique = false ) {
+	return king_add_metadata( 'user', $user_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -446,8 +446,8 @@ function ult_add_user_meta( $user_id, $meta_key, $meta_value, $unique = false ) 
  *
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
-function ult_update_user_meta( $user_id, $meta_key, $meta_value, $prev_value = '' ) {
-	return ult_update_metadata( 'user', $user_id, $meta_key, $meta_value, $prev_value );
+function king_update_user_meta( $user_id, $meta_key, $meta_value, $prev_value = '' ) {
+	return king_update_metadata( 'user', $user_id, $meta_key, $meta_value, $prev_value );
 }
 
 /**
@@ -463,8 +463,8 @@ function ult_update_user_meta( $user_id, $meta_key, $meta_value, $prev_value = '
  *
  * @return bool True on success, false on failure.
  */
-function ult_delete_user_meta( $user_id, $meta_key, $meta_value = '' ) {
-	return ult_delete_metadata( 'user', $user_id, $meta_key, $meta_value );
+function king_delete_user_meta( $user_id, $meta_key, $meta_value = '' ) {
+	return king_delete_metadata( 'user', $user_id, $meta_key, $meta_value );
 }
 
 /**
@@ -480,13 +480,13 @@ function ult_delete_user_meta( $user_id, $meta_key, $meta_value = '' ) {
  *
  * @return int|bool Meta ID on success, false on failure.
  */
-function ult_add_post_meta( $post_id, $meta_key, $meta_value, $unique = false ) {
+function king_add_post_meta( $post_id, $meta_key, $meta_value, $unique = false ) {
 	// Make sure meta is added to the post, not a revision.
 	if ( $the_post = wp_is_post_revision( $post_id ) ) {
 		$post_id = $the_post;
 	}
 
-	return ult_add_metadata( 'post', $post_id, $meta_key, $meta_value, $unique );
+	return king_add_metadata( 'post', $post_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -506,13 +506,13 @@ function ult_add_post_meta( $post_id, $meta_key, $meta_value, $unique = false ) 
  * @return int|bool Meta ID if the key didn't exist, true on successful update,
  *                  false on failure.
  */
-function ult_update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
+function king_update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
 	// Make sure meta is added to the post, not a revision.
 	if ( $the_post = wp_is_post_revision( $post_id ) ) {
 		$post_id = $the_post;
 	}
 
-	return ult_update_metadata( 'post', $post_id, $meta_key, $meta_value, $prev_value );
+	return king_update_metadata( 'post', $post_id, $meta_key, $meta_value, $prev_value );
 }
 
 /**
@@ -529,7 +529,7 @@ function ult_update_post_meta( $post_id, $meta_key, $meta_value, $prev_value = '
  *
  * @return bool True on success, false on failure.
  */
-function ult_delete_post_meta( $post_id, $meta_key, $meta_value = '' ) {
+function king_delete_post_meta( $post_id, $meta_key, $meta_value = '' ) {
 	// Make sure meta is added to the post, not a revision.
 	if ( $the_post = wp_is_post_revision( $post_id ) ) {
 		$post_id = $the_post;
@@ -552,8 +552,8 @@ function ult_delete_post_meta( $post_id, $meta_key, $meta_value = '' ) {
  *
  * @return int|bool Meta ID on success, false on failure.
  */
-function ult_add_comment_meta( $comment_id, $meta_key, $meta_value, $unique = false ) {
-	return ult_add_metadata( 'comment', $comment_id, $meta_key, $meta_value, $unique );
+function king_add_comment_meta( $comment_id, $meta_key, $meta_value, $unique = false ) {
+	return king_add_metadata( 'comment', $comment_id, $meta_key, $meta_value, $unique );
 }
 
 /**
@@ -571,8 +571,8 @@ function ult_add_comment_meta( $comment_id, $meta_key, $meta_value, $unique = fa
  *
  * @return int|bool Meta ID if the key didn't exist, true on successful update, false on failure.
  */
-function ult_update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value = '' ) {
-	return ult_update_metadata( 'comment', $comment_id, $meta_key, $meta_value, $prev_value );
+function king_update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_value = '' ) {
+	return king_update_metadata( 'comment', $comment_id, $meta_key, $meta_value, $prev_value );
 }
 
 /**
@@ -588,6 +588,6 @@ function ult_update_comment_meta( $comment_id, $meta_key, $meta_value, $prev_val
  *
  * @return bool True on success, false on failure.
  */
-function ult_delete_comment_meta( $comment_id, $meta_key, $meta_value = '' ) {
-	return ult_delete_metadata( 'comment', $comment_id, $meta_key, $meta_value );
+function king_delete_comment_meta( $comment_id, $meta_key, $meta_value = '' ) {
+	return king_delete_metadata( 'comment', $comment_id, $meta_key, $meta_value );
 }
