@@ -2109,7 +2109,7 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 .js_active .boxed .site {
 	overflow: visible;
 }
-/* Ultiamte Pagination */
+/* King Pagination */
 .king-pagination {
     display: block;
     width: 100%;
@@ -2290,7 +2290,7 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 	background-position: center;
 	background-attachment: scroll;
 }
-/* Ultiamte Landing Page Widget*/
+/* King Landing Page Widget*/
 .js_active .page-template-king-landing-page #main {
 	width: 100% !important;
 	max-width: 100% !important;
