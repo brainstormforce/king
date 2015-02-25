@@ -158,7 +158,6 @@ add_action( 'wp_enqueue_scripts', 'king_scripts_styles' );
  */
 
 require_once('inc/admin/customizer/customizer.php');
-require_once('inc/admin/customizer/customizer-init.php');
 require_once('inc/admin/customizer/customizer-style.php');
 require_once('inc/admin/menu/megamenu-admin-walker.php');
 require_once('inc/admin/menu/menu-meta.php');
