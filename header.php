@@ -5,8 +5,8 @@
  * Displays all of the <head> section and everything up till <div id="main">
  *
  * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
+ * @subpackage King
+ * @since King 1.0
  */
 ?><!DOCTYPE html>
 <!--[if IE 7]>

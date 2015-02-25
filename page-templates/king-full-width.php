@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: Ultimate Full Width / Only For VC
+ * Template Name: King Full Width / Only For VC
  *
  * Description: We loves full width background for Visual COmposer row as much as
  * you do. Use this page template to set full width background for your rows.

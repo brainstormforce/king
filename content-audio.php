@@ -10,8 +10,8 @@
 
 	<header class="entry-header">
 
-		<?php if ( ultimate_post_audio() && !is_single() ) : ?>
-			<?php echo ultimate_post_audio(); ?>
+		<?php if ( king_post_audio() && !is_single() ) : ?>
+			<?php echo king_post_audio(); ?>
 		<?php endif; ?>
 
         <?php if( !is_single() ) : ?>
@@ -23,15 +23,15 @@
 	</header><!-- .entry-header -->
 
 	<?php if ( !is_single() ) : ?>
-		<?php if ( !ultimate_post_audio() ) : ?>
+		<?php if ( !king_post_audio() ) : ?>
 	        <div class="entry-summary">
 				<?php the_excerpt(); ?>
 			</div><!-- .entry-summary -->
 		<?php endif; ?>
 	<?php else : ?>
 		<div class="entry-content">
-			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'ultimate' ) ); ?>
-			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'ultimate' ), 'after' => '</div>' ) ); ?>
+			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'king' ) ); ?>
+			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'king' ), 'after' => '</div>' ) ); ?>
 		</div><!-- .entry-content -->
 	<?php endif; ?>
 	

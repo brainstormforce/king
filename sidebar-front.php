@@ -5,8 +5,8 @@
  * If no active widgets are in either sidebar, hide them completely.
  *
  * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
+ * @subpackage King
+ * @since King 1.0
  */
 
 /*

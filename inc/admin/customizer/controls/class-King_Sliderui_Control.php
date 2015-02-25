@@ -1,6 +1,6 @@
 <?php
 
-class Ultimate_Sliderui_Control extends WP_Customize_Control {
+class King_Sliderui_Control extends WP_Customize_Control {
 
 	public $type = 'slider';
 	public $description = '';
@@ -20,7 +20,7 @@ class Ultimate_Sliderui_Control extends WP_Customize_Control {
 				<span class="description customize-control-description"><?php echo $this->description; ?></span>
 			<?php endif; ?>
 
-			<input type="text" id="input_<?php echo $this->id; ?>" style="<?php echo $this->choices['style']; ?>" class="ultimate-customizer-slider" value="<?php echo $this->value(); ?>" <?php $this->link(); ?>/>
+			<input type="text" id="input_<?php echo $this->id; ?>" style="<?php echo $this->choices['style']; ?>" class="king-customizer-slider" value="<?php echo $this->value(); ?>" <?php $this->link(); ?>/>
 			
 		</label>
 

@@ -1,10 +1,10 @@
 <?php
-class Ultimate_Separator_Control extends WP_Customize_Control {
+class King_Separator_Control extends WP_Customize_Control {
     public $type = 'separator';
  
     public function render_content() {
 		?>
-        	<div class="ultimate-separator"></div>
+        	<div class="king-separator"></div>
             <style type="text/css">
 			li.customize-control.customize-control-separator {
 				display: block;

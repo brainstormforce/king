@@ -5,8 +5,8 @@
  * Used for both single and index/archive/search.
  *
  * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
+ * @subpackage King
+ * @since King 1.0
  */
 ?>
 
@@ -15,20 +15,20 @@
 
 	<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
 		<div class="featured-post">
-			<h2><?php _e( 'Featured Post', 'ultimate' ); ?></h2>
+			<h2><?php _e( 'Featured Post', 'king' ); ?></h2>
 		</div>
 	<?php endif; ?>
 
 	<header class="entry-header">
 
-		<?php if ( has_post_thumbnail() || ultimate_post_social() ) : ?>
+		<?php if ( has_post_thumbnail() || king_post_social() ) : ?>
 
 			<?php if ( has_post_thumbnail() ) : ?>
 				<div class="blog-featured-media">
 					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail('full'); ?></a>
 				</div>
-			<?php elseif ( ultimate_post_social() && !is_single() ) : ?>
-				<?php echo ultimate_post_social(); ?>
+			<?php elseif ( king_post_social() && !is_single() ) : ?>
+				<?php echo king_post_social(); ?>
 			<?php endif; ?>
 
 		<?php endif; ?>
@@ -41,15 +41,15 @@
 	</header><!-- .entry-header -->
 
 	<?php if ( !is_single() ) : ?>
-		<?php if ( !ultimate_post_social() ) : ?>
+		<?php if ( !king_post_social() ) : ?>
 	        <div class="entry-summary">
 				<?php the_excerpt(); ?>
 			</div><!-- .entry-summary -->
 		<?php endif; ?>
 	<?php else : ?>
 		<div class="entry-content">
-			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'ultimate' ) ); ?>
-			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'ultimate' ), 'after' => '</div>' ) ); ?>
+			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'king' ) ); ?>
+			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'king' ), 'after' => '</div>' ) ); ?>
 		</div><!-- .entry-content -->
 	<?php endif; ?>		
 

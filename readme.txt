@@ -1,4 +1,4 @@
-=== Ultimate WordPress Theme ===
+=== King WordPress Theme ===
 Contributors: brainstorm
 Tags: Visual Composer Compatible
 Requires at least: 4.0

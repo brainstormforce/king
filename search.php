@@ -3,8 +3,8 @@
  * The template for displaying Search Results pages
  *
  * @package WordPress
- * @subpackage Ultimate
- * @since Ultimate 1.0
+ * @subpackage King
+ * @since King 1.0
  */
 get_header(); ?>
 <?php ult_content_before(); ?>
@@ -12,7 +12,7 @@ get_header(); ?>
 	
 	<?php if ( have_posts() ) : ?>
 		<header class="archive-header">
-			<h1 class="archive-title"><?php printf( __( 'Search Results for: %s', 'ultimate' ), '<span><a>' . get_search_query() . '</a></span>' ); ?></h1>
+			<h1 class="archive-title"><?php printf( __( 'Search Results for: %s', 'king' ), '<span><a>' . get_search_query() . '</a></span>' ); ?></h1>
 		</header><!-- .archive-header -->
 	<?php endif; ?>
 

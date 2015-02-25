@@ -2,7 +2,7 @@
 
 /* Adds a meta box to the post editing screen */
 function ult_custom_meta() {
-	add_meta_box( 'ult_meta', __( 'Header & Menu Settings', 'ultimate' ), 'ult_meta_callback', 'page' );
+	add_meta_box( 'ult_meta', __( 'Header & Menu Settings', 'king' ), 'ult_meta_callback', 'page' );
 }
 add_action( 'add_meta_boxes', 'ult_custom_meta' );
 /* Outputs the content of the meta box */
@@ -13,13 +13,13 @@ function ult_meta_callback( $post ) {
    	if($fixed_header): ?>
     <p>
     <div class="ult-row-content">
-    	<label><?php _e( 'Enable transparant menu -', 'ultimate' )?></label>
+    	<label><?php _e( 'Enable transparant menu -', 'king' )?></label>
         <label for="meta-radio-one">
             <input type="radio" name="meta-radio" id="meta-radio-one" value="true" <?php 
 				if ( isset ( $ult_stored_meta['meta-radio'] ) ) 
 					checked( $ult_stored_meta['meta-radio'][0], 'true' ); 
 			?>>
-            <?php _e( 'Yes', 'ultimate' )?>
+            <?php _e( 'Yes', 'king' )?>
         </label>
 
         <label for="meta-radio-two">
@@ -29,17 +29,17 @@ function ult_meta_callback( $post ) {
 				else
 					echo 'checked="checked"'; 
 			?>>
-            <?php _e( 'No', 'ultimate' )?>
+            <?php _e( 'No', 'king' )?>
         </label>
     </div>
     </p>
      <?php endif; ?>
      <p>
     <div class="ult-row-content">
-    	<label><?php _e( 'Enable light menu -', 'ultimate' )?></label>
+    	<label><?php _e( 'Enable light menu -', 'king' )?></label>
         <label for="meta-radio-one">
             <input type="radio" name="meta-radio1" id="meta-radio-three" value="true" <?php if ( isset ( $ult_stored_meta['meta-radio1'] ) ) checked( $ult_stored_meta['meta-radio1'][0], 'true' ); ?>>
-            <?php _e( 'Yes', 'ultimate' )?>
+            <?php _e( 'Yes', 'king' )?>
         </label>
         <label for="meta-radio-two">
             <input type="radio" name="meta-radio1" id="meta-radio-four" value="false" <?php 
@@ -48,14 +48,14 @@ function ult_meta_callback( $post ) {
 				else
 					echo 'checked="checked"';
 			?>>
-            <?php _e( 'No', 'ultimate' )?>
+            <?php _e( 'No', 'king' )?>
         </label>
     </div>
 	</p>
 
 	<p>
     <div class="ult-row-content">
-    	<label><?php _e( 'Enable Breadcrumbs -', 'ultimate' )?></label>
+    	<label><?php _e( 'Enable Breadcrumbs -', 'king' )?></label>
         <label for="meta-radio-five">
             <input type="radio" name="meta-breadcrumb" id="meta-radio-five" value="true" <?php 
             	if ( isset ( $ult_stored_meta['meta-breadcrumb'] ) ) 
@@ -63,14 +63,14 @@ function ult_meta_callback( $post ) {
             	else
 					echo 'checked="checked"';
             	?>>
-            <?php _e( 'Yes', 'ultimate' )?>
+            <?php _e( 'Yes', 'king' )?>
         </label>
         <label for="meta-radio-six">
             <input type="radio" name="meta-breadcrumb" id="meta-radio-six" value="false" <?php 
 				if ( isset ( $ult_stored_meta['meta-breadcrumb'] ) ) 
 					checked( $ult_stored_meta['meta-breadcrumb'][0], 'false' ); 
 			?>>
-            <?php _e( 'No', 'ultimate' )?>
+            <?php _e( 'No', 'king' )?>
         </label>
     </div>
 	</p>
@@ -104,8 +104,8 @@ function ult_meta_save( $post_id ) {
 add_action( 'save_post', 'ult_meta_save' );
 
 /* Add specific CSS class by filter */
-add_filter('body_class','ultimate_body_class_name');
-function ultimate_body_class_name($classes) {
+add_filter('body_class','king_body_class_name');
+function king_body_class_name($classes) {
 	global $post;
 	
 	// add a custom class for transparent header

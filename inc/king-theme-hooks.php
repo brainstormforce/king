@@ -2,7 +2,7 @@
 /**
 * Theme Hook Alliance hook stub list.
 *
-* @package 		ultimate
+* @package 		king
 * @version		1.0
 * @since		1.0
 */
