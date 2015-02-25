@@ -21,7 +21,7 @@ jQuery(function ($) {
             $(this).closest('li').find(selector).val($(this).val());
         });
         // $(selector).change() is not necessary since those two fields
-        // are populated by wordpress with the same value (title)
+        // are populated by WordPress with the same value (title)
 
     })('.mega-menu-title, .edit-menu-item-title');
 
