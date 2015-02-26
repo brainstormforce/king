@@ -258,10 +258,10 @@
 	}
 	span.menu-toggle-wrap.fa-bars {
 	    font-size: 32px;
-	    position: absolute;
-	    right: 1%;
-	    top: 15%;
-	    cursor: pointer;
+		position: absolute;
+		right: 5px;
+		top: 10px;
+		cursor: pointer;
 	}
 	span.fa-angle-down {
 	    position: absolute;
