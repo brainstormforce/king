@@ -538,6 +538,7 @@ a {
 	margin-right: auto;
 	padding-left: 15px;
 	padding-right: 15px;
+	position: relative;
 }
 .header-style2 .nav-menu,
 .header-style3 .nav-menu {
@@ -564,7 +565,7 @@ a {
 .site-header h1 {
 	font-size: 24px;
 	line-height: inherit;
-	margin-bottom: 14px;
+	margin: 15px 0;
 }
 .site-header h2 {
 	font-weight: normal;
@@ -581,6 +582,10 @@ a {
 	font-size: 14px;
 	line-height: inherit;
 	color: #DDDDDD;
+}
+/* Menu */
+.king-main-menu-container .nav-menu {
+	display: none;
 }
 /* Banner */
 section[role="banner"] {
@@ -2414,7 +2419,7 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 		float: right;
 	}
 	.site-header h1 {
-		margin-bottom: 0;
+		margin: 0;
 		display: block;
 		float: left;
 	}
