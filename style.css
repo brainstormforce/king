@@ -2382,7 +2382,7 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	/* Fixed Menu */
 	.king-fixed-menu .site-header {
 		position: fixed;
-		z-index: 99999;
+		z-index: 9999;
 		width: 100%;
 		left: 0;
 	}
