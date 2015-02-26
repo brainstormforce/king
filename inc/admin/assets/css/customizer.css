@@ -24,3 +24,9 @@ li.customize-control.customize-control-slider .ss-slider {
   transition: 0.1s linear background-image;
   overflow: visible;
 }
+li#customize-control-favicon-img .thumbnail-image img {
+  max-width: 18px;
+  text-align: center;
+  margin: 10px auto;
+  display: block;
+}

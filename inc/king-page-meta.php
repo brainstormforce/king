@@ -9,7 +9,7 @@ add_action( 'add_meta_boxes', 'king_custom_meta' );
 function king_meta_callback( $post ) {
     wp_nonce_field( basename( __FILE__ ), 'king_nonce' );
     $king_stored_meta = get_post_meta( $post->ID );
-    $fixed_header = get_theme_mod( 'site_fixed_header' );
+    $fixed_header = get_theme_mod( 'site_fixed_header', true );
    	if($fixed_header): ?>
     <p>
     <div class="king-row-content">

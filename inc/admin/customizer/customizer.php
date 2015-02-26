@@ -553,7 +553,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'display_description_text',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -1702,3 +1702,15 @@ $customizer_reset = get_theme_mod( 'reset_settings' );
 if ($customizer_reset == "reset" || $customizer_reset == "RESET" || $customizer_reset == "Reset") {
 	remove_theme_mods();
 }
+
+/**
+ * Enqueue Javascript postMessage handlers for the Customizer.
+ *
+ * Binds JS handlers to make the Customizer preview reload changes asynchronously.
+ *
+ * @since King 1.0
+ */
+function king_customize_preview_js() {
+	wp_enqueue_script( 'king-customizer', get_template_directory_uri() . '/inc/admin/assets/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
+}
+add_action( 'customize_preview_init', 'king_customize_preview_js' );

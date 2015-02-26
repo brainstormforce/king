@@ -53,7 +53,7 @@ endif;
 
 if ( ! function_exists( 'king_pagination' ) ) :
     function king_pagination() {
-        if( get_theme_mod( 'blog_pagination' )) {
+        if( get_theme_mod( 'blog_pagination', true )) {
             king_number_pagination();
         } else {
             king_content_nav( 'nav-below' ); 

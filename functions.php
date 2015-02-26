@@ -105,13 +105,12 @@ function king_scripts_styles() {
 	wp_enqueue_script( 'king-bootstrap-script' );
 	
 	// Load Masonry Javascript
-	$masonry_blog_layout = get_theme_mod('blog_masonry_layout');
+	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
 	$blog_layout = get_theme_mod('blog_layout');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
 			if ( is_home() || is_front_page() || is_archive() || is_search() ) :
 				wp_enqueue_script('jquery-masonry');
-				add_action('wp_footer', 'king_masonry_blog');
 			endif;
 		endif;
 	endif;
@@ -130,7 +129,7 @@ function king_scripts_styles() {
 
     // Smooth Scroll
     wp_register_script( 'king-smooth-scroll-script', get_template_directory_uri() . '/inc/js/jquery.smoothScroll.min.js', array( 'jquery' ), '1.2.1', true );
-	$smooth_scroll = get_theme_mod( 'smooth_scroll' );
+	$smooth_scroll = get_theme_mod( 'smooth_scroll', true );
    	if($smooth_scroll) {
    		wp_enqueue_script( 'king-smooth-scroll-script' );
 	}
@@ -485,24 +484,18 @@ function king_body_class( $classes ) {
 	endif;
 
 	// Site Layout
-	$site_layout = get_theme_mod('site_layout');
-	if ( $site_layout ) :
-		$classes[] = get_theme_mod('site_layout');
-	endif;
-
+	$classes[] = get_theme_mod('site_layout', 'full-width');
 
 	// Blog Layout
-	$blog_layout = get_theme_mod('blog_layout');
-	if ($blog_layout) :
-		$classes[] = get_theme_mod('blog_layout');
-	endif;
+	$classes[] = get_theme_mod('blog_layout', 'normal');
 
+	$blog_layout = get_theme_mod('blog_layout');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		$classes[] = 'blog-grid';
 	endif;
 
 	// Enable Masonry Layout
-	$masonry_layout = get_theme_mod('blog_masonry_layout');
+	$masonry_layout = get_theme_mod('blog_masonry_layout', true);
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ($masonry_layout) :
 			$classes[] = 'blog-masonry';
@@ -525,7 +518,7 @@ function king_body_class( $classes ) {
 	endif;
 
 	// If fixed menu
-	$fixed_header = get_theme_mod( 'site_fixed_header' );
+	$fixed_header = get_theme_mod( 'site_fixed_header', true );
 	if($fixed_header) :
 		$classes[] = 'king-fixed-menu';
 	endif;
@@ -589,32 +582,43 @@ add_action( 'template_redirect', 'king_site_width' );
  *
  * @since King 1.0
  */
-function king_masonry_blog() { 
-?>
-	<script type="text/javascript">
-		(function($) {
-			"use strict";
-			function blog_masonry() {
-				jQuery('.blog-masonry #content').imagesLoaded(function () {
-					jQuery('.blog-masonry #content').masonry({
-						columnWidth: '.post',
-						itemSelector: '.post',
-						transitionDuration: 0
-					});
-				});
-			}
-			$(document).ready(function() { blog_masonry(); });
-			jQuery(window).load(function(){
-				setTimeout(function(){
-					jQuery('.blog-masonry #content').masonry('reload');
-				},1000);
-				
-			});			
-			//$(window).on('resize',function() { blog_masonry(); });
-		})(jQuery);
-	</script>
-<?php
+
+
+function king_masonry_blog() {
+	// Load Masonry Javascript
+	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
+	$blog_layout = get_theme_mod('blog_layout');
+	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
+		if ( $masonry_blog_layout ) :
+			if ( is_home() || is_front_page() || is_archive() || is_search() ) : ?>
+				<script type="text/javascript">
+					(function($) {
+						"use strict";
+						function blog_masonry() {
+							jQuery('.blog-masonry #content').imagesLoaded(function () {
+								jQuery('.blog-masonry #content').masonry({
+									columnWidth: '.post',
+									itemSelector: '.post',
+									transitionDuration: 0
+								});
+							});
+						}
+						$(document).ready(function() { blog_masonry(); });
+						jQuery(window).load(function(){
+							setTimeout(function(){
+								jQuery('.blog-masonry #content').masonry('reload');
+							},1000);
+							
+						});			
+						//$(window).on('resize',function() { blog_masonry(); });
+					})(jQuery);
+				</script>
+			<?php
+			endif;
+		endif;
+	endif;
 }
+add_action('wp_footer', 'king_masonry_blog');
 
 
 /**
@@ -644,38 +648,10 @@ function king_scroll_to_top() {
 	<!--End Smooth Scroll-->
 <?php
 }
-$scroll_to_top = get_theme_mod( 'scroll_to_top' );
+$scroll_to_top = get_theme_mod( 'scroll_to_top', true );
 if($scroll_to_top) {
 	add_action('wp_footer', 'king_scroll_to_top');
 }
-
-/**
- * Enqueue Javascript postMessage handlers for the Customizer.
- *
- * Binds JS handlers to make the Customizer preview reload changes asynchronously.
- *
- * @since King 1.0
- */
-function king_customize_preview_js() {
-	wp_enqueue_script( 'king-customizer', get_template_directory_uri() . '/inc/admin/assets/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
-}
-add_action( 'customize_preview_init', 'king_customize_preview_js' );
-
-/**
- * Enqueue script for custom customize control.
- */
-function custom_customize_enqueue() {
-	echo '<style type="text/css">
-			li#customize-control-favicon-img .thumbnail-image img {
-				max-width: 18px;
-				text-align: center;
-				margin: 10px auto;
-				display: block;
-			}
-		  </style>';
-}
-add_action( 'customize_controls_enqueue_scripts', 'custom_customize_enqueue' );
-
 
 // Post Meta
 if ( ! function_exists( 'king_post_meta' ) ) :
@@ -688,14 +664,14 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 		ob_end_clean();
 		$html = '';
 
-		if( get_theme_mod( 'blog_author_meta' )) :
+		if( get_theme_mod( 'blog_author_meta', true )) :
 			$html .= '<span class="post-meta-item">';
 			$html .= __('By ','king'); 
 			$html .= '<span class="vcard author"><a href="'. get_author_posts_url( get_the_author_meta( 'ID' ) ) .'" title="Posts by '. get_the_author() .'" rel="author">'. get_the_author() .'</a></span>'; 
 			$html .= '</span>'; // .post-meta-item
 		endif;
 
-		if( get_theme_mod( 'blog_date_meta' )) :
+		if( get_theme_mod( 'blog_date_meta', true )) :
 			$archive_year  = get_the_time('Y');
 			$archive_month = get_the_time('m');
 			$html .= '<span class="post-meta-item">';
@@ -703,7 +679,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			$html .= '</span>'; // .post-meta-item
 		endif;
 
-		if( get_theme_mod( 'blog_category_meta' )) :
+		if( get_theme_mod( 'blog_category_meta', true )) :
 			$categories_list = get_the_category_list( __( ' ', 'king' ) );		
 			if( $categories_list ) :
 				$html .=  '<span class="post-meta-item">';
@@ -712,7 +688,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			endif;
 		endif;
 
-		if( get_theme_mod( 'blog_tag_meta' )) :
+		if( get_theme_mod( 'blog_tag_meta', true )) :
 			$tag_list = get_the_tag_list( __( ' ', 'king' ) );		
 			if( $tag_list ) :
 				$html .=  '<span class="post-meta-item">';
@@ -721,7 +697,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			endif;
 		endif;
 
-		if( get_theme_mod( 'blog_comment_meta' )) :
+		if( get_theme_mod( 'blog_comment_meta', true )) :
 			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
 				$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
 				if ( $num_comments == 0 ) {
@@ -732,22 +708,22 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 					$comments = __('1 Comment', 'king' );
 				}
 				$html .=  '<span class="post-meta-item">';
-	            $html .=  '<span class="post-meta-comment"><a href="'. get_comments_link() .'" title="Comment on '. get_the_title() .'">'. $comments .'</a></span>'; 
+	            $html .=  '<span class="post-meta-comment"><a href="'. esc_url( get_comments_link() ) .'" title="Comment on '. get_the_title() .'">'. $comments .'</a></span>'; 
 	            $html .=  '</span>'; // .post-meta-item
 	        endif;
 		endif;		
 
-		if( get_theme_mod( 'blog_link_meta' )) :
+		if( get_theme_mod( 'blog_link_meta', true )) :
 			if ( !is_single() ) :
 				$html .=  '<span class="post-meta-item">';
-				$html .=  '<span class="post-meta-link"><a href="'. get_the_permalink() .'" rel="bookmark">'.__('Read More...','king') .'</a></span>';
+				$html .=  '<span class="post-meta-link"><a href="'. esc_url( get_the_permalink() ) .'" rel="bookmark">'.__('Read More...','king') .'</a></span>';
 				$html .=  '</span>'; // .post-meta-item
 			endif;
 		endif;
         
         if( is_user_logged_in() ):
         		$html .=  '<span class="post-meta-item">';
-	            $html .=  '<span class="post-meta-edit"><a class="post-edit-link" href="'. get_edit_post_link() .'">'. __( 'Edit', 'king' ) .'</a></span>';
+	            $html .=  '<span class="post-meta-edit"><a class="post-edit-link" href="'. esc_url( get_edit_post_link() ).'">'. __( 'Edit', 'king' ) .'</a></span>';
 	        	$html .=  '</span>'; // .post-meta-item
 		endif;
 

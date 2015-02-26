@@ -48,7 +48,7 @@
 
                 <?php 
                     // Change footer class w.r.t. to copyright text
-                    if( (get_theme_mod( 'display_copyright' ) != '') && (has_nav_menu( 'footer-menu' ) ) ) { 
+                    if( (get_theme_mod( 'display_copyright', true ) != '') && (has_nav_menu( 'footer-menu' ) ) ) { 
                         $footer_class = "col-md-6 col-sm-6 col-xl-6 col-xs-12";
                     } 
                     else { 

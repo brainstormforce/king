@@ -7,7 +7,7 @@
 
 		        		<h1 class="site-title">
 			        		<a class="king-logo-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">                
-								<img class="king-logo-img" src="<?php echo get_theme_mod( 'logo-img' ); ?>" alt="<?php bloginfo( 'name' ); ?>" width="<?php // echo get_theme_mod( 'logo_width' ); ?>" height="<?php echo get_theme_mod( 'logo_height' ); ?>">
+								<img class="king-logo-img" src="<?php echo get_theme_mod( 'logo-img' ); ?>" alt="<?php bloginfo( 'name' ); ?>" height="<?php echo get_theme_mod( 'logo_height', '80' ); ?>">
 							</a>        
 			  			</h1>
 
@@ -18,7 +18,7 @@
 								<?php bloginfo( 'name' ); ?>
 							</a>        
 			  			</h1>
-			  			<?php if( get_theme_mod( 'display_description_text' )) { ?>
+			  			<?php if( get_theme_mod( 'display_description_text', false )) { ?>
 				  			<h2 class="site-description">
 								<?php 
 									if(	get_bloginfo( 'description' ) !== ""){

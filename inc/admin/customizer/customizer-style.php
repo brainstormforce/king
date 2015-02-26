@@ -7,7 +7,7 @@ if(!function_exists("king_custom_style")) :
 		$fonts = array();
 		/* Global Default Font */
 		$default_font_temp = $page_title_font_temp = array();
-		$default_font = get_theme_mod('default_site_font');
+		$default_font = get_theme_mod('default_site_font', 'Open Sans');
 		$default_font = explode(':',$default_font);
 		$default_font_family = isset($default_font[0]) ? $default_font[0] : 'Open Sans';
 		$default_font_weight = isset($default_font[1]) ? $default_font[1] : '400';
@@ -19,7 +19,7 @@ if(!function_exists("king_custom_style")) :
 		array_push($fonts, $default_font_temp);
 
 		/* Page Title Font */
-		$page_title_font = get_theme_mod('page_title_font');
+		$page_title_font = get_theme_mod('page_title_font', 'Open Sans');
 		$page_title_font_size = get_theme_mod('page_title_font_size');
 		$page_title_font = explode(':',$page_title_font);
 		$page_title_font_family = isset($page_title_font[0]) ? $page_title_font[0] : 'Open Sans';
@@ -32,7 +32,7 @@ if(!function_exists("king_custom_style")) :
 		array_push($fonts, $page_title_font_temp);
 
 		/* Widget Title Font */
-		$widget_title_font = get_theme_mod('widget_title_font');
+		$widget_title_font = get_theme_mod('widget_title_font', 'Open Sans');
 		$widget_title_font_size = get_theme_mod('widget_title_font_size');
 		$widget_title_font = explode(':',$widget_title_font);
 		$widget_title_font_family = isset($widget_title_font[0]) ? $widget_title_font[0] : 'Open Sans';
@@ -45,7 +45,7 @@ if(!function_exists("king_custom_style")) :
 		array_push($fonts, $widget_title_font_temp);
 
 		/* Post Meta Font */
-		$post_meta_font = get_theme_mod('post_meta_font');
+		$post_meta_font = get_theme_mod('post_meta_font', 'Open Sans');
 		$post_meta_font_size = get_theme_mod('post_meta_font_size');
 		$post_meta_font = explode(':',$post_meta_font);
 		$post_meta_font_family = isset($post_meta_font[0]) ? $post_meta_font[0] : 'Open Sans';
@@ -59,7 +59,7 @@ if(!function_exists("king_custom_style")) :
 
 
 		/* Menu Font */
-		$menu_font = get_theme_mod('menu_font');
+		$menu_font = get_theme_mod('menu_font', 'Open Sans');
 		$menu_font_size = get_theme_mod('menu_font_size');
 		$menu_font = explode(':',$menu_font);
 		$menu_font_family = isset($menu_font[0]) ? $menu_font[0] : 'Open Sans';
@@ -72,7 +72,7 @@ if(!function_exists("king_custom_style")) :
 		array_push($fonts, $menu_font_temp);
 
 		/* Breadcrumbs Font */
-		$breadcrumb_font = get_theme_mod('breadcrumb_font');
+		$breadcrumb_font = get_theme_mod('breadcrumb_font', 'Open Sans');
 		$breadcrumb_font_size = get_theme_mod('breadcrumb_font_size');
 		$breadcrumb_font = explode(':',$breadcrumb_font);
 		$breadcrumb_font_family = isset($breadcrumb_font[0]) ? $breadcrumb_font[0] : 'Open Sans';
@@ -85,7 +85,7 @@ if(!function_exists("king_custom_style")) :
 		array_push($fonts, $breadcrumb_font_temp);
 
 		/* Page Heading Font */
-		$page_heading_font = get_theme_mod('page_heading_font');
+		$page_heading_font = get_theme_mod('page_heading_font', 'Open Sans');
 		$page_heading_font_size = get_theme_mod('page_heading_font_size');
 		$page_heading_font = explode(':',$page_heading_font);
 		$page_heading_font_family = isset($page_heading_font[0]) ? $page_heading_font[0] : 'Open Sans';
@@ -133,7 +133,7 @@ if(!function_exists("king_custom_style")) :
 		}
 
 		?>
-		<link href='http://fonts.googleapis.com/css?family=<?php echo $font_str; ?>' rel='stylesheet' type='text/css'>
+		<link href='//fonts.googleapis.com/css?family=<?php echo $font_str; ?>' rel='stylesheet' type='text/css'>
 		<style type="text/css">
 		h1.entry-title, h1.entry-title a{
 			font-family:<?php echo $page_title_font_family;?>;
@@ -228,7 +228,7 @@ if(!function_exists("king_custom_style")) :
 			.site-header, 
 			.header-style2 .header-search,
 			.header-style3 .header-box {
-				min-height: <?php echo get_theme_mod( 'logo_height' );?>px;
+				min-height: <?php echo get_theme_mod( 'logo_height', '80' );?>px;
 			}
 			.site-header, 
 			.king-main-menu-container div.nav-menu, 
@@ -236,7 +236,7 @@ if(!function_exists("king_custom_style")) :
 			.header-logo *,
 			.site-header h1, 
 			.site-header h2 {
-				line-height: <?php echo get_theme_mod( 'logo_height' );?>px;
+				line-height: <?php echo get_theme_mod( 'logo_height', '80' );?>px;
 			}
 		}
 
