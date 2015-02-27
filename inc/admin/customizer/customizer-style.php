@@ -71,6 +71,19 @@ if(!function_exists("king_custom_style")) :
 		$menu_font_temp['varient'] = $menu_font_weight;
 		array_push($fonts, $menu_font_temp);
 
+		/* Sub Menu Font */
+		$submenu_font = get_theme_mod('submenu_font', 'Open Sans');
+		$submenu_font_size = get_theme_mod('submenu_font_size');
+		$submenu_font = explode(':',$submenu_font);
+		$submenu_font_family = isset($submenu_font[0]) ? $submenu_font[0] : 'Open Sans';
+		$submenu_font_weight = isset($submenu_font[1]) ? $submenu_font[1] : '400';
+		$submenu_font_style = isset($submenu_font[2]) ? $submenu_font[2] : 'normal';
+		$submenu_font_temp['family'] = $submenu_font_family;
+		if($submenu_font_style === 'italic')
+			$submenu_font_weight .= $submenu_font_style;
+		$submenu_font_temp['varient'] = $submenu_font_weight;
+		array_push($fonts, $submenu_font_temp);
+
 		/* Breadcrumbs Font */
 		$breadcrumb_font = get_theme_mod('breadcrumb_font', 'Open Sans');
 		$breadcrumb_font_size = get_theme_mod('breadcrumb_font_size');
@@ -153,11 +166,17 @@ if(!function_exists("king_custom_style")) :
 			font-style:<?php echo $post_meta_font_style;?>;
 			font-size:<?php echo $post_meta_font_size;?>px;
 		}
-		ul.nav-menu li a, .main-navigation li ul li a {
+		ul.nav-menu li a, .nav-menu li a {
 			font-family:<?php echo $menu_font_family;?>;
 			font-weight:<?php echo $menu_font_weight;?>;
 			font-style:<?php echo $menu_font_style;?>;
 			font-size:<?php echo $menu_font_size;?>px;
+		}
+		ul.children li a, ul.sub-menu li a {
+			font-family:<?php echo $submenu_font_family;?>;
+			font-weight:<?php echo $submenu_font_weight;?>;
+			font-style:<?php echo $submenu_font_style;?>;
+			font-size:<?php echo $submenu_font_size;?>px;
 		}
 		.king-page-header {
 			font-size:<?php echo $page_heading_font_size;?>px;
