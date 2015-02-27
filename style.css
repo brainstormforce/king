@@ -173,8 +173,15 @@ p {
 	font-size: 18px;
 	line-height: 2.181818182em;
 	font-weight: 500;
-	text-transform: uppercase;
 	color: #333333;
+}
+.archive-title, 
+.page-title {
+	text-transform: uppercase;
+}
+.widget-title {
+	text-transform: capitalize;
+	margin-bottom: 10px;
 }
 /* Shared Post Format styling */
 .format-quote .entry-meta,
@@ -465,7 +472,6 @@ nav > .nav-next > a {
 .author.archive .author-info {
 	margin: 48px 0;
 }
-
 /**
 * Basic structure
 *
@@ -1419,7 +1425,7 @@ aside select[name="cat"] {
 	-moz-transition: all 250ms linear;
 	transition: all 250ms linear;
 }
-.widget_tag_cloud .tagcloud a:hover,
+.widget-area .widget_tag_cloud .tagcloud a:hover,
 .main-footer .widget_tag_cloud .tagcloud a:hover {
 	background: #DE5034;
 	color: #fff;
@@ -1568,6 +1574,25 @@ footer[role="contentinfo"] .footer-bottom-container {
 .entry-content,
 .entry-summary-meta {
 	margin-bottom: 24px;
+}
+.blog-featured-media img {	
+	-webkit-filter: blur(0);
+	-moz-filter: blur(0);
+	-o-filter: blur(0);
+	-ms-filter: blur(0);
+	filter: blur(0);
+	-webkit-transition: -webkit-filter 500ms linear;
+	-moz-transition: -moz-filter 500ms linear;
+	-o-transition: -o-filter 500ms linear;
+	-ms-transition: -ms-filter 500ms linear;
+	transition: filter 500ms linear;
+}
+.blog-featured-media img:hover {	
+	-webkit-filter: blur(1px);
+	-moz-filter: blur(1px);
+	-o-filter: blur(1px);
+	-ms-filter: blur(1px);
+	filter: blur(1px);
 }
 /* Normal Blog */
 .post {
@@ -2139,6 +2164,8 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 	transition: all 250ms linear;
 }
 .king-pagination a.inactive,
+.king-pagination a.paginate-first,
+.king-pagination a.paginate-prev,
 .king-pagination a.paginate-next,
 .king-pagination a.paginate-last {
 	color: #fff;
@@ -2358,6 +2385,18 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 #primary,
 #secondary {
 	width: 100%;
+}
+/* Admin Bar */
+#wpadminbar ul li.customizer_menu_item_class,
+#wpadminbar ul li.customizer_menu_item_class a {
+    background: #DE5034;
+    color: #fff;
+}
+#wpadminbar ul li.customizer_menu_item_class:hover,
+#wpadminbar ul li.customizer_menu_item_class:hover a,
+#wpadminbar .ab-top-menu > li.customizer_menu_item_class:hover > a.ab-item {
+    background: #fff;
+    color: #DE5034;
 }
 @media only screen and (min-width: 768px) {	
 	.header-style2 .nav-menu,

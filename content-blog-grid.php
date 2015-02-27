@@ -26,7 +26,8 @@
 				<?php elseif ( king_post_social() ) : ?>
 					<?php echo king_post_social(); ?>
 				<?php elseif ( has_post_thumbnail() ) : ?>
-					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail(); ?></a>
+					<?php $blog_thumnail_size = get_theme_mod('blog_featured_image_size', 'large'); ?>
+					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail( $blog_thumnail_size ); ?></a>
 				<?php endif; ?>
 			</div><!-- .grid-post-media -->
         <?php endif; ?>

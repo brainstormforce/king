@@ -358,8 +358,31 @@ function king_customize_register( $wp_customize ) {
 				'normal' => 'Normal - Large Image Layout',
 				'medium-image' => 'Medium Image Layout',
 				'grid-2' => 'Grid - 2 Column Layout',
-				'grid-3' => 'Grid - 3 Column Layout W/O Sidebar',
-				'grid-4' => 'Grid - 4 Column Layout W/O Sidebar',
+				'grid-3' => 'Grid - 3 Column Layout',
+				'grid-4' => 'Grid - 4 Column Layout',
+			),
+		)
+	);
+
+	$wp_customize->add_setting(
+		'blog_featured_image_size',
+		array(
+			'default' => 'large',
+			'sanitize_callback' => 'king_sanitize_callback'
+		)
+	);	 
+	$wp_customize->add_control(
+		'blog_featured_image_size',
+		array(
+			'type' => 'select',
+			'label' => 'Select Fetured Image Size',
+			'section' => 'blog_layout_section',
+			'choices' => array(
+				'large' => 'Large',				
+				'medium' => 'Medium',				
+				'full' => 'Full',
+				'thumbnail' => 'Thumbnail',
+				'medium-image-blog' => '330 x 215 px',
 			),
 		)
 	);
@@ -746,7 +769,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'page-title-color',
 		array(
-			'default' => '#333',
+			'default' => '#333333',
 			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
@@ -1110,7 +1133,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'footer-bg-color',
 		array(
-			'default' => '#dddddd',
+			'default' => '#f1f1f1',
 			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
@@ -1240,7 +1263,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'page_title_font_size',
 		array(
-			'default' => 18,
+			'default' => 20,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -1328,12 +1351,14 @@ function king_customize_register( $wp_customize ) {
 	);
 	
 	// Widget Font
-	$wp_customize->add_setting( 'widget_title_font', array(
-		'default' => 'Open Sans',
-		'type' => 'theme_mod',
-		'capability' => 'edit_theme_options',
-		'transport' => '',
-		'sanitize_callback' => 'king_sanitize_callback',
+	$wp_customize->add_setting( 
+		'widget_title_font', 
+		array(
+			'default' => 'Open Sans',
+			'type' => 'theme_mod',
+			'capability' => 'edit_theme_options',
+			'transport' => '',
+			'sanitize_callback' => 'king_sanitize_callback',
 	) );
 	$wp_customize->add_control(
 		new King_Typography_Control(
@@ -1375,12 +1400,14 @@ function king_customize_register( $wp_customize ) {
 	);
 	
 	// Menu Fonts
-	$wp_customize->add_setting( 'menu_font', array(
-		'default' => 'Open Sans',
-		'type' => 'theme_mod',
-		'capability' => 'edit_theme_options',
-		'transport' => '',
-		'sanitize_callback' => 'king_sanitize_callback',
+	$wp_customize->add_setting( 
+		'menu_font', 
+		array(
+			'default' => 'Open Sans',
+			'type' => 'theme_mod',
+			'capability' => 'edit_theme_options',
+			'transport' => '',
+			'sanitize_callback' => 'king_sanitize_callback',
 	) );
 	$wp_customize->add_control(
 		new King_Typography_Control(
@@ -1400,7 +1427,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'menu_font_size',
 		array(
-			'default' => 18,
+			'default' => 13,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -1412,6 +1439,77 @@ function king_customize_register( $wp_customize ) {
 			'description' =>  '',
 			'type'        => 'number',
 			'priority' => 2,
+			'input_attrs' => array(
+				'min'   => 10,
+				'max'   => 72,
+				'step'  => 1,
+				'style' => 'width: 80px;',
+			),
+		)
+	);
+
+	$wp_customize->add_setting( 
+		'separator-menu', 
+		array(
+			'default' => '',
+			'type' => 'theme_mod',
+			'capability' => 'edit_theme_options',
+			'transport' => '',
+			'sanitize_callback' => 'king_sanitize_callback',
+		) 
+	);
+	$wp_customize->add_control(
+		new King_Separator_Control(
+			$wp_customize,
+			'separator-menu',
+			array(
+				'label' => '',
+				'section' => 'menu_font',
+				'settings' => 'separator-menu',
+				'priority' => 3,
+			)
+		)
+	);
+
+	$wp_customize->add_setting( 
+		'submenu_font', 
+		array(
+			'default' => 'Open Sans',
+			'type' => 'theme_mod',
+			'capability' => 'edit_theme_options',
+			'transport' => '',
+			'sanitize_callback' => 'king_sanitize_callback',
+	) );
+	$wp_customize->add_control(
+		new King_Typography_Control(
+			$wp_customize,
+			'submenu_font',
+			array(
+				'label' => 'Sub Menu Font',
+				'section' => 'menu_font',
+				'settings' => 'submenu_font',
+				'priority' => 4,
+				'id'	=> 'entry_title_font',
+				'description' => '400 regular:400:normal'
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'submenu_font_size',
+		array(
+			'default' => 12,
+			'sanitize_callback' => 'king_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'submenu_font_size',
+		array(
+			'label' => 'Sub Font Size (px)',
+			'section' => 'menu_font',
+			'description' =>  '',
+			'type'        => 'number',
+			'priority' => 5,
 			'input_attrs' => array(
 				'min'   => 10,
 				'max'   => 72,
@@ -1447,7 +1545,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'breadcrumb_font_size',
 		array(
-			'default' => 18,
+			'default' => 13,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -1513,7 +1611,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'page_heading_font_size',
 		array(
-			'default' => 18,
+			'default' => 17,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
