@@ -1425,7 +1425,7 @@ aside select[name="cat"] {
 	-moz-transition: all 250ms linear;
 	transition: all 250ms linear;
 }
-.widget_tag_cloud .tagcloud a:hover,
+.widget-area .widget_tag_cloud .tagcloud a:hover,
 .main-footer .widget_tag_cloud .tagcloud a:hover {
 	background: #DE5034;
 	color: #fff;
