@@ -170,7 +170,6 @@ require_once('inc/admin/customizer/customizer.php');
 require_once('inc/admin/customizer/customizer-style.php');
 require_once('inc/king-theme-hooks.php');
 require_once('inc/king-breadcrumbs.php');
-require_once('inc/king-menu-walker.php');
 require_once('inc/king-pagination.php');
 require_once('inc/king-post-gallery.php');
 require_once('inc/king-page-meta.php');
