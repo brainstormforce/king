@@ -169,6 +169,28 @@ require_once('inc/king-post-gallery.php');
 require_once('inc/king-page-meta.php');
 require_once('inc/king-widget.php');
 
+/**
+ * Admin Menu
+ *
+ * Add customizer Link in Admin Menu Bar
+ *
+ * @since King 1.0
+ *
+ */
+add_action('admin_bar_menu', 'king_add_toolbar_items', 100);
+function king_add_toolbar_items($admin_bar){
+	$king_admin_url = admin_url( 'customize.php', 'admin' );
+    $admin_bar->add_menu( array(
+        'id'    => 'customizer-item',
+        'title' => 'Theme Options',
+        'href'  => $king_admin_url,
+        'meta'  => array(
+            'title' => __('King Theme Options'),  
+            'class' => 'customizer_menu_item_class'          
+        ),
+    ));
+}
+
 
 /**
  * Register menus in theme 
