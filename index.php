@@ -14,8 +14,7 @@
  * @since King 1.0
  */
 get_header(); 
-$bl = get_theme_mod('blog_layout');
-$blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
+$blog_layout = get_theme_mod('blog_layout', 'normal');
 ?>
 <?php king_content_before(); ?>
 <div id="primary" class="site-content">	

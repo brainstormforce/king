@@ -20,7 +20,7 @@ if(!function_exists("king_custom_style")) :
 
 		/* Page Title Font */
 		$page_title_font = get_theme_mod('page_title_font', 'Open Sans');
-		$page_title_font_size = get_theme_mod('page_title_font_size');
+		$page_title_font_size = get_theme_mod('page_title_font_size', '20');
 		$page_title_font = explode(':',$page_title_font);
 		$page_title_font_family = isset($page_title_font[0]) ? $page_title_font[0] : 'Open Sans';
 		$page_title_font_weight = isset($page_title_font[1]) ? $page_title_font[1] : '400';
@@ -33,7 +33,7 @@ if(!function_exists("king_custom_style")) :
 
 		/* Widget Title Font */
 		$widget_title_font = get_theme_mod('widget_title_font', 'Open Sans');
-		$widget_title_font_size = get_theme_mod('widget_title_font_size');
+		$widget_title_font_size = get_theme_mod('widget_title_font_size', '18');
 		$widget_title_font = explode(':',$widget_title_font);
 		$widget_title_font_family = isset($widget_title_font[0]) ? $widget_title_font[0] : 'Open Sans';
 		$widget_title_font_weight = isset($widget_title_font[1]) ? $widget_title_font[1] : '400';
@@ -46,7 +46,7 @@ if(!function_exists("king_custom_style")) :
 
 		/* Post Meta Font */
 		$post_meta_font = get_theme_mod('post_meta_font', 'Open Sans');
-		$post_meta_font_size = get_theme_mod('post_meta_font_size');
+		$post_meta_font_size = get_theme_mod('post_meta_font_size', '12');
 		$post_meta_font = explode(':',$post_meta_font);
 		$post_meta_font_family = isset($post_meta_font[0]) ? $post_meta_font[0] : 'Open Sans';
 		$post_meta_font_weight = isset($post_meta_font[1]) ? $post_meta_font[1] : '400';
@@ -60,7 +60,7 @@ if(!function_exists("king_custom_style")) :
 
 		/* Menu Font */
 		$menu_font = get_theme_mod('menu_font', 'Open Sans');
-		$menu_font_size = get_theme_mod('menu_font_size');
+		$menu_font_size = get_theme_mod('menu_font_size', '13');
 		$menu_font = explode(':',$menu_font);
 		$menu_font_family = isset($menu_font[0]) ? $menu_font[0] : 'Open Sans';
 		$menu_font_weight = isset($menu_font[1]) ? $menu_font[1] : '400';
@@ -73,7 +73,7 @@ if(!function_exists("king_custom_style")) :
 
 		/* Sub Menu Font */
 		$submenu_font = get_theme_mod('submenu_font', 'Open Sans');
-		$submenu_font_size = get_theme_mod('submenu_font_size');
+		$submenu_font_size = get_theme_mod('submenu_font_size', '12');
 		$submenu_font = explode(':',$submenu_font);
 		$submenu_font_family = isset($submenu_font[0]) ? $submenu_font[0] : 'Open Sans';
 		$submenu_font_weight = isset($submenu_font[1]) ? $submenu_font[1] : '400';
@@ -86,7 +86,7 @@ if(!function_exists("king_custom_style")) :
 
 		/* Breadcrumbs Font */
 		$breadcrumb_font = get_theme_mod('breadcrumb_font', 'Open Sans');
-		$breadcrumb_font_size = get_theme_mod('breadcrumb_font_size');
+		$breadcrumb_font_size = get_theme_mod('breadcrumb_font_size', '13');
 		$breadcrumb_font = explode(':',$breadcrumb_font);
 		$breadcrumb_font_family = isset($breadcrumb_font[0]) ? $breadcrumb_font[0] : 'Open Sans';
 		$breadcrumb_font_weight = isset($breadcrumb_font[1]) ? $breadcrumb_font[1] : '400';
@@ -99,7 +99,7 @@ if(!function_exists("king_custom_style")) :
 
 		/* Page Heading Font */
 		$page_heading_font = get_theme_mod('page_heading_font', 'Open Sans');
-		$page_heading_font_size = get_theme_mod('page_heading_font_size');
+		$page_heading_font_size = get_theme_mod('page_heading_font_size', '17');
 		$page_heading_font = explode(':',$page_heading_font);
 		$page_heading_font_family = isset($page_heading_font[0]) ? $page_heading_font[0] : 'Open Sans';
 		$page_heading_font_weight = isset($page_heading_font[1]) ? $page_heading_font[1] : '400';
@@ -195,7 +195,7 @@ if(!function_exists("king_custom_style")) :
 		}
 
 		body{
-			background:<?php echo get_theme_mod( 'site-bg-color' );?>;
+			background:<?php echo get_theme_mod( 'site-bg-color', '#ffffff' );?>;
 		}
 		body {
 			font-family:<?php echo $default_font_family;?>;
@@ -221,21 +221,19 @@ if(!function_exists("king_custom_style")) :
 			.footer-bottom-container, 
 			.smile-row, 
 			.boxed.king-fixed-menu .site-header {
-				max-width: <?php echo get_theme_mod( 'site_width' );?>px !important;
+				max-width: <?php echo get_theme_mod( 'site_width', '1170' );?>px !important;
 			}
 		<?php } ?>
 
 		<?php if ( get_theme_mod('sidebar_position') != 'no-sidebar') : ?>
-			<?php if ( get_theme_mod('content_width') != '') : ?>
-				@media only screen and (min-width: 768px) {
-					#primary {
-						width: <?php echo get_theme_mod( 'content_width' );?>%;
-					}
-					#secondary {
-						width: <?php echo ( 100 - get_theme_mod( 'content_width' ));?>%;
-					}
+			@media only screen and (min-width: 768px) {
+				#primary {
+					width: <?php echo get_theme_mod( 'content_width', '75' );?>%;
 				}
-			<?php endif; ?>
+				#secondary {
+					width: <?php echo ( 100 - get_theme_mod( 'content_width', '75' ));?>%;
+				}
+			}
 		<?php endif; ?>
 
 		/**
@@ -287,7 +285,7 @@ if(!function_exists("king_custom_style")) :
 		.post-meta a:hover,
 		.slick-prev:before, 
 		.slick-next:before {
-			color:<?php echo get_theme_mod('site-color'); ?>;
+			color:<?php echo get_theme_mod('site-color', '#de5034'); ?>;
 		}
 		button#searchsubmit, 
 		.menu-toggle, 
@@ -309,7 +307,7 @@ if(!function_exists("king_custom_style")) :
 		article.post-password-required input[type=submit], 
 		.bypostauthor cite span,
 		.king-scroll-top {
-			border-color:<?php echo get_theme_mod('site-color'); ?>;
+			border-color:<?php echo get_theme_mod('site-color', '#de5034'); ?>;
 		}
 		button#searchsubmit, 
 		.menu-toggle, 
@@ -328,19 +326,19 @@ if(!function_exists("king_custom_style")) :
 		.king-scroll-top,
 		.widget_tag_cloud .tagcloud a:hover,
 		.main-footer .widget_tag_cloud .tagcloud a:hover {
-			background:<?php echo get_theme_mod('site-color'); ?>;
+			background:<?php echo get_theme_mod('site-color', '#de5034'); ?>;
 		}
 		.format-aside .aside {
-			border-left-color: <?php echo get_theme_mod('site-color'); ?>;
+			border-left-color: <?php echo get_theme_mod('site-color', '#de5034'); ?>;
 		}
 		@media only screen and (min-width: 768px) {
 			.main-navigation .nav-menu .sub-menu, 
 			.main-navigation .nav-menu .children {
-				border-top-color: <?php echo get_theme_mod('site-color'); ?>;
+				border-top-color: <?php echo get_theme_mod('site-color', '#de5034'); ?>;
 			}
 			.main-navigation .nav-menu .sub-menu li a:hover, 
 			.main-navigation .nav-menu .children li a:hover {
-				background: <?php echo get_theme_mod('site-color'); ?>;
+				background: <?php echo get_theme_mod('site-color', '#de5034'); ?>;
 			}
 		}
 
@@ -349,14 +347,14 @@ if(!function_exists("king_custom_style")) :
 		*/
 		body,
 		p {
-			color: <?php echo get_theme_mod('site-text-color'); ?>;
+			color: <?php echo get_theme_mod('site-text-color', '#707070'); ?>;
 		}
 
 		/**
 		* 3.2 Page / Post Title Color
 		*/
 		h1.entry-title {
-			color: <?php echo get_theme_mod('page-title-color'); ?>;	
+			color: <?php echo get_theme_mod('page-title-color', '#333333'); ?>;	
 		}
 
 		/**
@@ -365,21 +363,21 @@ if(!function_exists("king_custom_style")) :
 		.post-meta,
 		.post-meta a,
 		.entry-summary p.post-meta {
-			color: <?php echo get_theme_mod('post-meta-color'); ?>;
+			color: <?php echo get_theme_mod('post-meta-color', '#909090'); ?>;
 		}
 
 		/**
 		* 3.2 Post Meta Hover Color
 		*/
 		.post-meta a:hover {
-			color: <?php echo get_theme_mod('post-meta-hover-color'); ?>;
+			color: <?php echo get_theme_mod('post-meta-hover-color', '#de5034'); ?>;
 		}
 
 		/**
 		* 3.2 Sidebar Widget Title Color
 		*/
 		.widget h3.widget-title {
-			color: <?php echo get_theme_mod('sidebar-widget-title-color'); ?>;
+			color: <?php echo get_theme_mod('sidebar-widget-title-color', '#333333'); ?>;
 		}
 
 
@@ -391,7 +389,7 @@ if(!function_exists("king_custom_style")) :
 		.king-transparent-header .site-header.king-sticky-menu,
 		.site-header.header-style2,
 		.site-header.header-style3 {
-			background: <?php echo get_theme_mod( 'header-bg-color' );?>;
+			background: <?php echo get_theme_mod( 'header-bg-color', '#333333' );?>;
 		}
 
 		/**
@@ -399,7 +397,7 @@ if(!function_exists("king_custom_style")) :
 		*/
 		.main-navigation .nav-menu > li > a,
 		.main-navigation .nav-menu > ul > li > a {
-			color: <?php echo get_theme_mod('parent-menu-color'); ?>;
+			color: <?php echo get_theme_mod('parent-menu-color', '#dddddd'); ?>;
 		}
 
 		/**
@@ -407,7 +405,7 @@ if(!function_exists("king_custom_style")) :
 		*/
 		.main-navigation .nav-menu > li > a:hover,
 		.main-navigation .nav-menu > ul > li > a:hover {
-			color: <?php echo get_theme_mod('parent-menu-hover-color'); ?>;
+			color: <?php echo get_theme_mod('parent-menu-hover-color', '#f7f7f7'); ?>;
 		}
 
 		/**
@@ -415,7 +413,7 @@ if(!function_exists("king_custom_style")) :
 		*/
 		.header-style2 .main-navigation,
 		.header-style3 .main-navigation {
-			background: <?php echo get_theme_mod( 'parent-menu-bg-color' );?>;
+			background: <?php echo get_theme_mod( 'parent-menu-bg-color', '#707070' );?>;
 		}
 
 		@media only screen and (min-width: 768px) {
@@ -425,7 +423,7 @@ if(!function_exists("king_custom_style")) :
 			*/
 			.main-navigation .nav-menu .sub-menu li a, 
 			.main-navigation .nav-menu .children li a {
-				color: <?php echo get_theme_mod('child-menu-link-color'); ?>;
+				color: <?php echo get_theme_mod('child-menu-link-color', '#eaeaea'); ?>;
 			}
 
 			/**
@@ -433,7 +431,7 @@ if(!function_exists("king_custom_style")) :
 			*/
 			.main-navigation .nav-menu .sub-menu li a:hover, 
 			.main-navigation .nav-menu .children li a:hover {
-				color: <?php echo get_theme_mod('child-menu-hover-color'); ?>;
+				color: <?php echo get_theme_mod('child-menu-hover-color', '#ffffff'); ?>;
 			}
 
 			/**
@@ -441,7 +439,7 @@ if(!function_exists("king_custom_style")) :
 			*/
 			.main-navigation .nav-menu .sub-menu, 
 			.main-navigation .nav-menu .children {
-				background: <?php echo get_theme_mod('child-menu-bg-color'); ?>;
+				background: <?php echo get_theme_mod('child-menu-bg-color', '#1d1d1d'); ?>;
 			}
 
 			/**
@@ -449,11 +447,11 @@ if(!function_exists("king_custom_style")) :
 			*/
 			.main-navigation .nav-menu .sub-menu li a:hover, 
 			.main-navigation .nav-menu .children li a:hover {
-				background: <?php echo get_theme_mod('child-menu-hover-bg-color'); ?>;
+				background: <?php echo get_theme_mod('child-menu-hover-bg-color', '#de5034'); ?>;
 			}
 			.main-navigation .nav-menu .sub-menu, 
 			.main-navigation .nav-menu .children {
-				border-top-color: <?php echo get_theme_mod('child-menu-hover-bg-color'); ?>;
+				border-top-color: <?php echo get_theme_mod('child-menu-hover-bg-color', '#de5034'); ?>;
 			}
 		}
 
@@ -465,7 +463,7 @@ if(!function_exists("king_custom_style")) :
 		h2.site-description, 
 		h2.site-description *,
 		.site-header .blog-description {
-			color: #<?php echo get_theme_mod('header_textcolor'); ?>;
+			color: #<?php echo get_theme_mod('header_textcolor', '#f2f2f2'); ?>;
 		}
 
 		/**
@@ -473,7 +471,7 @@ if(!function_exists("king_custom_style")) :
 		*/
 		h1.site-title a:hover,
 		h1.site-title a:focus{
-			color: <?php echo get_theme_mod('header-hover-color'); ?> !important;
+			color: <?php echo get_theme_mod('header-hover-color', '#de5034'); ?> !important;
 		}
 
 
@@ -487,14 +485,14 @@ if(!function_exists("king_custom_style")) :
 		* 4.1 Footer Widget Title Color
 		*/
 		#footer h3.widget-title {
-			color:<?php echo get_theme_mod('footer-widget-title-color'); ?>;
+			color:<?php echo get_theme_mod('footer-widget-title-color', '#de5034'); ?>;
 		}
 
 		/**
 		* 4.2 Footer Text Color
 		*/
 		.main-footer *{
-			color: <?php echo get_theme_mod('footer-color'); ?>;
+			color: <?php echo get_theme_mod('footer-color', '#707070'); ?>;
 		}
 
 
@@ -502,7 +500,7 @@ if(!function_exists("king_custom_style")) :
 		* 4.3 Footer Link Color
 		*/
 		.main-footer a {
-			color: <?php echo get_theme_mod('footer-link-color'); ?>;
+			color: <?php echo get_theme_mod('footer-link-color', '#333333'); ?>;
 		}
 
 
@@ -510,7 +508,7 @@ if(!function_exists("king_custom_style")) :
 		* 4.4 Footer Link Hover Color
 		*/
 		.main-footer a:hover {
-			color: <?php echo get_theme_mod('footer-link-hover-color'); ?>;
+			color: <?php echo get_theme_mod('footer-link-hover-color', '#de5034'); ?>;
 		}
 
 
@@ -518,15 +516,15 @@ if(!function_exists("king_custom_style")) :
 		* 4.5 Main Footer Background Color
 		*/
 		.main-footer{
-			background: <?php echo get_theme_mod('footer-bg-color'); ?>;
+			background: <?php echo get_theme_mod('footer-bg-color', '#dddddd'); ?>;
 		}
 
 		/**
 		* 4.6 Small Footer Background Color
 		*/
 		footer[role="contentinfo"]{
-			background: <?php echo get_theme_mod('small-footer-bg-color'); ?>;
-			border-top-color: <?php echo get_theme_mod('small-footer-bg-color'); ?>;
+			background: <?php echo get_theme_mod('small-footer-bg-color', '#333333'); ?>;
+			border-top-color: <?php echo get_theme_mod('small-footer-bg-color', '#333333'); ?>;
 		}
 
 		/**
@@ -534,14 +532,14 @@ if(!function_exists("king_custom_style")) :
 		*/
 		footer[role="contentinfo"] *, 
 		footer[role="contentinfo"] a{
-			color: <?php echo get_theme_mod('small-footer-text-color'); ?>;
+			color: <?php echo get_theme_mod('small-footer-text-color', '#dddddd'); ?>;
 		}
 
 		/**
 		* 4.8 Small Footer Link Hover Color
 		*/
 		footer[role="contentinfo"] a:hover {
-			color: <?php echo get_theme_mod('small-footer-link-hover-color'); ?>;
+			color: <?php echo get_theme_mod('small-footer-link-hover-color', '#de5034'); ?>;
 		}
 
 		</style>

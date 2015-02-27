@@ -316,8 +316,8 @@ function king_megamenu_scripts($hook){
 		wp_enqueue_script('king-fw-events', $king_admin_url.'js/fw-events.js','','',true);
 		wp_enqueue_script('king-option-types', $king_admin_url.'js/option-types.js','','',true);
 		wp_enqueue_script('king-fw', $king_admin_url.'js/fw.js','','',true);
-		wp_enqueue_script('king-admin', $king_admin_url.'js/admin.js','','',true);
-		wp_enqueue_style('king-admin', $king_admin_url.'css/admin.css');
+		wp_enqueue_script('king-admin', $king_admin_url.'js/menu-admin.js','','',true);
+		wp_enqueue_style('king-admin', $king_admin_url.'css/menu-admin.css');
 
 		wp_localize_script('king-fw', '_fw_localized', array(
 			'SITE_URI' => site_url(),

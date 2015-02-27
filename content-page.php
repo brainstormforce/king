@@ -14,7 +14,8 @@
 		<?php // if ( ! is_page_template( 'page-templates/front-page.php' ) ) : ?>
 			<?php if( has_post_thumbnail() ) : ?>
 				<div class="page-featured-img">
-					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail('full'); ?></a>
+					<?php $blog_thumnail_size = get_theme_mod('blog_featured_image_size', 'large'); ?>
+					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail( $blog_thumnail_size ); ?></a>
 				</div>
 			<?php endif; ?>
 		<?php // endif; ?>

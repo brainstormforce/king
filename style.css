@@ -472,7 +472,6 @@ nav > .nav-next > a {
 .author.archive .author-info {
 	margin: 48px 0;
 }
-
 /**
 * Basic structure
 *
@@ -2384,6 +2383,18 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 #primary,
 #secondary {
 	width: 100%;
+}
+/* Admin Bar */
+#wpadminbar ul li.customizer_menu_item_class,
+#wpadminbar ul li.customizer_menu_item_class a {
+    background: #DE5034;
+    color: #fff;
+}
+#wpadminbar ul li.customizer_menu_item_class:hover,
+#wpadminbar ul li.customizer_menu_item_class:hover a,
+#wpadminbar .ab-top-menu > li.customizer_menu_item_class:hover > a.ab-item {
+    background: #fff;
+    color: #DE5034;
 }
 @media only screen and (min-width: 768px) {	
 	.header-style2 .nav-menu,

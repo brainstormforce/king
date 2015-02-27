@@ -13,8 +13,7 @@
  */
 get_header();
 
-$bl = get_theme_mod('blog_layout');
-$blog_layout = isset($bl) ? get_theme_mod('blog_layout') : 'normal';
+$blog_layout = get_theme_mod('blog_layout', 'normal');
 ?>
 
 <?php king_content_before(); ?>

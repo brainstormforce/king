@@ -769,7 +769,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'page-title-color',
 		array(
-			'default' => '#333',
+			'default' => '#333333',
 			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
@@ -1263,7 +1263,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'page_title_font_size',
 		array(
-			'default' => 18,
+			'default' => 20,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -1427,7 +1427,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'menu_font_size',
 		array(
-			'default' => 14,
+			'default' => 13,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -1498,7 +1498,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'submenu_font_size',
 		array(
-			'default' => 13,
+			'default' => 12,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -1545,7 +1545,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'breadcrumb_font_size',
 		array(
-			'default' => 18,
+			'default' => 13,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -1611,7 +1611,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'page_heading_font_size',
 		array(
-			'default' => 18,
+			'default' => 17,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);

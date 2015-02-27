@@ -71,6 +71,16 @@ function king_setup() {
 }
 add_action( 'after_setup_theme', 'king_setup' );
 
+/**
+ * Enqueue scripts and styles for admin backend
+ *
+ * @since King 1.0
+ */
+add_action('admin_enqueue_scripts','king_admin_styles');
+function king_admin_styles(){
+	$king_admin_url = get_template_directory_uri() . '/inc/admin/assets/';
+	wp_enqueue_style('king-admin', $king_admin_url.'css/admin.css');
+}
 
 /**
  * Enqueue scripts and styles for front-end.
@@ -106,7 +116,7 @@ function king_scripts_styles() {
 	
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
-	$blog_layout = get_theme_mod('blog_layout');
+	$blog_layout = get_theme_mod('blog_layout', 'normal');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
 			if ( is_home() || is_front_page() || is_archive() || is_search() ) :
@@ -182,7 +192,7 @@ function king_add_toolbar_items($admin_bar){
 	$king_admin_url = admin_url( 'customize.php', 'admin' );
     $admin_bar->add_menu( array(
         'id'    => 'customizer-item',
-        'title' => 'Theme Options',
+        'title' => 'King',
         'href'  => $king_admin_url,
         'meta'  => array(
             'title' => __('King Theme Options'),  
@@ -511,7 +521,7 @@ function king_body_class( $classes ) {
 	// Blog Layout
 	$classes[] = get_theme_mod('blog_layout', 'normal');
 
-	$blog_layout = get_theme_mod('blog_layout');
+	$blog_layout = get_theme_mod('blog_layout', 'normal');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		$classes[] = 'blog-grid';
 	endif;
@@ -530,14 +540,8 @@ function king_body_class( $classes ) {
 	endif;
 
 	// Sidebar Position
-	$sidebar_position = get_theme_mod('sidebar_position');
-	if ($sidebar_position == 'right-sidebar') :
-		$classes[] = 'right-sidebar';
-	elseif ($sidebar_position == 'left-sidebar') :
-		$classes[] = 'left-sidebar';
-	elseif ($sidebar_position == 'no-sidebar') :
-		$classes[] = 'no-sidebar';	
-	endif;
+	$sidebar_position = get_theme_mod('sidebar_position', 'right-sidebar');
+	$classes[] = $sidebar_position;	
 
 	// If fixed menu
 	$fixed_header = get_theme_mod( 'site_fixed_header', true );
@@ -563,7 +567,7 @@ add_filter( 'body_class', 'king_body_class' );
 function king_post_class( $classes ) {
 
 	global $post;
-	$blog_layout = get_theme_mod('blog_layout');
+	$blog_layout = get_theme_mod('blog_layout', 'normal');
 
 	if ( !is_singular() ) :	
 		if ($blog_layout == 'grid-2') {
@@ -609,7 +613,7 @@ add_action( 'template_redirect', 'king_site_width' );
 function king_masonry_blog() {
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
-	$blog_layout = get_theme_mod('blog_layout');
+	$blog_layout = get_theme_mod('blog_layout', 'normal');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
 			if ( is_home() || is_front_page() || is_archive() || is_search() ) : ?>
@@ -763,7 +767,7 @@ endif;
 // Remove Post Meta From Pages, 404, Grid Blog layout
 if ( ! function_exists( 'king_remove_post_meta' ) ) :
 	function king_remove_post_meta() {
-		$blog_layout = get_theme_mod('blog_layout');
+		$blog_layout = get_theme_mod('blog_layout', 'normal');
 		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 			if (is_search() || is_home() || is_archive()) :
 				remove_action('king_entry_bottom', 'king_post_meta');
@@ -781,8 +785,7 @@ endif;
 // Custom Excerpt Length
 if ( ! function_exists( 'king_excerpt_length' ) ) :
 	function king_excerpt_length( $length ) {
-		$check_excerpt_length = get_theme_mod( 'post_excerpt_length' );
-		$excerpt_length = ($check_excerpt_length != 0) ? $check_excerpt_length : 25;
+		$excerpt_length = get_theme_mod( 'post_excerpt_length', '25' );
 		return $excerpt_length;
 	}
 	add_filter( 'excerpt_length', 'king_excerpt_length', 999 );
@@ -1064,7 +1067,7 @@ endif;
 // Header Layout
 if ( ! function_exists( 'king_header_layout' ) ) :
 	function king_header_layout() { 
-		$header_layout = get_theme_mod('header_layout');
+		$header_layout = get_theme_mod('header_layout', 'header_1');
 		if($header_layout == 'header_2'){
 			get_header('style2');
 		} 
