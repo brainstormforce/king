@@ -516,7 +516,7 @@ if(!function_exists("king_custom_style")) :
 		* 4.5 Main Footer Background Color
 		*/
 		.main-footer{
-			background: <?php echo get_theme_mod('footer-bg-color', '#dddddd'); ?>;
+			background: <?php echo get_theme_mod('footer-bg-color', '#f1f1f1'); ?>;
 		}
 
 		/**

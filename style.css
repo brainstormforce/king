@@ -2164,6 +2164,8 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 	transition: all 250ms linear;
 }
 .king-pagination a.inactive,
+.king-pagination a.paginate-first,
+.king-pagination a.paginate-prev,
 .king-pagination a.paginate-next,
 .king-pagination a.paginate-last {
 	color: #fff;

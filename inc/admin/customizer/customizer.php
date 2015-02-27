@@ -1133,7 +1133,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'footer-bg-color',
 		array(
-			'default' => '#dddddd',
+			'default' => '#f1f1f1',
 			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
