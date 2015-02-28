@@ -2158,6 +2158,20 @@ body #main {
 	padding-left: 15px;
 	padding-right: 15px;
 }
+/* Primary Content Width */
+#primary,
+#secondary {
+	position: relative;
+	float: left;
+	min-height: 1px;
+	padding-left: 15px;
+	padding-right: 15px;
+	box-sizing: border-box;
+}
+#primary,
+#secondary {
+	width: 100%;
+}
 /*VC Compatibility*/
 .js_active .page-template-king-full-width #main {
 	width: 100% !important;
@@ -2167,11 +2181,11 @@ body #main {
 	margin-right: 0;
 	padding: 0;
 }
-.king-full-width-template {
+#primary.king-full-width-template {
 	padding-left: 15px;
 	padding-right: 15px;
 }
-.js_active .king-full-width-template {
+.js_active #primary.king-full-width-template {
 	padding-left: 0;
 	padding-right: 0;
 	margin-top: 0;
@@ -2204,6 +2218,25 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 	box-sizing: border-box !important;
 	-webkit-box-sizing: border-box !important;
 	-moz-box-sizing: border-box !important;
+}
+.page-template-king-full-width .entry-header,
+.page-template-king-full-width .entry-meta,
+.page-template-king-full-width .comments-area {
+	max-width: 1170px;
+	margin: 0 auto;
+}
+.js_active .page-template-king-full-width .entry-header,
+.js_active .page-template-king-full-width .entry-meta,
+.js_active .page-template-king-full-width .comments-area {
+	max-width: 1170px;
+	margin: 0 auto;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.js_active .page-template-king-full-width .entry-header,
+.js_active .page-template-king-full-width .entry-meta,
+.js_active .page-template-king-full-width .comments-area {
+	display: none;
 }
 /**
 * Theme Layout
@@ -2458,20 +2491,6 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	line-height: 32px;
 	text-align: center;
 	display: block;
-}
-/* Primary Content Width */
-#primary,
-#secondary {
-	position: relative;
-	float: left;
-	min-height: 1px;
-	padding-left: 15px;
-	padding-right: 15px;
-	box-sizing: border-box;
-}
-#primary,
-#secondary {
-	width: 100%;
 }
 /* Admin Bar */
 #wpadminbar .customizer_menu_item_class .ab-icon:before {
