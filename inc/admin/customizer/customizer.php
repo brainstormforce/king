@@ -244,7 +244,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'sidebar_position',
 		array(
-			'default' => 'right-sidebar',
+			'default' => 'no-sidebar',
 			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);	 
@@ -352,7 +352,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'blog_layout',
 		array(
-			'default' => 'normal',
+			'default' => 'grid-3',
 			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);	 
@@ -455,7 +455,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'blog_featured_image_size',
 		array(
-			'default' => 'large',
+			'default' => 'full',
 			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);	 
@@ -520,7 +520,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'blog_category_meta',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -537,7 +537,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'blog_tag_meta',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -554,7 +554,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'blog_comment_meta',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -588,7 +588,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'blog_link_meta',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -663,7 +663,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'logo_height',
 		array(
-			'default' => 80,
+			'default' => 90,
 			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
@@ -708,7 +708,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'copyright_textbox',
 	    array(
-	        'default' => 'Proudly powered by WP Shark @BRAINSTORM',
+	        'default' => 'King WordPress Theme by Brainstorm Force',
 	        'sanitize_callback' => 'king_sanitize_callback',
 	    )
 	);
@@ -724,7 +724,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'copyright_text_link',
 	    array(
-	        'default' => 'http://brainstormforce.com/',
+	        'default' => 'https://www.brainstormforce.com/',
 	        'sanitize_callback' => 'king_sanitize_callback',
 	    )
 	);

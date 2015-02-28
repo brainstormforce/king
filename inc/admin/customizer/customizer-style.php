@@ -245,7 +245,7 @@ if(!function_exists("king_custom_style")) :
 			.site-header, 
 			.header-style2 .header-search,
 			.header-style3 .header-box {
-				min-height: <?php echo get_theme_mod( 'logo_height', '80' );?>px;
+				min-height: <?php echo get_theme_mod( 'logo_height', '90' );?>px;
 			}
 			.site-header, 
 			.king-main-menu-container div.nav-menu, 
@@ -253,7 +253,7 @@ if(!function_exists("king_custom_style")) :
 			.header-logo *,
 			.site-header h1, 
 			.site-header h2 {
-				line-height: <?php echo get_theme_mod( 'logo_height', '80' );?>px;
+				line-height: <?php echo get_theme_mod( 'logo_height', '90' );?>px;
 			}
 		}
 

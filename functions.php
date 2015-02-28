@@ -116,7 +116,7 @@ function king_scripts_styles() {
 	
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
 			if ( is_home() || is_front_page() || is_archive() || is_search() ) :
@@ -517,9 +517,9 @@ function king_body_class( $classes ) {
 	$classes[] = get_theme_mod('site_layout', 'full-width');
 
 	// Blog Layout
-	$classes[] = get_theme_mod('blog_layout', 'normal');
+	$classes[] = get_theme_mod('blog_layout', 'grid-3');
 
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		$classes[] = 'blog-grid';
 	endif;
@@ -538,7 +538,7 @@ function king_body_class( $classes ) {
 	endif;
 
 	// Sidebar Position
-	$sidebar_position = get_theme_mod('sidebar_position', 'right-sidebar');
+	$sidebar_position = get_theme_mod('sidebar_position', 'no-sidebar');
 	$classes[] = $sidebar_position;	
 
 	// If fixed menu
@@ -566,7 +566,7 @@ function king_post_class( $classes ) {
 
 	global $post;
 
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if ( !is_singular() ) :	
 		if ($blog_layout == 'grid-2') {
 			$classes[] = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
@@ -613,7 +613,7 @@ add_action( 'template_redirect', 'king_site_width' );
 function king_masonry_blog() {
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
 			if ( is_home() || is_front_page() || is_archive() || is_search() ) : ?>
@@ -705,7 +705,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			$html .= '</span>'; // .post-meta-item
 		endif;
 
-		if( get_theme_mod( 'blog_category_meta', true )) :
+		if( get_theme_mod( 'blog_category_meta', false )) :
 			$categories_list = get_the_category_list( __( ' ', 'king' ) );		
 			if( $categories_list ) :
 				$html .=  '<span class="post-meta-item">';
@@ -714,7 +714,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			endif;
 		endif;
 
-		if( get_theme_mod( 'blog_tag_meta', true )) :
+		if( get_theme_mod( 'blog_tag_meta', false )) :
 			$tag_list = get_the_tag_list( __( ' ', 'king' ) );		
 			if( $tag_list ) :
 				$html .=  '<span class="post-meta-item">';
@@ -723,7 +723,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			endif;
 		endif;
 
-		if( get_theme_mod( 'blog_comment_meta', true )) :
+		if( get_theme_mod( 'blog_comment_meta', false )) :
 			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
 				$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
 				if ( $num_comments == 0 ) {
@@ -739,7 +739,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 	        endif;
 		endif;		
 
-		if( get_theme_mod( 'blog_link_meta', true )) :
+		if( get_theme_mod( 'blog_link_meta', false )) :
 			if ( !is_single() ) :
 				$html .=  '<span class="post-meta-item">';
 				$html .=  '<span class="post-meta-link"><a href="'. esc_url( get_the_permalink() ) .'" rel="bookmark">'.__('Read More...','king') .'</a></span>';
@@ -767,7 +767,7 @@ endif;
 // Remove Post Meta From Pages, 404, Grid Blog layout
 if ( ! function_exists( 'king_remove_post_meta' ) ) :
 	function king_remove_post_meta() {
-		$blog_layout = get_theme_mod('blog_layout', 'normal');
+		$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 			if (is_search() || is_home() || is_archive()) :
 				remove_action('king_entry_bottom', 'king_post_meta');
@@ -920,7 +920,7 @@ endif;
 if ( ! function_exists( 'king_sidebar_position' ) ) :
 	function king_sidebar_position() {
 
-		$sidebar_pos = get_theme_mod('sidebar_position');
+		$sidebar_pos = get_theme_mod('sidebar_position', 'no-sidebar');
 		if ($sidebar_pos != 'no-sidebar') :
 
 			if ( !is_page_template( 'page-templates/king-full-width.php' ) && !is_page_template( 'page-templates/front-page.php' )) :

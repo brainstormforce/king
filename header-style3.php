@@ -6,7 +6,7 @@
 
 	        		<h1 class="site-title">
 		        		<a class="king-logo-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">                
-							<img class="king-logo-img" src="<?php echo get_theme_mod( 'logo-img' ); ?>" alt="<?php bloginfo( 'name' ); ?>" height="<?php echo get_theme_mod( 'logo_height', '80' ); ?>">
+							<img class="king-logo-img" src="<?php echo get_theme_mod( 'logo-img' ); ?>" alt="<?php bloginfo( 'name' ); ?>" height="<?php echo get_theme_mod( 'logo_height', '90' ); ?>">
 						</a>        
 		  			</h1>
 
