@@ -13,7 +13,7 @@
  */
 get_header();
 
-$blog_layout = get_theme_mod('blog_layout', 'normal');
+$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 ?>
 
 <?php king_content_before(); ?>

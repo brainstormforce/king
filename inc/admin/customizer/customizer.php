@@ -352,7 +352,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'blog_layout',
 		array(
-			'default' => 'normal',
+			'default' => 'grid-3',
 			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);	 

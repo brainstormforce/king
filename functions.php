@@ -116,7 +116,7 @@ function king_scripts_styles() {
 	
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
 			if ( is_home() || is_front_page() || is_archive() || is_search() ) :
@@ -517,9 +517,9 @@ function king_body_class( $classes ) {
 	$classes[] = get_theme_mod('site_layout', 'full-width');
 
 	// Blog Layout
-	$classes[] = get_theme_mod('blog_layout', 'normal');
+	$classes[] = get_theme_mod('blog_layout', 'grid-3');
 
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		$classes[] = 'blog-grid';
 	endif;
@@ -566,7 +566,7 @@ function king_post_class( $classes ) {
 
 	global $post;
 
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if ( !is_singular() ) :	
 		if ($blog_layout == 'grid-2') {
 			$classes[] = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
@@ -613,7 +613,7 @@ add_action( 'template_redirect', 'king_site_width' );
 function king_masonry_blog() {
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
 			if ( is_home() || is_front_page() || is_archive() || is_search() ) : ?>
@@ -767,7 +767,7 @@ endif;
 // Remove Post Meta From Pages, 404, Grid Blog layout
 if ( ! function_exists( 'king_remove_post_meta' ) ) :
 	function king_remove_post_meta() {
-		$blog_layout = get_theme_mod('blog_layout', 'normal');
+		$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 			if (is_search() || is_home() || is_archive()) :
 				remove_action('king_entry_bottom', 'king_post_meta');
