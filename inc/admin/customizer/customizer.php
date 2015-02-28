@@ -663,7 +663,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'logo_height',
 		array(
-			'default' => 80,
+			'default' => 90,
 			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
@@ -708,7 +708,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'copyright_textbox',
 	    array(
-	        'default' => 'Proudly powered by WP Shark @BRAINSTORM',
+	        'default' => 'King WordPress Theme by Brainstorm Force',
 	        'sanitize_callback' => 'king_sanitize_callback',
 	    )
 	);
