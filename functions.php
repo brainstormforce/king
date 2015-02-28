@@ -174,6 +174,8 @@ require_once('inc/king-pagination.php');
 require_once('inc/king-post-gallery.php');
 require_once('inc/king-page-meta.php');
 require_once('inc/king-widget.php');
+require_once('inc/king-hex-rgba.php');
+
 
 /**
  * Admin Menu
@@ -188,7 +190,7 @@ function king_add_toolbar_items($admin_bar){
 	$king_admin_url = admin_url( 'customize.php', 'admin' );
     $admin_bar->add_menu( array(
         'id'    => 'customizer-item',
-        'title' => 'King',
+        'title' => '<span class="ab-icon"></span> Theme Options',
         'href'  => $king_admin_url,
         'meta'  => array(
             'title' => __('King Theme Options'),  
@@ -563,8 +565,8 @@ add_filter( 'body_class', 'king_body_class' );
 function king_post_class( $classes ) {
 
 	global $post;
-	$blog_layout = get_theme_mod('blog_layout', 'normal');
 
+	$blog_layout = get_theme_mod('blog_layout', 'normal');
 	if ( !is_singular() ) :	
 		if ($blog_layout == 'grid-2') {
 			$classes[] = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
@@ -576,6 +578,8 @@ function king_post_class( $classes ) {
 			$classes[] = '';
 		}
 	endif;
+
+	$classes[] = get_theme_mod('blog_featured_image_effect', 'king-blur');
 
 	return $classes;
 }

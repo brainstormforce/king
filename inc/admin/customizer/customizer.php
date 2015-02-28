@@ -62,8 +62,16 @@ function king_customize_register( $wp_customize ) {
 	    'description' => '',
 	    'panel' => 'blog_panel',
 	) );
-	$wp_customize->add_section( 'blog_meta_section', array(
+	$wp_customize->add_section( 'blog_featured_image', array(
 	    'priority' => 2,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Fetured Image', 'king' ),
+	    'description' => '',
+	    'panel' => 'blog_panel',
+	) );
+	$wp_customize->add_section( 'blog_meta_section', array(
+	    'priority' => 3,
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
 	    'title' => __( 'Select Post Meta', 'king' ),
@@ -364,29 +372,6 @@ function king_customize_register( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_setting(
-		'blog_featured_image_size',
-		array(
-			'default' => 'large',
-			'sanitize_callback' => 'king_sanitize_callback'
-		)
-	);	 
-	$wp_customize->add_control(
-		'blog_featured_image_size',
-		array(
-			'type' => 'select',
-			'label' => 'Select Fetured Image Size',
-			'section' => 'blog_layout_section',
-			'choices' => array(
-				'large' => 'Large',				
-				'medium' => 'Medium',				
-				'full' => 'Full',
-				'thumbnail' => 'Thumbnail',
-				'medium-image-blog' => '330 x 215 px',
-			),
-		)
-	);
-
 	$wp_customize->add_setting( 
 		'separator-5', 
 		array(
@@ -462,6 +447,54 @@ function king_customize_register( $wp_customize ) {
 				'max'   => 72,
 				'step'  => 1,
 				'style' => 'width: 80px;',
+			),
+		)
+	);
+
+	// Featured Image
+	$wp_customize->add_setting(
+		'blog_featured_image_size',
+		array(
+			'default' => 'large',
+			'sanitize_callback' => 'king_sanitize_callback'
+		)
+	);	 
+	$wp_customize->add_control(
+		'blog_featured_image_size',
+		array(
+			'type' => 'select',
+			'label' => 'Select Fetured Image Size',
+			'section' => 'blog_featured_image',
+			'choices' => array(
+				'large' => 'Large',				
+				'medium' => 'Medium',				
+				'full' => 'Full',
+				'thumbnail' => 'Thumbnail',
+				'medium-image-blog' => '330 x 215 px',
+			),
+		)
+	);
+
+	$wp_customize->add_setting(
+		'blog_featured_image_effect',
+		array(
+			'default' => 'king-blur',
+			'sanitize_callback' => 'king_sanitize_callback'
+		)
+	);	 
+	$wp_customize->add_control(
+		'blog_featured_image_effect',
+		array(
+			'type' => 'select',
+			'label' => 'Select Fetured Image Hover Effect',
+			'section' => 'blog_featured_image',
+			'choices' => array(
+				'king-blur' => 'Blur',				
+				'king-grayscale' => 'Grayscale',
+				'king-sepia' => 'Sepia',
+				'king-hue-rotate' => 'Hue Rotate',
+				'king-blog-overlay' => 'Theme Color Overlay',				
+				'king-none' => 'None',
 			),
 		)
 	);

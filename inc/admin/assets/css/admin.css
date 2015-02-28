@@ -1,4 +1,9 @@
 /* Admin Bar */
+#wpadminbar .customizer_menu_item_class .ab-icon:before {
+	content: '\f309';
+	top: 4px;
+}
+/*
 #wpadminbar ul li.customizer_menu_item_class,
 #wpadminbar ul li.customizer_menu_item_class a {
     background: #DE5034;
@@ -10,3 +15,4 @@
     background: #fff;
     color: #DE5034;
 }
+*/
