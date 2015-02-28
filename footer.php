@@ -58,7 +58,7 @@
 
                 <?php if( get_theme_mod( 'display_copyright', true ) != '') : ?>
                     <div class="site-info <?php echo $footer_class; ?>">
-                        <a href="<?php echo get_theme_mod( 'copyright_text_link', 'http://www.brainstormforce.com/' ); ?>" title="<?php echo get_theme_mod( 'copyright_textbox', 'King WordPress Theme by Brainstorm Force' ); ?>"><?php echo get_theme_mod( 'copyright_textbox', 'King WordPress Theme by Brainstorm Force' ); ?></a>
+                        <a href="<?php echo get_theme_mod( 'copyright_text_link', 'https://www.brainstormforce.com/' ); ?>" title="<?php echo get_theme_mod( 'copyright_textbox', 'King WordPress Theme by Brainstorm Force' ); ?>"><?php echo get_theme_mod( 'copyright_textbox', 'King WordPress Theme by Brainstorm Force' ); ?></a>
                     </div><!-- .site-info -->
                 <?php endif; ?>
 

@@ -724,7 +724,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'copyright_text_link',
 	    array(
-	        'default' => 'http://brainstormforce.com/',
+	        'default' => 'https://www.brainstormforce.com/',
 	        'sanitize_callback' => 'king_sanitize_callback',
 	    )
 	);
