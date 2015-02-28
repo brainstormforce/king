@@ -244,7 +244,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'sidebar_position',
 		array(
-			'default' => 'right-sidebar',
+			'default' => 'no-sidebar',
 			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);	 
@@ -455,7 +455,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'blog_featured_image_size',
 		array(
-			'default' => 'large',
+			'default' => 'full',
 			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);	 
@@ -520,7 +520,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'blog_category_meta',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -537,7 +537,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'blog_tag_meta',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -554,7 +554,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'blog_comment_meta',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);
@@ -588,7 +588,7 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
     	'blog_link_meta',
 		array(
-			'default' => true,
+			'default' => false,
 			'sanitize_callback' => 'king_sanitize_callback',
 		)
 	);

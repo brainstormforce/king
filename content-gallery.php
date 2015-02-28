@@ -13,7 +13,7 @@
 				<?php if ( has_shortcode($post->post_content, 'gallery') ) : ?>
 					<?php get_post_gallery( $post, true ); ?>
 				<?php else : ?>
-					<?php $blog_thumnail_size = get_theme_mod('blog_featured_image_size', 'large'); ?>
+					<?php $blog_thumnail_size = get_theme_mod('blog_featured_image_size', 'full'); ?>
 					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail( $blog_thumnail_size ); ?></a>
 				<?php endif; ?>
 			</div> <!-- .blog-featured-media -->

@@ -538,7 +538,7 @@ function king_body_class( $classes ) {
 	endif;
 
 	// Sidebar Position
-	$sidebar_position = get_theme_mod('sidebar_position', 'right-sidebar');
+	$sidebar_position = get_theme_mod('sidebar_position', 'no-sidebar');
 	$classes[] = $sidebar_position;	
 
 	// If fixed menu
@@ -705,7 +705,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			$html .= '</span>'; // .post-meta-item
 		endif;
 
-		if( get_theme_mod( 'blog_category_meta', true )) :
+		if( get_theme_mod( 'blog_category_meta', false )) :
 			$categories_list = get_the_category_list( __( ' ', 'king' ) );		
 			if( $categories_list ) :
 				$html .=  '<span class="post-meta-item">';
@@ -714,7 +714,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			endif;
 		endif;
 
-		if( get_theme_mod( 'blog_tag_meta', true )) :
+		if( get_theme_mod( 'blog_tag_meta', false )) :
 			$tag_list = get_the_tag_list( __( ' ', 'king' ) );		
 			if( $tag_list ) :
 				$html .=  '<span class="post-meta-item">';
@@ -723,7 +723,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			endif;
 		endif;
 
-		if( get_theme_mod( 'blog_comment_meta', true )) :
+		if( get_theme_mod( 'blog_comment_meta', false )) :
 			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
 				$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
 				if ( $num_comments == 0 ) {
@@ -739,7 +739,7 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 	        endif;
 		endif;		
 
-		if( get_theme_mod( 'blog_link_meta', true )) :
+		if( get_theme_mod( 'blog_link_meta', false )) :
 			if ( !is_single() ) :
 				$html .=  '<span class="post-meta-item">';
 				$html .=  '<span class="post-meta-link"><a href="'. esc_url( get_the_permalink() ) .'" rel="bookmark">'.__('Read More...','king') .'</a></span>';
@@ -920,7 +920,7 @@ endif;
 if ( ! function_exists( 'king_sidebar_position' ) ) :
 	function king_sidebar_position() {
 
-		$sidebar_pos = get_theme_mod('sidebar_position');
+		$sidebar_pos = get_theme_mod('sidebar_position', 'no-sidebar');
 		if ($sidebar_pos != 'no-sidebar') :
 
 			if ( !is_page_template( 'page-templates/king-full-width.php' ) && !is_page_template( 'page-templates/front-page.php' )) :

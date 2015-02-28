@@ -25,7 +25,7 @@
 
 			<?php if ( has_post_thumbnail() ) : ?>
 				<div class="blog-featured-media">
-					<?php $blog_thumnail_size = get_theme_mod('blog_featured_image_size', 'large'); ?>
+					<?php $blog_thumnail_size = get_theme_mod('blog_featured_image_size', 'full'); ?>
 					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail( $blog_thumnail_size ); ?></a>
 				</div>
 			<?php elseif ( king_post_social() && !is_single() ) : ?>
