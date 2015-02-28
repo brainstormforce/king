@@ -188,7 +188,7 @@ function king_add_toolbar_items($admin_bar){
 	$king_admin_url = admin_url( 'customize.php', 'admin' );
     $admin_bar->add_menu( array(
         'id'    => 'customizer-item',
-        'title' => 'King',
+        'title' => '<span class="ab-icon"></span> Theme Options',
         'href'  => $king_admin_url,
         'meta'  => array(
             'title' => __('King Theme Options'),  
