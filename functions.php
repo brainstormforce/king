@@ -193,7 +193,7 @@ function king_add_toolbar_items($admin_bar){
         'title' => '<span class="ab-icon"></span> Theme Options',
         'href'  => $king_admin_url,
         'meta'  => array(
-            'title' => __('King Theme Options'),  
+            'title' => __('King Theme Options', 'king'),  
             'class' => 'customizer_menu_item_class'          
         ),
     ));
