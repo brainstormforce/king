@@ -119,7 +119,7 @@ function king_scripts_styles() {
 	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
-			if ( is_home() || is_front_page() || is_archive() || is_search() ) :
+			if ( is_home() || is_archive() || is_search() ) :
 				wp_enqueue_script('jquery-masonry');
 			endif;
 		endif;
@@ -616,7 +616,7 @@ function king_masonry_blog() {
 	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
 		if ( $masonry_blog_layout ) :
-			if ( is_home() || is_front_page() || is_archive() || is_search() ) : ?>
+			if ( is_home() || is_archive() || is_search() ) : ?>
 				<script type="text/javascript">
 					(function($) {
 						"use strict";
