@@ -158,6 +158,10 @@ function king_scripts_styles() {
 	wp_register_style( 'king-menu-css', get_template_directory_uri() . '/inc/css/menu.css', false, '1.0.0', 'all' );
     wp_enqueue_style( 'king-menu-css' );
 	
+	// Menu CSS
+	wp_register_style( 'king-animate-css', get_template_directory_uri() . '/inc/css/animate.css', false, '1.0.0', 'all' );
+    wp_enqueue_style( 'king-animate-css' );
+	
 }
 add_action( 'wp_enqueue_scripts', 'king_scripts_styles' );
 
@@ -621,8 +625,8 @@ function king_masonry_blog() {
 					(function($) {
 						"use strict";
 						function blog_masonry() {
-							jQuery('.blog-masonry #content').imagesLoaded(function () {
-								jQuery('.blog-masonry #content').masonry({
+							$('.blog-masonry #content').imagesLoaded(function () {
+								$('.blog-masonry #content').masonry({
 									columnWidth: '.post',
 									itemSelector: '.post',
 									transitionDuration: 0
@@ -630,9 +634,9 @@ function king_masonry_blog() {
 							});
 						}
 						$(document).ready(function() { blog_masonry(); });
-						jQuery(window).load(function(){
+						$(window).load(function(){
 							setTimeout(function(){
-								jQuery('.blog-masonry #content').masonry('reload');
+								$('.blog-masonry #content').masonry('reload');
 							},1000);
 							
 						});			
@@ -645,6 +649,164 @@ function king_masonry_blog() {
 	endif;
 }
 add_action('wp_footer', 'king_masonry_blog');
+
+// animation wrapper
+$blog_animation = get_theme_mod('blog_animation', true);
+if($blog_animation) :
+	add_action('king_content_top','king_animation_before_wrapper');
+	function king_animation_before_wrapper() {
+		echo '<div class="king-animation-wrapper" data-king-animate="fadeInUp">';
+	}
+	add_action('king_content_bottom','king_animation_after_wrapper');
+	function king_animation_after_wrapper() {
+		echo '</div>';
+	}
+endif;
+
+function king_animations_callback() {
+	$blog_animation = get_theme_mod('blog_animation', true);
+	if($blog_animation) :
+		if ( is_home() || is_archive() || is_search() ) : 
+		?>
+			<script type="text/javascript">
+                (function($) {
+                   	"use strict";
+					$.fn.kingsIsAppear = function(options) { 
+						var defaults = {
+							viewport: 90, //in percentage
+						};
+			
+						var options = $.extend(defaults, options);
+						var ws = jQuery(window).scrollTop();
+						var wh = $(window).height();
+						var viewport = 100 - options.viewport;
+						var viewport_pixel = wh - (wh * (viewport/100));
+						var offset = $(this).offset().top;
+						var position = offset - ws;
+						if(position <= viewport_pixel)
+							return true;
+						else
+							return false;
+					}
+					
+					function kingsAnimateBlog() {
+						var animate = $('.king-animation-wrapper').attr('data-king-animate');
+						$('.king-animation-wrapper').find('article').each(function(i,blog){
+							if(typeof animate === 'undefined' || animate === '')
+								return;
+							var appear = $(blog).kingsIsAppear();
+							$('#content').find('article').css('opacity',0);
+							if((typeof animate !== 'undefined' && animate !== '') && appear) {
+								$(blog).addClass('animated').addClass(animate);
+							}
+						});
+					}
+					
+					$(document).ready(function(){
+						kingsAnimateBlog();
+					});
+					$(window).scroll(function(){
+						kingsAnimateBlog();
+					});
+                    	
+                    //$(window).on('resize',function() { blog_masonry(); });
+                })(jQuery);
+            </script>
+        <?php
+        endif;
+	endif;
+}
+add_action('wp_footer', 'king_animations_callback');
+
+function king_infinite_scroll_callback() {
+	global $wp_query;
+	$blog_layout = get_theme_mod('blog_layout', true);
+	
+	$blog_animation = get_theme_mod('blog_animation', true);
+	?>
+    	<script type="text/javascript">
+        	(function($) {
+           		"use strict";
+				
+				var stop_scroll = false;
+				
+				var count = 2;
+				var total = <?php echo esc_js($wp_query->max_num_pages); ?>;
+				
+				
+				function loadKingArticle(pageNumber) {
+					stop_scroll = true;
+					$.ajax({
+						url: "<?php echo esc_url( home_url() ); ?>/wp-admin/admin-ajax.php",
+						type: 'POST',
+						data: "action=king_infinite_scroll&page_no=" + pageNumber,
+						success: function(data){
+							var $boxes = $(data);
+							$('#content').append($boxes);
+							stop_scroll = false;
+							<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') : ?>
+								$boxes.each(function(i,box){
+									$(box).addClass('post');
+								});
+								$('.blog-masonry #content').masonry( 'appended', $boxes, true);
+								$('.blog-masonry #content').imagesLoaded( function() {
+									setTimeout(function(){
+										$('.blog-masonry #content').masonry( 'reload' );
+									},1500);					
+								});
+							<?php endif; ?>
+							<?php if($blog_animation) : ?>
+								var animate = $('.king-animation-wrapper').attr('data-king-animate');
+								$boxes.each(function(i,blog){
+									if(typeof animate === 'undefined' || animate === '')
+										return;
+									var appear = $(blog).kingsIsAppear();
+									$('#content').find('article').css('opacity',0);
+									if((typeof animate !== 'undefined' && animate !== '') && appear) {
+										$(blog).addClass('animated').addClass(animate);
+									}
+								});
+							<?php endif; ?>
+						}
+					});
+				}
+				
+				$(window).scroll(function(){
+					if($(window).scrollTop() >= ($('#content').height()-($(window).height()-200)))
+					{
+						if (count > total)
+						{
+							return false;
+						}
+						else
+						{
+							if(stop_scroll == true)
+								return false;
+							loadKingArticle(count);
+							count++;
+						}
+					}
+				});
+			})(jQuery);
+        </script>
+    <?php
+}
+$blog_pagination = get_theme_mod( 'blog_pagination', 'number' );
+if($blog_pagination === 'infinite')
+	add_action('wp_footer', 'king_infinite_scroll_callback');
+
+function king_infinite_scroll_ajax_callback() {
+	$paged          = $_POST['page_no'];
+	$posts_per_page = get_option( 'posts_per_page' );
+
+	# Load the posts
+	query_posts( array( 'paged' => $paged, 'post_status' => 'publish' ) );
+	get_template_part( 'loop' );
+
+	exit;
+}
+add_action( 'wp_ajax_king_infinite_scroll', 'king_infinite_scroll_ajax_callback' );           // for logged in user
+add_action( 'wp_ajax_nopriv_king_infinite_scroll', 'king_infinite_scroll_ajax_callback' );    // if user not logged in
 
 
 /**
