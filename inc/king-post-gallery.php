@@ -254,8 +254,7 @@ function king_gallery_shortcode( $output = '', $atts ) {
                 $image_attributes = wp_get_attachment_image_src( $id, 'full' );
                 if ( $id !== '' ) {
                     ?>
-                    <div class="item <?php echo $cls; ?>"><img src="<?php echo $image_attributes[0]; ?>"
-                                                               alt="Gallery image"/></div>
+                    <div class="item <?php echo $cls; ?>"><img src="<?php echo $image_attributes[0]; ?>" alt="Gallery image"/></div>
                 <?php
                 }
                 $n ++;
