@@ -57,7 +57,7 @@ if ( ! function_exists( 'king_pagination' ) ) :
         if( $blog_pagination == 'number' ) {
             king_number_pagination();
         } elseif( $blog_pagination == 'traditional' ) {
-            king_number_pagination();
+            king_content_nav( 'nav-below' ); 
         }
     }
 endif;
