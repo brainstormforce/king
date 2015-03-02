@@ -450,8 +450,6 @@ function king_customize_register( $wp_customize ) {
 		)
 	);
 
-
-
 	$wp_customize->add_setting(
     	'post_excerpt_length',
 		array(
