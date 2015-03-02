@@ -411,6 +411,23 @@ function king_customize_register( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting(
+    	'blog_animation',
+		array(
+			'default' => true,
+			'sanitize_callback' => 'king_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'blog_animation',
+		array(
+			'label' => 'Enable Animation',
+			'section' => 'blog_layout_section',
+			'description' =>  '',
+			'type'        => 'checkbox',
+		)
+	);
+
 
 	$wp_customize->add_setting(
 		'blog_pagination',
