@@ -801,6 +801,7 @@ function king_infinite_scroll_ajax_callback() {
 	$paged          = $_POST['page_no'];
 	$posts_per_page = get_option( 'posts_per_page' );
 
+
 	# Load the posts
 	query_posts( array( 'paged' => $paged, 'post_status' => 'publish' ) );
 	get_template_part( 'loop' );
@@ -939,24 +940,31 @@ if ( ! function_exists( 'king_post_meta' ) ) :
 			echo '</div>';
 		endif;
 	}
-	add_action('king_entry_bottom', 'king_post_meta', 10, 1);
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
+	if($blog_layout != 'grid-2' && $blog_layout != 'grid-3' && $blog_layout != 'grid-4') :
+		add_action('king_entry_bottom', 'king_post_meta', 10, 1);
+	endif;
 endif;
 
 // Remove Post Meta From Pages, 404, Grid Blog layout
-if ( ! function_exists( 'king_remove_post_meta' ) ) :
-	function king_remove_post_meta() {
+if ( ! function_exists( 'king_add_post_meta' ) ) :
+	function king_add_post_meta() {
 		$blog_layout = get_theme_mod('blog_layout', 'grid-3');
-		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
-			if (is_search() || is_home() || is_archive()) :
-				remove_action('king_entry_bottom', 'king_post_meta');
+		if($blog_layout != 'grid-2' && $blog_layout != 'grid-3' && $blog_layout != 'grid-4') :
+			if ( is_single() || is_attachment() ) :
+				remove_action('king_entry_bottom', 'king_post_meta', 10);
 			endif;
 		endif;
 
-		if (is_page()) :
-			remove_action('king_entry_bottom', 'king_post_meta');
+		if ( is_page() ) :
+			remove_action('king_entry_bottom', 'king_post_meta', 10);
+		endif;
+
+		if ( is_single() || is_attachment() ) :
+			add_action('king_entry_bottom', 'king_post_meta', 10, 1);
 		endif;
 	}
-	add_action( 'wp', 'king_remove_post_meta' );
+	add_action( 'wp', 'king_add_post_meta' );
 endif;
 
 
