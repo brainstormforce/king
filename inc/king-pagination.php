@@ -56,8 +56,12 @@ if ( ! function_exists( 'king_pagination' ) ) :
         $blog_pagination = get_theme_mod( 'blog_pagination', 'number' );
         if( $blog_pagination == 'number' ) {
             king_number_pagination();
-        } elseif( $blog_pagination == 'traditional' ) {
+        }
+		elseif( $blog_pagination == 'traditional' ) {
             king_content_nav( 'nav-below' ); 
         }
+		else {
+			do_action('king_loader');
+		}
     }
 endif;

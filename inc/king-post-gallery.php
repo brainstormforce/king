@@ -215,31 +215,59 @@ function king_gallery_shortcode( $output = '', $atts ) {
                 ?>
             </div>
             <script type="text/javascript">
-                jQuery(window).load(function() {
-                    jQuery('#<?php echo $smgid; ?>').slick({
-                        adaptiveHeight: true,
-                        slidesToShow: <?php echo $columns;?>,
-                        slidesToScroll: <?php echo $columns;?>,
-                        <?php if( $columns != 1 ) {?>
-                            responsive: [
-                                {
-                                    breakpoint: 768,
-                                    settings: {
-                                        slidesToShow: 2,
-                                        slidesToScroll: 2
-                                    }
-                                },
-                                {
-                                    breakpoint: 480,
-                                    settings: {
-                                        slidesToShow: 1,
-                                        slidesToScroll: 1
-                                    }
-                                }
-                            ]
-                        <?php } ?>
-                    });
-                });
+				(function($) {
+					$(document).ready(function() {
+						$('#<?php echo $smgid; ?>').slick({
+							adaptiveHeight: true,
+							slidesToShow: <?php echo $columns;?>,
+							slidesToScroll: <?php echo $columns;?>,
+							<?php if( $columns != 1 ) {?>
+								responsive: [
+									{
+										breakpoint: 768,
+										settings: {
+											slidesToShow: 2,
+											slidesToScroll: 2
+										}
+									},
+									{
+										breakpoint: 480,
+										settings: {
+											slidesToShow: 1,
+											slidesToScroll: 1
+										}
+									}
+								]
+							<?php } ?>
+						});
+					});
+					
+					$(document).ajaxComplete(function(e, xhr, settings){
+						$('#<?php echo $smgid; ?>').slick({
+							adaptiveHeight: true,
+							slidesToShow: <?php echo $columns;?>,
+							slidesToScroll: <?php echo $columns;?>,
+							<?php if( $columns != 1 ) {?>
+								responsive: [
+									{
+										breakpoint: 768,
+										settings: {
+											slidesToShow: 2,
+											slidesToScroll: 2
+										}
+									},
+									{
+										breakpoint: 480,
+										settings: {
+											slidesToShow: 1,
+											slidesToScroll: 1
+										}
+									}
+								]
+							<?php } ?>
+						});
+					});
+				})(jQuery);
             </script>
 
         <?php } ?>

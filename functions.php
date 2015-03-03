@@ -744,6 +744,7 @@ function king_infinite_scroll_callback() {
 							var $boxes = $(data);
 							$('#content').append($boxes);
 							stop_scroll = false;
+							$('.king-loader').removeClass('animated').removeClass('fadeInUp');
 							<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') : ?>
 								$boxes.each(function(i,box){
 									$(box).addClass('post');
@@ -782,6 +783,7 @@ function king_infinite_scroll_callback() {
 						{
 							if(stop_scroll == true)
 								return false;
+							$('.king-loader').addClass('animated').addClass('fadeInUp');
 							loadKingArticle(count);
 							count++;
 						}
@@ -1374,5 +1376,17 @@ if ( ! function_exists( 'king_front_page_content_sidebar' ) ) :
 	add_action('king_entry_after', 'king_front_page_content_sidebar', 10, 1);
 endif;
 
+function get_king_loader() {
+	$output = '<div class="king-bubblingG king-loader">
+		<span id="king-bubblingG_1">
+		</span>
+		<span id="king-bubblingG_2">
+		</span>
+		<span id="king-bubblingG_3">
+		</span>
+	</div>';
 
+	echo apply_filters('king_loader_html',$output);
+}
+add_action('king_loader', 'get_king_loader');
 ?>
