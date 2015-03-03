@@ -65,3 +65,18 @@ if ( ! function_exists( 'king_pagination' ) ) :
 		}
     }
 endif;
+
+
+/**
+ * Pagination Position 
+ *
+ * @since King 1.0
+ */
+if ( ! function_exists( 'king_pagination_position' ) ) :
+    function king_pagination_position() { ?>
+        <?php if(is_archive() || is_search() || is_home()) : ?>
+            <?php king_pagination(); ?>
+        <?php endif;
+    }   
+    add_action('king_content_bottom', 'king_pagination_position');
+endif;
