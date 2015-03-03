@@ -651,11 +651,11 @@ function king_masonry_blog() {
 add_action('wp_footer', 'king_masonry_blog');
 
 // animation wrapper
-$blog_animation = get_theme_mod('blog_animation', true);
-if($blog_animation) :
+$blog_animation = get_theme_mod('blog_animation', 'fadeIn');
+if($blog_animation != 'none') :
 	add_action('king_content_top','king_animation_before_wrapper');
 	function king_animation_before_wrapper() {
-		echo '<div class="king-animation-wrapper" data-king-animate="fadeInUp">';
+		echo '<div class="king-animation-wrapper" data-king-animate="'. get_theme_mod('blog_animation', 'fadeIn') .'">';
 	}
 	add_action('king_content_bottom','king_animation_after_wrapper');
 	function king_animation_after_wrapper() {
@@ -664,8 +664,8 @@ if($blog_animation) :
 endif;
 
 function king_animations_callback() {
-	$blog_animation = get_theme_mod('blog_animation', true);
-	if($blog_animation) :
+	$blog_animation = get_theme_mod('blog_animation', 'fadeIn');
+	if($blog_animation != 'none') :
 		if ( is_home() || is_archive() || is_search() ) : 
 		?>
 			<script type="text/javascript">
@@ -720,9 +720,9 @@ add_action('wp_footer', 'king_animations_callback');
 
 function king_infinite_scroll_callback() {
 	global $wp_query;
-	$blog_layout = get_theme_mod('blog_layout', true);
+	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
 	
-	$blog_animation = get_theme_mod('blog_animation', true);
+	$blog_animation = get_theme_mod('blog_animation', 'fadeIn');
 	?>
     	<script type="text/javascript">
         	(function($) {
@@ -756,7 +756,7 @@ function king_infinite_scroll_callback() {
 									},1500);					
 								});
 							<?php endif; ?>
-							<?php if($blog_animation) : ?>
+							<?php if($blog_animation != 'none') : ?>
 								var animate = $('.king-animation-wrapper').attr('data-king-animate');
 								$boxes.each(function(i,blog){
 									if(typeof animate === 'undefined' || animate === '')
@@ -794,7 +794,7 @@ function king_infinite_scroll_callback() {
     <?php
 }
 $blog_pagination = get_theme_mod( 'blog_pagination', 'number' );
-if($blog_pagination === 'infinite')
+if($blog_pagination == 'infinite')
 	add_action('wp_footer', 'king_infinite_scroll_callback');
 
 function king_infinite_scroll_ajax_callback() {
@@ -809,6 +809,20 @@ function king_infinite_scroll_ajax_callback() {
 }
 add_action( 'wp_ajax_king_infinite_scroll', 'king_infinite_scroll_ajax_callback' );           // for logged in user
 add_action( 'wp_ajax_nopriv_king_infinite_scroll', 'king_infinite_scroll_ajax_callback' );    // if user not logged in
+
+function get_king_loader() {
+	$output = '<div class="king-bubblingG king-loader">
+		<span id="king-bubblingG_1">
+		</span>
+		<span id="king-bubblingG_2">
+		</span>
+		<span id="king-bubblingG_3">
+		</span>
+	</div>';
+
+	echo apply_filters('king_loader_html',$output);
+}
+add_action('king_loader', 'get_king_loader');
 
 
 /**
@@ -1376,17 +1390,4 @@ if ( ! function_exists( 'king_front_page_content_sidebar' ) ) :
 	add_action('king_entry_after', 'king_front_page_content_sidebar', 10, 1);
 endif;
 
-function get_king_loader() {
-	$output = '<div class="king-bubblingG king-loader">
-		<span id="king-bubblingG_1">
-		</span>
-		<span id="king-bubblingG_2">
-		</span>
-		<span id="king-bubblingG_3">
-		</span>
-	</div>';
-
-	echo apply_filters('king_loader_html',$output);
-}
-add_action('king_loader', 'get_king_loader');
 ?>

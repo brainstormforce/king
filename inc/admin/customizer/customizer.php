@@ -412,19 +412,33 @@ function king_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-    	'blog_animation',
+		'blog_animation',
 		array(
-			'default' => true,
-			'sanitize_callback' => 'king_sanitize_callback',
+			'default' => 'fadeIn',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
-	);
+	);	 
 	$wp_customize->add_control(
 		'blog_animation',
 		array(
-			'label' => 'Enable Animation',
+			'type' => 'select',
+			'label' => 'Blog Animation',
 			'section' => 'blog_layout_section',
-			'description' =>  '',
-			'type'        => 'checkbox',
+			'choices' => array(
+				'fadeIn'      => 'Fade In',
+				'fadeInUp'    => 'Fade In Up',
+				'fadeInUpBig' => 'Fade In Up Big',
+				'zoomIn'      => 'Zoom In',
+				'zoomInUp'    => 'Zoom In Up',
+				'bounce'      => 'Bounce',
+				'pulse'       => 'Pulse',
+				'shake'       => 'Shake',
+				'swing'       => 'Swing',
+				'tada'        => 'Tada',
+				'bounceIn'    => 'Bounce In',
+				'bounceInUp'  => 'Bounce In Up',
+				'none'		  => 'No Animation',				
+			),
 		)
 	);
 
