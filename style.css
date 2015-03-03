@@ -2642,6 +2642,136 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	margin: 0 auto 24px;
 }
 /**
+* Loader 
+*
+*/
+.king-loader {
+	opacity:0;
+}
+.king-bubblingG {
+	text-align: center;
+	width:60px;
+	height:38px;
+	margin:0 auto 25px;
+}
+
+.king-bubblingG span {
+	display: inline-block;
+	vertical-align: middle;
+	width: 8px;
+	height: 8px;
+	margin: 19px auto;
+	background: #de5034;
+	-moz-border-radius: 38px;
+	-moz-animation: bubblingG 0.7s infinite alternate;
+	-webkit-border-radius: 38px;
+	-webkit-animation: bubblingG 0.7s infinite alternate;
+	-ms-border-radius: 38px;
+	-ms-animation: bubblingG 0.7s infinite alternate;
+	-o-border-radius: 38px;
+	-o-animation: bubblingG 0.7s infinite alternate;
+	border-radius: 38px;
+	animation: bubblingG 0.7s infinite alternate;
+}
+
+#king-bubblingG_1 {
+	-moz-animation-delay: 0s;
+	-webkit-animation-delay: 0s;
+	-ms-animation-delay: 0s;
+	-o-animation-delay: 0s;
+	animation-delay: 0s;
+}
+
+#king-bubblingG_2 {
+	-moz-animation-delay: 0.21s;
+	-webkit-animation-delay: 0.21s;
+	-ms-animation-delay: 0.21s;
+	-o-animation-delay: 0.21s;
+	animation-delay: 0.21s;
+}
+
+#king-bubblingG_3 {
+	-moz-animation-delay: 0.42s;
+	-webkit-animation-delay: 0.42s;
+	-ms-animation-delay: 0.42s;
+	-o-animation-delay: 0.42s;
+	animation-delay: 0.42s;
+}
+@-moz-keyframes bubblingG {
+	0% {
+		width: 8px;
+		height: 8px;
+		background-color:#de5034;
+		-moz-transform: translateY(0);
+	}
+	100% {
+		width: 18px;
+		height: 18px;
+		background-color:white;
+		-moz-transform: translateY(-16px);
+	}
+}
+
+@-webkit-keyframes bubblingG {
+	0% {
+		width: 8px;
+		height: 8px;
+		background-color:#de5034;
+		-webkit-transform: translateY(0);
+	}
+	100% {
+		width: 18px;
+		height: 18px;
+		background-color:white;
+		-webkit-transform: translateY(-16px);
+	}
+}
+
+@-ms-keyframes bubblingG {
+	0% {
+		width: 8px;
+		height: 8px;
+		background-color:#de5034;
+		-ms-transform: translateY(0);
+	}
+	100% {
+		width: 18px;
+		height: 18px;
+		background-color:white;
+		-ms-transform: translateY(-16px);
+	}
+}
+
+@-o-keyframes bubblingG {
+	0% {
+		width: 8px;
+		height: 8px;
+		background-color:#de5034;
+		-o-transform: translateY(0);
+	}
+	100% {
+		width: 18px;
+		height: 18px;
+		background-color:white;
+		-o-transform: translateY(-16px);
+	}
+}
+
+@keyframes bubblingG {
+	0% {
+		width: 8px;
+		height: 8px;
+		background-color:#de5034;
+		transform: translateY(0);
+	}
+	100% {
+		width: 18px;
+		height: 18px;
+		background-color:white;
+		transform: translateY(-16px);
+	}
+} 
+/**
 * Media queries
 *
 * Does the same thing as <meta name="viewport" content="width=device-width">,

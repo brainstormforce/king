@@ -158,6 +158,10 @@ function king_scripts_styles() {
 	wp_register_style( 'king-menu-css', get_template_directory_uri() . '/inc/css/menu.css', false, '1.0.0', 'all' );
     wp_enqueue_style( 'king-menu-css' );
 	
+	// Menu CSS
+	wp_register_style( 'king-animate-css', get_template_directory_uri() . '/inc/css/animate.css', false, '1.0.0', 'all' );
+    wp_enqueue_style( 'king-animate-css' );
+	
 }
 add_action( 'wp_enqueue_scripts', 'king_scripts_styles' );
 
@@ -172,7 +176,11 @@ require_once('inc/king-theme-hooks.php');
 require_once('inc/king-breadcrumbs.php');
 require_once('inc/king-pagination.php');
 require_once('inc/king-post-gallery.php');
-require_once('inc/king-page-meta.php');
+require_once('inc/king-post-meta.php');
+require_once('inc/king-meta-box.php');
+require_once('inc/king-oembeds.php');
+require_once('inc/king-animation.php');
+require_once('inc/king-infinite-scroll.php');
 require_once('inc/king-widget.php');
 require_once('inc/king-hex-rgba.php');
 
@@ -608,8 +616,6 @@ add_action( 'template_redirect', 'king_site_width' );
  *
  * @since King 1.0
  */
-
-
 function king_masonry_blog() {
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
@@ -621,8 +627,8 @@ function king_masonry_blog() {
 					(function($) {
 						"use strict";
 						function blog_masonry() {
-							jQuery('.blog-masonry #content').imagesLoaded(function () {
-								jQuery('.blog-masonry #content').masonry({
+							$('.blog-masonry #content').imagesLoaded(function () {
+								$('.blog-masonry #content').masonry({
 									columnWidth: '.post',
 									itemSelector: '.post',
 									transitionDuration: 0
@@ -630,9 +636,9 @@ function king_masonry_blog() {
 							});
 						}
 						$(document).ready(function() { blog_masonry(); });
-						jQuery(window).load(function(){
+						$(window).load(function(){
 							setTimeout(function(){
-								jQuery('.blog-masonry #content').masonry('reload');
+								$('.blog-masonry #content').masonry('reload');
 							},1000);
 							
 						});			
@@ -645,7 +651,6 @@ function king_masonry_blog() {
 	endif;
 }
 add_action('wp_footer', 'king_masonry_blog');
-
 
 /**
  * Include Scroll To Top Feature
@@ -679,110 +684,11 @@ if($scroll_to_top) {
 	add_action('wp_footer', 'king_scroll_to_top');
 }
 
-// Post Meta
-if ( ! function_exists( 'king_post_meta' ) ) :
-	function king_post_meta() {
-
-		global $post;
-		if (! $post)
-			return false;
-		ob_start();
-		ob_end_clean();
-		$html = '';
-
-		if( get_theme_mod( 'blog_author_meta', true )) :
-			$html .= '<span class="post-meta-item">';
-			$html .= __('By ','king'); 
-			$html .= '<span class="vcard author"><a href="'. get_author_posts_url( get_the_author_meta( 'ID' ) ) .'" title="Posts by '. get_the_author() .'" rel="author">'. get_the_author() .'</a></span>'; 
-			$html .= '</span>'; // .post-meta-item
-		endif;
-
-		if( get_theme_mod( 'blog_date_meta', true )) :
-			$archive_year  = get_the_time('Y');
-			$archive_month = get_the_time('m');
-			$html .= '<span class="post-meta-item">';
-			$html .= '<span class="post-meta-date"><a href="'. get_month_link( $archive_year, $archive_month ) .'">'. get_the_date('d M, Y') .'</a></span>';
-			$html .= '</span>'; // .post-meta-item
-		endif;
-
-		if( get_theme_mod( 'blog_category_meta', false )) :
-			$categories_list = get_the_category_list( __( ' ', 'king' ) );		
-			if( $categories_list ) :
-				$html .=  '<span class="post-meta-item">';
-	        	$html .=  '<span class="post-meta-category">'. get_the_category_list( _x( ', ', 'Used between list items, there is a space after the comma.', 'king' ) ) .'</span>';
-	        	$html .=  '</span>'; // .post-meta-item
-			endif;
-		endif;
-
-		if( get_theme_mod( 'blog_tag_meta', false )) :
-			$tag_list = get_the_tag_list( __( ' ', 'king' ) );		
-			if( $tag_list ) :
-				$html .=  '<span class="post-meta-item">';
-	        	$html .=  '<span class="post-meta-category">'. get_the_tag_list('',', ', '') .'</span>';
-	        	$html .=  '</span>'; // .post-meta-item
-			endif;
-		endif;
-
-		if( get_theme_mod( 'blog_comment_meta', false )) :
-			if ( ! post_password_required() && ( comments_open() || get_comments_number() ) ) : 
-				$num_comments = get_comments_number(); // get_comments_number returns only a numeric value
-				if ( $num_comments == 0 ) {
-					$comments = __('Leave a Comment', 'king' );
-				} elseif ( $num_comments > 1 ) {
-					$comments = $num_comments . __(' Comments', 'king' );
-				} else {
-					$comments = __('1 Comment', 'king' );
-				}
-				$html .=  '<span class="post-meta-item">';
-	            $html .=  '<span class="post-meta-comment"><a href="'. esc_url( get_comments_link() ) .'" title="Comment on '. get_the_title() .'">'. $comments .'</a></span>'; 
-	            $html .=  '</span>'; // .post-meta-item
-	        endif;
-		endif;		
-
-		if( get_theme_mod( 'blog_link_meta', false )) :
-			if ( !is_single() ) :
-				$html .=  '<span class="post-meta-item">';
-				$html .=  '<span class="post-meta-link"><a href="'. esc_url( get_the_permalink() ) .'" rel="bookmark">'.__('Read More...','king') .'</a></span>';
-				$html .=  '</span>'; // .post-meta-item
-			endif;
-		endif;
-        
-        if( is_user_logged_in() ):
-        		$html .=  '<span class="post-meta-item">';
-	            $html .=  '<span class="post-meta-edit"><a class="post-edit-link" href="'. esc_url( get_edit_post_link() ).'">'. __( 'Edit', 'king' ) .'</a></span>';
-	        	$html .=  '</span>'; // .post-meta-item
-		endif;
-
-		if ($html != '') :
-			echo '<div class="entry-summary-meta">';
-			echo '<div class="post-meta">';
-			echo $html;
-			echo '</div>';
-			echo '</div>';
-		endif;
-	}
-	add_action('king_entry_bottom', 'king_post_meta', 10, 1);
-endif;
-
-// Remove Post Meta From Pages, 404, Grid Blog layout
-if ( ! function_exists( 'king_remove_post_meta' ) ) :
-	function king_remove_post_meta() {
-		$blog_layout = get_theme_mod('blog_layout', 'grid-3');
-		if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
-			if (is_search() || is_home() || is_archive()) :
-				remove_action('king_entry_bottom', 'king_post_meta');
-			endif;
-		endif;
-
-		if (is_page()) :
-			remove_action('king_entry_bottom', 'king_post_meta');
-		endif;
-	}
-	add_action( 'wp', 'king_remove_post_meta' );
-endif;
-
-
-// Custom Excerpt Length
+/**
+ * Custom Excerpt Length
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_excerpt_length' ) ) :
 	function king_excerpt_length( $length ) {
 		$excerpt_length = get_theme_mod( 'post_excerpt_length', '25' );
@@ -791,7 +697,11 @@ if ( ! function_exists( 'king_excerpt_length' ) ) :
 	add_filter( 'excerpt_length', 'king_excerpt_length', 999 );
 endif;
 
-// Add new image Size for Medium Image Blog
+/**
+ * Add new image Size for Medium Image Blog
+ *
+ * @since King 1.0
+ */
 add_image_size( 'medium-image-blog', 330, 215, true ); // (cropped)
 add_filter( 'image_size_names_choose', 'king_image_sizes' );
 function king_image_sizes( $sizes ) {
@@ -800,123 +710,11 @@ function king_image_sizes( $sizes ) {
     ) );
 }
 
-
-
-// Retrive & Embed video from post
-if ( ! function_exists( 'king_post_video' ) ) :
-function king_post_video() {
-
-	global $post;
-	if (! $post)
-		return false;
-	ob_start();
-	ob_end_clean();
-
-	$html = '';
-
-	if ( preg_match('/\[(\[?)(video)(?![\w-])([^\]\/]*(?:\/(?!\])[^\]\/]*)*?)(?:(\/)\]|\](?:([^\[]*+(?:\[(?!\/\2\])[^\[]*+)*+)\[\/\2\])?)(\]?)/', $post->post_content, $matches)) {
-		$html .= do_shortcode($matches[0]);	
-	}
-	elseif ( 
-			preg_match('#https?://wordpress.tv/.*#i', $post->post_content, $matches) ||
-			preg_match('#http://(www\.)?youtube\.com/watch.*#i', $post->post_content, $matches) ||
-			preg_match('#https://(www\.)?youtube\.com/watch.*#i', $post->post_content, $matches) ||
-			preg_match('#http://(www\.)?youtube\.com/playlist.*#i', $post->post_content, $matches) ||
-			preg_match('#https://(www\.)?youtube\.com/playlist.*#i', $post->post_content, $matches) ||
-			preg_match('#http://youtu\.be/.*#i', $post->post_content, $matches) ||
-			preg_match('#https://youtu\.be/.*#i', $post->post_content, $matches) ||
-			preg_match('#http://blip.tv/.*#i', $post->post_content, $matches) ||
-			preg_match('#https?://(.+\.)?vimeo\.com/.*#i', $post->post_content, $matches) ||
-			preg_match('#https?://(www\.)?dailymotion\.com/.*#i', $post->post_content, $matches) ||
-			preg_match('#http://dai.ly/.*#i', $post->post_content, $matches) ||
-			preg_match('#https?://(www\.)?funnyordie\.com/videos/.*#i', $post->post_content, $matches) ||
-			preg_match('#https?://(www\.)?hulu\.com/watch/.*#i', $post->post_content, $matches) ||
-			preg_match('#https?://(www\.|embed\.)?ted\.com/talks/.*#i', $post->post_content, $matches) ||
-			preg_match('#https?://vine.co/v/.*#i', $post->post_content, $matches) 
-		) {
-			$embedurl = $matches[0];
-			if (!empty($embedurl)) {
-			       $var = apply_filters('the_content', "[embed]" . $embedurl . "[/embed]");
-			}
-			$html .= '<div class="blog-oembed">';
-			$html .= $var;
-			$html .= '</div>';
-	}
-	else {
-		return false;
-	}
-	return $html;
-}
-endif;
-
-
-// Embed Audio Post
-if ( ! function_exists( 'king_post_audio' ) ) :
-	function king_post_audio() { // for audio post type - grab
-
-		global $post;
-		if (! $post)
-			return false;
-		ob_start();
-		ob_end_clean();
-
-		$html = '';
-
-		if ( 
-				preg_match('#https?://(www\.)?mixcloud\.com/.*#i', $post->post_content, $matches) ||
-				preg_match('#https?://(www\.)?rdio\.com/.*#i', $post->post_content, $matches) ||
-				preg_match('#https?://rd\.io/x/.*#i', $post->post_content, $matches) ||
-				preg_match('#https?://(www\.)?soundcloud\.com/.*#i', $post->post_content, $matches) ||
-				preg_match('#https?://(open|play)\.spotify\.com/.*#i', $post->post_content, $matches)
-			) {
-				$embedurl = $matches[0];
-				if (!empty($embedurl)) {
-				       $var = apply_filters('the_content', "[embed]" . $embedurl . "[/embed]");
-				}
-				$html .= '<div class="blog-oembed">';
-				$html .= $var;
-				$html .= '</div>';
-		}
-		else {
-			return false;
-		}
-		return $html;
-	}
-
-endif;
-
-
-// Embed social data - Twitter
-if ( ! function_exists( 'king_post_social' ) ) :
-	function king_post_social() { // for social media embeds
-
-		global $post;
-		if (! $post)
-			return false;
-		ob_start();
-		ob_end_clean();
-
-		$html = '';
-
-		if ( preg_match('#https?://(www\.)?twitter\.com/.+?/status(es)?/.*#i', $post->post_content, $matches) ) {
-				$embedurl = $matches[0];
-				if (!empty($embedurl)) {
-				       $var = apply_filters('the_content', "[embed]" . $embedurl . "[/embed]");
-				}
-				$html .= '<div class="blog-oembed">';
-				$html .= $var;
-				$html .= '</div>';
-		}
-		else {
-			return false;
-		}
-		return $html;
-	}
-
-endif;
-
-
-// Sidebar Position
+/**
+ * Sidebar Position
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_sidebar_position' ) ) :
 	function king_sidebar_position() {
 
@@ -932,7 +730,11 @@ if ( ! function_exists( 'king_sidebar_position' ) ) :
 	add_action( 'wp', 'king_sidebar_position' );
 endif;
 
-// Fevicom Image
+/**
+ * Fevicom Image
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_favicon' ) ) :
 	function king_favicon() {
 		$favicom_image = get_theme_mod( 'favicon-img' );
@@ -942,7 +744,11 @@ if ( ! function_exists( 'king_favicon' ) ) :
 	add_action('king_head_bottom', 'king_favicon');
 endif;
 
-// Custom CSS
+/**
+ * Custom CSS
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_custom_css' ) ) :
 	function king_custom_css() {
 		$custom_css = get_theme_mod( 'custom_css' );
@@ -952,7 +758,11 @@ if ( ! function_exists( 'king_custom_css' ) ) :
 	add_action('wp_head', 'king_custom_css');
 endif;
 
-// Custom Script
+/**
+ * Custom Script
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_custom_script' ) ) :
 	function king_custom_script() {
 		$custom_script = get_theme_mod( 'custom_script' );
@@ -962,7 +772,11 @@ if ( ! function_exists( 'king_custom_script' ) ) :
 	add_action('wp_footer', 'king_custom_script');
 endif;
 
-// Next / Previous post link on single page
+/**
+ * Next / Previous post link on single page
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_single_post_navigation' ) ) :
 	function king_single_post_navigation() { ?>
 		<?php if(is_attachment()) : ?>
@@ -983,7 +797,11 @@ if ( ! function_exists( 'king_single_post_navigation' ) ) :
 	add_action('king_entry_after', 'king_single_post_navigation');
 endif;
 
-// Header Text on Archive Pages
+/**
+ * Header Text on Archive Pages
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_archive_header_text' ) ) :
 	function king_archive_header_text() { ?>
 		<?php if(is_archive()) : ?>
@@ -1054,17 +872,11 @@ if ( ! function_exists( 'king_archive_header_text' ) ) :
 	add_action('king_content_top', 'king_archive_header_text');
 endif;
 
-// Pagination Position 
-if ( ! function_exists( 'king_pagination_position' ) ) :
-	function king_pagination_position() { ?>
-		<?php if(is_archive() || is_search() || is_home()) : ?>
-			<?php king_pagination(); ?>
-		<?php endif;
-	}	
-	add_action('king_content_bottom', 'king_pagination_position');
-endif;
-
-// Header Layout
+/**
+ * Header Layout
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_header_layout' ) ) :
 	function king_header_layout() { 
 		$header_layout = get_theme_mod('header_layout', 'header_1');
@@ -1081,7 +893,11 @@ if ( ! function_exists( 'king_header_layout' ) ) :
 	add_action('king_header_bottom', 'king_header_layout');
 endif;
 
-// Title & Breadcrumb Bar
+/**
+ * Title & Breadcrumb Bar
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 	function king_title_breadcrumb_bar() { ?>
 
@@ -1133,8 +949,11 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 	add_action('king_header_after', 'king_title_breadcrumb_bar');
 endif;
 
-
-// Author Bio
+/**
+ * Author Bio
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_author_bio' ) ) :
 	function king_author_bio() { ?>
 		<?php if( is_single() ) : ?>		
@@ -1166,7 +985,11 @@ if ( ! function_exists( 'king_author_bio' ) ) :
 	add_action('king_entry_bottom', 'king_author_bio', 20, 1);
 endif;
 
-// Custom Search Form
+/**
+ * Custom Search Form
+ *
+ * @since King 1.0
+ */
 if ( ! function_exists( 'king_search_form' ) ) :
 	function king_search_form( $form ) {
 		$value_placeholder = __( "type here..." , "king" );
@@ -1185,8 +1008,7 @@ if ( ! function_exists( 'king_search_form' ) ) :
 	add_filter( 'get_search_form', 'king_search_form' );
 endif;
 
-
-// King Front Page Bottom Sidebar
+// Front Page Bottom Sidebar
 if ( ! function_exists( 'king_front_page_bottom_sidebar' ) ) :
 	function king_front_page_bottom_sidebar() {
 		if (is_page_template( 'page-templates/front-page.php' )) {
@@ -1196,9 +1018,7 @@ if ( ! function_exists( 'king_front_page_bottom_sidebar' ) ) :
 	add_action('king_content_after', 'king_front_page_bottom_sidebar', 20, 1);
 endif;
 
-
-
-// King Front Page Content Sidebar
+// Front Page Content Sidebar
 if ( ! function_exists( 'king_front_page_content_sidebar' ) ) :
 	function king_front_page_content_sidebar() { 
 		?>
@@ -1211,6 +1031,5 @@ if ( ! function_exists( 'king_front_page_content_sidebar' ) ) :
 	}
 	add_action('king_entry_after', 'king_front_page_content_sidebar', 10, 1);
 endif;
-
 
 ?>

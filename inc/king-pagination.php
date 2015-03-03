@@ -56,8 +56,27 @@ if ( ! function_exists( 'king_pagination' ) ) :
         $blog_pagination = get_theme_mod( 'blog_pagination', 'number' );
         if( $blog_pagination == 'number' ) {
             king_number_pagination();
-        } elseif( $blog_pagination == 'traditional' ) {
+        }
+		elseif( $blog_pagination == 'traditional' ) {
             king_content_nav( 'nav-below' ); 
         }
+		else {
+			do_action('king_loader');
+		}
     }
+endif;
+
+
+/**
+ * Pagination Position 
+ *
+ * @since King 1.0
+ */
+if ( ! function_exists( 'king_pagination_position' ) ) :
+    function king_pagination_position() { ?>
+        <?php if(is_archive() || is_search() || is_home()) : ?>
+            <?php king_pagination(); ?>
+        <?php endif;
+    }   
+    add_action('king_content_bottom', 'king_pagination_position');
 endif;

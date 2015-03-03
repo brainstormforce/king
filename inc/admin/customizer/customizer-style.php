@@ -325,7 +325,8 @@ if(!function_exists("king_custom_style")) :
 		.king-pagination .current,
 		.king-scroll-top,
 		.widget_tag_cloud .tagcloud a:hover,
-		.main-footer .widget_tag_cloud .tagcloud a:hover {
+		.main-footer .widget_tag_cloud .tagcloud a:hover,
+		.king-bubblingG span {
 			background:<?php echo get_theme_mod('site-color', '#de5034'); ?>;
 		}
 		.format-aside .aside {
@@ -544,6 +545,84 @@ if(!function_exists("king_custom_style")) :
 		footer[role="contentinfo"] a:hover {
 			color: <?php echo get_theme_mod('small-footer-link-hover-color', '#de5034'); ?>;
 		}
+
+		/**
+		* 5.0 King Infinite Loader
+		*/
+		@-moz-keyframes bubblingG {
+			0% {
+				width: 8px;
+				height: 8px;
+				background-color: <?php echo get_theme_mod('site-color', '#de5034'); ?>;
+				-moz-transform: translateY(0);
+			}
+			100% {
+				width: 18px;
+				height: 18px;
+				background-color:white;
+				-moz-transform: translateY(-16px);
+			}
+		}
+
+		@-webkit-keyframes bubblingG {
+			0% {
+				width: 8px;
+				height: 8px;
+				background-color: <?php echo get_theme_mod('site-color', '#de5034'); ?>;
+				-webkit-transform: translateY(0);
+			}
+			100% {
+				width: 18px;
+				height: 18px;
+				background-color:white;
+				-webkit-transform: translateY(-16px);
+			}
+		}
+
+		@-ms-keyframes bubblingG {
+			0% {
+				width: 8px;
+				height: 8px;
+				background-color: <?php echo get_theme_mod('site-color', '#de5034'); ?>;
+				-ms-transform: translateY(0);
+			}
+			100% {
+				width: 18px;
+				height: 18px;
+				background-color:white;
+				-ms-transform: translateY(-16px);
+			}
+		}
+
+		@-o-keyframes bubblingG {
+			0% {
+				width: 8px;
+				height: 8px;
+				background-color: <?php echo get_theme_mod('site-color', '#de5034'); ?>;
+				-o-transform: translateY(0);
+			}
+			100% {
+				width: 18px;
+				height: 18px;
+				background-color:white;
+				-o-transform: translateY(-16px);
+			}
+		}
+
+		@keyframes bubblingG {
+			0% {
+				width: 8px;
+				height: 8px;
+				background-color: <?php echo get_theme_mod('site-color', '#de5034'); ?>;
+				transform: translateY(0);
+			}
+			100% {
+				width: 18px;
+				height: 18px;
+				background-color:white;
+				transform: translateY(-16px);
+			}
+		} 
 
 		</style>
 
