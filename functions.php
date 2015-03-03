@@ -697,7 +697,7 @@ function king_animations_callback() {
 							var appear = $(blog).kingsIsAppear();
 							$('#content').find('article').css('opacity',0);
 							if((typeof animate !== 'undefined' && animate !== '') && appear) {
-								$(blog).addClass('animated').addClass(animate);
+								$(blog).addClass('animated').addClass(animate).css('opacity',1);
 							}
 						});
 					}
@@ -764,7 +764,7 @@ function king_infinite_scroll_callback() {
 									var appear = $(blog).kingsIsAppear();
 									$('#content').find('article').css('opacity',0);
 									if((typeof animate !== 'undefined' && animate !== '') && appear) {
-										$(blog).addClass('animated').addClass(animate);
+										$(blog).addClass('animated').addClass(animate).css('opacity',1);
 									}
 								});
 							<?php endif; ?>
