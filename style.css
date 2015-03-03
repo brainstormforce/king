@@ -2661,7 +2661,7 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	width: 8px;
 	height: 8px;
 	margin: 19px auto;
-	background: blue;
+	background: #de5034;
 	-moz-border-radius: 38px;
 	-moz-animation: bubblingG 0.7s infinite alternate;
 	-webkit-border-radius: 38px;
@@ -2697,12 +2697,11 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	-o-animation-delay: 0.42s;
 	animation-delay: 0.42s;
 }
-
 @-moz-keyframes bubblingG {
 	0% {
 		width: 8px;
 		height: 8px;
-		background-color:blue;
+		background-color:#de5034;
 		-moz-transform: translateY(0);
 	}
 	100% {
@@ -2717,7 +2716,7 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	0% {
 		width: 8px;
 		height: 8px;
-		background-color:blue;
+		background-color:#de5034;
 		-webkit-transform: translateY(0);
 	}
 	100% {
@@ -2732,7 +2731,7 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	0% {
 		width: 8px;
 		height: 8px;
-		background-color:blue;
+		background-color:#de5034;
 		-ms-transform: translateY(0);
 	}
 	100% {
@@ -2747,7 +2746,7 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	0% {
 		width: 8px;
 		height: 8px;
-		background-color:blue;
+		background-color:#de5034;
 		-o-transform: translateY(0);
 	}
 	100% {
@@ -2762,7 +2761,7 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 	0% {
 		width: 8px;
 		height: 8px;
-		background-color:blue;
+		background-color:#de5034;
 		transform: translateY(0);
 	}
 	100% {

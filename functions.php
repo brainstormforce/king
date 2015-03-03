@@ -745,10 +745,10 @@ function king_infinite_scroll_callback() {
 							$('#content').append($boxes);
 							stop_scroll = false;
 							$('.king-loader').removeClass('animated').removeClass('fadeInUp');
+							$boxes.each(function(i,box){
+								$(box).addClass('post');
+							});
 							<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') : ?>
-								$boxes.each(function(i,box){
-									$(box).addClass('post');
-								});
 								$('.blog-masonry #content').masonry( 'appended', $boxes, true);
 								$('.blog-masonry #content').imagesLoaded( function() {
 									setTimeout(function(){
