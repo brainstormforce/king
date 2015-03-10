@@ -26,11 +26,13 @@ $blog_layout = get_theme_mod('blog_layout', 'grid-3');
 		<?php if ( have_posts() ) : ?>			
 			<?php /* Start the Loop */
 				while ( have_posts() ) : the_post(); ?>
-	        	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4'): ?>
+	        	<?php if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') { ?>
 					<?php get_template_part( 'content', 'blog-grid' ); ?>
-	            <?php else: ?>
+	            <?php } else if($blog_layout == 'medium-image') { ?>
+	            	<?php get_template_part( 'content', 'blog-medium' ); ?>
+	            <?php } else { ?>
 	            	<?php get_template_part( 'content', get_post_format() ); ?>
-	            <?php endif; ?>
+	            <?php } ?>
 			<?php endwhile; ?>
 		<?php else : ?>
 			<?php get_template_part( 'content', 'none' ); ?>			
