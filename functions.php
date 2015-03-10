@@ -183,6 +183,7 @@ require_once('inc/king-animation.php');
 require_once('inc/king-infinite-scroll.php');
 require_once('inc/king-widget.php');
 require_once('inc/king-hex-rgba.php');
+require_once('inc/king-woocommerce.php');
 
 
 /**
@@ -903,9 +904,9 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 
 		<?php
 			global $post;
-			$meta_value = get_post_meta( $post->ID, 'meta-breadcrumb', true );
-			if($meta_value != 'false') :
-				if(!is_home()) : ?>
+			if(!is_home()) :
+				$meta_value = get_post_meta( $post->ID, 'meta-breadcrumb', true );
+				if($meta_value != 'false') : ?>
 
 					<div class="king-page-header">
 						<div class="king-row">
@@ -913,11 +914,27 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left king-title">
 									<?php
 										if(is_404()){
-											$title = '404 - Page Not Found!';
+											$title = __( '404 - Page Not Found!', 'king' ); ;
 										} elseif(is_search()){
-											$title = 'Search Results -';
+											$title = __( 'Search Results For: ' . get_search_query(), 'king' );
 										} elseif(is_archive()){
-											$title = 'Archives';
+											if(is_date()) :
+												if ( is_day() ) :
+													$title = __( 'Daily Archives: ' . get_the_date(), 'king' ); ;
+												elseif ( is_month() ) :
+													$title = __( 'Monthly Archives: ' . get_the_date( _x( 'F Y', 'monthly archives date format', 'king' )), 'king' );
+												elseif ( is_year() ) :
+													$title = __( 'Yearly Archives: ' . get_the_date( _x( 'Y', 'yearly archives date format', 'king' )), 'king' );
+												endif;
+											elseif(is_category()) :
+												$title =  __( 'Category Archives: ' . single_cat_title( '', false ), 'king' );
+											elseif(is_tag()) :
+												$title =  __( 'Tag Archives: ' . single_tag_title( '', false ), 'king' );
+											elseif(is_author()) :
+												$title =  __( 'Author Archives: ' . get_the_author(), 'king' );
+											else :
+												$title = __( 'Archives', 'king' );
+											endif;
 										} else {
 											if( is_home() && get_option('page_for_posts') ) {
 												$blog_page_id = get_option('page_for_posts');
