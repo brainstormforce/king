@@ -525,6 +525,7 @@ a {
 	padding: 0;
 	margin: 0;
 	background-color: #fff;
+	word-break: break-all;
 }
 .site-content {
 	margin: 5em 0 0;
@@ -987,21 +988,21 @@ h2.comments-title:before {
 	margin-top: 8px;
 }
 .commentlist,
-.commentlist li {
+.commentlist > li {
 	list-style: none;
 }
-.commentlist li .comment {
+.commentlist li > .comment {
 	border-bottom: 1px dashed #E8E8E8;
 	padding: 10px 0 34px;
 }
 .commentlist .children .comment {
-	padding-left: 70px;
+	padding-left: 35px;
 }
 .commentlist .children .children .comment {
-	padding-left: 140px;
+	padding-left: 70px;
 }
 .commentlist .children .children .children .comment {
-	padding-left: 210px;
+	padding-left: 105px;
 }
 .comments-area article {
 	margin: 24px 0;
