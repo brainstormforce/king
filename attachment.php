@@ -21,10 +21,13 @@ get_header(); ?>
 
 				<article id="post-<?php the_ID(); ?>" <?php post_class( 'image-attachment' ); ?>>
 				<?php king_entry_top(); ?>
-
-					<header class="entry-header">
-						<h1 class="entry-title"><?php the_title(); ?></h1>
-					</header><!-- .entry-header -->
+					
+					<?php $title_bar = get_theme_mod('title_bar_layout', 'style-1'); ?>
+					<?php if( $title_bar == 'disable' ) : ?>
+						<header class="entry-header">
+							<h1 class="entry-title"><?php the_title(); ?></h1>
+						</header><!-- .entry-header -->
+					<?php endif; ?>					
 
 					<div class="entry-content">
 						<div class="entry-attachment">

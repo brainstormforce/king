@@ -1576,6 +1576,12 @@ footer[role="contentinfo"] .footer-bottom-container {
 .entry-summary-meta {
 	margin-bottom: 24px;
 }
+.title-bar .entry-header {
+	margin-bottom: 0;
+}
+.title-bar .has-post-thumbnail .entry-header {
+	margin-bottom: 24px;
+}
 /* Featured Image Link */
 .blog-featured-media a {
 	display: inline-block;

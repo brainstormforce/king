@@ -550,6 +550,14 @@ function king_body_class( $classes ) {
 	$sidebar_position = get_theme_mod('sidebar_position', 'no-sidebar');
 	$classes[] = $sidebar_position;	
 
+	// Title Bar
+	$title_bar = get_theme_mod('title_bar_layout', 'style-1');
+	if( $title_bar == 'disable' ) :
+		$classes[] = 'no-title-bar';
+	else :
+		$classes[] = 'title-bar';
+	endif;
+
 	// If fixed menu
 	$fixed_header = get_theme_mod( 'site_fixed_header', true );
 	if($fixed_header) :
@@ -904,7 +912,10 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 
 		<?php
 			global $post;
-			if(!is_home()) :
+
+			$title_bar = get_theme_mod('title_bar_layout', 'style-1');
+
+			if(!is_home() && ($title_bar != 'disable') ) :
 				$meta_value = get_post_meta( $post->ID, 'meta-breadcrumb', true );
 				if($meta_value != 'false') : ?>
 

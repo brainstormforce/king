@@ -73,6 +73,7 @@
 		width: 230px;
 		opacity: 0;
 		visibility: hidden;
+		display: none;
 		z-index: 1;
 		background: rgba(29,29,29,0.97);
 		border-top: 2px solid #DE5034;

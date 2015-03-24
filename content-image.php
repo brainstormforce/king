@@ -23,7 +23,10 @@
         	<h1 class="entry-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h1>
         	<h6><time class="entry-date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo get_the_date(); ?></time></h6>
         <?php else : ?>        	
-        	<h1 class="entry-title"><?php the_title(); ?></h1>
+        	<?php $title_bar = get_theme_mod('title_bar_layout', 'style-1'); ?>
+			<?php if( $title_bar == 'disable' ) : ?>
+				<h1 class="entry-title"><?php the_title(); ?></h1>
+			<?php endif; ?>
         	<h6><time class="entry-date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>"><?php echo get_the_date(); ?></time></h6>
         <?php endif; ?>
 	</header><!-- .entry-header -->
