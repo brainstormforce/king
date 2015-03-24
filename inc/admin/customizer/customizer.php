@@ -88,6 +88,14 @@ function king_customize_register( $wp_customize ) {
         )
     );
     $wp_customize->add_section(
+        'title_bar',
+        array(
+            'title' => 'Page Title Bar',
+            'description' => 'Customize page title bar',
+            'priority' => 3,
+        )
+    );
+    $wp_customize->add_section(
         'footer_settings',
         array(
             'title' => 'Footer Settings',
@@ -728,6 +736,30 @@ function king_customize_register( $wp_customize ) {
 		        'header_2' => 'Header Layout 2',
 		        'header_3' => 'Header Layout 3',
 		    ),
+		)
+	);
+
+
+	//==========================
+	// Page Title Bar Settings
+	//==========================
+	$wp_customize->add_setting(
+		'title_bar_layout',
+		array(
+			'default' => 'style-1',
+			'sanitize_callback' => 'king_sanitize_callback'
+		)
+	);	 
+	$wp_customize->add_control(
+		'title_bar_layout',
+		array(
+			'type' => 'select',
+			'label' => 'Display Page Title Bar',
+			'section' => 'title_bar',
+			'choices' => array(
+				'style-1' => 'Enable',
+				'disable' => 'Disable',
+			),
 		)
 	);
 
