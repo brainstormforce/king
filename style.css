@@ -2564,8 +2564,8 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 		padding-top: 0 !important;
 	}
 	/* Transparent Menu */
-	.king-fixed-menu .king-transparent-header .site-header,
-	.king-fixed-menu .king-transparent-header .header-box {
+	.king-fixed-menu.king-transparent-header .site-header,
+	.king-fixed-menu.king-transparent-header .header-box {
 		background: rgba(0,0,0,0) !important;
 		-webkit-transition: background 400ms linear;
 		-moz-transition: background 400ms linear;

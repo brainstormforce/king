@@ -564,6 +564,12 @@ function king_body_class( $classes ) {
 		$classes[] = 'king-fixed-menu';
 	endif;
 
+	// Transparent header
+	$transparent_header = get_post_meta( get_the_ID(), 'meta-transparent-header', true );
+	if( $transparent_header == 'true' ) {
+		$classes[] = 'king-transparent-header';
+	}	
+
 	return $classes;
 }
 add_filter( 'body_class', 'king_body_class' );

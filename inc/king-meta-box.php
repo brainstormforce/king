@@ -12,28 +12,14 @@ function king_meta_callback( $post ) {
 
     $fixed_header = get_theme_mod( 'site_fixed_header', true );
    	if($fixed_header): ?>
-    <p>
-    <div class="king-row-content">
-    	<label><?php _e( 'Enable transparant menu -', 'king' )?></label>
-        <label for="meta-radio-one">
-            <input type="radio" name="meta-radio" id="meta-radio-one" value="true" <?php 
-				if ( isset ( $king_stored_meta['meta-radio'] ) ) 
-					checked( $king_stored_meta['meta-radio'][0], 'true' ); 
-			?>>
-            <?php _e( 'Yes', 'king' )?>
-        </label>
-
-        <label for="meta-radio-two">
-            <input type="radio" name="meta-radio" id="meta-radio-two" value="false" <?php 
-				if ( isset ( $king_stored_meta['meta-radio'] ) ) 
-					checked( $king_stored_meta['meta-radio'][0], 'false' );
-				else
-					echo 'checked="checked"'; 
-			?>>
-            <?php _e( 'No', 'king' )?>
-        </label>
-    </div>
-    </p>
+        <p>
+        <?php $meta_transparent_header = isset($king_stored_meta['meta-transparent-header'][0]) ? $king_stored_meta['meta-transparent-header'][0] : 'true'; ?>
+        <div class="king-row-content">
+            <label><?php _e( 'Enable Transparant Header -', 'king' )?></label>
+            <label><input type="radio" name="meta-transparent-header" value="true" <?php if($meta_transparent_header == 'true') echo 'checked'; ?>><?php _e( 'Yes', 'king' )?></label>
+            <label><input type="radio" name="meta-transparent-header" value="false" <?php if($meta_transparent_header == 'false') echo 'checked'; ?>><?php _e( 'No', 'king' )?></label>
+        </div>
+        </p>
     <?php endif; ?>
 
 	<p>
@@ -61,33 +47,11 @@ function king_meta_save( $post_id ) {
     }
  
      // Checks for input and saves if needed
-	if( isset( $_POST[ 'meta-radio' ] ) ) {
-		update_post_meta( $post_id, 'meta-radio', $_POST[ 'meta-radio' ] );
-	}
-	if( isset( $_POST[ 'meta-radio1' ] ) ) {
-		update_post_meta( $post_id, 'meta-radio1', $_POST[ 'meta-radio1' ] );
+	if( isset( $_POST[ 'meta-transparent-header' ] ) ) {
+		update_post_meta( $post_id, 'meta-transparent-header', $_POST[ 'meta-transparent-header' ] );
 	}
 	if( isset( $_POST[ 'meta-title-bar' ] ) ) {
 		update_post_meta( $post_id, 'meta-title-bar', $_POST[ 'meta-title-bar' ] );
 	}
 }
 add_action( 'save_post', 'king_meta_save' );
-
-/* Add specific CSS class by filter */
-add_filter('body_class','king_body_class_name');
-function king_body_class_name($classes) {
-	global $post;
-	
-	// add a custom class for transparent header
-	$meta_value = get_post_meta( get_the_ID(), 'meta-radio', true );
-	$meta_value1 = get_post_meta( get_the_ID(), 'meta-radio1', true );
-	if( $meta_value == 'true' ) {
-		$classes[] = 'king-transparent-header';
-	}	
-	
-	if( $meta_value1 == 'true' ) {
-		$classes[] = 'king-light-menu';
-	}	 
-    return $classes;
-	
-}
