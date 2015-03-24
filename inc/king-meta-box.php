@@ -9,6 +9,7 @@ add_action( 'add_meta_boxes', 'king_custom_meta' );
 function king_meta_callback( $post ) {
     wp_nonce_field( basename( __FILE__ ), 'king_nonce' );
     $king_stored_meta = get_post_meta( $post->ID );
+
     $fixed_header = get_theme_mod( 'site_fixed_header', true );
    	if($fixed_header): ?>
     <p>
@@ -33,45 +34,14 @@ function king_meta_callback( $post ) {
         </label>
     </div>
     </p>
-     <?php endif; ?>
-     <p>
-    <div class="king-row-content">
-    	<label><?php _e( 'Enable light menu -', 'king' )?></label>
-        <label for="meta-radio-one">
-            <input type="radio" name="meta-radio1" id="meta-radio-three" value="true" <?php if ( isset ( $king_stored_meta['meta-radio1'] ) ) checked( $king_stored_meta['meta-radio1'][0], 'true' ); ?>>
-            <?php _e( 'Yes', 'king' )?>
-        </label>
-        <label for="meta-radio-two">
-            <input type="radio" name="meta-radio1" id="meta-radio-four" value="false" <?php 
-				if ( isset ( $king_stored_meta['meta-radio1'] ) ) 
-					checked( $king_stored_meta['meta-radio1'][0], 'false' ); 
-				else
-					echo 'checked="checked"';
-			?>>
-            <?php _e( 'No', 'king' )?>
-        </label>
-    </div>
-	</p>
+    <?php endif; ?>
 
 	<p>
+    <?php $meta_title_bar = isset($king_stored_meta['meta-title-bar'][0]) ? $king_stored_meta['meta-title-bar'][0] : 'true'; ?>
     <div class="king-row-content">
-    	<label><?php _e( 'Enable Breadcrumbs -', 'king' )?></label>
-        <label for="meta-radio-five">
-            <input type="radio" name="meta-breadcrumb" id="meta-radio-five" value="true" <?php 
-            	if ( isset ( $king_stored_meta['meta-breadcrumb'] ) ) 
-            			checked( $king_stored_meta['meta-breadcrumb'][0], 'true' ); 
-            	else
-					echo 'checked="checked"';
-            	?>>
-            <?php _e( 'Yes', 'king' )?>
-        </label>
-        <label for="meta-radio-six">
-            <input type="radio" name="meta-breadcrumb" id="meta-radio-six" value="false" <?php 
-				if ( isset ( $king_stored_meta['meta-breadcrumb'] ) ) 
-					checked( $king_stored_meta['meta-breadcrumb'][0], 'false' ); 
-			?>>
-            <?php _e( 'No', 'king' )?>
-        </label>
+    	<label><?php _e( 'Enable Title Bar -', 'king' )?></label>
+        <label><input type="radio" name="meta-title-bar" value="true" <?php if($meta_title_bar == 'true') echo 'checked'; ?>><?php _e( 'Yes', 'king' )?></label>
+        <label><input type="radio" name="meta-title-bar" value="false" <?php if($meta_title_bar == 'false') echo 'checked'; ?>><?php _e( 'No', 'king' )?></label>
     </div>
 	</p>
  
@@ -97,8 +67,8 @@ function king_meta_save( $post_id ) {
 	if( isset( $_POST[ 'meta-radio1' ] ) ) {
 		update_post_meta( $post_id, 'meta-radio1', $_POST[ 'meta-radio1' ] );
 	}
-	if( isset( $_POST[ 'meta-breadcrumb' ] ) ) {
-		update_post_meta( $post_id, 'meta-breadcrumb', $_POST[ 'meta-breadcrumb' ] );
+	if( isset( $_POST[ 'meta-title-bar' ] ) ) {
+		update_post_meta( $post_id, 'meta-title-bar', $_POST[ 'meta-title-bar' ] );
 	}
 }
 add_action( 'save_post', 'king_meta_save' );
