@@ -530,6 +530,9 @@ a {
 .site-content {
 	margin: 5em 0 0;
 }
+.king-transparent-header .site-content {
+	margin: 0;
+}
 .widget-area {
 	margin: 5em 0 0;
 }
@@ -2571,8 +2574,9 @@ body.page-template-king-landing-page .site-content .entry-content > .vc_row {
 		-moz-transition: background 400ms linear;
 		transition: background 400ms linear;
 	}
-	.king-fixed-menu .king-transparent-header .king-sticky-menu {
-		background: #303030 !important;
+	.king-transparent-header .king-page-header,
+	.king-transparent-header #main {
+	  padding-top: 0 !important;
 	}
 	/* Menu & Logo */
 	.header-logo {

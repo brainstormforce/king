@@ -35,7 +35,7 @@
 	}
 
 	$(document).ready(function() {
-		// Meny Toggle
+		// Menu Toggle
 	    $('.menu-toggle-wrap').click( function() {
 	    $('.nav-menu').toggle()});
 		$("li.menu-item-has-children").click(function () {
@@ -78,6 +78,17 @@
 		transperent_top_padding();
 
     });	
+
+	$(window).load(function() {
+		// Responsive iframe
+		resp_iframe();
+
+		// Assign Browser Width to Row - If Front Page Widget Area has Featured Image
+	    full_front_widget();
+
+	    // Assign Top Padding When Transparent Menu Is Set
+		transperent_top_padding();
+	});
 
 	$(window).on('resize',function() {
 		// Responsive iframe

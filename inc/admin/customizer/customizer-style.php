@@ -396,6 +396,10 @@ if(!function_exists("king_custom_style")) :
 			background: <?php echo get_theme_mod( 'header-bg-color', '#333333' );?>;
 		}
 
+		.king-fixed-menu.king-transparent-header .king-sticky-menu {
+			background: <?php echo get_theme_mod( 'header-bg-color', '#333333' );?> !important;
+		}
+
 		/**
 		* 3.3 Parent Menu Color
 		*/

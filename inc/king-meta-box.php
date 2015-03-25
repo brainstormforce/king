@@ -2,7 +2,10 @@
 
 /* Adds a meta box to the post editing screen */
 function king_custom_meta() {
-	add_meta_box( 'king_meta', __( 'Header & Menu Settings', 'king' ), 'king_meta_callback', 'page' );
+    $screens = array( 'post', 'page' );
+    foreach ( $screens as $screen ) {
+        add_meta_box( 'king_meta', __( 'King Options', 'king' ), 'king_meta_callback', $screen, 'normal', 'high' );
+    }	
 }
 add_action( 'add_meta_boxes', 'king_custom_meta' );
 /* Outputs the content of the meta box */
@@ -13,7 +16,7 @@ function king_meta_callback( $post ) {
     $fixed_header = get_theme_mod( 'site_fixed_header', true );
    	if($fixed_header): ?>
         <p>
-        <?php $meta_transparent_header = isset($king_stored_meta['meta-transparent-header'][0]) ? $king_stored_meta['meta-transparent-header'][0] : 'true'; ?>
+        <?php $meta_transparent_header = isset($king_stored_meta['meta-transparent-header'][0]) ? $king_stored_meta['meta-transparent-header'][0] : 'false'; ?>
         <div class="king-row-content">
             <label><?php _e( 'Enable Transparant Header -', 'king' )?></label>
             <label><input type="radio" name="meta-transparent-header" value="true" <?php if($meta_transparent_header == 'true') echo 'checked'; ?>><?php _e( 'Yes', 'king' )?></label>
@@ -23,7 +26,15 @@ function king_meta_callback( $post ) {
     <?php endif; ?>
 
 	<p>
-    <?php $meta_title_bar = isset($king_stored_meta['meta-title-bar'][0]) ? $king_stored_meta['meta-title-bar'][0] : 'true'; ?>
+    <?php 
+        $customizer_title_bar = get_theme_mod('title_bar_layout', 'style-1');
+        if ($customizer_title_bar == 'disable') :
+            $title_bar_value = 'false';
+        else :
+            $title_bar_value = 'true';
+        endif;
+    ?>
+    <?php $meta_title_bar = isset($king_stored_meta['meta-title-bar'][0]) ? $king_stored_meta['meta-title-bar'][0] : $title_bar_value; ?>
     <div class="king-row-content">
     	<label><?php _e( 'Enable Title Bar -', 'king' )?></label>
         <label><input type="radio" name="meta-title-bar" value="true" <?php if($meta_title_bar == 'true') echo 'checked'; ?>><?php _e( 'Yes', 'king' )?></label>
@@ -45,8 +56,8 @@ function king_meta_save( $post_id ) {
     if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
         return;
     }
- 
-     // Checks for input and saves if needed
+
+    // Checks for input and saves if needed
 	if( isset( $_POST[ 'meta-transparent-header' ] ) ) {
 		update_post_meta( $post_id, 'meta-transparent-header', $_POST[ 'meta-transparent-header' ] );
 	}

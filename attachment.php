@@ -23,11 +23,12 @@ get_header(); ?>
 				<?php king_entry_top(); ?>
 					
 					<?php $title_bar = get_theme_mod('title_bar_layout', 'style-1'); ?>
-					<?php if( $title_bar == 'disable' ) : ?>
+					<?php $meta_value = get_post_meta( $post->ID, 'meta-title-bar', true ); ?>
+					<?php if(($title_bar == 'disable') || ($meta_value == 'false')) : ?>
 						<header class="entry-header">
 							<h1 class="entry-title"><?php the_title(); ?></h1>
 						</header><!-- .entry-header -->
-					<?php endif; ?>					
+					<?php endif; ?>				
 
 					<div class="entry-content">
 						<div class="entry-attachment">

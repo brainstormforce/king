@@ -920,9 +920,10 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 			global $post;
 
 			$title_bar = get_theme_mod('title_bar_layout', 'style-1');
+			$meta_value = get_post_meta( $post->ID, 'meta-title-bar', true );
 
 			if(!is_home() && ($title_bar != 'disable') ) :
-				$meta_value = get_post_meta( $post->ID, 'meta-title-bar', true );
+
 				if($meta_value != 'false') : ?>
 
 					<div class="king-page-header">
