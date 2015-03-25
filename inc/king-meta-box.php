@@ -4,7 +4,7 @@
 function king_custom_meta() {
     $screens = array( 'post', 'page' );
     foreach ( $screens as $screen ) {
-        add_meta_box( 'king_meta', __( 'King Options', 'king' ), 'king_meta_callback', $screen, 'normal', 'high' );
+        add_meta_box( 'king_meta', __( 'King Options', 'king' ), 'king_meta_callback', $screen, 'advanced', 'high' );
     }	
 }
 add_action( 'add_meta_boxes', 'king_custom_meta' );
