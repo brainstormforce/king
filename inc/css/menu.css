@@ -2,6 +2,16 @@
     width: 100%;
     margin: 0 auto;
 }
+/* Font Awesome Support For Mega Menu */
+ul.children li a.fa:before, 
+ul.sub-menu li a.fa:before,
+ul.children li a.fa:after, 
+ul.sub-menu li a.fa:after {
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome;
+	font-size: inherit;
+	margin-right: 10px;
+}
 /*------------------------------Desktop View----------------------------------*/
 @media only screen and (min-width: 768px) {
 	.header-box{
@@ -99,12 +109,6 @@
 		color: #fff;
 		border: none;
 	}
-	/*.main-navigation .nav-menu > .sub-menu > li:hover a,
-	.main-navigation .nav-menu > .children > li:hover a{
-		background: #DE5034;
-		color: #fff;
-		border: none;
-	}*/
 	.main-navigation .nav-menu .sub-menu li:hover > a,
 	.main-navigation .nav-menu .children li:hover > a {
 		padding-left: 25px;
@@ -129,10 +133,24 @@
 	.king-main-menu-container {
 		position: relative;
 	}
-	.main-navigation .nav-menu > li.mega-menu-item{
+	.mega-menu:after,
+	.mega-menu-row:after {
+		clear: both;
+	}
+	.mega-menu:before,
+	.mega-menu:after,
+	.mega-menu-row:before,
+	.mega-menu-row:after {
+		display: table;
+		content: "";
+	}
+	.main-navigation ul li.menu-item-has-mega-menu {
+	  position: initial;
+	}	
+	.main-navigation .nav-menu > li.mega-menu-item {
 		position: static;
 	}
-	.main-navigation .mega-menu{
+	.main-navigation .mega-menu {
 		width: 100%;
 		position: absolute;
 		display: block;
@@ -140,62 +158,24 @@
 		left: 0;
 		transition: all 0.2s ease-in-out;
 	}
-	.main-navigation .nav-menu > li.mega-menu-item > .mega-menu ul.sub-menu {
-	    position: absolute;
-	    float: none;
-	    display: block;
-	    width: 100%;
-	    left: 0;
-	    right: 0;
-	    top: 100%;
+	.main-navigation .mega-menu > .mega-menu-row {
+		width: 100%;
+		position: relative;
 	}
-	.main-navigation .nav-menu li.mega-menu-item .mega-menu ul.sub-menu > li{
-		padding: 0;
-		margin: 0;
-		position: static;
-		display: block;
-		float: left;
-		height: 100%;
-		top: 100%;
-		left: 0;
+	.main-navigation .mega-menu > .mega-menu-row > li {
 		width: 25%;
-		padding: 10px 0px;
+		display: inline-block;
+		float: left;
 	}
-	.main-navigation .nav-menu li.mega-menu-item .mega-menu .sub-menu ul{
+	.main-navigation .mega-menu > .mega-menu-row > li > ul.sub-menu {
+		position: relative;
 		display: block;
-		position: static;
-		border: none;
-		top: 100%;
 		left: 0;
+		top: 10px;		
 		width: 100%;
-		height: 100%;
-		overflow: inherit;
-	}
-	.main-navigation .nav-menu li.mega-menu-item .mega-menu .sub-menu ul li{
-		width: 100%;
-		margin: 0;
-		padding: 0;
-		display: block;
-	}
-	.main-navigation .nav-menu li.mega-menu-item .mega-menu .sub-menu > li.menu-item-has-children > a {
-		text-transform: uppercase;
-		padding-left: 20px;
 		border: none;
 	}
-	.main-navigation .nav-menu li.mega-menu-item .mega-menu .sub-menu > li.menu-item-has-children > a:hover {
-		background: none;
-	}
-	.main-navigation ul li.mega-menu-item .mega-menu .sub-menu li a{
-		padding: 0 0 0 20px;
-		margin: 0;
-		display: block;
-		transition: all 200ms linear;
-		box-sizing:border-box;
-	}
-	.main-navigation ul li.mega-menu-item .mega-menu .sub-menu li a:hover {
-		padding-left: 35px;
-		width: auto;
-	}
+
 	span.fa-angle-down {
 		display: none;
 	}

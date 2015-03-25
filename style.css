@@ -2259,6 +2259,9 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 .js_active .page-template-king-full-width .comments-area {
 	display: none;
 }
+.js_active .king-full-width-template .entry-content {
+  margin-bottom: 0;
+}
 /**
 * Theme Layout
 *
