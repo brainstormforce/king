@@ -2,76 +2,43 @@
 
 /* Adds a meta box to the post editing screen */
 function king_custom_meta() {
-	add_meta_box( 'king_meta', __( 'Header & Menu Settings', 'king' ), 'king_meta_callback', 'page' );
+    $screens = array( 'post', 'page' );
+    foreach ( $screens as $screen ) {
+        add_meta_box( 'king_meta', __( 'King Options', 'king' ), 'king_meta_callback', $screen, 'normal', 'high' );
+    }	
 }
 add_action( 'add_meta_boxes', 'king_custom_meta' );
 /* Outputs the content of the meta box */
 function king_meta_callback( $post ) {
     wp_nonce_field( basename( __FILE__ ), 'king_nonce' );
     $king_stored_meta = get_post_meta( $post->ID );
+
     $fixed_header = get_theme_mod( 'site_fixed_header', true );
    	if($fixed_header): ?>
-    <p>
-    <div class="king-row-content">
-    	<label><?php _e( 'Enable transparant menu -', 'king' )?></label>
-        <label for="meta-radio-one">
-            <input type="radio" name="meta-radio" id="meta-radio-one" value="true" <?php 
-				if ( isset ( $king_stored_meta['meta-radio'] ) ) 
-					checked( $king_stored_meta['meta-radio'][0], 'true' ); 
-			?>>
-            <?php _e( 'Yes', 'king' )?>
-        </label>
-
-        <label for="meta-radio-two">
-            <input type="radio" name="meta-radio" id="meta-radio-two" value="false" <?php 
-				if ( isset ( $king_stored_meta['meta-radio'] ) ) 
-					checked( $king_stored_meta['meta-radio'][0], 'false' );
-				else
-					echo 'checked="checked"'; 
-			?>>
-            <?php _e( 'No', 'king' )?>
-        </label>
-    </div>
-    </p>
-     <?php endif; ?>
-     <p>
-    <div class="king-row-content">
-    	<label><?php _e( 'Enable light menu -', 'king' )?></label>
-        <label for="meta-radio-one">
-            <input type="radio" name="meta-radio1" id="meta-radio-three" value="true" <?php if ( isset ( $king_stored_meta['meta-radio1'] ) ) checked( $king_stored_meta['meta-radio1'][0], 'true' ); ?>>
-            <?php _e( 'Yes', 'king' )?>
-        </label>
-        <label for="meta-radio-two">
-            <input type="radio" name="meta-radio1" id="meta-radio-four" value="false" <?php 
-				if ( isset ( $king_stored_meta['meta-radio1'] ) ) 
-					checked( $king_stored_meta['meta-radio1'][0], 'false' ); 
-				else
-					echo 'checked="checked"';
-			?>>
-            <?php _e( 'No', 'king' )?>
-        </label>
-    </div>
-	</p>
+        <p>
+        <?php $meta_transparent_header = isset($king_stored_meta['meta-transparent-header'][0]) ? $king_stored_meta['meta-transparent-header'][0] : 'false'; ?>
+        <div class="king-row-content">
+            <label><?php _e( 'Enable Transparant Header -', 'king' )?></label>
+            <label><input type="radio" name="meta-transparent-header" value="true" <?php if($meta_transparent_header == 'true') echo 'checked'; ?>><?php _e( 'Yes', 'king' )?></label>
+            <label><input type="radio" name="meta-transparent-header" value="false" <?php if($meta_transparent_header == 'false') echo 'checked'; ?>><?php _e( 'No', 'king' )?></label>
+        </div>
+        </p>
+    <?php endif; ?>
 
 	<p>
+    <?php 
+        $customizer_title_bar = get_theme_mod('title_bar_layout', 'style-1');
+        if ($customizer_title_bar == 'disable') :
+            $title_bar_value = 'false';
+        else :
+            $title_bar_value = 'true';
+        endif;
+    ?>
+    <?php $meta_title_bar = isset($king_stored_meta['meta-title-bar'][0]) ? $king_stored_meta['meta-title-bar'][0] : $title_bar_value; ?>
     <div class="king-row-content">
-    	<label><?php _e( 'Enable Breadcrumbs -', 'king' )?></label>
-        <label for="meta-radio-five">
-            <input type="radio" name="meta-breadcrumb" id="meta-radio-five" value="true" <?php 
-            	if ( isset ( $king_stored_meta['meta-breadcrumb'] ) ) 
-            			checked( $king_stored_meta['meta-breadcrumb'][0], 'true' ); 
-            	else
-					echo 'checked="checked"';
-            	?>>
-            <?php _e( 'Yes', 'king' )?>
-        </label>
-        <label for="meta-radio-six">
-            <input type="radio" name="meta-breadcrumb" id="meta-radio-six" value="false" <?php 
-				if ( isset ( $king_stored_meta['meta-breadcrumb'] ) ) 
-					checked( $king_stored_meta['meta-breadcrumb'][0], 'false' ); 
-			?>>
-            <?php _e( 'No', 'king' )?>
-        </label>
+    	<label><?php _e( 'Enable Title Bar -', 'king' )?></label>
+        <label><input type="radio" name="meta-title-bar" value="true" <?php if($meta_title_bar == 'true') echo 'checked'; ?>><?php _e( 'Yes', 'king' )?></label>
+        <label><input type="radio" name="meta-title-bar" value="false" <?php if($meta_title_bar == 'false') echo 'checked'; ?>><?php _e( 'No', 'king' )?></label>
     </div>
 	</p>
  
@@ -89,35 +56,13 @@ function king_meta_save( $post_id ) {
     if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
         return;
     }
- 
-     // Checks for input and saves if needed
-	if( isset( $_POST[ 'meta-radio' ] ) ) {
-		update_post_meta( $post_id, 'meta-radio', $_POST[ 'meta-radio' ] );
+
+    // Checks for input and saves if needed
+	if( isset( $_POST[ 'meta-transparent-header' ] ) ) {
+		update_post_meta( $post_id, 'meta-transparent-header', $_POST[ 'meta-transparent-header' ] );
 	}
-	if( isset( $_POST[ 'meta-radio1' ] ) ) {
-		update_post_meta( $post_id, 'meta-radio1', $_POST[ 'meta-radio1' ] );
-	}
-	if( isset( $_POST[ 'meta-breadcrumb' ] ) ) {
-		update_post_meta( $post_id, 'meta-breadcrumb', $_POST[ 'meta-breadcrumb' ] );
+	if( isset( $_POST[ 'meta-title-bar' ] ) ) {
+		update_post_meta( $post_id, 'meta-title-bar', $_POST[ 'meta-title-bar' ] );
 	}
 }
 add_action( 'save_post', 'king_meta_save' );
-
-/* Add specific CSS class by filter */
-add_filter('body_class','king_body_class_name');
-function king_body_class_name($classes) {
-	global $post;
-	
-	// add a custom class for transparent header
-	$meta_value = get_post_meta( get_the_ID(), 'meta-radio', true );
-	$meta_value1 = get_post_meta( get_the_ID(), 'meta-radio1', true );
-	if( $meta_value == 'true' ) {
-		$classes[] = 'king-transparent-header';
-	}	
-	
-	if( $meta_value1 == 'true' ) {
-		$classes[] = 'king-light-menu';
-	}	 
-    return $classes;
-	
-}

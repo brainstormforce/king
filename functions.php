@@ -550,11 +550,25 @@ function king_body_class( $classes ) {
 	$sidebar_position = get_theme_mod('sidebar_position', 'no-sidebar');
 	$classes[] = $sidebar_position;	
 
+	// Title Bar
+	$title_bar = get_theme_mod('title_bar_layout', 'style-1');
+	if( $title_bar == 'disable' ) :
+		$classes[] = 'no-title-bar';
+	else :
+		$classes[] = 'title-bar';
+	endif;
+
 	// If fixed menu
 	$fixed_header = get_theme_mod( 'site_fixed_header', true );
 	if($fixed_header) :
 		$classes[] = 'king-fixed-menu';
 	endif;
+
+	// Transparent header
+	$transparent_header = get_post_meta( get_the_ID(), 'meta-transparent-header', true );
+	if( $transparent_header == 'true' ) {
+		$classes[] = 'king-transparent-header';
+	}	
 
 	return $classes;
 }
@@ -904,8 +918,12 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 
 		<?php
 			global $post;
-			if(!is_home()) :
-				$meta_value = get_post_meta( $post->ID, 'meta-breadcrumb', true );
+
+			$title_bar = get_theme_mod('title_bar_layout', 'style-1');
+			$meta_value = get_post_meta( $post->ID, 'meta-title-bar', true );
+
+			if(!is_home() && ($title_bar != 'disable') ) :
+
 				if($meta_value != 'false') : ?>
 
 					<div class="king-page-header">

@@ -11,15 +11,20 @@
 <?php king_entry_top(); ?>
 
 	<header class="entry-header">
-		<?php // if ( ! is_page_template( 'page-templates/front-page.php' ) ) : ?>
-			<?php if( has_post_thumbnail() ) : ?>
-				<div class="page-featured-img">
-					<?php $blog_thumnail_size = get_theme_mod('blog_featured_image_size', 'full'); ?>
-					<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail( $blog_thumnail_size ); ?></a>
-				</div>
-			<?php endif; ?>
-		<?php // endif; ?>
-		<h1 class="entry-title"><?php the_title(); ?></h1>
+		
+		<?php if( has_post_thumbnail() ) : ?>
+			<div class="page-featured-img">
+				<?php $blog_thumnail_size = get_theme_mod('blog_featured_image_size', 'full'); ?>
+				<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_post_thumbnail( $blog_thumnail_size ); ?></a>
+			</div>
+		<?php endif; ?>
+
+		<?php $title_bar = get_theme_mod('title_bar_layout', 'style-1'); ?>
+		<?php $meta_value = get_post_meta( $post->ID, 'meta-title-bar', true ); ?>
+		<?php if(($title_bar == 'disable') || ($meta_value == 'false')) : ?>
+			<h1 class="entry-title"><?php the_title(); ?></h1>
+		<?php endif; ?>
+
 	</header>
 
 	<div class="entry-content">
