@@ -490,6 +490,14 @@ function king_customize_register( $wp_customize ) {
 	);
 
 	// Featured Image
+	// Retrive all registered image sizes
+	$featureed_image_sizes = array();
+	$get_intermediate_image_sizes = get_intermediate_image_sizes();
+	$featureed_image_sizes['full'] = 'full';
+	foreach( $get_intermediate_image_sizes as $_size ) {
+		$featureed_image_sizes[$_size] = $_size;
+	}
+
 	$wp_customize->add_setting(
 		'blog_featured_image_size',
 		array(
@@ -503,13 +511,7 @@ function king_customize_register( $wp_customize ) {
 			'type' => 'select',
 			'label' => 'Select Fetured Image Size',
 			'section' => 'blog_featured_image',
-			'choices' => array(
-				'large' => 'Large',				
-				'medium' => 'Medium',				
-				'full' => 'Full',
-				'thumbnail' => 'Thumbnail',
-				'medium-image-blog' => '330 x 215 px',
-			),
+			'choices' => $featureed_image_sizes,
 		)
 	);
 

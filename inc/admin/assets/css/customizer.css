@@ -30,3 +30,6 @@ li#customize-control-favicon-img .thumbnail-image img {
   margin: 10px auto;
   display: block;
 }
+li#customize-control-blog_featured_image_size select {
+  text-transform: capitalize;
+}
