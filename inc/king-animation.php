@@ -7,14 +7,16 @@
  */
 $blog_animation = get_theme_mod('blog_animation', 'fadeIn');
 if($blog_animation != 'none') :
-    add_action('king_content_top','king_animation_before_wrapper');
-    function king_animation_before_wrapper() {
-        echo '<div class="king-animation-wrapper" data-king-animate="'. get_theme_mod('blog_animation', 'fadeIn') .'">';
-    }
-    add_action('king_content_bottom','king_animation_after_wrapper');
-    function king_animation_after_wrapper() {
-        echo '</div>';
-    }
+    if ( is_home() || is_archive() || is_search() ) : 
+        add_action('king_content_top','king_animation_before_wrapper');
+        function king_animation_before_wrapper() {
+            echo '<div class="king-animation-wrapper" data-king-animate="'. get_theme_mod('blog_animation', 'fadeIn') .'">';
+        }
+        add_action('king_content_bottom','king_animation_after_wrapper');
+        function king_animation_after_wrapper() {
+            echo '</div>';
+        }
+    endif;
 endif;
 
 function king_animations_callback() {
