@@ -856,7 +856,6 @@ function king_customize_register( $wp_customize ) {
 		'site-color',
 		array(
 			'default' => '#707070',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
@@ -1015,7 +1014,10 @@ function king_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-		'header-bg-color'
+		'header-bg-color',
+		array(
+			'default' => '#333',
+		)
 	);
 	$wp_customize->add_control(
 		new King_RGBA_Control(
@@ -2049,9 +2051,13 @@ function king_customize_preview_js() {
 }
 add_action( 'customize_preview_init', 'king_customize_preview_js' );
 
-
-function king_customizer_control_script() {
-	wp_register_script( 'customizer-admin-js', get_template_directory_uri() . '/inc/admin/assets/js/customizer-script.js', array( 'jquery' ), NULL, true );
-	wp_enqueue_script( 'customizer-admin-js' );
+/**
+ * Enqueue Javascript for custom RGBA color picker in customizer
+ *
+ * @since King 1.0
+ */
+function king_customizer_rgba_control_script() {
+	wp_register_script( 'customizer-rgba-js', get_template_directory_uri() . '/inc/admin/assets/js/customizer-script.js', array( 'jquery' ), NULL, true );
+	wp_enqueue_script( 'customizer-rgba-js' );
 }
-add_action( 'admin_enqueue_scripts', 'king_customizer_control_script' );
+add_action( 'admin_enqueue_scripts', 'king_customizer_rgba_control_script' );
