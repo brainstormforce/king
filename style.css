@@ -589,7 +589,6 @@ a {
 .site-header .blog-description {
 	display: inline-block;
 	padding: 0 15px;
-	font-size: 14px;
 	line-height: inherit;
 	color: #DDDDDD;
 }
@@ -2396,6 +2395,7 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 }
 .site-header.header-style3 .blog-description {
 	color: #707070;
+	display: block;
 }
 .site-header.header-style3 h1 {
 	margin-bottom: 5px;

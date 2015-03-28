@@ -159,6 +159,14 @@ function king_customize_register( $wp_customize ) {
 	    'description' => '',
 	    'panel' => 'typography_panel',
 	) );
+	$wp_customize->add_section( 'site_tagline_title_font', array(
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Site Title & Tagline', 'king' ),
+	    'description' => '',
+	    'panel' => 'typography_panel',
+		'priority' => 2,
+	) );
 	$wp_customize->add_section( 'entry_title_font', array(
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
@@ -166,7 +174,7 @@ function king_customize_register( $wp_customize ) {
 	    'description' => '',
 	    'panel' => 'typography_panel',
 		'priority' => 2,
-	) );
+	) );	
 	$wp_customize->add_section( 'widget_title_font', array(
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
@@ -1331,6 +1339,119 @@ function king_customize_register( $wp_customize ) {
 				'id'	=> 'default_font',
 				'description' => '400 regular:400:normal'
 			)
+		)
+	);
+
+	// Site Title & Tagline
+	$wp_customize->add_setting( 'site_title_font', array(
+		'default' => 'Open Sans',
+		'type' => 'theme_mod',
+		'capability' => 'edit_theme_options',
+		'transport' => '',
+		'sanitize_callback' => 'king_sanitize_callback',
+	) );
+	$wp_customize->add_control(
+		new King_Typography_Control(
+			$wp_customize,
+			'site_title_font',
+			array(
+				'label' => 'Site Title Font',
+				'section' => 'site_tagline_title_font',
+				'settings' => 'site_title_font',
+				'priority' => 1,
+				'id'	=> 'site_tagline_title_font',
+				'description' => '400 regular:400:normal'
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'site_title_font_size',
+		array(
+			'default' => 24,
+			'sanitize_callback' => 'king_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'site_title_font_size',
+		array(
+			'label' => 'Font Size (px)',
+			'section' => 'site_tagline_title_font',
+			'description' =>  '',
+			'type'        => 'number',
+			'priority' => 2,
+			'input_attrs' => array(
+				'min'   => 10,
+				'max'   => 72,
+				'step'  => 1,
+				'style' => 'width: 80px;',
+			),
+		)
+	);
+
+	$wp_customize->add_setting( 'site_title_seperator', array(
+		'default' => '',
+		'type' => 'theme_mod',
+		'capability' => 'edit_theme_options',
+		'transport' => '',
+		'sanitize_callback' => 'king_sanitize_callback',
+	) );
+	$wp_customize->add_control(
+		new King_Separator_Control(
+			$wp_customize,
+			'site_title_seperator',
+			array(
+				'label' => '',
+				'section' => 'site_tagline_title_font',
+				'settings' => 'site_title_seperator',
+				'priority' => 3,
+			)
+		)
+	);
+	
+	$wp_customize->add_setting( 'tagline_font', array(
+		'default' => 'Open Sans',
+		'type' => 'theme_mod',
+		'capability' => 'edit_theme_options',
+		'transport' => '',
+		'sanitize_callback' => 'king_sanitize_callback',
+	) );
+	$wp_customize->add_control(
+		new King_Typography_Control(
+			$wp_customize,
+			'tagline_font',
+			array(
+				'label' => 'Tagline Font',
+				'section' => 'site_tagline_title_font',
+				'settings' => 'tagline_font',
+				'priority' => 4,
+				'id'	=> 'site_tagline_title_font',
+				'description' => '400 regular:400:normal'
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'tagline_font_size',
+		array(
+			'default' => 14,
+			'sanitize_callback' => 'king_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'tagline_font_size',
+		array(
+			'label' => 'Font Size (px)',
+			'section' => 'site_tagline_title_font',
+			'description' =>  '',
+			'type'        => 'number',
+			'priority' => 5,
+			'input_attrs' => array(
+				'min'   => 10,
+				'max'   => 72,
+				'step'  => 1,
+				'style' => 'width: 80px;',
+			),
 		)
 	);
 	
