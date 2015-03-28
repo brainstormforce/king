@@ -12,13 +12,15 @@
 
 	// Assign Browser Width to Row - If Front Page Widget Area has Featured Image
 	function full_front_widget() {
-		var browser_width = $('#page').outerWidth( true );
-		var front_widget_offset = $("#content").offset();
-		var front_widget_styles = {
-	      "width": browser_width,
-	      "left": - front_widget_offset.left,
-	    };
-		$(".widget-thumbnail").css( front_widget_styles );
+		if ($("body").hasClass("page-template-front-page")) {
+			var browser_width = $('#page').outerWidth( true );
+			var front_widget_offset = $("#content").offset();
+			var front_widget_styles = {
+		      "width": browser_width,
+		      "left": - front_widget_offset.left,
+		    };
+			$(".widget-thumbnail").css( front_widget_styles );
+		}
 	}
 
 	// Assign Top Padding When Transparent Menu Is Set
