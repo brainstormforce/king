@@ -39,12 +39,20 @@
 	</div><!-- header-menu -->
 
 	<nav id="site-navigation" class="main-navigation" role="navigation">
-		<?php wp_nav_menu( array( 
-			'theme_location' 	=> 'primary', 
-			'menu_class' 		=> 'nav-menu', 
-			'container'       	=> 'div',
-			'container_class' 	=> 'primary-menu-container header-style2-menu',
-		) ); ?>
+
+		<?php if (current_user_can('activate_plugins') && !has_nav_menu('primary')) : ?>
+			<div class="nav-menu">
+				<ul><li><a href="<?php echo admin_url('nav-menus.php'); ?>" target="_blank">Select Primary Menu</a></li></ul>
+			</div>					
+		<?php else : ?>
+			<?php wp_nav_menu( array( 
+				'theme_location' 	=> 'primary', 
+				'menu_class' 		=> 'nav-menu', 
+				'container'       	=> 'div',
+				'container_class' 	=> 'primary-menu-container header-style2-menu',
+			) ); ?>
+		<?php endif; ?>	
+		
 		<span class="menu-toggle-wrap fa fa-bars"></span>
 	</nav><!-- #site-navigation -->
 
