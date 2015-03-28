@@ -27,6 +27,7 @@ function king_customize_register( $wp_customize ) {
 	get_template_part('inc/admin/customizer/controls/class','King_Typography_Control');
 	get_template_part('inc/admin/customizer/controls/class','King_Sliderui_Control');
 	get_template_part('inc/admin/customizer/controls/class','King_Textarea_Control');
+	get_template_part('inc/admin/customizer/controls/class','King_RGBA_Control');
 
 	$wp_customize->remove_control('background_color');
 	$wp_customize->remove_control('display_header_text');
@@ -854,18 +855,19 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'site-color',
 		array(
-			'default' => '#de5034',
+			'default' => '#707070',
 			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'site-color',
 			array(
 				'label' => 'Site Color',
 				'section' => 'colors',
 				'settings' => 'site-color',
+				'palette' => true,
 				'priority' => 1
 			)
 		)
@@ -1013,20 +1015,17 @@ function king_customize_register( $wp_customize ) {
 	);
 
 	$wp_customize->add_setting(
-		'header-bg-color',
-		array(
-			'default' => '#333333',
-			'sanitize_callback' => 'sanitize_hex_color',
-		)
+		'header-bg-color'
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'header-bg-color',
 			array(
 				'label' => 'Header Background Color',
 				'section' => 'header_colors',
 				'settings' => 'header-bg-color',
+				'palette' => true,
 				'priority' => 3
 			)
 		)
@@ -2049,3 +2048,10 @@ function king_customize_preview_js() {
 	wp_enqueue_script( 'king-customizer', get_template_directory_uri() . '/inc/admin/assets/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
 }
 add_action( 'customize_preview_init', 'king_customize_preview_js' );
+
+
+function king_customizer_control_script() {
+	wp_register_script( 'customizer-admin-js', get_template_directory_uri() . '/inc/admin/assets/js/customizer-script.js', array( 'jquery' ), NULL, true );
+	wp_enqueue_script( 'customizer-admin-js' );
+}
+add_action( 'admin_enqueue_scripts', 'king_customizer_control_script' );
