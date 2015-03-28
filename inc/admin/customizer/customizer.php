@@ -973,7 +973,7 @@ function king_customize_register( $wp_customize ) {
 	
 	// Header Colors
 	$wp_customize->add_setting(
-		'header_textcolor',
+		'header-textcolor',
 		array(
 			'default' => '#f2f2f2',
 			'sanitize_callback' => 'sanitize_hex_color',
@@ -982,11 +982,11 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_control(
 		new WP_Customize_Color_Control(
 			$wp_customize,
-			'header_textcolor',
+			'header-textcolor',
 			array(
 				'label' => 'Header Text / Link Color',
 				'section' => 'header_colors',
-				'settings' => 'header_textcolor',
+				'settings' => 'header-textcolor',
 				'priority' => 1
 			)
 		)
@@ -2020,7 +2020,6 @@ function king_customize_register( $wp_customize ) {
 	// Post Values For Live Preview
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	$wp_customize->get_setting( 'site_width' )->transport 		= 'postMessage';
 	$wp_customize->get_setting( 'content_width' )->transport 	= 'postMessage';
 	$wp_customize->get_setting( 'copyright_textbox' )->transport= 'postMessage';

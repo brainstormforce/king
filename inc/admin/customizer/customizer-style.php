@@ -509,7 +509,7 @@ if(!function_exists("king_custom_style")) :
 		h2.site-description, 
 		h2.site-description *,
 		.site-header .blog-description {
-			color: <?php echo get_theme_mod('header_textcolor', '#f2f2f2'); ?>;
+			color: <?php echo get_theme_mod('header-textcolor', '#f2f2f2'); ?>;
 		}
 
 		/**
