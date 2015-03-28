@@ -922,14 +922,22 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 			$title_bar = get_theme_mod('title_bar_layout', 'style-1');
 			$meta_value = get_post_meta( $post->ID, 'meta-title-bar', true );
 
+			$breadcrumb_bar = get_theme_mod('breadcrumb_bar', 'enable');
+			$meta_breadcrumb_value = get_post_meta( $post->ID, 'meta-breadcrumb-bar', true );
+			if(($breadcrumb_bar == 'enable') && ($meta_breadcrumb_value == 'true')) :
+				$title_bar_class = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
+			else:
+				$title_bar_class = 'col-lg-12 col-md-12 col-sm-12 col-xs-12';
+			endif;
+
 			if(!is_home() && ($title_bar != 'disable') ) :
 
 				if($meta_value != 'false') : ?>
 
 					<div class="king-page-header">
 						<div class="king-row">
-							<div class="king-container imd-pagetitle-container">
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left king-title">
+							<div class="king-container">
+								<div class="<?php echo $title_bar_class; ?> text-left king-title">
 									<?php
 										if(is_404()){
 											$title = __( '404 - Page Not Found!', 'king' ); ;
@@ -966,13 +974,15 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 										echo '</div>';
 									?>
 								</div>
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right king-breadcrumb">
-									<?php
-										if( function_exists('king_breadcrumb')) {
-											king_breadcrumb();
-										}
-									?>
-								</div>
+								<?php if(($breadcrumb_bar == 'enable') && ($meta_breadcrumb_value == 'true')) : ?>
+									<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-right king-breadcrumb">
+										<?php
+											if( function_exists('king_breadcrumb')) {
+												king_breadcrumb();
+											}
+										?>
+									</div>
+								<?php endif; ?>
 							</div><!-- .king-container --> 
 						</div><!-- .king-row --> 
 					</div><!-- .king-page-header --> 
