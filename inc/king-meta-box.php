@@ -29,18 +29,33 @@ function king_meta_callback( $post ) {
     <?php 
         $customizer_title_bar = get_theme_mod('title_bar_layout', 'style-1');
         if ($customizer_title_bar == 'disable') :
-            $title_bar_value = 'false';
+            $meta_title_bar = 'false';
         else :
-            $title_bar_value = 'true';
+            $meta_title_bar = isset($king_stored_meta['meta-title-bar'][0]) ? $king_stored_meta['meta-title-bar'][0] : 'true';
         endif;
     ?>
-    <?php $meta_title_bar = isset($king_stored_meta['meta-title-bar'][0]) ? $king_stored_meta['meta-title-bar'][0] : $title_bar_value; ?>
     <div class="king-row-content">
     	<label><?php _e( 'Enable Title Bar -', 'king' )?></label>
         <label><input type="radio" name="meta-title-bar" value="true" <?php if($meta_title_bar == 'true') echo 'checked'; ?>><?php _e( 'Yes', 'king' )?></label>
         <label><input type="radio" name="meta-title-bar" value="false" <?php if($meta_title_bar == 'false') echo 'checked'; ?>><?php _e( 'No', 'king' )?></label>
     </div>
 	</p>
+
+    <p>
+    <?php 
+        $customizer_breadcrumb_bar = get_theme_mod('breadcrumb_bar', 'enable');
+        if ($customizer_breadcrumb_bar == 'disable') :
+            $meta_breadcrumb_bar = 'false';
+        else :
+            $meta_breadcrumb_bar = isset($king_stored_meta['meta-breadcrumb-bar'][0]) ? $king_stored_meta['meta-breadcrumb-bar'][0] : 'true';
+        endif;
+    ?>
+    <div class="king-row-content">
+        <label><?php _e( 'Enable Breadcrumb -', 'king' )?></label>
+        <label><input type="radio" name="meta-breadcrumb-bar" value="true" <?php if($meta_breadcrumb_bar == 'true') echo 'checked'; ?>><?php _e( 'Yes', 'king' )?></label>
+        <label><input type="radio" name="meta-breadcrumb-bar" value="false" <?php if($meta_breadcrumb_bar == 'false') echo 'checked'; ?>><?php _e( 'No', 'king' )?></label>
+    </div>
+    </p>
  
     <?php
 }
@@ -64,5 +79,8 @@ function king_meta_save( $post_id ) {
 	if( isset( $_POST[ 'meta-title-bar' ] ) ) {
 		update_post_meta( $post_id, 'meta-title-bar', $_POST[ 'meta-title-bar' ] );
 	}
+    if( isset( $_POST[ 'meta-breadcrumb-bar' ] ) ) {
+        update_post_meta( $post_id, 'meta-breadcrumb-bar', $_POST[ 'meta-breadcrumb-bar' ] );
+    }
 }
 add_action( 'save_post', 'king_meta_save' );

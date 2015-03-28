@@ -773,6 +773,26 @@ function king_customize_register( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting(
+		'breadcrumb_bar',
+		array(
+			'default' => 'enable',
+			'sanitize_callback' => 'king_sanitize_callback'
+		)
+	);	 
+	$wp_customize->add_control(
+		'breadcrumb_bar',
+		array(
+			'type' => 'select',
+			'label' => 'Display Breadcrumb',
+			'section' => 'title_bar',
+			'choices' => array(
+				'enable' => 'Enable',
+				'disable' => 'Disable',
+			),
+		)
+	);
+
 	//==========================
 	// Footer Settings
 	//==========================
