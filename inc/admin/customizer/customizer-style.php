@@ -306,9 +306,7 @@ if(!function_exists("king_custom_style")) :
 		*/
 		a,
 		a:visited,
-		.widget-area .widget a, 
 		.tagcloud a, 
-		.widget-area .widget a:visited,
 		.menu-toggle:hover, 
 		.menu-toggle:focus, 
 		button:hover, 
@@ -416,14 +414,6 @@ if(!function_exists("king_custom_style")) :
 		}
 
 		/**
-		* 3.2 Sidebar Widget Title Color
-		*/
-		.widget h3.widget-title {
-			color: <?php echo get_theme_mod('sidebar-widget-title-color', '#333333'); ?>;
-		}
-
-
-		/**
 		* 3.2 Header Background Color
 		*/
 		.header-box,
@@ -518,6 +508,29 @@ if(!function_exists("king_custom_style")) :
 		h1.site-title a:hover,
 		h1.site-title a:focus{
 			color: <?php echo get_theme_mod('header-hover-color', '#de5034'); ?> !important;
+		}
+
+		/**
+		* 4.0 Sidebar Colors
+		*
+		* Applying sidebar colors, which sets from customizer
+		*/
+
+		/**
+		* 4.1 Sidebar Title Color
+		*/
+		#secondary .widget {
+			color: <?php echo get_theme_mod('sidebar-text-color', '#707070'); ?>;
+		}
+		#secondary .widget-title {
+			color: <?php echo get_theme_mod('sidebar-widget-title-color', '#333333'); ?>;
+		}
+		#secondary .widget a,
+		#secondary .widget a:visited{
+			color: <?php echo get_theme_mod('sidebar-link-color', '#DE5034'); ?>;
+		}
+		#secondary .widget a:hover{
+			color: <?php echo get_theme_mod('sidebar-link-hover-color', '#707070'); ?>;
 		}
 
 

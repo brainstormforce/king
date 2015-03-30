@@ -136,6 +136,14 @@ function king_customize_register( $wp_customize ) {
 	    'description' => '',
 	    'panel' => 'colors_panel',
 	) );
+	$wp_customize->add_section( 'sidebar_colors', array(
+	    'priority' => 3,
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Sidebar', 'king' ),
+	    'description' => '',
+	    'panel' => 'colors_panel',
+	) );
 	$wp_customize->add_section( 'footer_colors', array(
 	    'priority' => 4,
 	    'capability' => 'edit_theme_options',
@@ -952,26 +960,6 @@ function king_customize_register( $wp_customize ) {
 		)
 	);
 
-	$wp_customize->add_setting(
-		'sidebar-widget-title-color',
-		array(
-			'default' => '#333333',
-		)
-	);
-	$wp_customize->add_control(
-		new King_RGBA_Control(
-			$wp_customize,
-			'sidebar-widget-title-color',
-			array(
-				'label' => 'Sidebar Widget Title Color',
-				'section' => 'colors',
-				'settings' => 'sidebar-widget-title-color',
-				'palette' => true,
-				'priority' => 6
-			)
-		)
-	);
-	
 	// Header Colors
 	$wp_customize->add_setting(
 		'header-textcolor',
@@ -1173,6 +1161,89 @@ function king_customize_register( $wp_customize ) {
 			)
 		)
 	);
+
+	// Sidebar Colors
+	$wp_customize->add_setting(
+		'sidebar-text-color',
+		array(
+			'default' => '#707070',
+		)
+	);
+	$wp_customize->add_control(
+		new King_RGBA_Control(
+			$wp_customize,
+			'sidebar-text-color',
+			array(
+				'label' => 'Sidebar Text Color',
+				'section' => 'sidebar_colors',
+				'settings' => 'sidebar-text-color',
+				'palette' => true,
+				'priority' => 1
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'sidebar-widget-title-color',
+		array(
+			'default' => '#333333',
+		)
+	);
+	$wp_customize->add_control(
+		new King_RGBA_Control(
+			$wp_customize,
+			'sidebar-widget-title-color',
+			array(
+				'label' => 'Sidebar Widget Title Color',
+				'section' => 'sidebar_colors',
+				'settings' => 'sidebar-widget-title-color',
+				'palette' => true,
+				'priority' => 1
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'sidebar-link-color',
+		array(
+			'default' => '#DE5034',
+		)
+	);
+	$wp_customize->add_control(
+		new King_RGBA_Control(
+			$wp_customize,
+			'sidebar-link-color',
+			array(
+				'label' => 'Sidebar Link Color',
+				'section' => 'sidebar_colors',
+				'settings' => 'sidebar-link-color',
+				'palette' => true,
+				'priority' => 1
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+		'sidebar-link-hover-color',
+		array(
+			'default' => '#707070',
+		)
+	);
+	$wp_customize->add_control(
+		new King_RGBA_Control(
+			$wp_customize,
+			'sidebar-link-hover-color',
+			array(
+				'label' => 'Sidebar Link Hover Color',
+				'section' => 'sidebar_colors',
+				'settings' => 'sidebar-link-hover-color',
+				'palette' => true,
+				'priority' => 1
+			)
+		)
+	);
+
+	
 	
 	
 	// Footer Colors
