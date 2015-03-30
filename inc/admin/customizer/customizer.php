@@ -27,6 +27,7 @@ function king_customize_register( $wp_customize ) {
 	get_template_part('inc/admin/customizer/controls/class','King_Typography_Control');
 	get_template_part('inc/admin/customizer/controls/class','King_Sliderui_Control');
 	get_template_part('inc/admin/customizer/controls/class','King_Textarea_Control');
+	get_template_part('inc/admin/customizer/controls/class','King_RGBA_Control');
 
 	$wp_customize->remove_control('background_color');
 	$wp_customize->remove_control('display_header_text');
@@ -159,6 +160,14 @@ function king_customize_register( $wp_customize ) {
 	    'description' => '',
 	    'panel' => 'typography_panel',
 	) );
+	$wp_customize->add_section( 'site_tagline_title_font', array(
+	    'capability' => 'edit_theme_options',
+	    'theme_supports' => '',
+	    'title' => __( 'Site Title & Tagline', 'king' ),
+	    'description' => '',
+	    'panel' => 'typography_panel',
+		'priority' => 2,
+	) );
 	$wp_customize->add_section( 'entry_title_font', array(
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
@@ -166,7 +175,7 @@ function king_customize_register( $wp_customize ) {
 	    'description' => '',
 	    'panel' => 'typography_panel',
 		'priority' => 2,
-	) );
+	) );	
 	$wp_customize->add_section( 'widget_title_font', array(
 	    'capability' => 'edit_theme_options',
 	    'theme_supports' => '',
@@ -490,6 +499,14 @@ function king_customize_register( $wp_customize ) {
 	);
 
 	// Featured Image
+	// Retrive all registered image sizes
+	$featureed_image_sizes = array();
+	$get_intermediate_image_sizes = get_intermediate_image_sizes();
+	$featureed_image_sizes['full'] = 'full';
+	foreach( $get_intermediate_image_sizes as $_size ) {
+		$featureed_image_sizes[$_size] = $_size;
+	}
+
 	$wp_customize->add_setting(
 		'blog_featured_image_size',
 		array(
@@ -503,13 +520,7 @@ function king_customize_register( $wp_customize ) {
 			'type' => 'select',
 			'label' => 'Select Fetured Image Size',
 			'section' => 'blog_featured_image',
-			'choices' => array(
-				'large' => 'Large',				
-				'medium' => 'Medium',				
-				'full' => 'Full',
-				'thumbnail' => 'Thumbnail',
-				'medium-image-blog' => '330 x 215 px',
-			),
+			'choices' => $featureed_image_sizes,
 		)
 	);
 
@@ -763,6 +774,26 @@ function king_customize_register( $wp_customize ) {
 		)
 	);
 
+	$wp_customize->add_setting(
+		'breadcrumb_bar',
+		array(
+			'default' => 'enable',
+			'sanitize_callback' => 'king_sanitize_callback'
+		)
+	);	 
+	$wp_customize->add_control(
+		'breadcrumb_bar',
+		array(
+			'type' => 'select',
+			'label' => 'Display Breadcrumb',
+			'section' => 'title_bar',
+			'choices' => array(
+				'enable' => 'Enable',
+				'disable' => 'Disable',
+			),
+		)
+	);
+
 	//==========================
 	// Footer Settings
 	//==========================
@@ -824,18 +855,18 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'site-color',
 		array(
-			'default' => '#de5034',
-			'sanitize_callback' => 'sanitize_hex_color',
+			'default' => '#707070',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'site-color',
 			array(
 				'label' => 'Site Color',
 				'section' => 'colors',
 				'settings' => 'site-color',
+				'palette' => true,
 				'priority' => 1
 			)
 		)
@@ -865,17 +896,17 @@ function king_customize_register( $wp_customize ) {
 		'page-title-color',
 		array(
 			'default' => '#333333',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'page-title-color',
 			array(
 				'label' => 'Single Page/Post Title Color',
 				'section' => 'colors',
 				'settings' => 'page-title-color',
+				'palette' => true,
 				'priority' => 3
 			)
 		)
@@ -885,17 +916,17 @@ function king_customize_register( $wp_customize ) {
 		'post-meta-color',
 		array(
 			'default' => '#909090',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'post-meta-color',
 			array(
 				'label' => 'Post Meta Color',
 				'section' => 'colors',
 				'settings' => 'post-meta-color',
+				'palette' => true,
 				'priority' => 4
 			)
 		)
@@ -905,17 +936,17 @@ function king_customize_register( $wp_customize ) {
 		'post-meta-hover-color',
 		array(
 			'default' => '#de5034',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'post-meta-hover-color',
 			array(
 				'label' => 'Post Meta Hover Color',
 				'section' => 'colors',
 				'settings' => 'post-meta-hover-color',
+				'palette' => true,
 				'priority' => 5
 			)
 		)
@@ -925,17 +956,17 @@ function king_customize_register( $wp_customize ) {
 		'sidebar-widget-title-color',
 		array(
 			'default' => '#333333',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'sidebar-widget-title-color',
 			array(
 				'label' => 'Sidebar Widget Title Color',
 				'section' => 'colors',
 				'settings' => 'sidebar-widget-title-color',
+				'palette' => true,
 				'priority' => 6
 			)
 		)
@@ -943,20 +974,20 @@ function king_customize_register( $wp_customize ) {
 	
 	// Header Colors
 	$wp_customize->add_setting(
-		'header_textcolor',
+		'header-textcolor',
 		array(
 			'default' => '#f2f2f2',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
-			'header_textcolor',
+			'header-textcolor',
 			array(
 				'label' => 'Header Text / Link Color',
 				'section' => 'header_colors',
-				'settings' => 'header_textcolor',
+				'settings' => 'header-textcolor',
+				'palette' => true,
 				'priority' => 1
 			)
 		)
@@ -966,17 +997,17 @@ function king_customize_register( $wp_customize ) {
 		'header-hover-color',
 		array(
 			'default' => '#de5034',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'header-hover-color',
 			array(
 				'label' => 'Header Link Hover Color',
 				'section' => 'header_colors',
 				'settings' => 'header-hover-color',
+				'palette' => true,
 				'priority' => 2
 			)
 		)
@@ -985,18 +1016,18 @@ function king_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 		'header-bg-color',
 		array(
-			'default' => '#333333',
-			'sanitize_callback' => 'sanitize_hex_color',
+			'default' => '#333',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'header-bg-color',
 			array(
 				'label' => 'Header Background Color',
 				'section' => 'header_colors',
 				'settings' => 'header-bg-color',
+				'palette' => true,
 				'priority' => 3
 			)
 		)
@@ -1007,17 +1038,17 @@ function king_customize_register( $wp_customize ) {
 		'parent-menu-color',
 		array(
 			'default' => '#dddddd',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'parent-menu-color',
 			array(
 				'label' => 'Parent Menu Color',
 				'section' => 'menu_colors',
 				'settings' => 'parent-menu-color',
+				'palette' => true,
 				'priority' => 1
 			)
 		)
@@ -1027,17 +1058,17 @@ function king_customize_register( $wp_customize ) {
 		'parent-menu-hover-color',
 		array(
 			'default' => '#f7f7f7',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'parent-menu-hover-color',
 			array(
 				'label' => 'Parent Menu Hover Color',
 				'section' => 'menu_colors',
 				'settings' => 'parent-menu-hover-color',
+				'palette' => true,
 				'priority' => 2
 			)
 		)
@@ -1047,17 +1078,17 @@ function king_customize_register( $wp_customize ) {
 		'parent-menu-bg-color',
 		array(
 			'default' => '#707070',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'parent-menu-bg-color',
 			array(
 				'label' => 'Parent Menu Background Color',
 				'section' => 'menu_colors',
 				'settings' => 'parent-menu-bg-color',
+				'palette' => true,
 				'priority' => 3
 			)
 		)
@@ -1067,17 +1098,17 @@ function king_customize_register( $wp_customize ) {
 		'child-menu-link-color',
 		array(
 			'default' => '#eaeaea',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'child-menu-link-color',
 			array(
 				'label' => 'Child Menu Color',
 				'section' => 'menu_colors',
 				'settings' => 'child-menu-link-color',
+				'palette' => true,
 				'priority' => 4
 			)
 		)
@@ -1087,17 +1118,17 @@ function king_customize_register( $wp_customize ) {
 		'child-menu-hover-color',
 		array(
 			'default' => '#ffffff',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'child-menu-hover-color',
 			array(
 				'label' => 'Child Menu Hover Color',
 				'section' => 'menu_colors',
 				'settings' => 'child-menu-hover-color',
+				'palette' => true,
 				'priority' => 5
 			)
 		)
@@ -1107,17 +1138,17 @@ function king_customize_register( $wp_customize ) {
 		'child-menu-bg-color',
 		array(
 			'default' => '#1d1d1d',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'child-menu-bg-color',
 			array(
 				'label' => 'Child Menu Background',
 				'section' => 'menu_colors',
 				'settings' => 'child-menu-bg-color',
+				'palette' => true,
 				'priority' => 6
 			)
 		)
@@ -1127,17 +1158,17 @@ function king_customize_register( $wp_customize ) {
 		'child-menu-hover-bg-color',
 		array(
 			'default' => '#de5034',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'child-menu-hover-bg-color',
 			array(
 				'label' => 'Child Menu Hover Background',
 				'section' => 'menu_colors',
 				'settings' => 'child-menu-hover-bg-color',
+				'palette' => true,
 				'priority' => 7
 			)
 		)
@@ -1149,17 +1180,17 @@ function king_customize_register( $wp_customize ) {
 		'footer-widget-title-color',
 		array(
 			'default' => '#de5034',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'footer-widget-title-color',
 			array(
 				'label' => 'Footer Widget Title Color',
 				'section' => 'footer_colors',
 				'settings' => 'footer-widget-title-color',
+				'palette' => true,
 				'priority' => 1
 			)
 		)
@@ -1169,17 +1200,17 @@ function king_customize_register( $wp_customize ) {
 		'footer-color',
 		array(
 			'default' => '#707070',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'footer-color',
 			array(
 				'label' => 'Footer Text Color',
 				'section' => 'footer_colors',
 				'settings' => 'footer-color',
+				'palette' => true,
 				'priority' => 2
 			)
 		)
@@ -1189,17 +1220,17 @@ function king_customize_register( $wp_customize ) {
 		'footer-link-color',
 		array(
 			'default' => '#333333',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'footer-link-color',
 			array(
 				'label' => 'Footer Link Color',
 				'section' => 'footer_colors',
 				'settings' => 'footer-link-color',
+				'palette' => true,
 				'priority' => 3
 			)
 		)
@@ -1209,17 +1240,17 @@ function king_customize_register( $wp_customize ) {
 		'footer-link-hover-color',
 		array(
 			'default' => '#de5034',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'footer-link-hover-color',
 			array(
 				'label' => 'Footer Link Hover Color',
 				'section' => 'footer_colors',
 				'settings' => 'footer-link-hover-color',
+				'palette' => true,
 				'priority' => 4
 			)
 		)
@@ -1229,17 +1260,17 @@ function king_customize_register( $wp_customize ) {
 		'footer-bg-color',
 		array(
 			'default' => '#f1f1f1',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'footer-bg-color',
 			array(
 				'label' => 'Main Footer Background Color',
 				'section' => 'footer_colors',
 				'settings' => 'footer-bg-color',
+				'palette' => true,
 				'priority' => 5
 			)
 		)
@@ -1249,17 +1280,17 @@ function king_customize_register( $wp_customize ) {
 		'small-footer-bg-color',
 		array(
 			'default' => '#333333',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'small-footer-bg-color',
 			array(
 				'label' => 'Small Footer Background Color',
 				'section' => 'footer_colors',
 				'settings' => 'small-footer-bg-color',
+				'palette' => true,
 				'priority' => 6
 			)
 		)
@@ -1269,17 +1300,17 @@ function king_customize_register( $wp_customize ) {
 		'small-footer-text-color',
 		array(
 			'default' => '#dddddd',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'small-footer-text-color',
 			array(
 				'label' => 'Small Footer Text / Link Color',
 				'section' => 'footer_colors',
 				'settings' => 'small-footer-text-color',
+				'palette' => true,
 				'priority' => 7
 			)
 		)
@@ -1289,17 +1320,17 @@ function king_customize_register( $wp_customize ) {
 		'small-footer-link-hover-color',
 		array(
 			'default' => '#de5034',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'small-footer-link-hover-color',
 			array(
 				'label' => 'Small Footer Link Hover Color',
 				'section' => 'footer_colors',
 				'settings' => 'small-footer-link-hover-color',
+				'palette' => true,
 				'priority' => 8
 			)
 		)
@@ -1329,6 +1360,119 @@ function king_customize_register( $wp_customize ) {
 				'id'	=> 'default_font',
 				'description' => '400 regular:400:normal'
 			)
+		)
+	);
+
+	// Site Title & Tagline
+	$wp_customize->add_setting( 'site_title_font', array(
+		'default' => 'Open Sans',
+		'type' => 'theme_mod',
+		'capability' => 'edit_theme_options',
+		'transport' => '',
+		'sanitize_callback' => 'king_sanitize_callback',
+	) );
+	$wp_customize->add_control(
+		new King_Typography_Control(
+			$wp_customize,
+			'site_title_font',
+			array(
+				'label' => 'Site Title Font',
+				'section' => 'site_tagline_title_font',
+				'settings' => 'site_title_font',
+				'priority' => 1,
+				'id'	=> 'site_tagline_title_font',
+				'description' => '400 regular:400:normal'
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'site_title_font_size',
+		array(
+			'default' => 24,
+			'sanitize_callback' => 'king_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'site_title_font_size',
+		array(
+			'label' => 'Font Size (px)',
+			'section' => 'site_tagline_title_font',
+			'description' =>  '',
+			'type'        => 'number',
+			'priority' => 2,
+			'input_attrs' => array(
+				'min'   => 10,
+				'max'   => 72,
+				'step'  => 1,
+				'style' => 'width: 80px;',
+			),
+		)
+	);
+
+	$wp_customize->add_setting( 'site_title_seperator', array(
+		'default' => '',
+		'type' => 'theme_mod',
+		'capability' => 'edit_theme_options',
+		'transport' => '',
+		'sanitize_callback' => 'king_sanitize_callback',
+	) );
+	$wp_customize->add_control(
+		new King_Separator_Control(
+			$wp_customize,
+			'site_title_seperator',
+			array(
+				'label' => '',
+				'section' => 'site_tagline_title_font',
+				'settings' => 'site_title_seperator',
+				'priority' => 3,
+			)
+		)
+	);
+	
+	$wp_customize->add_setting( 'tagline_font', array(
+		'default' => 'Open Sans',
+		'type' => 'theme_mod',
+		'capability' => 'edit_theme_options',
+		'transport' => '',
+		'sanitize_callback' => 'king_sanitize_callback',
+	) );
+	$wp_customize->add_control(
+		new King_Typography_Control(
+			$wp_customize,
+			'tagline_font',
+			array(
+				'label' => 'Tagline Font',
+				'section' => 'site_tagline_title_font',
+				'settings' => 'tagline_font',
+				'priority' => 4,
+				'id'	=> 'site_tagline_title_font',
+				'description' => '400 regular:400:normal'
+			)
+		)
+	);
+
+	$wp_customize->add_setting(
+    	'tagline_font_size',
+		array(
+			'default' => 14,
+			'sanitize_callback' => 'king_sanitize_callback',
+		)
+	);
+	$wp_customize->add_control(
+		'tagline_font_size',
+		array(
+			'label' => 'Font Size (px)',
+			'section' => 'site_tagline_title_font',
+			'description' =>  '',
+			'type'        => 'number',
+			'priority' => 5,
+			'input_attrs' => array(
+				'min'   => 10,
+				'max'   => 72,
+				'step'  => 1,
+				'style' => 'width: 80px;',
+			),
 		)
 	);
 	
@@ -1836,17 +1980,17 @@ function king_customize_register( $wp_customize ) {
 		'site-bg-color',
 		array(
 			'default' => '#ffffff',
-			'sanitize_callback' => 'sanitize_hex_color',
 		)
 	);
 	$wp_customize->add_control(
-		new WP_Customize_Color_Control(
+		new King_RGBA_Control(
 			$wp_customize,
 			'site-bg-color',
 			array(
 				'label' => 'Site Background Color',
 				'section' => 'background_image',
 				'settings' => 'site-bg-color',
+				'palette' => true,
 				'priority' => 1
 			)
 		)
@@ -1877,7 +2021,6 @@ function king_customize_register( $wp_customize ) {
 	// Post Values For Live Preview
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 	$wp_customize->get_setting( 'site_width' )->transport 		= 'postMessage';
 	$wp_customize->get_setting( 'content_width' )->transport 	= 'postMessage';
 	$wp_customize->get_setting( 'copyright_textbox' )->transport= 'postMessage';
@@ -1907,3 +2050,14 @@ function king_customize_preview_js() {
 	wp_enqueue_script( 'king-customizer', get_template_directory_uri() . '/inc/admin/assets/js/theme-customizer.js', array( 'customize-preview' ), '20130301', true );
 }
 add_action( 'customize_preview_init', 'king_customize_preview_js' );
+
+/**
+ * Enqueue Javascript for custom RGBA color picker in customizer
+ *
+ * @since King 1.0
+ */
+function king_customizer_rgba_control_script() {
+	wp_register_script( 'customizer-rgba-js', get_template_directory_uri() . '/inc/admin/assets/js/customizer-script.js', array( 'jquery' ), NULL, true );
+	wp_enqueue_script( 'customizer-rgba-js' );
+}
+add_action( 'admin_enqueue_scripts', 'king_customizer_rgba_control_script' );

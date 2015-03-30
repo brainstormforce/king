@@ -589,7 +589,6 @@ a {
 .site-header .blog-description {
 	display: inline-block;
 	padding: 0 15px;
-	font-size: 14px;
 	line-height: inherit;
 	color: #DDDDDD;
 }
@@ -2336,17 +2335,6 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 	vertical-align: middle;
 	width: 100%;
 }
-.site-header.header-style2 h1,
-.site-header.header-style2 h2 {
-	color: #333333;
-}
-.site-header.header-style2 h1 a, 
-.site-header.header-style2 h2 a {
-	color: inherit;
-}
-.site-header.header-style2 .blog-description {
-	color: #707070;
-}
 .header-style2 .main-navigation,
 .header-style2 .primary-menu-container {
     max-width: 100%;
@@ -2384,7 +2372,6 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 }
 .site-header.header-style3 h1,
 .site-header.header-style3 h2 {
-	color: #333333;
 	display: block;
 	width: 100%;
 	text-align: center;
@@ -2392,7 +2379,6 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 }
 .site-header.header-style3 h1 a, 
 .site-header.header-style3 h2 a {
-	color: inherit;
 	padding: 0 15px;
 	display: block;
 	text-decoration: none;
@@ -2400,7 +2386,7 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 	float: none;
 }
 .site-header.header-style3 .blog-description {
-	color: #707070;
+	display: block;
 }
 .site-header.header-style3 h1 {
 	margin-bottom: 5px;

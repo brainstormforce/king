@@ -18,6 +18,32 @@ if(!function_exists("king_custom_style")) :
 		$default_font_temp['varient'] = $default_font_weight;
 		array_push($fonts, $default_font_temp);
 
+		/* Site Title Font */
+		$site_title_font = get_theme_mod('site_title_font', 'Open Sans');
+		$site_title_font_size = get_theme_mod('site_title_font_size', '24');
+		$site_title_font = explode(':',$site_title_font);
+		$site_title_font_family = isset($site_title_font[0]) ? $site_title_font[0] : 'Open Sans';
+		$site_title_font_weight = isset($site_title_font[1]) ? $site_title_font[1] : '400';
+		$site_title_font_style = isset($site_title_font[2]) ? $site_title_font[2] : 'normal';
+		$site_title_font_temp['family'] = $site_title_font_family;
+		if($site_title_font_style === 'italic')
+			$site_title_font_weight .= $site_title_font_style;
+		$site_title_font_temp['varient'] = $site_title_font_weight;
+		array_push($fonts, $site_title_font_temp);
+
+		/* Tagline Font */
+		$tagline_font = get_theme_mod('tagline_font', 'Open Sans');
+		$tagline_font_size = get_theme_mod('tagline_font_size', '14');
+		$tagline_font = explode(':',$tagline_font);
+		$tagline_font_family = isset($tagline_font[0]) ? $tagline_font[0] : 'Open Sans';
+		$tagline_font_weight = isset($tagline_font[1]) ? $tagline_font[1] : '400';
+		$tagline_font_style = isset($tagline_font[2]) ? $tagline_font[2] : 'normal';
+		$tagline_font_temp['family'] = $tagline_font_family;
+		if($tagline_font_style === 'italic')
+			$tagline_font_weight .= $tagline_font_style;
+		$tagline_font_temp['varient'] = $tagline_font_weight;
+		array_push($fonts, $tagline_font_temp);
+
 		/* Page Title Font */
 		$page_title_font = get_theme_mod('page_title_font', 'Open Sans');
 		$page_title_font_size = get_theme_mod('page_title_font_size', '20');
@@ -148,6 +174,18 @@ if(!function_exists("king_custom_style")) :
 		?>
 		<link href='//fonts.googleapis.com/css?family=<?php echo $font_str; ?>' rel='stylesheet' type='text/css'>
 		<style type="text/css">
+		h1.site-title, h1.site-title a {
+			font-family:<?php echo $site_title_font_family;?>;
+			font-weight:<?php echo $site_title_font_weight;?>;
+			font-style:<?php echo $site_title_font_style;?>;
+			font-size:<?php echo $site_title_font_size;?>px;
+		}
+		h2.site-description, h2.site-description * {
+			font-family:<?php echo $tagline_font_family;?>;
+			font-weight:<?php echo $tagline_font_weight;?>;
+			font-style:<?php echo $tagline_font_style;?>;
+			font-size:<?php echo $tagline_font_size;?>px;
+		}
 		h1.entry-title, h1.entry-title a{
 			font-family:<?php echo $page_title_font_family;?>;
 			font-weight:<?php echo $page_title_font_weight;?>;
@@ -471,7 +509,7 @@ if(!function_exists("king_custom_style")) :
 		h2.site-description, 
 		h2.site-description *,
 		.site-header .blog-description {
-			color: <?php echo get_theme_mod('header_textcolor', '#f2f2f2'); ?>;
+			color: <?php echo get_theme_mod('header-textcolor', '#f2f2f2'); ?>;
 		}
 
 		/**
