@@ -2131,4 +2131,4 @@ function king_customizer_rgba_control_script() {
 	wp_register_script( 'customizer-rgba-js', get_template_directory_uri() . '/inc/admin/assets/js/customizer-script.js', array( 'jquery' ), NULL, true );
 	wp_enqueue_script( 'customizer-rgba-js' );
 }
-add_action( 'admin_enqueue_scripts', 'king_customizer_rgba_control_script' );
+add_action( 'customize_controls_enqueue_scripts', 'king_customizer_rgba_control_script' );
