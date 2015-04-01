@@ -158,7 +158,7 @@ function king_scripts_styles() {
 	wp_register_style( 'king-menu-css', get_template_directory_uri() . '/inc/css/menu.css', false, '1.0.0', 'all' );
     wp_enqueue_style( 'king-menu-css' );
 	
-	// Menu CSS
+	// Animate CSS
 	wp_register_style( 'king-animate-css', get_template_directory_uri() . '/inc/css/animate.css', false, '1.0.0', 'all' );
     wp_enqueue_style( 'king-animate-css' );
 	
