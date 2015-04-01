@@ -1077,4 +1077,99 @@ if ( ! function_exists( 'king_front_page_content_sidebar' ) ) :
 	add_action('king_entry_after', 'king_front_page_content_sidebar', 10, 1);
 endif;
 
+$brainstrom_products = (get_option('brainstrom_products')) ? get_option('brainstrom_products') : array();
+$bsf_product_info = array(
+	'id' => 'bsf-king',
+	'type' => 'theme',
+	'is_premium' => false,
+);
+$type = $bsf_product_info['type'];
+if($type == 'theme')
+	$bsf_product_info['template'] = get_template();
+elseif($type == 'plugin')
+	$bsf_product_info['template'] = plugin_basename(__FILE__);
+	
+if($type === 'plugin' || is_multisite())
+{
+	add_action('admin_enqueue_scripts', 'bsf_admin_css');
+	if(!function_exists('bsf_admin_css')) {
+		function bsf_admin_css() {
+			wp_enqueue_style('bsf-registration-style',plugin_dir_url( __FILE__ ).'admin/auto-update/css/style.css');
+		}
+	}
+}
+else if($type === 'theme')
+{
+	add_action('admin_enqueue_scripts', 'bsf_admin_css');
+	if(!function_exists('bsf_admin_css')) {
+		function bsf_admin_css() {
+			wp_enqueue_style('bsf-registration-style',get_stylesheet_directory_uri().'/admin/auto-update/css/style.css');
+		}
+	}
+}
+	
+if(!empty($brainstrom_products)) :
+	$bsf_product_plugins = (isset($brainstrom_products['plugins'])) ? $brainstrom_products['plugins'] : array();
+	$bsf_product_themes = (isset($brainstrom_products['themes'])) ? $brainstrom_products['themes'] : array();
+	if($type == 'plugin' || $type == 'theme') :
+		$bsf_products_array = array();
+		if($type == 'plugin')
+			$bsf_products_array = $bsf_product_plugins;
+		elseif($type == 'theme')
+			$bsf_products_array = $bsf_product_themes;
+		if(empty($bsf_products_array))
+			$brainstrom_products[$type.'s'][] = $bsf_product_info;
+		else
+		{
+			foreach($bsf_products_array as $key => $product) :
+				$is_product_found = false;
+				$template = $product['template'];
+				if($bsf_product_info['template'] === $template) {
+					$is_product_found = true;
+					foreach($bsf_product_info as $akey => $val)
+					{
+						$brainstrom_products[$type.'s'][$key][$akey] = $val;
+					}
+					break;
+				}
+			endforeach;
+			if(!$is_product_found)
+				$brainstrom_products[$type.'s'][] = $bsf_product_info;
+		}
+	endif;
+else :
+	$brainstrom_products[$type.'s'][] = $bsf_product_info;
+endif;
+
+update_option('brainstrom_products', $brainstrom_products);
+
+/* 
+	Instrunctions - Product Registration & Updater
+	# Copy "auto-upadater" folder to admin folder
+	# Change "include_once" and "require_once" directory path as per your "auto-updater" path (Line no. 72, 78, 79)
+
+*/
+if(is_multisite())
+	add_action('network_admin_menu', 'register_bsf_products_registration_page',999);
+else
+	add_action('admin_menu', 'register_bsf_products_registration_page',999);
+if(!function_exists('register_bsf_products_registration_page')) {
+	function register_bsf_products_registration_page() {
+		$page = add_menu_page('Brainstorm Force', 'Brainstorm', 'administrator', 'bsf-registration', 'bsf_registration' );
+	}
+}
+if(!function_exists('bsf_registration'))
+{
+	function bsf_registration() {
+		include_once get_template_directory().'/admin/auto-update/index.php';
+	}
+}
+add_action('admin_init', 'init_bsf_auto_updater');
+if(!function_exists('init_bsf_auto_updater')) {
+	function init_bsf_auto_updater() {
+		require_once get_template_directory().'/admin/auto-update/admin-functions.php';
+		require_once get_template_directory().'/admin/auto-update/updater.php';
+	}
+}
+
 ?>
