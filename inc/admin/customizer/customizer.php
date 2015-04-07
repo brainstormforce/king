@@ -864,6 +864,7 @@ function king_customize_register( $wp_customize ) {
 		'site-color',
 		array(
 			'default' => '#707070',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -884,7 +885,7 @@ function king_customize_register( $wp_customize ) {
 		'site-text-color',
 		array(
 			'default' => '#707070',
-			'sanitize_callback' => 'sanitize_hex_color',
+			'sanitize_callback' => 'sanitize_hex_color'
 		)
 	);
 	$wp_customize->add_control(
@@ -904,6 +905,7 @@ function king_customize_register( $wp_customize ) {
 		'page-title-color',
 		array(
 			'default' => '#333333',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -924,6 +926,7 @@ function king_customize_register( $wp_customize ) {
 		'post-meta-color',
 		array(
 			'default' => '#909090',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -944,6 +947,7 @@ function king_customize_register( $wp_customize ) {
 		'post-meta-hover-color',
 		array(
 			'default' => '#de5034',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -965,6 +969,7 @@ function king_customize_register( $wp_customize ) {
 		'header-textcolor',
 		array(
 			'default' => '#f2f2f2',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -985,6 +990,7 @@ function king_customize_register( $wp_customize ) {
 		'header-hover-color',
 		array(
 			'default' => '#de5034',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1005,6 +1011,7 @@ function king_customize_register( $wp_customize ) {
 		'header-bg-color',
 		array(
 			'default' => '#333',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1026,6 +1033,7 @@ function king_customize_register( $wp_customize ) {
 		'parent-menu-color',
 		array(
 			'default' => '#dddddd',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1046,6 +1054,7 @@ function king_customize_register( $wp_customize ) {
 		'parent-menu-hover-color',
 		array(
 			'default' => '#f7f7f7',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1066,6 +1075,7 @@ function king_customize_register( $wp_customize ) {
 		'parent-menu-bg-color',
 		array(
 			'default' => '#707070',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1086,6 +1096,7 @@ function king_customize_register( $wp_customize ) {
 		'child-menu-link-color',
 		array(
 			'default' => '#eaeaea',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1106,6 +1117,7 @@ function king_customize_register( $wp_customize ) {
 		'child-menu-hover-color',
 		array(
 			'default' => '#ffffff',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1126,6 +1138,7 @@ function king_customize_register( $wp_customize ) {
 		'child-menu-bg-color',
 		array(
 			'default' => '#1d1d1d',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1146,6 +1159,7 @@ function king_customize_register( $wp_customize ) {
 		'child-menu-hover-bg-color',
 		array(
 			'default' => '#de5034',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1167,6 +1181,7 @@ function king_customize_register( $wp_customize ) {
 		'sidebar-text-color',
 		array(
 			'default' => '#707070',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1187,6 +1202,7 @@ function king_customize_register( $wp_customize ) {
 		'sidebar-widget-title-color',
 		array(
 			'default' => '#333333',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1207,6 +1223,7 @@ function king_customize_register( $wp_customize ) {
 		'sidebar-link-color',
 		array(
 			'default' => '#DE5034',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1227,6 +1244,7 @@ function king_customize_register( $wp_customize ) {
 		'sidebar-link-hover-color',
 		array(
 			'default' => '#707070',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1251,6 +1269,7 @@ function king_customize_register( $wp_customize ) {
 		'footer-widget-title-color',
 		array(
 			'default' => '#de5034',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1271,6 +1290,7 @@ function king_customize_register( $wp_customize ) {
 		'footer-color',
 		array(
 			'default' => '#707070',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1291,6 +1311,7 @@ function king_customize_register( $wp_customize ) {
 		'footer-link-color',
 		array(
 			'default' => '#333333',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1311,6 +1332,7 @@ function king_customize_register( $wp_customize ) {
 		'footer-link-hover-color',
 		array(
 			'default' => '#de5034',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1331,6 +1353,7 @@ function king_customize_register( $wp_customize ) {
 		'footer-bg-color',
 		array(
 			'default' => '#f1f1f1',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1351,6 +1374,7 @@ function king_customize_register( $wp_customize ) {
 		'small-footer-bg-color',
 		array(
 			'default' => '#333333',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1371,6 +1395,7 @@ function king_customize_register( $wp_customize ) {
 		'small-footer-text-color',
 		array(
 			'default' => '#dddddd',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -1391,6 +1416,7 @@ function king_customize_register( $wp_customize ) {
 		'small-footer-link-hover-color',
 		array(
 			'default' => '#de5034',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
@@ -2051,6 +2077,7 @@ function king_customize_register( $wp_customize ) {
 		'site-bg-color',
 		array(
 			'default' => '#ffffff',
+			'sanitize_callback' => 'king_sanitize_callback'
 		)
 	);
 	$wp_customize->add_control(
