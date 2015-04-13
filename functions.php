@@ -568,7 +568,12 @@ function king_body_class( $classes ) {
 	$transparent_header = get_post_meta( get_the_ID(), 'meta-transparent-header', true );
 	if( $transparent_header == 'true' ) {
 		$classes[] = 'king-transparent-header';
-	}	
+	}
+
+	// King Full Width Template
+	if ( is_page_template( 'page-templates/king-full-width.php' ) ) {
+		$classes[] = 'page-template-king-full-width';
+	}
 
 	return $classes;
 }
