@@ -945,26 +945,26 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 								<div class="<?php echo $title_bar_class; ?> text-left king-title">
 									<?php
 										if(is_404()){
-											$title = __( '404 - Page Not Found!', 'king' ); ;
+											$title = _e( '404 - Page Not Found!', 'king' ); ;
 										} elseif(is_search()){
-											$title = __( 'Search Results For: ' . get_search_query(), 'king' );
+											$title = _e( 'Search Results For: ' . get_search_query(), 'king' );
 										} elseif(is_archive()){
 											if(is_date()) :
 												if ( is_day() ) :
-													$title = __( 'Daily Archives: ' . get_the_date(), 'king' ); ;
+													$title = _e( 'Daily Archives: ' . get_the_date(), 'king' ); ;
 												elseif ( is_month() ) :
-													$title = __( 'Monthly Archives: ' . get_the_date( _x( 'F Y', 'monthly archives date format', 'king' )), 'king' );
+													$title = _e( 'Monthly Archives: ' . get_the_date( _x( 'F Y', 'monthly archives date format', 'king' )), 'king' );
 												elseif ( is_year() ) :
-													$title = __( 'Yearly Archives: ' . get_the_date( _x( 'Y', 'yearly archives date format', 'king' )), 'king' );
+													$title = _e( 'Yearly Archives: ' . get_the_date( _x( 'Y', 'yearly archives date format', 'king' )), 'king' );
 												endif;
 											elseif(is_category()) :
-												$title =  __( 'Category Archives: ' . single_cat_title( '', false ), 'king' );
+												$title =  _e( 'Category Archives: ' . single_cat_title( '', false ), 'king' );
 											elseif(is_tag()) :
-												$title =  __( 'Tag Archives: ' . single_tag_title( '', false ), 'king' );
+												$title =  _e( 'Tag Archives: ' . single_tag_title( '', false ), 'king' );
 											elseif(is_author()) :
-												$title =  __( 'Author Archives: ' . get_the_author(), 'king' );
+												$title =  _e( 'Author Archives: ' . get_the_author(), 'king' );
 											else :
-												$title = __( 'Archives', 'king' );
+												$title = _e( 'Archives', 'king' );
 											endif;
 										} else {
 											if( is_home() && get_option('page_for_posts') ) {
@@ -975,7 +975,7 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 											}
 										}
 										echo '<div class="king-breadcrumb-title">';
-										echo '<h3>'.$title.'</h3>';
+										echo '<h3>'. __($title, 'king') .'</h3>';
 										echo '</div>';
 									?>
 								</div>
@@ -1045,7 +1045,7 @@ if ( ! function_exists( 'king_search_form' ) ) :
 		$value_placeholder = __( "type here..." , "king" );
 		$placeholder = __( "'type here...'" , "king" );
 		$empty_placeholder = __( "''" , "king" );
-		$form = '<form action="' . home_url( "/" ) . '" method="get" id="searchform">
+		$form = '<form action="' . esc_url(home_url( "/" )) . '" method="get" id="searchform">
 				<fieldset>
 				<div id="searchbox">
 				<input class="input" name="s" type="text" id="s" value="'.  $value_placeholder .'" onfocus="if (this.value == '. $placeholder .') {this.value = '. $empty_placeholder .' }" onblur="if (this.value == '. $empty_placeholder .') {this.value = '. $placeholder .'}">
