@@ -680,20 +680,28 @@ add_action('wp_footer', 'king_masonry_blog');
 function king_scroll_to_top() {
 ?>
 	<script type="text/javascript">
-		jQuery(function() {
-		  jQuery('.king-scroll-top').click(function() {
-		    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-		      var target = jQuery(this.hash);
-		      target = target.length ? target : jQuery('[name=' + this.hash.slice(1) +']');
-		      if (target.length) {
-		        jQuery('html,body').animate({
-		          scrollTop: target.offset().top
-		        }, 1000);
-		        return false;
-		      }
-		    }
-		  });
+	jQuery(function() {
+		jQuery('.king-scroll-top').click(function() {
+			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+			  var target = jQuery(this.hash);
+			  target = target.length ? target : jQuery('[name=' + this.hash.slice(1) +']');
+			  if (target.length) {
+				jQuery('html,body').animate({
+				  scrollTop: target.offset().top
+				}, 1000);
+				return false;
+			  }
+			}
 		});
+		jQuery(document).scroll(function(){
+			var wh = jQuery(window).height()/3;
+			if (jQuery(this).scrollTop() > wh) {
+				jQuery('.king-scroll-top').addClass('king-scroll-top-show');
+			} else {
+				jQuery('.king-scroll-top').removeClass('king-scroll-top-show');
+			}
+		});
+	});
 	</script>
 	<a class="king-scroll-top" href="#page"><span class="fa fa-angle-up"></span></a>
 	<!--End Smooth Scroll-->
