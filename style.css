@@ -1163,10 +1163,6 @@ a.comment-edit-link:hover {
 	border: 0;
 	margin-bottom: 0;
 }
-#secondary-front {
-	display: block;
-	clear: both;
-}
 .template-front-page .widget-area {
 	clear: right;
 	float: none;
@@ -2422,36 +2418,6 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 }
 .has-post-thumbnail .site-content {
 	margin-top: 0;
-}
-/* Frontpage Main Widget Area */
-.frontpage-main-widget-area {
-	position: relative;
-	display: block;
-	width: 100%;
-}
-.frontpage-main-widget-area .widget {
-	position: relative;
-	padding: 40px 0;
-}
-.frontpage-main-widget-area .entry-content,
-.frontpage-main-widget-area .widget-title {
-	position: relative;
-	z-index: 9;
-}
-.frontpage-main-widget-area .widget-thumbnail {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	z-index: 1;
-	background-size: cover;
-	background-repeat: repeat;
-	background-position: center;
-	background-attachment: scroll;
 }
 /* King Landing Page Widget*/
 .js_active .page-template-king-landing-page #main {

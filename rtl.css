@@ -198,15 +198,13 @@ label ~ span.required {
 		float: right;
 		margin: 8px 0 8px 24px;
 	}
-	.template-front-page .widget-area .widget,
-	.template-front-page.two-sidebars .widget-area .front-widgets {
+	.template-front-page .widget-area .widget {
 		float: right;
 	}
 	.template-front-page .widget-area .widget:nth-child(odd) {
 		clear: left;
 	}
-	.template-front-page .widget-area .widget:nth-child(even),
-	.template-front-page.two-sidebars .widget-area .front-widgets + .front-widgets {
+	.template-front-page .widget-area .widget:nth-child(even) {
 		float: left;
 		margin: 0 24px 0;
 		margin: 0 1.714285714rem 0;

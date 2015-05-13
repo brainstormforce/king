@@ -293,42 +293,6 @@ if ( ! function_exists( 'king_sidebar' ) ) :
 			'before_title' => '<h3 class="widget-title">',
 			'after_title' => '</h3>',
 		) );
-		register_sidebar( array(
-			'name' => __( 'Front Page Main Widget Area', 'king' ),
-			'id' => 'sidebar-front-main',
-			'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'king' ),
-			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => '</aside>',
-			'before_title' => '<h3 class="widget-title">',
-			'after_title' => '</h3>',
-		) );
-		register_sidebar( array(
-			'name' => __( 'First Front Page Widget Area', 'king' ),
-			'id' => 'sidebar-front-1',
-			'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'king' ),
-			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => '</aside>',
-			'before_title' => '<h3 class="widget-title">',
-			'after_title' => '</h3>',
-		) );
-		register_sidebar( array(
-			'name' => __( 'Second Front Page Widget Area', 'king' ),
-			'id' => 'sidebar-front-2',
-			'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'king' ),
-			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => '</aside>',
-			'before_title' => '<h3 class="widget-title">',
-			'after_title' => '</h3>',
-		) );
-		register_sidebar( array(
-			'name' => __( 'Third Front Page Widget Area', 'king' ),
-			'id' => 'sidebar-front-3',
-			'description' => __( 'Appears when using the optional Front Page template with a page set as Static Front Page', 'king' ),
-			'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-			'after_widget' => '</aside>',
-			'before_title' => '<h3 class="widget-title">',
-			'after_title' => '</h3>',
-		) );
 	}
 	add_action( 'widgets_init', 'king_sidebar' );
 endif;
@@ -494,16 +458,6 @@ function king_body_class( $classes ) {
 
 	if ( ! is_active_sidebar( 'sidebar-1' ) || is_page_template( 'page-templates/full-width.php' ) )
 		$classes[] = 'full-width';
-
-	if ( is_page_template( 'page-templates/front-page.php' ) ) {
-		$classes[] = 'template-front-page';
-
-		if ( has_post_thumbnail() )
-			$classes[] = 'has-post-thumbnail';
-		
-		if ( is_active_sidebar( 'sidebar-2' ) && is_active_sidebar( 'sidebar-3' ) )
-			$classes[] = 'two-sidebars';
-	}
 
 	if ( empty( $background_image ) ) :
 		if ( empty( $background_color ) ) :
@@ -1065,31 +1019,5 @@ if ( ! function_exists( 'king_search_form' ) ) :
 	}
 	add_filter( 'get_search_form', 'king_search_form' );
 endif;
-
-// Front Page Bottom Sidebar
-if ( ! function_exists( 'king_front_page_bottom_sidebar' ) ) :
-	function king_front_page_bottom_sidebar() {
-		if (is_page_template( 'page-templates/front-page.php' )) {
-			get_sidebar('front');
-		}
-	}
-	add_action('king_content_after', 'king_front_page_bottom_sidebar', 20, 1);
-endif;
-
-// Front Page Content Sidebar
-if ( ! function_exists( 'king_front_page_content_sidebar' ) ) :
-	function king_front_page_content_sidebar() { 
-		?>
-		<?php if ( is_active_sidebar( 'sidebar-front-main' ) ) : ?>
-			<div class="frontpage-main-widget-area clear">
-				<?php dynamic_sidebar( 'sidebar-front-main' ); ?>
-			</div><!-- .first -->
-		<?php endif; ?>
-		<?php
-	}
-	add_action('king_entry_after', 'king_front_page_content_sidebar', 10, 1);
-endif;
-
-
 
 ?>
