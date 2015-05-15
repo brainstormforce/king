@@ -175,7 +175,7 @@ function king_gallery_shortcode( $output = '', $atts ) {
 
         <?php } else { // If gallery Type is Slideshow ?>
 
-            <div id="<?php echo $smgid; ?>" class="king-slideshow-gallery">  
+            <div id="<?php echo $smgid; ?>" class="king-slideshow-gallery" data-slidesToShow="<?php echo $columns;?>" data-slidesToScroll="<?php echo $columns;?>">  
                 <?php 
                     $n = 0;
                     foreach ( $images as $id ) {
@@ -220,62 +220,7 @@ function king_gallery_shortcode( $output = '', $atts ) {
                     } 
                 ?>
             </div>
-            <script type="text/javascript">
-				(function($) {
-					$(document).ready(function() {
-						$('#<?php echo $smgid; ?>').slick({
-							adaptiveHeight: true,
-							slidesToShow: <?php echo $columns;?>,
-							slidesToScroll: <?php echo $columns;?>,
-							<?php if( $columns != 1 ) {?>
-								responsive: [
-									{
-										breakpoint: 768,
-										settings: {
-											slidesToShow: 2,
-											slidesToScroll: 2
-										}
-									},
-									{
-										breakpoint: 480,
-										settings: {
-											slidesToShow: 1,
-											slidesToScroll: 1
-										}
-									}
-								]
-							<?php } ?>
-						});
-					});
-					
-					$(document).ajaxComplete(function(e, xhr, settings){
-						$('#<?php echo $smgid; ?>').slick({
-							adaptiveHeight: true,
-							slidesToShow: <?php echo $columns;?>,
-							slidesToScroll: <?php echo $columns;?>,
-							<?php if( $columns != 1 ) {?>
-								responsive: [
-									{
-										breakpoint: 768,
-										settings: {
-											slidesToShow: 2,
-											slidesToScroll: 2
-										}
-									},
-									{
-										breakpoint: 480,
-										settings: {
-											slidesToShow: 1,
-											slidesToScroll: 1
-										}
-									}
-								]
-							<?php } ?>
-						});
-					});
-				})(jQuery);
-            </script>
-
+            
         <?php } ?>
 
     <?php
