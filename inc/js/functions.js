@@ -104,6 +104,33 @@
 		}
 	}
 
+	// Justified Grid Gallery
+	function king_justified_gallery() {
+		if($( "div" ).hasClass( "king-justified-grid-gallery" )) {
+			if($( "body" ).hasClass( "single" ) || $( "body" ).hasClass( "page" )) {
+				jQuery('.king-justified-grid').justifiedGallery({			    
+			        rowHeight: 200,
+			        maxRowHeight: 200,
+			        margins: 3,
+			        captions: true,
+			        rel : 'metro',
+				    randomize: true,
+				    lastRow: 'justify'
+			    });
+			} else {
+			    jQuery('.king-justified-grid').justifiedGallery({
+			        rowHeight: 120,
+			        maxRowHeight: 120,
+			        margins: 3,
+			        captions: false,
+			        rel : 'metro',
+				    randomize: true,
+				    lastRow: 'justify'
+			    });
+			}         
+		}
+	}
+
 	$(document).ready(function() {		
 
 	    // Enable Fixed Menu Through jQuery
@@ -127,14 +154,14 @@
 		// Scroll To Top
 		king_scroll_to_top();
 
+		// Justified Grid Gallery
+		king_justified_gallery();
+
     });	
 
 	$(window).load(function() {
 		// Enable Fixed Menu Through jQuery
 		king_fixed_menu();
-
-		// ColorBox
-	    king_colorbox();
 
 	    // Menu Toggle
 	    king_menu_toggle()
@@ -147,6 +174,9 @@
 
 		// Blog Masonry
 		king_blog_masonry();
+
+		// Justified Grid Gallery
+		king_justified_gallery();
 
 	});
 
@@ -154,9 +184,6 @@
 		// Enable Fixed Menu Through jQuery
 		king_fixed_menu();
 
-		// ColorBox
-	    king_colorbox();
-
 	    // Menu Toggle
 	    king_menu_toggle()
 
@@ -168,6 +195,9 @@
 
 		// Blog Masonry
 		king_blog_masonry();
+
+		// Justified Grid Gallery
+		king_justified_gallery();
 
 	});
 

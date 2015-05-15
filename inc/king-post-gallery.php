@@ -79,7 +79,6 @@ function king_gallery_shortcode( $output = '', $atts ) {
 
         if (($gallery_type == "metro")) { // If gallery Type is Metro 
 
-           add_action( 'wp_footer', 'king_justified_grid_gallery' );
             ?>
 
                 <div id="<?php echo $smgid; ?>" class="king-justified-grid-gallery">
@@ -300,31 +299,3 @@ function king_gallery_shortcode( $output = '', $atts ) {
     echo ob_get_clean();
 }
 add_filter( 'post_gallery', 'king_gallery_shortcode', 10, 4 );
-
-
-// iMedica Justified Grid Gallery
-function king_justified_grid_gallery() {
-    // Justified Grid Gallery
-    ?>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            jQuery('.king-justified-grid').justifiedGallery({
-                <?php if (is_singular()) { ?>
-                    rowHeight: 200,
-                    maxRowHeight: 200,
-                    margins: 3,
-                    captions: true,
-                <?php } else { ?>
-                    rowHeight: 120,
-                    maxRowHeight: 120,
-                    margins: 3,
-                    captions: false,
-                <?php } ?>              
-                rel : 'metro',
-                randomize: true,
-                lastRow: 'justify',
-            });
-        });
-    </script>
-<?php
-}
