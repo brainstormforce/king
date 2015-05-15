@@ -1,4 +1,10 @@
 <?php
+/*
+ * Seperator Control
+ *
+ * @package King
+ * @since King 1.0
+ */
 class King_Separator_Control extends WP_Customize_Control {
     public $type = 'separator';
  

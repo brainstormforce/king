@@ -1,6 +1,9 @@
 <?php
 /**
  * The template for displaying posts in the Gallery post format
+ *
+ * @package King
+ * @since King 1.0
  */
 ?>
 

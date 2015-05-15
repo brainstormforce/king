@@ -6,6 +6,7 @@
  * @since King 1.0
  */
 get_header(); ?>
+
 <?php king_content_before(); ?>
 <div id="primary" class="site-content">	
 	

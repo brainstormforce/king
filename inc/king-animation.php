@@ -1,10 +1,11 @@
 <?php 
-
 /**
  * Include Animation For Blog Posts
  *
+ * @package King
  * @since King 1.0
  */
+
 $blog_animation = get_theme_mod('blog_animation', 'fadeIn');
 if($blog_animation != 'none') :
     if ( ! function_exists( 'king_animation_before_wrapper' ) ) :

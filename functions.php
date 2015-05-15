@@ -1,4 +1,12 @@
 <?php
+/**
+ * Theme Functions
+ *
+ * @package King
+ * @since King 1.0
+ */
+
+
 // Set content width value based on the theme's design
 if ( ! isset( $content_width ) )
 	$content_width = 600;
@@ -529,6 +537,12 @@ function king_body_class( $classes ) {
 		$classes[] = 'page-template-king-full-width';
 	}
 
+	// Scroll To Top
+	$scroll_top = get_theme_mod( 'scroll_to_top', true );
+	if( $scroll_top == 'true' ) {
+		$classes[] = 'scroll-to-top';
+	}
+
 	return $classes;
 }
 add_filter( 'body_class', 'king_body_class' );
@@ -584,87 +598,6 @@ function king_site_width() {
 }
 add_action( 'template_redirect', 'king_site_width' );
 
-
-/**
- * Include Javascript Snippet For Masonry Blog
- *
- * @since King 1.0
- */
-function king_masonry_blog() {
-	// Load Masonry Javascript
-	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
-	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
-	if($blog_layout == 'grid-2' || $blog_layout == 'grid-3' || $blog_layout == 'grid-4') :
-		if ( $masonry_blog_layout ) :
-			if ( is_home() || is_archive() || is_search() ) : ?>
-				<script type="text/javascript">
-					(function($) {
-						"use strict";
-						function blog_masonry() {
-							$('.blog-masonry #content').imagesLoaded(function () {
-								$('.blog-masonry #content').masonry({
-									columnWidth: '.post',
-									itemSelector: '.post',
-									transitionDuration: 0
-								});
-							});
-						}
-						$(document).ready(function() { blog_masonry(); });
-						$(window).load(function(){
-							setTimeout(function(){
-								$('.blog-masonry #content').masonry('reload');
-							},1000);
-							
-						});			
-						//$(window).on('resize',function() { blog_masonry(); });
-					})(jQuery);
-				</script>
-			<?php
-			endif;
-		endif;
-	endif;
-}
-add_action('wp_footer', 'king_masonry_blog');
-
-/**
- * Include Scroll To Top Feature
- *
- * @since King 1.0
- */
-function king_scroll_to_top() {
-?>
-	<script type="text/javascript">
-	jQuery(function() {
-		jQuery('.king-scroll-top').click(function() {
-			if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-			  var target = jQuery(this.hash);
-			  target = target.length ? target : jQuery('[name=' + this.hash.slice(1) +']');
-			  if (target.length) {
-				jQuery('html,body').animate({
-				  scrollTop: target.offset().top
-				}, 1000);
-				return false;
-			  }
-			}
-		});
-		jQuery(document).scroll(function(){
-			var wh = jQuery(window).height()/3;
-			if (jQuery(this).scrollTop() > wh) {
-				jQuery('.king-scroll-top').addClass('king-scroll-top-show');
-			} else {
-				jQuery('.king-scroll-top').removeClass('king-scroll-top-show');
-			}
-		});
-	});
-	</script>
-	<a class="king-scroll-top" href="#page"><span class="fa fa-angle-up"></span></a>
-	<!--End Smooth Scroll-->
-<?php
-}
-$scroll_to_top = get_theme_mod( 'scroll_to_top', true );
-if($scroll_to_top) {
-	add_action('wp_footer', 'king_scroll_to_top');
-}
 
 /**
  * Custom Excerpt Length

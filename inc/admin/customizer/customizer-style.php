@@ -1,4 +1,11 @@
 <?php
+/*
+ * Customizer Style
+ *
+ * @package King
+ * @since King 1.0
+ */
+
 add_action('wp_head', 'king_custom_style');
 
 if(!function_exists("king_custom_style")) :

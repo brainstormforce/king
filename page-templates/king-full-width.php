@@ -6,6 +6,8 @@
  * Description: We loves full width background for Visual COmposer row as much as
  * you do. Use this page template to set full width background for your rows.
  *
+ * @package King
+ * @since King 1.0
  */
 
 get_header(); ?>

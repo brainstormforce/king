@@ -2,8 +2,10 @@
 /**
  * WooCommerce
  *
+ * @package King
  * @since King 1.0
  */
+
 if ( ! function_exists( 'king_woocommerce_activated' ) ) {
 	function king_woocommerce_activated() {
 		if ( class_exists( 'woocommerce' ) ) { 

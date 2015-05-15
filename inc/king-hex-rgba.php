@@ -1,4 +1,11 @@
 <?php 
+/*
+ * HEX to RGBA
+ *
+ * @package King
+ * @since King 1.0
+ */
+
 	/* Convert hexdec color string to rgb(a) string */
 	if ( ! function_exists( 'hex2rgba' ) ) :
 		function hex2rgba($color, $opacity = false) {

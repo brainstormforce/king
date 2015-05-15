@@ -3,6 +3,8 @@
 /**
  * The template used for displaying page content in page.php
  *
+ * @package King
+ * @since King 1.0
  */
 
 ?>

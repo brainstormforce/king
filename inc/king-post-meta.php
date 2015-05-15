@@ -1,4 +1,10 @@
 <?php 
+/*
+ * King post meta options
+ * 
+ * @package King
+ * @since King 1.0
+ */
 
 // Post Meta
 if ( ! function_exists( 'king_post_meta' ) ) :

@@ -12,6 +12,7 @@
  * @package King
  * @since King 1.0
  */
+
 get_header(); 
 $blog_layout = get_theme_mod('blog_layout', 'grid-3');
 ?>

@@ -1,3 +1,12 @@
+<?php 
+/**
+ * The template for displaying Header Style 2
+ *
+ * @package King
+ * @since King 1.0
+ */
+?>
+
 <header id="masthead" class="site-header header-style2" role="banner">
 	<div class="header-box <?php if( get_theme_mod( 'logo-img' ) ) {  echo 'header-logo-menu';}?>">
 		<div class="king-main-menu-container clear">

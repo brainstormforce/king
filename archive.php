@@ -8,9 +8,11 @@
  * If you'd like to further customize these archive views, you may create a
  * new template file for each specific one.
  *
- * @link http://codex.wordpress.org/Template_Hierarchy
+ * @package King
+ * @since King 1.0
  *
  */
+
 get_header();
 
 $blog_layout = get_theme_mod('blog_layout', 'grid-3');

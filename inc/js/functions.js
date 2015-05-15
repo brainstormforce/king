@@ -2,7 +2,7 @@
 	"use strict";
 
 	// Responsive iframe
-	function resp_iframe() {
+	function king_resp_iframe() {
 		$(".blog-oembed iframe, .king-iframe").each(function(index, element) {
 			var w = $(this).parent().width();
 			var h = (w*(9/16));
@@ -10,9 +10,8 @@
 		});		
 	}
 
-
 	// Assign Top Padding When Transparent Menu Is Set
-	function transperent_top_padding() {
+	function king_transperent_top_padding() {
 		var header_height = $('.king-fixed-menu .site-header').outerHeight( true );
 		if( window.innerWidth > 768 ) {
 			$("body #main").css('padding-top',header_height);
@@ -24,8 +23,8 @@
 		}
 	}
 
-	$(document).ready(function() {
-		// Menu Toggle
+	// Menu Toggle
+	function king_menu_toggle() {
 	    $('.menu-toggle-wrap').click( function() {
 	    $('.nav-menu').toggle()});
 		$("li.menu-item-has-children").click(function () {
@@ -36,8 +35,10 @@
 		});	  	
 	    $(this).find("li.page_item_has_children > a").after( "<span class='fa fa-angle-down'></span>" );
 	    $(this).find("li.menu-item-has-children > a").after( "<span class='fa fa-angle-down'></span>" );
+	}
 
-	    // Enable Fixed Menu Through jQuery
+	// Enable Fixed Menu Through jQuery
+	function king_fixed_menu() {
 		var starting_position = $('.king-fixed-menu .site-header').outerHeight( true );
 		$(window).scroll(function() {
 			var yPos = ( $(window).scrollTop() );
@@ -47,9 +48,11 @@
 				$(".king-fixed-menu .site-header").removeClass("king-sticky-menu");
 			}
 		});
+	}
 
-		// ColorBox
-	    $('#page').find('a.king-lightbox').colorbox({
+	// ColorBox
+	function king_colorbox() {
+		$('#page').find('a.king-lightbox').colorbox({
 	        maxWidth : '80%',
 	        maxHeight : '90%',
 	        rel: 'king-lightbox',
@@ -57,29 +60,115 @@
 	        transition : 'elastic',
 	        current : ''
 	    });
+	}
+
+	// Blog Masonry
+	function king_blog_masonry() {
+		if($( "body" ).hasClass( "blog-masonry" )) {
+			if($( "body" ).hasClass( "blog" ) || $( "body" ).hasClass( "archive" ) || $( "body" ).hasClass( "search" )) {
+				$('.blog-masonry #content').imagesLoaded(function () {
+					$('.blog-masonry #content').masonry({
+						columnWidth: '.post',
+						itemSelector: '.post',
+						transitionDuration: 0
+					});
+				});
+			}
+		}
+	}
+
+	// Scroll To Top
+	function king_scroll_to_top() {
+		if($( "body" ).hasClass( "scroll-to-top" )) {
+			$( "body" ).append( '<a class="king-scroll-top" href="#page"><span class="fa fa-angle-up"></span></a>' );
+			jQuery('.king-scroll-top').click(function() {
+				if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+				  var target = jQuery(this.hash);
+				  target = target.length ? target : jQuery('[name=' + this.hash.slice(1) +']');
+				  if (target.length) {
+					jQuery('html,body').animate({
+					  scrollTop: target.offset().top
+					}, 1000);
+					return false;
+				  }
+				}
+			});
+			jQuery(document).scroll(function(){
+				var wh = jQuery(window).height()/3;
+				if (jQuery(this).scrollTop() > wh) {
+					jQuery('.king-scroll-top').addClass('king-scroll-top-show');
+				} else {
+					jQuery('.king-scroll-top').removeClass('king-scroll-top-show');
+				}
+			});
+		}
+	}
+
+	$(document).ready(function() {		
+
+	    // Enable Fixed Menu Through jQuery
+		king_fixed_menu();
+
+		// ColorBox
+	    king_colorbox();
+
+	    // Menu Toggle
+	    king_menu_toggle()
 
 	    // Responsive iframe 
-	    resp_iframe();
+	    king_resp_iframe();
 
 	    // Assign Top Padding When Transparent Menu Is Set
-		transperent_top_padding();
+		king_transperent_top_padding();
+
+		// Blog Masonry
+		king_blog_masonry();
+
+		// Scroll To Top
+		king_scroll_to_top();
 
     });	
 
 	$(window).load(function() {
-		// Responsive iframe
-		resp_iframe();
+		// Enable Fixed Menu Through jQuery
+		king_fixed_menu();
+
+		// ColorBox
+	    king_colorbox();
+
+	    // Menu Toggle
+	    king_menu_toggle()
+
+	    // Responsive iframe 
+	    king_resp_iframe();
 
 	    // Assign Top Padding When Transparent Menu Is Set
-		transperent_top_padding();
+		king_transperent_top_padding();
+
+		// Blog Masonry
+		king_blog_masonry();
+
 	});
 
 	$(window).on('resize',function() {
-		// Responsive iframe
-		resp_iframe();
+		// Enable Fixed Menu Through jQuery
+		king_fixed_menu();
+
+		// ColorBox
+	    king_colorbox();
+
+	    // Menu Toggle
+	    king_menu_toggle()
+
+	    // Responsive iframe 
+	    king_resp_iframe();
 
 	    // Assign Top Padding When Transparent Menu Is Set
-		transperent_top_padding();
+		king_transperent_top_padding();
+
+		// Blog Masonry
+		king_blog_masonry();
+
 	});
 
 })(jQuery);

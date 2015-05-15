@@ -1,4 +1,11 @@
 <?php
+/*
+ * Paginations
+ *
+ * @package King
+ * @since King 1.0
+ */
+
 if ( ! function_exists( 'king_number_pagination' ) ) :
     function king_number_pagination($pages = '', $range = 2)
     {  

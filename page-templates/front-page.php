@@ -7,7 +7,10 @@
  * in King consists of a page content area for adding text, images, video --
  * anything you'd like -- followed by front-page-only widgets in one or two columns.
  *
+ * @package King
+ * @since King 1.0
  */
+
 get_header(); ?>
 <?php king_content_before(); ?>
 <div id="primary" class="site-content">

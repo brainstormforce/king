@@ -7,9 +7,10 @@
  * It is used to display a page when nothing more specific matches a query.
  * For example, it puts together the home page when no home.php file exists.
  *
- * @link http://codex.wordpress.org/Template_Hierarchy
- *
+ * @package King
+ * @since King 1.0
  */
+
 $blog_layout = get_theme_mod('blog_layout', 'grid-3');
 if ( have_posts() ) :
 	/* Start the Loop */

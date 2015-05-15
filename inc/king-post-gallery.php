@@ -1,4 +1,11 @@
 <?php
+/*
+ * Gallery Options
+ *
+ * @package King
+ * @since King 1.0
+ */
+
 
 // Add new field in gallery settings
 add_action('print_media_templates', 'king_media_templates');

@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * Slider UI Control
+ *
+ * @package King
+ * @since King 1.0
+ */
 class King_Sliderui_Control extends WP_Customize_Control {
 
 	public $type = 'slider';

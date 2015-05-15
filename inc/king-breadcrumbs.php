@@ -1,4 +1,13 @@
 <?php
+/*
+ *
+ * Include Breadcrumbs
+ *
+ * @package King
+ * @since King 1.0
+ */
+
+
 if(!function_exists("king_breadcrumb")){
 	function king_breadcrumb() {
 	

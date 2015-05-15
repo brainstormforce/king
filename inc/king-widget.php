@@ -1,7 +1,11 @@
 <?php 
 /**
  * Adds King_Front_Page_Widget widget.
+ *
+ * @package King
+ * @since King 1.0
  */
+
 class King_Front_Page_Widget extends WP_Widget {
 
 	/**

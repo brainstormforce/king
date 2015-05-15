@@ -1,4 +1,10 @@
 <?php 
+/*
+ * Meta box options
+ *
+ * @package King
+ * @since King 1.0
+ */
 
 /* Adds a meta box to the post editing screen */
 function king_custom_meta() {

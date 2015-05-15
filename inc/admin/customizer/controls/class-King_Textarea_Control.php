@@ -1,4 +1,10 @@
 <?php
+/*
+ * Textarea Control
+ *
+ * @package King
+ * @since King 1.0
+ */
 
 class King_Textarea_Control extends WP_Customize_Control {
 

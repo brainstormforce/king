@@ -1,4 +1,11 @@
-<?php 
+<?php
+/*
+ * Typography Control
+ *
+ * @package King
+ * @since King 1.0
+ */
+
 if(!function_exists('king_get_fonts_array')){
 	function king_get_fonts_array(){
 		$kingFontArray = array();

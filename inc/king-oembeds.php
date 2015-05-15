@@ -1,4 +1,10 @@
 <?php 
+/*
+ * oEmbeds
+ *
+ * @package King
+ * @since King 1.0
+ */
 
 // Retrive & Embed video from post
 if ( ! function_exists( 'king_post_video' ) ) :

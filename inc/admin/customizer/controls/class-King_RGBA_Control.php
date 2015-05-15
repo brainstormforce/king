@@ -1,9 +1,12 @@
 <?php
 /*
-* Add Custom RGBA Color Control
-* Reference - http://pluto.kiwi.nz/2014/07/how-to-add-a-color-control-with-alphaopacity-to-the-wordpress-theme-customizer/
-*
-*/
+ * Add Custom RGBA Color Control
+ * Reference - http://pluto.kiwi.nz/2014/07/how-to-add-a-color-control-with-alphaopacity-to-the-wordpress-theme-customizer/
+ *
+ * @package King
+ * @since King 1.0
+ */
+
 class King_RGBA_Control extends WP_Customize_Control {
     
     public $type = 'alphacolor';

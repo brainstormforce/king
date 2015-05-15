@@ -1,10 +1,11 @@
 <?php 
-
-/**
- * Include Inifinite Scroll For Blog Posts
+/*
+ * Include infinite scroll
  *
+ * @package King
  * @since King 1.0
  */
+
 function king_infinite_scroll_callback() {
     global $wp_query;
     $blog_layout = get_theme_mod('blog_layout', 'grid-3');

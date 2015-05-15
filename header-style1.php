@@ -1,4 +1,13 @@
-<header id="masthead" class="site-header header-style1" role="banner">
+<?php 
+/**
+ * The template for displaying Header Style 1
+ *
+ * @package King
+ * @since King 1.0
+ */
+?>
+
+ <header id="masthead" class="site-header header-style1" role="banner">
 	<div class="header-box <?php if( get_theme_mod( 'logo-img' ) ) {  echo 'header-logo-menu';}?>">
 		<nav id="site-navigation" class="main-navigation" role="navigation">
 			<div class="king-main-menu-container clear">
