@@ -2,8 +2,7 @@
 /**
  * The template for displaying posts in the Quote post format
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 ?>

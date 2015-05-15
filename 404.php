@@ -2,8 +2,7 @@
 /**
  * The template for displaying 404 pages (Not Found)
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 get_header(); ?>	

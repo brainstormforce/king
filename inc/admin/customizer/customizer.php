@@ -4,8 +4,7 @@
  *
  * Add postMessage support for site title and description for the Customizer.
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  *
  * @param WP_Customize_Manager $wp_customize Customizer object.
@@ -358,8 +357,8 @@ function king_customize_register( $wp_customize ) {
 				'subtitle' => '',
 				'description' =>  'Set primary content width (except sidebar)',				
 				'choices' => array(
-					'min'   => 10,
-					'max'   => 90,
+					'min'   => 0,
+					'max'   => 100,
 					'step'  => 1,
 					'style' => '',
 				),
@@ -2026,48 +2025,6 @@ function king_customize_register( $wp_customize ) {
 			'priority' => 1,
 		)
 	);
-
-	// Custom Code
-	$wp_customize->add_setting( 
-		'custom_css', 
-		array(
-		    'default' => '',
-		    'sanitize_callback' => 'king_sanitize_callback',
-		) 
-	);
-	$wp_customize->add_control(
-		new King_Textarea_Control(
-			$wp_customize,
-			'custom_css',
-			array(
-				'label' => 'Custom CSS',
-				'section' => 'custom_code',
-				'type' => 'textarea',
-				'description' =>  'This setting will add custom CSS (Write your CSS without style tag)',
-			)
-		)
-	);
-
-	$wp_customize->add_setting( 
-		'custom_script', 
-		array(
-		    'default' => '',
-		    'sanitize_callback' => 'king_sanitize_callback',
-		) 
-	);
-	$wp_customize->add_control(
-		new King_Textarea_Control(
-			$wp_customize,
-			'custom_script',
-			array(
-				'label' => 'Custom Script',
-				'section' => 'custom_code',
-				'type' => 'textarea',
-				'description' =>  'This setting will add custom Script (Write your CSS with script tag)',
-			)
-		)
-	);
-
 
 
 	//==========================

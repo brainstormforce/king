@@ -2,8 +2,7 @@
 /**
  * The Template for displaying all single posts
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 get_header(); ?>

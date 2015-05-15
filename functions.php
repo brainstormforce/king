@@ -727,34 +727,6 @@ if ( ! function_exists( 'king_favicon' ) ) :
 endif;
 
 /**
- * Custom CSS
- *
- * @since King 1.0
- */
-if ( ! function_exists( 'king_custom_css' ) ) :
-	function king_custom_css() {
-		$custom_css = get_theme_mod( 'custom_css' );
-		if ($custom_css)
-		echo '<style type="text/css">'. $custom_css .'</style>';
-	}
-	add_action('wp_head', 'king_custom_css');
-endif;
-
-/**
- * Custom Script
- *
- * @since King 1.0
- */
-if ( ! function_exists( 'king_custom_script' ) ) :
-	function king_custom_script() {
-		$custom_script = get_theme_mod( 'custom_script' );
-		if ($custom_script)
-		echo $custom_script;
-	}
-	add_action('wp_footer', 'king_custom_script');
-endif;
-
-/**
  * Next / Previous post link on single page
  *
  * @since King 1.0

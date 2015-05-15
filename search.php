@@ -2,8 +2,7 @@
 /**
  * The template for displaying Search Results pages
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 get_header(); ?>

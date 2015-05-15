@@ -7,8 +7,7 @@
  * handled by a callback to king_comment() which is
  * located in the functions.php file.
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 

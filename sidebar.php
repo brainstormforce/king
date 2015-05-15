@@ -4,8 +4,7 @@
  *
  * If no active widgets are in the sidebar, hide it completely.
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 ?>

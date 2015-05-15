@@ -9,8 +9,7 @@
  *
  * @link http://codex.wordpress.org/Template_Hierarchy
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 get_header(); 

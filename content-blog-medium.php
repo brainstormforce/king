@@ -4,8 +4,7 @@
  *
  * Used for Grid Layouts
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 ?>

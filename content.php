@@ -4,8 +4,7 @@
  *
  * Used for both single and index/archive/search.
  *
- * @package WordPress
- * @subpackage King
+ * @package King
  * @since King 1.0
  */
 ?>
