@@ -1,0 +1,12 @@
+# Node Modules #
+node_modules/
+
+# Packager #
+git.sh
+updateall.sh
+
+# PHPStorm Folder #
+.idea/
+
+# GRAUPI fetch #
+bcore.sh

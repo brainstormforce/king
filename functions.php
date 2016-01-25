@@ -97,7 +97,7 @@ function king_admin_styles(){
  */
 function king_scripts_styles() {
 	global $wp_styles;
-	
+
 	// Loads our main stylesheet.
 	wp_register_style( 'king-style', get_stylesheet_uri(), array( 'king-slick-slider' ), '1.0.0', 'all' );
 	wp_enqueue_style( 'king-style' );
@@ -105,7 +105,7 @@ function king_scripts_styles() {
 	wp_enqueue_style( 'king-bootstrap-grid' );
 	wp_register_style( 'king-font-icons', get_template_directory_uri().'/inc/css/font-awesome.min.css', false, '4.3.0', 'all' );
 	wp_enqueue_style( 'king-font-icons' );
-		
+
 	// Loads the Internet Explorer specific stylesheet.
 	$wp_styles->add('king-ie', get_template_directory_uri() . '/inc/css/ie.css');
 	$wp_styles->add_data('king-ie', 'conditional', 'lte IE 9');
@@ -121,7 +121,7 @@ function king_scripts_styles() {
 	// Bootstrap Javascript
 	wp_register_script( 'king-bootstrap-script', get_template_directory_uri() . '/inc/js/jquery.bootstrap.min.js', array( 'jquery' ), '3.3.1', true );
 	wp_enqueue_script( 'king-bootstrap-script' );
-	
+
 	// Load Masonry Javascript
 	$masonry_blog_layout = get_theme_mod('blog_masonry_layout', true);
 	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
@@ -158,18 +158,18 @@ function king_scripts_styles() {
 	wp_register_script( 'king-colorbox-script', get_template_directory_uri() . '/inc/js/jquery.colorbox.min.js', array( 'jquery' ), '1.5.2', true );
 	wp_enqueue_script( 'king-colorbox-script' );
 
-	// Theme JavaScript	
+	// Theme JavaScript
 	wp_register_script( 'king-javascript', get_template_directory_uri() . '/inc/js/functions.js', array( 'jquery' ), '1.0.0', true );
 	wp_enqueue_script( 'king-javascript' );
 
 	// Menu CSS
 	wp_register_style( 'king-menu-css', get_template_directory_uri() . '/inc/css/menu.css', false, '1.0.0', 'all' );
     wp_enqueue_style( 'king-menu-css' );
-	
+
 	// Animate CSS
 	wp_register_style( 'king-animate-css', get_template_directory_uri() . '/inc/css/animate.css', false, '1.0.0', 'all' );
     wp_enqueue_style( 'king-animate-css' );
-	
+
 }
 add_action( 'wp_enqueue_scripts', 'king_scripts_styles' );
 
@@ -210,15 +210,15 @@ function king_add_toolbar_items($admin_bar){
         'title' => '<span class="ab-icon"></span> Theme Options',
         'href'  => $king_admin_url,
         'meta'  => array(
-            'title' => __('King Theme Options', 'king'),  
-            'class' => 'customizer_menu_item_class'          
+            'title' => __('King Theme Options', 'king'),
+            'class' => 'customizer_menu_item_class'
         ),
     ));
 }
 
 
 /**
- * Register menus in theme 
+ * Register menus in theme
  *
  * Added two location primary & footer menu
  *
@@ -271,7 +271,7 @@ if ( ! function_exists( 'king_sidebar' ) ) :
 			'before_title' => '<h3 class="widget-title">',
 			'after_title' => '</h3>',
 		) );
-		
+
 		register_sidebar( array(
 			'name' => __( 'Footer Widget Area 2', 'king' ),
 			'id' => 'sidebar-footer-2',
@@ -281,7 +281,7 @@ if ( ! function_exists( 'king_sidebar' ) ) :
 			'before_title' => '<h3 class="widget-title">',
 			'after_title' => '</h3>',
 		) );
-		
+
 		register_sidebar( array(
 			'name' => __( 'Footer Widget Area 3', 'king' ),
 			'id' => 'sidebar-footer-3',
@@ -291,7 +291,7 @@ if ( ! function_exists( 'king_sidebar' ) ) :
 			'before_title' => '<h3 class="widget-title">',
 			'after_title' => '</h3>',
 		) );
-		
+
 		register_sidebar( array(
 			'name' => __( 'Footer Widget Area 4', 'king' ),
 			'id' => 'sidebar-footer-4',
@@ -510,7 +510,7 @@ function king_body_class( $classes ) {
 
 	// Sidebar Position
 	$sidebar_position = get_theme_mod('sidebar_position', 'no-sidebar');
-	$classes[] = $sidebar_position;	
+	$classes[] = $sidebar_position;
 
 	// Title Bar
 	$title_bar = get_theme_mod('title_bar_layout', 'style-1');
@@ -563,7 +563,7 @@ function king_post_class( $classes ) {
 	global $post;
 
 	$blog_layout = get_theme_mod('blog_layout', 'grid-3');
-	if ( !is_singular() ) :	
+	if ( !is_singular() ) :
 		if ($blog_layout == 'grid-2') {
 			$classes[] = 'col-lg-6 col-md-6 col-sm-6 col-xs-12';
 		} else if ($blog_layout == 'grid-3') {
@@ -668,7 +668,7 @@ if ( ! function_exists( 'king_single_post_navigation' ) ) :
 	function king_single_post_navigation() { ?>
 		<?php if(is_attachment()) : ?>
 			<nav class="nav-single clear">
-			<h3 class="assistive-text"><?php _e( 'Image navigation', 'king' ); ?></h3>			
+			<h3 class="assistive-text"><?php _e( 'Image navigation', 'king' ); ?></h3>
 			<span class="nav-previous"><?php previous_image_link( false, __( '<span class="meta-nav">&larr; Previous</span>', 'king' ) ); ?></span>
 			<span class="nav-next"><?php next_image_link( false, __( '<span class="meta-nav">Next &rarr;</span>', 'king' ) ); ?></span>
 			</nav><!-- .nav-single -->
@@ -680,7 +680,7 @@ if ( ! function_exists( 'king_single_post_navigation' ) ) :
 			</nav><!-- .nav-single -->
 		<?php endif; ?>
 		<?php
-	} 
+	}
 	add_action('king_entry_after', 'king_single_post_navigation');
 endif;
 
@@ -755,7 +755,7 @@ if ( ! function_exists( 'king_archive_header_text' ) ) :
 		<?php endif; ?>
 
 		<?php
-	}	
+	}
 	add_action('king_content_top', 'king_archive_header_text');
 endif;
 
@@ -765,18 +765,18 @@ endif;
  * @since King 1.0
  */
 if ( ! function_exists( 'king_header_layout' ) ) :
-	function king_header_layout() { 
+	function king_header_layout() {
 		$header_layout = get_theme_mod('header_layout', 'header_1');
 		if($header_layout == 'header_2'){
 			get_header('style2');
-		} 
+		}
 		else if($header_layout == 'header_3'){
 			get_header('style3');
-		} 
+		}
 		else {
 			get_header('style1');
 		}
-	}	
+	}
 	add_action('king_header_bottom', 'king_header_layout');
 endif;
 
@@ -855,14 +855,14 @@ if ( ! function_exists( 'king_title_breadcrumb_bar' ) ) :
 										?>
 									</div>
 								<?php endif; ?>
-							</div><!-- .king-container --> 
-						</div><!-- .king-row --> 
-					</div><!-- .king-page-header --> 
+							</div><!-- .king-container -->
+						</div><!-- .king-row -->
+					</div><!-- .king-page-header -->
 
 				<?php endif; ?>
 			<?php endif; ?>
-		<?php 
-	}	
+		<?php
+	}
 	add_action('king_header_after', 'king_title_breadcrumb_bar');
 endif;
 
@@ -873,7 +873,7 @@ endif;
  */
 if ( ! function_exists( 'king_author_bio' ) ) :
 	function king_author_bio() { ?>
-		<?php if( is_single() ) : ?>		
+		<?php if( is_single() ) : ?>
 			<footer class="entry-meta">
 				<?php if ( is_singular() && get_the_author_meta( 'description' ) && is_multi_author() ) : // If a user has filled out their description and this is a multi-author blog, show a bio on their entries. ?>
 					<div class="author-info">
@@ -896,9 +896,9 @@ if ( ! function_exists( 'king_author_bio' ) ) :
 					</div><!-- .author-info -->
 				<?php endif; ?>
 			</footer><!-- .entry-meta -->
-		<?php endif; ?>	
-	<?php 
-	}	
+		<?php endif; ?>
+	<?php
+	}
 	add_action('king_entry_bottom', 'king_author_bio', 20, 1);
 endif;
 
@@ -924,5 +924,26 @@ if ( ! function_exists( 'king_search_form' ) ) :
 	}
 	add_filter( 'get_search_form', 'king_search_form' );
 endif;
+
+// bsf core
+$bsf_core_version_file = realpath(dirname(__FILE__).'/admin/bsf-core/version.yml');
+if(is_file($bsf_core_version_file)) {
+	global $bsf_core_version, $bsf_core_path;
+	$bsf_core_dir = realpath(dirname(__FILE__).'/admin/bsf-core/');
+	$version = file_get_contents($bsf_core_version_file);
+	if(version_compare($version, $bsf_core_version, '>')) {
+		$bsf_core_version = $version;
+		$bsf_core_path = $bsf_core_dir;
+	}
+}
+add_action('init', 'bsf_core_load', 999);
+if(!function_exists('bsf_core_load')) {
+	function bsf_core_load() {
+		global $bsf_core_version, $bsf_core_path;
+		if(is_file(realpath($bsf_core_path.'/index.php'))) {
+			include_once realpath($bsf_core_path.'/index.php');
+		}
+	}
+}
 
 ?>
