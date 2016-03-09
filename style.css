@@ -4,7 +4,7 @@ Theme URI: 		http://brainstormforce.com/demos/king/
 Author: 		Brainstorm Force
 Author URI: 	https://www.brainstormforce.com/
 Description:    The King theme is a simple & responsive theme, which is very flexible, lightweight & specifically for demo site of our "Ultimate Addons for Visual Composer" plugin.
-Version:        1.1.1
+Version:        1.1.2
 Tags: 			light
 Text Domain: 	king
 License: 		GNU General Public License v2 or later
@@ -2220,6 +2220,9 @@ body.page-template-king-full-width .site-content .entry-content > .vc_row {
 .smile-container {
 	margin: 0;
 	padding: 0 15px;
+}
+.vc_row-no-padding .smile-container {
+    padding: 0;
 }
 .smile-row:before, 
 .smile-container:before,
