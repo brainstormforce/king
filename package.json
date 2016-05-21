@@ -1,0 +1,26 @@
+{
+  "name": "King",
+  "version": "1.1.2",
+  "description": "The King theme is a simple & responsive theme, which is very flexible, lightweight & specifically for demo site of our Ultimate Addons for Visual Composer plugin.",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "moment-timezone": "^0.4.0"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "shelljs": "~0.2.6",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-compress": "^0.14.0",
+    "grunt-contrib-copy": "^0.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.brainstormforce.com:wp-sharks/bb-ultimate-addon.git"
+  },
+  "author": "Brainstorm Force",
+  "license": "ISC"
+}
