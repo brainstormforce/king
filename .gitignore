@@ -4,9 +4,10 @@ node_modules/
 # Packager #
 git.sh
 updateall.sh
-
-# PHPStorm Folder #
-.idea/
+u.sh
 
 # GRAUPI fetch #
 bcore.sh
+
+# ZIP
+king.zip
