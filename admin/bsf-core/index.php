@@ -19,6 +19,12 @@ Text Domain: bsf
 require_once 'auto-update/admin-functions.php';
 require_once 'auto-update/updater.php';
 
+// abspath of groupi
+
+if ( ! defined( 'BSF_UPDATER_PATH' ) ) {
+	define( 'BSF_UPDATER_PATH', dirname(__FILE__) );
+}
+
 if(!function_exists('bsf_convert_core_path_to_relative')) {
 	function bsf_convert_core_path_to_relative($path) {
 		global $bsf_core_url;
@@ -88,6 +94,11 @@ add_action( 'admin_init', 'init_bsf_plugin_installer' );
 if ( ! function_exists( 'init_bsf_plugin_installer' ) ) {
 	function init_bsf_plugin_installer() {
 		require_once 'plugin-installer/admin-functions.php';
+
+		/**
+		 * Action will run after plugin installer is loaded
+		 */
+		do_action( 'bsf_after_plugin_installer' );
 	}
 }
 
@@ -97,12 +108,68 @@ else
 	add_action('network_admin_menu', 'register_bsf_extension_page_network',999);
 if(!function_exists('register_bsf_extension_page')) {
 	function register_bsf_extension_page() {
-		add_submenu_page( 'imedica_options', __('Extensions','bsf'), __('Extensions','bsf'), 'manage_options', 'bsf-extensions', 'bsf_extensions_callback' );
+		add_submenu_page(
+			'imedica_options',
+			 __('Extensions','bsf'),
+			 __('Extensions','bsf'),
+			 'manage_options',
+			 'bsf-extensions-10395942',
+			 'bsf_extensions_callback'
+		);
+
+		$installer_menu = 	'';
+		$reg_menu 		= 	array();
+		$reg_menu 		=	apply_filters( 'bsf_installer_menu', $reg_menu, $installer_menu );
+
+		if( is_array( $reg_menu ) ) {
+
+			foreach ( $reg_menu as $installer => $attr ) {
+				add_submenu_page(
+					$attr['parent_slug'],
+					$attr['page_title'],
+					$attr['menu_title'],
+					'manage_options',
+					'bsf-extensions-' . $attr['product_id'],
+					'bsf_extensions_callback'
+				);
+
+			}
+
+		}
 	}
 }
+
 if(!function_exists('register_bsf_extension_page_network')) {
 	function register_bsf_extension_page_network() {
-		add_submenu_page( 'bsf-registration', __('Extensions','bsf'), __('Extensions','bsf'), 'manage_options', 'bsf-extensions', 'bsf_extensions_callback' );
+
+		$themes = wp_get_themes(array('allowed' => 'network'));
+
+		foreach( $themes as $theme ) {
+			if ( $theme->Name == 'iMedica' ) {
+				add_submenu_page( 'bsf-registration', __('iMedica Extensions','bsf'), __('iMedica Extensions','bsf'), 'manage_options', 'bsf-extensions-10395942', 'bsf_extensions_callback' );
+				break;
+			}
+		}
+
+		$installer_menu = 	'';
+		$reg_menu 		= 	array();
+		$reg_menu 		=	apply_filters( 'bsf_installer_menu', $reg_menu, $installer_menu );
+
+		if( is_array( $reg_menu ) ) {
+
+			foreach ( $reg_menu as $installer => $attr ) {
+				add_submenu_page(
+					'bsf-registration',
+					$installer .' ' . $attr['page_title'],
+					$installer .' ' . $attr['menu_title'],
+					'manage_options',
+					'bsf-extensions-' . $attr['product_id'],
+					'bsf_extensions_callback'
+				);
+			}
+
+		}
+
 	}
 }
 if ( ! function_exists( 'bsf_extensions_callback' ) ) {
@@ -218,8 +285,6 @@ if(!function_exists('register_bsf_core_admin_styles')) {
 		// bsf core style
 		$hook_array = array(
 			'toplevel_page_bsf-registration',
-			'imedica_page_bsf-extensions',
-			'brainstorm_page_bsf-extensions',
 			'update-core.php',
 			'dashboard_page_bsf-registration',
 			'index_page_bsf-registration',
@@ -227,7 +292,8 @@ if(!function_exists('register_bsf_core_admin_styles')) {
 			'settings_page_bsf-registration'
 		);
 		$hook_array = apply_filters('bsf_core_style_screens',$hook_array);
-		if(in_array($hook, $hook_array)){
+
+		if( in_array($hook, $hook_array) || strpos( $hook, 'bsf-extensions' ) !== false ){
 			// add function here
 			global $bsf_core_path;
 			$bsf_core_url = bsf_convert_core_path_to_relative($bsf_core_path);
@@ -290,4 +356,217 @@ if(is_multisite()) {
 		}
 	}
 }
-?>
+
+if ( ! function_exists( 'bsf_flush_bundled_products' ) ) {
+
+	function bsf_flush_bundled_products() {
+		$bsf_force_check_extensions = get_option( 'bsf_force_check_extensions', false );
+
+		if ( $bsf_force_check_extensions == true ) {
+			delete_option( 'brainstrom_bundled_products' );
+			delete_site_transient( 'bsf_get_bundled_products' );
+
+			update_option( 'bsf_force_check_extensions', false );
+		}
+	}
+}
+
+add_action( 'bsf_after_plugin_installer', 'bsf_flush_bundled_products' );
+
+/**
+ * Return extension installer page URL
+ */
+if ( ! function_exists( 'bsf_exension_installer_url' ) ) {
+
+	function bsf_exension_installer_url( $priduct_id ) {
+		if ( is_multisite() ) {
+			return network_admin_url( 'admin.php?page=bsf-extensions-' . $priduct_id );
+		} else {
+			return admin_url( 'admin.php?page=bsf-extensions-' . $priduct_id );
+		}
+	}
+}
+
+/**
+ * Return array of bundled plugins for a specific
+ *
+ * @since Graupi 1.9
+ */
+if ( ! function_exists( 'bsf_bundled_plugins' ) ) {
+
+	function bsf_bundled_plugins( $product_id = '' ) {
+		$products = array();
+
+		$brainstrom_bundled_products = get_option( 'brainstrom_bundled_products', '' );
+
+		if ( $brainstrom_bundled_products !== '' ) {
+			if ( array_key_exists( $product_id, $brainstrom_bundled_products ) ) {
+				$products = $brainstrom_bundled_products[ $product_id ];
+			}
+		}
+
+		return $products;
+	}
+}
+
+/**
+ * Get product name from product ID
+ *
+ * @since Graupi 1.9
+ */
+if ( ! function_exists( 'brainstrom_product_name' ) ) {
+
+	function brainstrom_product_name( $product_id = '' ) {
+		$product_name = '';
+		$brainstrom_products =  get_option( 'brainstrom_products', '' );
+
+		foreach ( $brainstrom_products as $key => $value ) {
+			foreach ( $value as $key => $product ) {
+				if ( $product_id == $key ) {
+					$product_name = $product['product_name'];
+				}
+			}
+		}
+
+		return $product_name;
+	}
+}
+
+
+/**
+ * Dismiss Extension installer nag
+ *
+ * @since Graupi 1.9
+ */
+if ( ! function_exists( 'bsf_dismiss_extension_nag' ) ) {
+
+	function bsf_dismiss_extension_nag() {
+		if ( isset( $_GET['bsf-dismiss-notice'] ) ) {
+			$product_id =  $_GET['bsf-dismiss-notice'];
+			update_user_meta( get_current_user_id(), $product_id . '-bsf_nag_dismiss', true );
+		}
+	}
+
+}
+
+add_action( 'admin_head', 'bsf_dismiss_extension_nag' );
+
+// For debugging uncomment line below and remove query var &bsf-dismiss-notice from url and nag will be restored.
+// delete_user_meta( get_current_user_id(), 'bsf-next-bsf_nag_dismiss');
+
+/**
+ * Generate's markup to generate notice to ask users to install required extensions.
+ *
+ * @since Graupi 1.9
+ */
+if ( ! function_exists( 'bsf_extension_nag' ) ) {
+
+	function bsf_extension_nag( $product_id = '' ) {
+
+		$display_nag = get_user_meta( get_current_user_id(), $product_id . '-bsf_nag_dismiss', true );
+
+		if ( $display_nag === '1' ) {
+			return;
+		}
+
+		$bsf_installed_plugins     = '';
+		$bsf_not_installed_plugins = '';
+		$bsf_not_activated_plugins = '';
+		$installer                 = '';
+		$bsf_install               = false;
+		$bsf_activate              = false;
+		$bsf_bundled_products      = bsf_bundled_plugins( $product_id );
+		$bsf_product_name          = brainstrom_product_name( $product_id );
+
+		foreach ( $bsf_bundled_products as $key => $plugin ) {
+
+			if ( ! isset( $plugin->id ) || $plugin->id == '' || ! isset( $plugin->must_have_extension ) || $plugin->must_have_extension == 'false' ) {
+				continue;
+			}
+
+			$plugin_abs_path = WP_PLUGIN_DIR . '/' . $plugin->init;
+			if ( is_file( $plugin_abs_path ) ) {
+
+				if ( ! is_plugin_active( $plugin->init ) ) {
+					$bsf_not_activated_plugins .= $bsf_bundled_products[ $key ]->name . ', ';
+				}
+			} else {
+				$bsf_not_installed_plugins .= $bsf_bundled_products[ $key ]->name . ', ';
+			}
+
+		}
+
+		$bsf_not_activated_plugins = rtrim( $bsf_not_activated_plugins, ", " );
+		$bsf_not_installed_plugins = rtrim( $bsf_not_installed_plugins, ", " );
+
+		if ( $bsf_not_activated_plugins !== '' || $bsf_not_installed_plugins !== '' ) {
+			echo '<div class="updated notice is-dismissible"><p></p>';
+			if ( $bsf_not_activated_plugins !== '' ) {
+				echo '<p>';
+				echo $bsf_product_name . __( ' requires following plugins to be active : ', 'bsf' );
+				echo "<strong><em>";
+				echo $bsf_not_activated_plugins;
+				echo "</strong></em>";
+				echo '</p>';
+				$bsf_activate = true;
+			}
+
+			if ( $bsf_not_installed_plugins !== '' ) {
+				echo '<p>';
+				echo $bsf_product_name . __( ' requires following plugins to be installed and activated : ', 'bsf' );
+				echo "<strong><em>";
+				echo $bsf_not_installed_plugins;
+				echo "</strong></em>";
+				echo '</p>';
+				$bsf_install = true;
+			}
+
+			if ( $bsf_activate == true ) {
+				$installer .= '<a href="' . get_admin_url() . 'plugins.php?plugin_status=inactive">' . __( 'Begin activating plugins', 'bsf' ) . '</a> | ';
+			}
+
+			if ( $bsf_install == true ) {
+				$installer .= '<a href="' . bsf_exension_installer_url( $product_id ) . '">' . __( 'Begin installing plugins', 'bsf' ) . '</a> | ';
+			}
+
+			$installer .= '<a href="' . esc_url( add_query_arg( 'bsf-dismiss-notice', $product_id ) ) . '">' . __( 'Dismiss This Notice', 'bsf' ) . '</a>';
+
+			$installer = ltrim( $installer, '| ' );
+			echo '<p><strong>';
+			echo rtrim( $installer, ' |' );
+			echo '</p></strong>';
+
+			echo '<p></p></div>';
+		}
+	}
+
+}
+
+/**
+ * Check if bundled products data on site is from old version of graupi and force refresh the data if required.
+ */
+function bsf_check_correct_updater_data() {
+	$brainstrom_bundled_products = get_option( 'brainstrom_bundled_products', array() );
+	$url = '';
+
+	foreach ( $brainstrom_bundled_products  as $key => $value) {
+		if ( is_object( $value ) || is_object( $brainstrom_bundled_products ) ) {
+			if ( ! is_multisite() && is_admin() ) {
+				$url = admin_url( 'index.php?page=bsf-registration&remove-bundled-products' );
+
+				continue;
+			}
+		}
+	}
+
+	// if page is reloaded once dont check agan, this may result in redirect loop if brainstorm products are not being updated.
+	if ( $url !== '' && ! isset( $_GET['bsf-reload-page'] ) ) {
+		echo '<script type="text/javascript">
+				var redirect = window.location.href;
+				window.location = "'.$url.'&redirect=" + redirect + "&bsf-reload-page";
+			  </script>';
+	}
+
+}
+
+add_action( 'admin_init', 'bsf_check_correct_updater_data', 2 );

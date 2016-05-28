@@ -704,11 +704,16 @@ tr.registered td:first-child {
 }
 
 .bsf-extension-product-image-stick {
-	background: url('../images/egg-shell.png') #233C41;
+	background: #233C41;
 	width: 124px;
 	height: 124px;
 	vertical-align: middle;
 	display: table-cell;
+}
+
+.extension-installer-14058953 .bsf-extension-product-image-stick {
+    background: #f1f1f1;
+    border: 1px solid #EFEFEF;
 }
 
 .bsf-extension-info {
@@ -1321,6 +1326,17 @@ table.bsf-sys-info tr th {
 
 table.bsf-sys-info.bsf-table-active-plugin {
 	table-layout: auto !important;
+}
+
+.bsf-listing-cta {text-align:center; margin-top:25px}
+.bsf-listing-cta a {
+    font-size:15px;
+    text-decoration:none;
+}
+a.bsf-purchase-link {
+    margin-left: 10px;
+    font-size: 12px;
+    display: inline-block;
 }
 
 /* Help Tab */
@@ -2166,6 +2182,10 @@ table.bsf-sys-info.bsf-table-active-plugin {
 	box-shadow: 0 2px rgba(0, 0, 0, 0.01);
 	-webkit-transition: all .15s ease-out;
 	transition: all .15s ease-out;
+}
+
+.resource-block-section {
+    margin-bottom: 30px;
 }
 
 .resource-block-icon {

@@ -33,36 +33,49 @@ if(!function_exists('check_bsf_product_status')) {
 			return false;
 
 		$status = false;
-		foreach($bsf_product_themes as $theme) {
-			if($theme['id'] === $id)
-			{
-				$status = (isset($theme['status'])) ? $theme['status'] : '';
-				break;
+		foreach($brainstrom_products as $products) {
+			foreach ( $products as $key => $product) {
+				if($product['id'] === $id) {
+					$status = (isset($product['status'])) ? $product['status'] : '';
+					break;
+				}
 			}
+
+
 		}
 
 		return $status;
 	}
 }
+
 if(!function_exists('get_bundled_plugins')) {
-	function get_bundled_plugins($template) {
+	function get_bundled_plugins($template = '') {
 		$brainstrom_products = (get_option('brainstrom_products')) ? get_option('brainstrom_products') : array();
 		$bsf_product_themes = (isset($brainstrom_products['themes'])) ? $brainstrom_products['themes'] : array();
 
-		if(empty($bsf_product_themes))
-			return false;
+		// if(empty($bsf_product_themes)){
+		// 	return false;
+		// }
 
-		$id = get_bsf_product_id($template);
+        $prd_ids = array();
 
-		if(!$id)
-			return false;
+		foreach ( $brainstrom_products as $key => $value ) {
+		   foreach ( $value as $key => $value2 ) {
+		       array_push($prd_ids, $key);
+		   }
+		}
+
+		// $id = get_bsf_product_id($template);
+
+		// if( !$id )
+		// 	return false;
 
 		global $bsf_product_validate_url;
 		$path = $bsf_product_validate_url;
 
 		$data = array(
 				'action' => 'bsf_get_bundled_products',
-				'id' => $id
+				'id' => $prd_ids
 			);
 		$request = @wp_remote_post(
 			$path, array(
@@ -72,28 +85,44 @@ if(!function_exists('get_bundled_plugins')) {
 			)
 		);
 
-		if (!is_wp_error($request) || wp_remote_retrieve_response_code($request) === 200)
+
+		if (!is_wp_error( $request ) || wp_remote_retrieve_response_code( $request ) === 200)
 		{
 			$brainstrom_bundled_products = (get_option('brainstrom_bundled_products')) ? get_option('brainstrom_bundled_products') : array();
-			$result = json_decode($request['body']);
-			if(!empty($brainstrom_bundled_products) && !empty($result)) {
-				foreach($result as $bp) {
-					$is_found_in_local = false;
-					foreach($brainstrom_bundled_products as $key => $bp_local) {
-						if($bp->id === $bp_local->id) {
-							$is_found_in_local = true;
-						}
-					}
-					if(!$is_found_in_local) {
-						$brainstrom_bundled_products[] = $bp;
-					}
+			$result = json_decode( $request['body'] );
+
+			if(empty($result)) {
+				return false;
+			}
+			foreach ( $result as $key => $value ) {
+				if( empty( $value ) ) {
+					unset( $result->$key );
 				}
 			}
-			else {
-				$brainstrom_bundled_products = (array)$result;
-			}
 
-			update_option('brainstrom_bundled_products', $brainstrom_bundled_products);
+			// if ( array_key_exists( $result[$id]['api'], $result ) ) {
+			// 	update_option('brainstrom_bundled_products_2', '$brainstrom_bundled_products' );
+			// }
+
+			// if(!empty($brainstrom_bundled_products) && !empty($result)) {
+			// 	foreach($result as $bp) {
+			// 		$is_found_in_local = false;
+			// 		foreach($brainstrom_bundled_products as $key => $bp_local) {
+			// 			if($bp->id === $bp_local->id) {
+			// 				$is_found_in_local = true;
+			// 			}
+			// 		}
+			// 		if(!$is_found_in_local) {
+			// 			$brainstrom_bundled_products[] = $bp;
+			// 		}
+			// 	}
+			// }
+			// else {
+			// 	$brainstrom_bundled_products = (array)$result;
+			// }
+			//echo 'GET BUNDLED <br/>';
+			$brainstrom_bundled_products = (array)$result;
+			update_option( 'brainstrom_bundled_products', $brainstrom_bundled_products );
 		}
 	}
 }
@@ -103,7 +132,8 @@ if(!function_exists('get_bundled_plugins')) {
 		if(false === get_site_transient( 'bsf_get_bundled_products' )) {
 			global $bsf_theme_template;
 			$template = (is_multisite()) ? $bsf_theme_template : get_template();
-			get_bundled_plugins($template);
+			get_bundled_plugins( $template );
+			//bsf_check_product_update();
 			set_site_transient( 'bsf_get_bundled_products', true, 7*24*60*60 );
 		}
 	//}
@@ -115,27 +145,52 @@ if(!function_exists('install_bsf_product')) {
 			wp_die(__('You do not have sufficient permissions to install plugins for this site.','bsf'));
 		$brainstrom_bundled_products = (get_option('brainstrom_bundled_products')) ? get_option('brainstrom_bundled_products') : array();
 		$install_product_data = array();
+
 		if(!empty($brainstrom_bundled_products)) :
-			foreach($brainstrom_bundled_products as $product) :
-				if($product->id === $install_id)
-				{
-					$install_product_data = $product;
-					break;
+			foreach($brainstrom_bundled_products as $keys => $products) :
+				if(strlen($keys) > 1) {
+					foreach ($products as $key => $product) {
+						if($product->id === $install_id) {
+							$install_product_data = $product;
+							break;
+						}
+					}
+				}
+				else {
+					if($products->id === $install_id)
+					{
+						$install_product_data = $products;
+						break;
+					}
 				}
 			endforeach;
 		endif;
+
 		if(empty($install_product_data))
 			return false;
 		if($install_product_data->type !== 'plugin')
 			return false;
-		$path = $bsf_product_validate_url;
-		$timezone = date_default_timezone_get();
-		$call = 'file='.$install_product_data->download_url.'&hashtime='.strtotime(date('d-m-Y h:i:s a')).'&timezone='.$timezone;
-		$hash = $call;
-		//$parse = parse_url($path);
-		//$download = $parse['scheme'].'://'.$parse['host'];
-		$get_path = 'http://downloads.brainstormforce.com/';
-		$download_path = rtrim($get_path,'/').'/download.php?'.$hash.'&base=ignore';
+
+		/* temp */
+		/*$install_product_data->in_house = 'wp';
+		$install_product_data->download_url = 'https://downloads.wordpress.org/plugin/redux-framework.3.5.9.zip';*/
+
+		$is_wp = (isset($install_product_data->in_house) && $install_product_data->in_house === 'wp') ? true : false;
+
+		if($is_wp) {
+			$download_path = $install_product_data->download_url;
+		}
+		else {
+			$path = $bsf_product_validate_url;
+			$timezone = date_default_timezone_get();
+			$call = 'file='.$install_product_data->download_url.'&hashtime='.strtotime(date('d-m-Y h:i:s a')).'&timezone='.$timezone;
+			$hash = $call;
+			//$parse = parse_url($path);
+			//$download = $parse['scheme'].'://'.$parse['host'];
+			$get_path = 'http://downloads.brainstormforce.com/';
+			$download_path = rtrim($get_path,'/').'/download.php?'.$hash.'&base=ignore';
+		}
+
 		require_once (ABSPATH . '/wp-admin/includes/file.php');
 		WP_Filesystem();
 		global $wp_filesystem;
